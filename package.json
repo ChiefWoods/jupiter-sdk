@@ -1,5 +1,5 @@
 {
-  "name": "sdk",
+  "name": "@jupiter/sdk",
   "module": "index.ts",
   "type": "module",
   "devDependencies": {

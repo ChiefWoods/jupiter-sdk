@@ -1,8 +1,10 @@
 {
   "name": "@jupiter/sdk",
   "private": true,
+  "workspaces": [
+    "src/*"
+  ],
   "type": "module",
-  "workspaces": ["src/*"],
   "scripts": {
     "build": "turbo build",
     "test": "turbo test",
@@ -12,6 +14,7 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "oxfmt": "^0.60.0",
     "oxlint": "^1.75.0",
     "turbo": "^2.10.7"
   },

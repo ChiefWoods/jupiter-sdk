@@ -1,0 +1,10 @@
+import { defineConfig } from "oxfmt";
+
+export default defineConfig({
+  arrowParens: "always",
+  semi: true,
+  singleQuote: false,
+  tabWidth: 2,
+  trailingComma: "all",
+  useTabs: false,
+});

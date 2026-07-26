@@ -3052,23 +3052,7 @@
             "name": "loan",
             "isWritable": true,
             "isSigner": false,
-            "isOptional": false,
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "loan" },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "offer",
-                  "value": { "kind": "accountValueNode", "name": "offer" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "offer",
-                  "value": { "kind": "accountValueNode", "name": "offer" }
-                }
-              ]
-            }
+            "isOptional": false
           },
           {
             "kind": "instructionAccountNode",
@@ -3332,23 +3316,7 @@
             "name": "loan",
             "isWritable": true,
             "isSigner": false,
-            "isOptional": false,
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "loan" },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "offer",
-                  "value": { "kind": "accountValueNode", "name": "offer" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "offer",
-                  "value": { "kind": "accountValueNode", "name": "offer" }
-                }
-              ]
-            }
+            "isOptional": false
           },
           {
             "kind": "instructionAccountNode",
@@ -3612,23 +3580,7 @@
             "name": "loan",
             "isWritable": true,
             "isSigner": false,
-            "isOptional": false,
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "loan" },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "offer",
-                  "value": { "kind": "accountValueNode", "name": "offer" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "offer",
-                  "value": { "kind": "accountValueNode", "name": "offer" }
-                }
-              ]
-            }
+            "isOptional": false
           },
           {
             "kind": "instructionAccountNode",
@@ -3956,23 +3908,7 @@
             "name": "loan",
             "isWritable": true,
             "isSigner": false,
-            "isOptional": false,
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "loan" },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "offer",
-                  "value": { "kind": "accountValueNode", "name": "offer" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "offer",
-                  "value": { "kind": "accountValueNode", "name": "offer" }
-                }
-              ]
-            }
+            "isOptional": false
           },
           {
             "kind": "instructionAccountNode",
@@ -6213,8 +6149,8 @@
         "seeds": [
           {
             "kind": "constantPdaSeedNode",
-            "type": { "kind": "bytesTypeNode" },
-            "value": { "kind": "bytesValueNode", "data": "3mm5Jd", "encoding": "base58" }
+            "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+            "value": { "kind": "stringValueNode", "string": "loan" }
           },
           {
             "kind": "variablePdaSeedNode",
@@ -6223,8 +6159,8 @@
           },
           {
             "kind": "variablePdaSeedNode",
-            "name": "offer",
-            "type": { "kind": "publicKeyTypeNode" }
+            "name": "fillIndex",
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
           }
         ]
       },

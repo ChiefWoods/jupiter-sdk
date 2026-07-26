@@ -4,7 +4,6 @@ import { OFFERBOOK_PROGRAM_ID } from '..';
 import { findBorrowerCollateralEscrowPda } from '../pdas/borrowerCollateralEscrow';
 import { findEventAuthorityPda } from '../pdas/eventAuthority';
 import { findLenderPrincipalEscrowPda } from '../pdas/lenderPrincipalEscrow';
-import { findLoanPda } from '../pdas/loan';
 import { findLoanVaultPda } from '../pdas/loanVault';
 import { findProtocolFeeTokenAccountPda } from '../pdas/protocolFeeTokenAccount';
 import { getStructCodec, getU32Codec, getU64Codec } from '@solana/codecs';
@@ -15,7 +14,7 @@ export interface FillTokenPrincipalOfferInstructionAccounts {
     lender: Address;
     lenderUser: Address;
     offer: Address;
-    loan?: Address;
+    loan: Address;
     loanVault?: Address;
     config: Address;
     principalMint: Address;
@@ -52,17 +51,6 @@ export async function createFillTokenPrincipalOfferInstruction(
     args: FillTokenPrincipalOfferInstructionArgs,
     programId: Address = OFFERBOOK_PROGRAM_ID,
 ): Promise<TransactionInstruction> {
-    let loan = accounts.loan;
-    if (!loan) {
-        const [derived] = await findLoanPda(
-            {
-                offer: accounts.offer,
-                offer: accounts.offer,
-            },
-            programId,
-        );
-        loan = derived;
-    }
     let loanVault = accounts.loanVault;
     if (!loanVault) {
         const [derived] = await findLoanVaultPda(
@@ -120,7 +108,7 @@ export async function createFillTokenPrincipalOfferInstruction(
         { pubkey: accounts.lender, isSigner: false, isWritable: true },
         { pubkey: accounts.lenderUser, isSigner: false, isWritable: true },
         { pubkey: accounts.offer, isSigner: false, isWritable: true },
-        { pubkey: loan, isSigner: false, isWritable: true },
+        { pubkey: accounts.loan, isSigner: false, isWritable: true },
         { pubkey: loanVault, isSigner: false, isWritable: true },
         { pubkey: accounts.config, isSigner: false, isWritable: false },
         { pubkey: accounts.principalMint, isSigner: false, isWritable: false },

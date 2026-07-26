@@ -41,7 +41,7 @@ import {
   getAddressFromResolvedInstructionAccount,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { findEventAuthorityPda, findLoanPda, findLoanVaultPda } from "../pdas";
+import { findEventAuthorityPda, findLoanVaultPda } from "../pdas";
 import { OFFERBOOK_PROGRAM_ADDRESS } from "../programs";
 
 export const FILL_NON_FUNGIBLE_PRINCIPAL_OFFER_DISCRIMINATOR: ReadonlyUint8Array =
@@ -207,7 +207,7 @@ export type FillNonFungiblePrincipalOfferAsyncInput<
   lender: Address<TAccountLender>;
   lenderUser: Address<TAccountLenderUser>;
   offer: Address<TAccountOffer>;
-  loan?: Address<TAccountLoan>;
+  loan: Address<TAccountLoan>;
   loanVault?: Address<TAccountLoanVault>;
   config: Address<TAccountConfig>;
   principalMint: Address<TAccountPrincipalMint>;
@@ -337,18 +337,6 @@ export async function getFillNonFungiblePrincipalOfferInstructionAsync<
   const args = { ...input };
 
   // Resolve default values.
-  if (!accounts.loan.value) {
-    accounts.loan.value = await findLoanPda({
-      offer: getAddressFromResolvedInstructionAccount(
-        "offer",
-        accounts.offer.value,
-      ),
-      offer: getAddressFromResolvedInstructionAccount(
-        "offer",
-        accounts.offer.value,
-      ),
-    });
-  }
   if (!accounts.loanVault.value) {
     accounts.loanVault.value = await findLoanVaultPda({
       loan: getAddressFromResolvedInstructionAccount(

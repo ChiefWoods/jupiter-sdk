@@ -8,15 +8,16 @@
 
 import {
   getAddressEncoder,
-  getBytesEncoder,
   getProgramDerivedAddress,
+  getU64Encoder,
+  getUtf8Encoder,
   type Address,
   type ProgramDerivedAddress,
 } from "@solana/kit";
 
 export type LoanSeeds = {
   offer: Address;
-  offer: Address;
+  fillIndex: number | bigint;
 };
 
 export async function findLoanPda(
@@ -29,9 +30,9 @@ export async function findLoanPda(
   return await getProgramDerivedAddress({
     programAddress,
     seeds: [
-      getBytesEncoder().encode(new Uint8Array([108, 111, 97, 110])),
+      getUtf8Encoder().encode("loan"),
       getAddressEncoder().encode(seeds.offer),
-      getAddressEncoder().encode(seeds.offer),
+      getU64Encoder().encode(seeds.fillIndex),
     ],
   });
 }

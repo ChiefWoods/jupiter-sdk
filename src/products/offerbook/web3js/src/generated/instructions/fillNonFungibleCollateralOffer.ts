@@ -2,7 +2,6 @@ import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/w
 import { OFFERBOOK_PROGRAM_ID } from '..';
 import { findEventAuthorityPda } from '../pdas/eventAuthority';
 import { findLenderPrincipalEscrowPda } from '../pdas/lenderPrincipalEscrow';
-import { findLoanPda } from '../pdas/loan';
 import { findLoanVaultPda } from '../pdas/loanVault';
 import { findProtocolFeeTokenAccountPda } from '../pdas/protocolFeeTokenAccount';
 import { getStructCodec, getU32Codec } from '@solana/codecs';
@@ -13,7 +12,7 @@ export interface FillNonFungibleCollateralOfferInstructionAccounts {
     borrower: Address;
     borrowerUser: Address;
     offer: Address;
-    loan?: Address;
+    loan: Address;
     loanVault?: Address;
     config: Address;
     principalMint: Address;
@@ -43,17 +42,6 @@ export async function createFillNonFungibleCollateralOfferInstruction(
     args: FillNonFungibleCollateralOfferInstructionArgs,
     programId: Address = OFFERBOOK_PROGRAM_ID,
 ): Promise<TransactionInstruction> {
-    let loan = accounts.loan;
-    if (!loan) {
-        const [derived] = await findLoanPda(
-            {
-                offer: accounts.offer,
-                offer: accounts.offer,
-            },
-            programId,
-        );
-        loan = derived;
-    }
     let loanVault = accounts.loanVault;
     if (!loanVault) {
         const [derived] = await findLoanVaultPda(
@@ -99,7 +87,7 @@ export async function createFillNonFungibleCollateralOfferInstruction(
         { pubkey: accounts.borrower, isSigner: false, isWritable: true },
         { pubkey: accounts.borrowerUser, isSigner: false, isWritable: true },
         { pubkey: accounts.offer, isSigner: false, isWritable: true },
-        { pubkey: loan, isSigner: false, isWritable: true },
+        { pubkey: accounts.loan, isSigner: false, isWritable: true },
         { pubkey: loanVault, isSigner: false, isWritable: true },
         { pubkey: accounts.config, isSigner: false, isWritable: false },
         { pubkey: accounts.principalMint, isSigner: false, isWritable: false },

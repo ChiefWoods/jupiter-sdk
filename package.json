@@ -28,6 +28,14 @@
   ],
   "type": "module",
   "exports": {
+    "./lend-earn/kit": {
+      "types": "./src/products/lend-earn/dist/kit/index.d.ts",
+      "default": "./src/products/lend-earn/dist/kit/index.js"
+    },
+    "./lend-earn/web3js": {
+      "types": "./src/products/lend-earn/dist/web3js/index.d.ts",
+      "default": "./src/products/lend-earn/dist/web3js/index.js"
+    },
     "./lock/kit": {
       "types": "./src/products/lock/dist/kit/index.d.ts",
       "default": "./src/products/lock/dist/kit/index.js"

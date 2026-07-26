@@ -1,4 +1,5 @@
 import { resolve } from "node:path";
+import { formatFile } from "./format-file";
 
 const productDirArg = Bun.argv[2];
 if (!productDirArg) {
@@ -25,4 +26,5 @@ const tsconfig = {
 
 const tsconfigPath = `${productDir}/tsconfig.json`;
 await Bun.write(tsconfigPath, `${JSON.stringify(tsconfig, null, 2)}\n`);
+await formatFile(tsconfigPath);
 console.log(`Wrote ${tsconfigPath}`);

@@ -1,4 +1,5 @@
 import { basename, resolve } from "node:path";
+import { formatFile } from "./format-file";
 
 const productDirArg = Bun.argv[2];
 if (!productDirArg) {
@@ -38,4 +39,5 @@ const packageJson = {
 
 const packageJsonPath = `${productDir}/package.json`;
 await Bun.write(packageJsonPath, `${JSON.stringify(packageJson, null, 2)}\n`);
+await formatFile(packageJsonPath);
 console.log(`Wrote ${packageJsonPath}`);

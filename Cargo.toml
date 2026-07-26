@@ -5,6 +5,7 @@
 resolver = "2"
 members = [
     ".",
+    "src/products/lock/rust",
     "src/products/offerbook/rust",
     "src/products/prediction/rust",
     "src/products/stablecoin/rust",
@@ -20,6 +21,7 @@ repository = "https://github.com/ChiefWoods/jupiter-sdk"
 keywords = ["jupiter", "solana", "sdk", "defi", "codama"]
 
 [workspace.dependencies]
+jupiter-lock-sdk = { path = "src/products/lock/rust", version = "0.1.0" }
 jupiter-offerbook-sdk = { path = "src/products/offerbook/rust", version = "0.1.0" }
 jupiter-prediction-sdk = { path = "src/products/prediction/rust", version = "0.1.0" }
 jupiter-stablecoin-sdk = { path = "src/products/stablecoin/rust", version = "0.1.0" }
@@ -41,11 +43,13 @@ path = "src/lib.rs"
 
 [features]
 default = []
+lock = ["dep:jupiter-lock-sdk"]
 offerbook = ["dep:jupiter-offerbook-sdk"]
 prediction = ["dep:jupiter-prediction-sdk"]
 stablecoin = ["dep:jupiter-stablecoin-sdk"]
 
 [dependencies]
+jupiter-lock-sdk = { workspace = true, optional = true }
 jupiter-offerbook-sdk = { workspace = true, optional = true }
 jupiter-prediction-sdk = { workspace = true, optional = true }
 jupiter-stablecoin-sdk = { workspace = true, optional = true }

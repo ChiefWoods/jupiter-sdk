@@ -1,5 +1,8 @@
 //! Jupiter on-chain product SDKs.
 
+#[cfg(feature = "lock")]
+pub use jupiter_lock_sdk as lock;
+
 #[cfg(feature = "offerbook")]
 pub use jupiter_offerbook_sdk as offerbook;
 

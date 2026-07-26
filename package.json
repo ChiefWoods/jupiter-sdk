@@ -28,6 +28,14 @@
   ],
   "type": "module",
   "exports": {
+    "./lock/kit": {
+      "types": "./src/products/lock/dist/kit/index.d.ts",
+      "default": "./src/products/lock/dist/kit/index.js"
+    },
+    "./lock/web3js": {
+      "types": "./src/products/lock/dist/web3js/index.d.ts",
+      "default": "./src/products/lock/dist/web3js/index.js"
+    },
     "./offerbook/kit": {
       "types": "./src/products/offerbook/dist/kit/index.d.ts",
       "default": "./src/products/offerbook/dist/kit/index.js"

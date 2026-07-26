@@ -1382,6 +1382,24 @@ dependencies = [
 ]
 
 [[package]]
+name = "jupiter-lock-sdk"
+version = "0.1.0"
+dependencies = [
+ "anchor-lang",
+ "borsh 1.8.0",
+ "num-derive",
+ "num-traits",
+ "solana-account 3.0.0",
+ "solana-account-info 3.1.1",
+ "solana-address 2.2.0",
+ "solana-cpi 3.1.0",
+ "solana-instruction 3.2.0",
+ "solana-program-error 3.0.1",
+ "solana-rpc-client",
+ "thiserror 1.0.69",
+]
+
+[[package]]
 name = "jupiter-offerbook-sdk"
 version = "0.1.0"
 dependencies = [
@@ -1421,6 +1439,7 @@ dependencies = [
 name = "jupiter-program-sdk"
 version = "0.1.0"
 dependencies = [
+ "jupiter-lock-sdk",
  "jupiter-offerbook-sdk",
  "jupiter-prediction-sdk",
  "jupiter-stablecoin-sdk",

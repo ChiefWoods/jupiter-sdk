@@ -1,5 +1,5 @@
 {
-  "name": "@jupiter/sdk",
+  "name": "jupiter-sdk",
   "version": "0.0.0",
   "description": "Jupiter on-chain product SDKs",
   "keywords": [

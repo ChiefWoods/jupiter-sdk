@@ -7,8 +7,8 @@ Codama-generated SDKs for on-chain Jupiter programs. Each product ships three cl
 
 | Flavor     | Import / crate                                 | Stack                                                                                |
 | ---------- | ---------------------------------------------- | ------------------------------------------------------------------------------------ |
-| **kit**    | `@jupiter/sdk/<product>/kit`                   | [`@solana/kit`](https://www.npmjs.com/package/@solana/kit)                           |
-| **web3js** | `@jupiter/sdk/<product>/web3js`                | [`@solana/web3.js`](https://www.npmjs.com/package/@solana/web3.js) v2 (`3.0.0-rc.x`) |
+| **kit**    | `jupiter-sdk/<product>/kit`                    | [`@solana/kit`](https://www.npmjs.com/package/@solana/kit)                           |
+| **web3js** | `jupiter-sdk/<product>/web3js`                 | [`@solana/web3.js`](https://www.npmjs.com/package/@solana/web3.js) v2 (`3.0.0-rc.x`) |
 | **rust**   | `jupiter-program-sdk` with feature `<product>` | Solana program / CPI client                                                          |
 
 ## Setup
@@ -25,14 +25,14 @@ Examples below use **offerbook**. Swap the product name for any other generated 
 ### Kit (`@solana/kit`)
 
 ```bash
-bun add @jupiter/sdk @solana/kit
+bun add jupiter-sdk @solana/kit
 ```
 
 ```ts
 import {
   getCreateUserInstructionAsync,
   OFFERBOOK_PROGRAM_ADDRESS,
-} from "@jupiter/sdk/offerbook/kit";
+} from "jupiter-sdk/offerbook/kit";
 import type { Address, TransactionSigner } from "@solana/kit";
 
 const instruction = await getCreateUserInstructionAsync({
@@ -46,11 +46,11 @@ console.log(OFFERBOOK_PROGRAM_ADDRESS, instruction);
 ### Web3.js (`@solana/web3.js`)
 
 ```bash
-bun add @jupiter/sdk @solana/web3.js@3.0.0-rc.2
+bun add jupiter-sdk @solana/web3.js@3.0.0-rc.2
 ```
 
 ```ts
-import { createCreateUserInstruction, OFFERBOOK_PROGRAM_ID } from "@jupiter/sdk/offerbook/web3js";
+import { createCreateUserInstruction, OFFERBOOK_PROGRAM_ID } from "jupiter-sdk/offerbook/web3js";
 import { Address } from "@solana/web3.js";
 
 const instruction = await createCreateUserInstruction({

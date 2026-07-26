@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "@jupiter/sdk",
+      "name": "jupiter-sdk",
       "devDependencies": {
         "@codama/nodes-from-anchor": "^1.5.2",
         "@codama/renderers-js": "^2.3.0",

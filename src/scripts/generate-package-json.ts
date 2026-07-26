@@ -13,7 +13,7 @@ if (!(await Bun.file(`${productDir}/idl/anchor.json`).exists())) {
 }
 
 const packageJson = {
-  name: `@jupiter/${productName}-sdk`,
+  name: `jupiter-${productName}-sdk`,
   private: true,
   version: "0.0.0",
   type: "module",

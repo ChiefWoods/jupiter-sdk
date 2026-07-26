@@ -1,0 +1,2091 @@
+{
+  "address": "JUPUSDecMzAVgztLe6eGhwUBj1Pn3j9WAXwmtHmfbRr",
+  "metadata": {
+    "name": "jup_stable",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Created with Anchor"
+  },
+  "instructions": [
+    {
+      "name": "create_benefactor",
+      "discriminator": [184, 241, 45, 0, 53, 40, 201, 54],
+      "accounts": [
+        {
+          "name": "operator_authority",
+          "signer": true,
+          "relations": ["operator"]
+        },
+        {
+          "name": "operator"
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "benefactor_authority"
+        },
+        {
+          "name": "benefactor",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [98, 101, 110, 101, 102, 97, 99, 116, 111, 114]
+              },
+              {
+                "kind": "account",
+                "path": "benefactor_authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "mint_fee_rate",
+          "type": "u16"
+        },
+        {
+          "name": "redeem_fee_rate",
+          "type": "u16"
+        }
+      ]
+    },
+    {
+      "name": "create_operator",
+      "discriminator": [145, 40, 238, 75, 181, 252, 59, 11],
+      "accounts": [
+        {
+          "name": "operator_authority",
+          "signer": true,
+          "relations": ["operator"]
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "operator"
+        },
+        {
+          "name": "new_operator_authority"
+        },
+        {
+          "name": "new_operator",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [111, 112, 101, 114, 97, 116, 111, 114]
+              },
+              {
+                "kind": "account",
+                "path": "new_operator_authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "role",
+          "type": {
+            "defined": {
+              "name": "OperatorRole"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "create_vault",
+      "discriminator": [29, 237, 247, 208, 193, 82, 54, 135],
+      "accounts": [
+        {
+          "name": "operator_authority",
+          "signer": true,
+          "relations": ["operator"]
+        },
+        {
+          "name": "operator"
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "authority",
+          "relations": ["config"]
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [118, 97, 117, 108, 116]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ]
+          }
+        },
+        {
+          "name": "token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "authority"
+              },
+              {
+                "kind": "account",
+                "path": "token_program"
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142, 13, 131, 11, 90, 19,
+                153, 218, 255, 16, 132, 4, 142, 123, 216, 219, 233, 248, 89
+              ]
+            }
+          }
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "associated_token_program",
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "delete_benefactor",
+      "discriminator": [216, 227, 84, 147, 79, 177, 152, 147],
+      "accounts": [
+        {
+          "name": "operator_authority",
+          "writable": true,
+          "signer": true,
+          "relations": ["operator"]
+        },
+        {
+          "name": "operator"
+        },
+        {
+          "name": "receiver",
+          "writable": true
+        },
+        {
+          "name": "benefactor",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "delete_operator",
+      "discriminator": [208, 84, 168, 116, 138, 201, 98, 16],
+      "accounts": [
+        {
+          "name": "operator_authority",
+          "signer": true,
+          "relations": ["operator"]
+        },
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "operator"
+        },
+        {
+          "name": "deleted_operator",
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "init",
+      "discriminator": [220, 59, 207, 236, 108, 250, 47, 100],
+      "accounts": [
+        {
+          "name": "payer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "upgrade_authority",
+          "signer": true
+        },
+        {
+          "name": "operator",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [111, 112, 101, 114, 97, 116, 111, 114]
+              },
+              {
+                "kind": "account",
+                "path": "upgrade_authority"
+              }
+            ]
+          }
+        },
+        {
+          "name": "config",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [99, 111, 110, 102, 105, 103]
+              }
+            ]
+          }
+        },
+        {
+          "name": "authority",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [97, 117, 116, 104, 111, 114, 105, 116, 121]
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "metadata",
+          "writable": true
+        },
+        {
+          "name": "program_data"
+        },
+        {
+          "name": "program",
+          "address": "JUPUSDecMzAVgztLe6eGhwUBj1Pn3j9WAXwmtHmfbRr"
+        },
+        {
+          "name": "metadata_program",
+          "address": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s"
+        },
+        {
+          "name": "token_program"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "rent",
+          "address": "SysvarRent111111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "decimals",
+          "type": "u8"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "name": "symbol",
+          "type": "string"
+        },
+        {
+          "name": "uri",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "manage_benefactor",
+      "discriminator": [22, 231, 128, 62, 115, 219, 149, 14],
+      "accounts": [
+        {
+          "name": "operator_authority",
+          "writable": true,
+          "signer": true,
+          "relations": ["operator"]
+        },
+        {
+          "name": "operator"
+        },
+        {
+          "name": "benefactor",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "action",
+          "type": {
+            "defined": {
+              "name": "BenefactorManagementAction"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "manage_config",
+      "discriminator": [119, 51, 144, 55, 24, 242, 232, 231],
+      "accounts": [
+        {
+          "name": "operator_authority",
+          "writable": true,
+          "signer": true,
+          "relations": ["operator"]
+        },
+        {
+          "name": "operator"
+        },
+        {
+          "name": "config",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "action",
+          "type": {
+            "defined": {
+              "name": "ConfigManagementAction"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "manage_operator",
+      "discriminator": [82, 172, 106, 235, 147, 246, 96, 85],
+      "accounts": [
+        {
+          "name": "operator_authority",
+          "signer": true,
+          "relations": ["operator"]
+        },
+        {
+          "name": "operator"
+        },
+        {
+          "name": "managed_operator",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "action",
+          "type": {
+            "defined": {
+              "name": "OperatorManagementAction"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "manage_vault",
+      "discriminator": [165, 7, 106, 242, 73, 193, 195, 128],
+      "accounts": [
+        {
+          "name": "operator_authority",
+          "signer": true,
+          "relations": ["operator"]
+        },
+        {
+          "name": "operator"
+        },
+        {
+          "name": "vault",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "action",
+          "type": {
+            "defined": {
+              "name": "VaultManagementAction"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "mint",
+      "discriminator": [51, 57, 225, 47, 182, 146, 137, 166],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user_collateral_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_lp_token_account",
+          "writable": true
+        },
+        {
+          "name": "config",
+          "writable": true
+        },
+        {
+          "name": "authority"
+        },
+        {
+          "name": "lp_mint",
+          "writable": true
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "vault_mint"
+        },
+        {
+          "name": "custodian"
+        },
+        {
+          "name": "custodian_token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "custodian"
+              },
+              {
+                "kind": "account",
+                "path": "vault_token_program"
+              },
+              {
+                "kind": "account",
+                "path": "vault_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142, 13, 131, 11, 90, 19,
+                153, 218, 255, 16, 132, 4, 142, 123, 216, 219, 233, 248, 89
+              ]
+            }
+          }
+        },
+        {
+          "name": "benefactor",
+          "writable": true
+        },
+        {
+          "name": "lp_token_program"
+        },
+        {
+          "name": "vault_token_program"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "event_authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  95, 95, 101, 118, 101, 110, 116, 95, 97, 117, 116, 104, 111, 114, 105, 116, 121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "min_amount_out",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "redeem",
+      "discriminator": [184, 12, 86, 149, 70, 196, 97, 225],
+      "accounts": [
+        {
+          "name": "user",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "user_lp_token_account",
+          "writable": true
+        },
+        {
+          "name": "user_collateral_token_account",
+          "writable": true
+        },
+        {
+          "name": "config",
+          "writable": true
+        },
+        {
+          "name": "authority"
+        },
+        {
+          "name": "lp_mint",
+          "writable": true
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "vault_token_account",
+          "writable": true
+        },
+        {
+          "name": "vault_mint"
+        },
+        {
+          "name": "benefactor",
+          "writable": true
+        },
+        {
+          "name": "lp_token_program"
+        },
+        {
+          "name": "vault_token_program"
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "event_authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  95, 95, 101, 118, 101, 110, 116, 95, 97, 117, 116, 104, 111, 114, 105, 116, 121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        },
+        {
+          "name": "min_amount_out",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdraw",
+      "discriminator": [183, 18, 70, 156, 148, 109, 161, 34],
+      "accounts": [
+        {
+          "name": "operator_authority",
+          "signer": true,
+          "relations": ["operator"]
+        },
+        {
+          "name": "operator"
+        },
+        {
+          "name": "custodian"
+        },
+        {
+          "name": "custodian_token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "custodian"
+              },
+              {
+                "kind": "account",
+                "path": "token_program"
+              },
+              {
+                "kind": "account",
+                "path": "vault_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142, 13, 131, 11, 90, 19,
+                153, 218, 255, 16, 132, 4, 142, 123, 216, 219, 233, 248, 89
+              ]
+            }
+          }
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "authority"
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "vault_token_account",
+          "writable": true
+        },
+        {
+          "name": "vault_mint"
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Benefactor",
+      "discriminator": [98, 159, 41, 233, 19, 232, 104, 12]
+    },
+    {
+      "name": "Config",
+      "discriminator": [155, 12, 170, 224, 30, 250, 204, 130]
+    },
+    {
+      "name": "Operator",
+      "discriminator": [219, 31, 188, 145, 69, 139, 204, 117]
+    },
+    {
+      "name": "Vault",
+      "discriminator": [211, 8, 232, 43, 2, 152, 117, 119]
+    }
+  ],
+  "events": [
+    {
+      "name": "MintV0Event",
+      "discriminator": [217, 98, 231, 213, 105, 77, 68, 88]
+    },
+    {
+      "name": "MintV1Event",
+      "discriminator": [63, 113, 88, 48, 163, 187, 48, 83]
+    },
+    {
+      "name": "RedeemV0Event",
+      "discriminator": [50, 202, 68, 30, 122, 77, 84, 153]
+    },
+    {
+      "name": "RedeemV1Event",
+      "discriminator": [67, 51, 207, 92, 219, 144, 44, 2]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "SomeError",
+      "msg": ""
+    },
+    {
+      "code": 6001,
+      "name": "AdminArrayFull",
+      "msg": "Admin Array Full"
+    },
+    {
+      "code": 6002,
+      "name": "NotAuthorized",
+      "msg": "Not Authorized"
+    },
+    {
+      "code": 6003,
+      "name": "BadInput",
+      "msg": "Bad Input"
+    },
+    {
+      "code": 6004,
+      "name": "BenefactorDisabled",
+      "msg": "Benefactor Disabled"
+    },
+    {
+      "code": 6005,
+      "name": "BenefactorActive",
+      "msg": "Benefactor Active"
+    },
+    {
+      "code": 6006,
+      "name": "VaultNotActive",
+      "msg": "Vault Not Active"
+    },
+    {
+      "code": 6007,
+      "name": "InsufficientAmount",
+      "msg": "Insufficient Amount"
+    },
+    {
+      "code": 6008,
+      "name": "InvalidFeeRate",
+      "msg": "Invalid Fee Rate"
+    },
+    {
+      "code": 6009,
+      "name": "MintLimitExceeded",
+      "msg": "Mint Limit Exceeded"
+    },
+    {
+      "code": 6010,
+      "name": "RedeemLimitExceeded",
+      "msg": "Redeem Limit Exceeded"
+    },
+    {
+      "code": 6011,
+      "name": "SlippageToleranceExceeded",
+      "msg": "Slippage Tolerance Exceeded"
+    },
+    {
+      "code": 6012,
+      "name": "MathOverflow",
+      "msg": "Math Overflow"
+    },
+    {
+      "code": 6013,
+      "name": "InvalidLPMint",
+      "msg": "Invalid LP Mint"
+    },
+    {
+      "code": 6014,
+      "name": "InvalidVaultMint",
+      "msg": "Invalid Vault Mint"
+    },
+    {
+      "code": 6015,
+      "name": "InvalidAuthority",
+      "msg": "Invalid Authority"
+    },
+    {
+      "code": 6016,
+      "name": "InvalidVaultTokenAccount",
+      "msg": "Invalid Vault Token Account"
+    },
+    {
+      "code": 6017,
+      "name": "InvalidTokenProgram",
+      "msg": "Invalid Token Program"
+    },
+    {
+      "code": 6018,
+      "name": "InvalidVaultFeeTokenAccount",
+      "msg": "Invalid Vault Fee Token Account"
+    },
+    {
+      "code": 6019,
+      "name": "BadOracle",
+      "msg": "Bad Oracle"
+    },
+    {
+      "code": 6020,
+      "name": "NoValidPrice",
+      "msg": "No Valid Price"
+    },
+    {
+      "code": 6021,
+      "name": "InvalidBenefactor",
+      "msg": "Invalid Benefactor"
+    },
+    {
+      "code": 6022,
+      "name": "InvalidCustodian",
+      "msg": "Invalid Custodian"
+    },
+    {
+      "code": 6023,
+      "name": "InvalidPeriodLimit",
+      "msg": "Invalid Rate Limit Window"
+    },
+    {
+      "code": 6024,
+      "name": "MissingOracleAccounts",
+      "msg": "Missing Oracle Accounts"
+    },
+    {
+      "code": 6025,
+      "name": "NoOraclesFound",
+      "msg": "No Oracles Found"
+    },
+    {
+      "code": 6026,
+      "name": "ZeroAmount",
+      "msg": "Zero Amount"
+    },
+    {
+      "code": 6027,
+      "name": "ProtocolPaused",
+      "msg": "Protocol Paused"
+    },
+    {
+      "code": 6028,
+      "name": "OperatorDisabled",
+      "msg": "Operator Disabled"
+    },
+    {
+      "code": 6029,
+      "name": "VaultDisabled",
+      "msg": "Vault Disabled"
+    },
+    {
+      "code": 6030,
+      "name": "VaultEnabled",
+      "msg": "Vault Enabled"
+    },
+    {
+      "code": 6031,
+      "name": "VaultIsDry",
+      "msg": "Vault Is Dry"
+    },
+    {
+      "code": 6032,
+      "name": "InvalidPegPriceUSD",
+      "msg": "Invalid Peg Price USD"
+    },
+    {
+      "code": 6033,
+      "name": "NoValidOracle",
+      "msg": "No Valid Oracle"
+    },
+    {
+      "code": 6034,
+      "name": "PriceConfidenceTooWide",
+      "msg": "Price Confidence Too Wide"
+    },
+    {
+      "code": 6035,
+      "name": "OperatorCannotDeleteItself",
+      "msg": "Operator Cannot Delete Itself"
+    }
+  ],
+  "types": [
+    {
+      "name": "Benefactor",
+      "serialization": "bytemuck",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "BenefactorStatus"
+              }
+            }
+          },
+          {
+            "name": "_padding0",
+            "type": {
+              "array": ["u8", 7]
+            }
+          },
+          {
+            "name": "mint_fee_rate",
+            "type": "u16"
+          },
+          {
+            "name": "redeem_fee_rate",
+            "type": "u16"
+          },
+          {
+            "name": "_padding1",
+            "type": {
+              "array": ["u8", 4]
+            }
+          },
+          {
+            "name": "period_limits",
+            "type": {
+              "array": [
+                {
+                  "defined": {
+                    "name": "PeriodLimit"
+                  }
+                },
+                4
+              ]
+            }
+          },
+          {
+            "name": "total_minted",
+            "type": {
+              "array": ["u8", 16]
+            }
+          },
+          {
+            "name": "total_redeemed",
+            "type": {
+              "array": ["u8", 16]
+            }
+          },
+          {
+            "name": "fee_overrides",
+            "type": {
+              "array": [
+                {
+                  "defined": {
+                    "name": "FeeOverride"
+                  }
+                },
+                4
+              ]
+            }
+          },
+          {
+            "name": "reserved",
+            "type": {
+              "array": ["u8", 96]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "BenefactorManagementAction",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Disable"
+          },
+          {
+            "name": "SetStatus",
+            "fields": [
+              {
+                "name": "status",
+                "type": {
+                  "defined": {
+                    "name": "BenefactorStatus"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "UpdateFeeRates",
+            "fields": [
+              {
+                "name": "mint_fee_rate",
+                "type": "u16"
+              },
+              {
+                "name": "redeem_fee_rate",
+                "type": "u16"
+              }
+            ]
+          },
+          {
+            "name": "UpdatePeriodLimit",
+            "fields": [
+              {
+                "name": "index",
+                "type": "u8"
+              },
+              {
+                "name": "duration_seconds",
+                "type": "u64"
+              },
+              {
+                "name": "max_mint_amount",
+                "type": "u64"
+              },
+              {
+                "name": "max_redeem_amount",
+                "type": "u64"
+              }
+            ]
+          },
+          {
+            "name": "ResetPeriodLimit",
+            "fields": [
+              {
+                "name": "index",
+                "type": "u8"
+              }
+            ]
+          },
+          {
+            "name": "UpdateFeeOverride",
+            "fields": [
+              {
+                "name": "index",
+                "type": "u8"
+              },
+              {
+                "name": "mint",
+                "type": "pubkey"
+              },
+              {
+                "name": "mint_fee_rate",
+                "type": "u16"
+              },
+              {
+                "name": "redeem_fee_rate",
+                "type": "u16"
+              }
+            ]
+          },
+          {
+            "name": "DeleteFeeOverride",
+            "fields": [
+              {
+                "name": "index",
+                "type": "u8"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "BenefactorStatus",
+      "repr": {
+        "kind": "rust"
+      },
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Active"
+          },
+          {
+            "name": "Disabled"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Config",
+      "serialization": "bytemuck",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_program",
+            "type": "pubkey"
+          },
+          {
+            "name": "period_limits",
+            "type": {
+              "array": [
+                {
+                  "defined": {
+                    "name": "PeriodLimit"
+                  }
+                },
+                4
+              ]
+            }
+          },
+          {
+            "name": "peg_price_usd",
+            "type": "u64"
+          },
+          {
+            "name": "decimals",
+            "type": "u8"
+          },
+          {
+            "name": "is_mint_redeem_enabled",
+            "type": "u8"
+          },
+          {
+            "name": "authority_bump",
+            "type": "u8"
+          },
+          {
+            "name": "config_bump",
+            "type": "u8"
+          },
+          {
+            "name": "_padding",
+            "type": {
+              "array": ["u8", 4]
+            }
+          },
+          {
+            "name": "reserved",
+            "type": {
+              "array": ["u8", 192]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "ConfigManagementAction",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Pause"
+          },
+          {
+            "name": "UpdatePauseFlag",
+            "fields": [
+              {
+                "name": "is_mint_redeem_enabled",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "UpdatePeriodLimit",
+            "fields": [
+              {
+                "name": "index",
+                "type": "u8"
+              },
+              {
+                "name": "duration_seconds",
+                "type": "u64"
+              },
+              {
+                "name": "max_mint_amount",
+                "type": "u64"
+              },
+              {
+                "name": "max_redeem_amount",
+                "type": "u64"
+              }
+            ]
+          },
+          {
+            "name": "ResetPeriodLimit",
+            "fields": [
+              {
+                "name": "index",
+                "type": "u8"
+              }
+            ]
+          },
+          {
+            "name": "SetPegPriceUSD",
+            "fields": [
+              {
+                "name": "peg_price_usd",
+                "type": "u64"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "DovesOracle",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "account",
+            "type": "pubkey"
+          },
+          {
+            "name": "reserved1",
+            "type": {
+              "array": ["u8", 32]
+            }
+          },
+          {
+            "name": "reserved2",
+            "type": {
+              "array": ["u8", 32]
+            }
+          },
+          {
+            "name": "reserved3",
+            "type": {
+              "array": ["u8", 24]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "EmptyOracle",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "reserved",
+            "type": {
+              "array": ["u8", 32]
+            }
+          },
+          {
+            "name": "reserved1",
+            "type": {
+              "array": ["u8", 32]
+            }
+          },
+          {
+            "name": "reserved2",
+            "type": {
+              "array": ["u8", 32]
+            }
+          },
+          {
+            "name": "reserved3",
+            "type": {
+              "array": ["u8", 24]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "FeeOverride",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "mint_fee_rate",
+            "type": "u16"
+          },
+          {
+            "name": "redeem_fee_rate",
+            "type": "u16"
+          },
+          {
+            "name": "_padding",
+            "type": {
+              "array": ["u8", 4]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "MintV0Event",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "net_amount",
+            "type": "u64"
+          },
+          {
+            "name": "oracle_price",
+            "type": "u64"
+          },
+          {
+            "name": "one_to_one_amount",
+            "type": "u64"
+          },
+          {
+            "name": "oracle_amount",
+            "type": "u64"
+          },
+          {
+            "name": "mint_amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "MintV1Event",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "net_amount",
+            "type": "u64"
+          },
+          {
+            "name": "oracle_price",
+            "type": "u64"
+          },
+          {
+            "name": "one_to_one_amount",
+            "type": "u64"
+          },
+          {
+            "name": "oracle_amount",
+            "type": "u64"
+          },
+          {
+            "name": "mint_amount",
+            "type": "u64"
+          },
+          {
+            "name": "collateral",
+            "type": "pubkey"
+          },
+          {
+            "name": "benefactor",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Operator",
+      "serialization": "bytemuck",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "operator_authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "role",
+            "type": "u64"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "OperatorStatus"
+              }
+            }
+          },
+          {
+            "name": "_padding0",
+            "type": {
+              "array": ["u8", 7]
+            }
+          },
+          {
+            "name": "reserved",
+            "type": {
+              "array": ["u8", 128]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "OperatorManagementAction",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "SetStatus",
+            "fields": [
+              {
+                "name": "status",
+                "type": {
+                  "defined": {
+                    "name": "OperatorStatus"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "SetRole",
+            "fields": [
+              {
+                "name": "role",
+                "type": {
+                  "defined": {
+                    "name": "OperatorRole"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "ClearRole",
+            "fields": [
+              {
+                "name": "role",
+                "type": {
+                  "defined": {
+                    "name": "OperatorRole"
+                  }
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "OperatorRole",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Admin"
+          },
+          {
+            "name": "PeriodManager"
+          },
+          {
+            "name": "GlobalDisabler"
+          },
+          {
+            "name": "VaultManager"
+          },
+          {
+            "name": "VaultDisabler"
+          },
+          {
+            "name": "BenefactorManager"
+          },
+          {
+            "name": "BenefactorDisabler"
+          },
+          {
+            "name": "PegManager"
+          },
+          {
+            "name": "CollateralManager"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OperatorStatus",
+      "repr": {
+        "kind": "rust"
+      },
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Enabled"
+          },
+          {
+            "name": "Disabled"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OracleConfig",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "None"
+          },
+          {
+            "name": "Pyth",
+            "fields": [
+              {
+                "array": ["u8", 32]
+              },
+              "pubkey"
+            ]
+          },
+          {
+            "name": "SwitchboardOnDemand",
+            "fields": ["pubkey"]
+          },
+          {
+            "name": "Doves",
+            "fields": ["pubkey"]
+          }
+        ]
+      }
+    },
+    {
+      "name": "OracleType",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Empty",
+            "fields": [
+              {
+                "defined": {
+                  "name": "EmptyOracle"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Pyth",
+            "fields": [
+              {
+                "defined": {
+                  "name": "PythV2Oracle"
+                }
+              }
+            ]
+          },
+          {
+            "name": "Doves",
+            "fields": [
+              {
+                "defined": {
+                  "name": "DovesOracle"
+                }
+              }
+            ]
+          },
+          {
+            "name": "SwitchboardOnDemand",
+            "fields": [
+              {
+                "defined": {
+                  "name": "SwitchboardOnDemandOracle"
+                }
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "PeriodLimit",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "duration_seconds",
+            "docs": ["Window duration in seconds (0 = disabled)"],
+            "type": "u64"
+          },
+          {
+            "name": "max_mint_amount",
+            "docs": ["Maximum mint amount in this window"],
+            "type": "u64"
+          },
+          {
+            "name": "max_redeem_amount",
+            "docs": ["Maximum redeem amount in this window"],
+            "type": "u64"
+          },
+          {
+            "name": "minted_amount",
+            "docs": ["Amount minted in current window"],
+            "type": "u64"
+          },
+          {
+            "name": "redeemed_amount",
+            "docs": ["Amount redeemed in current window"],
+            "type": "u64"
+          },
+          {
+            "name": "window_start",
+            "docs": ["Window start timestamp"],
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "PythV2Oracle",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "feed_id",
+            "type": {
+              "array": ["u8", 32]
+            }
+          },
+          {
+            "name": "account",
+            "type": "pubkey"
+          },
+          {
+            "name": "reserved1",
+            "type": {
+              "array": ["u8", 32]
+            }
+          },
+          {
+            "name": "reserved2",
+            "type": {
+              "array": ["u8", 24]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "RedeemV0Event",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "net_amount",
+            "type": "u64"
+          },
+          {
+            "name": "oracle_price",
+            "type": "u64"
+          },
+          {
+            "name": "one_to_one_amount",
+            "type": "u64"
+          },
+          {
+            "name": "oracle_amount",
+            "type": "u64"
+          },
+          {
+            "name": "redeem_amount",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "RedeemV1Event",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "amount",
+            "type": "u64"
+          },
+          {
+            "name": "net_amount",
+            "type": "u64"
+          },
+          {
+            "name": "oracle_price",
+            "type": "u64"
+          },
+          {
+            "name": "one_to_one_amount",
+            "type": "u64"
+          },
+          {
+            "name": "oracle_amount",
+            "type": "u64"
+          },
+          {
+            "name": "redeem_amount",
+            "type": "u64"
+          },
+          {
+            "name": "collateral",
+            "type": "pubkey"
+          },
+          {
+            "name": "benefactor",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "SwitchboardOnDemandOracle",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "account",
+            "type": "pubkey"
+          },
+          {
+            "name": "reserved",
+            "type": {
+              "array": ["u8", 32]
+            }
+          },
+          {
+            "name": "reserved1",
+            "type": {
+              "array": ["u8", 32]
+            }
+          },
+          {
+            "name": "reserved2",
+            "type": {
+              "array": ["u8", 24]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Vault",
+      "serialization": "bytemuck",
+      "repr": {
+        "kind": "c"
+      },
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "custodian",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_account",
+            "type": "pubkey"
+          },
+          {
+            "name": "token_program",
+            "type": "pubkey"
+          },
+          {
+            "name": "stalesness_threshold",
+            "type": "u64"
+          },
+          {
+            "name": "min_oracle_price_usd",
+            "type": "u64"
+          },
+          {
+            "name": "max_oracle_price_usd",
+            "type": "u64"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "VaultStatus"
+              }
+            }
+          },
+          {
+            "name": "_padding1",
+            "type": {
+              "array": ["u8", 7]
+            }
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "decimals",
+            "type": "u8"
+          },
+          {
+            "name": "_padding2",
+            "type": {
+              "array": ["u8", 6]
+            }
+          },
+          {
+            "name": "oracles",
+            "type": {
+              "array": [
+                {
+                  "defined": {
+                    "name": "OracleType"
+                  }
+                },
+                5
+              ]
+            }
+          },
+          {
+            "name": "_padding3",
+            "type": {
+              "array": ["u8", 3]
+            }
+          },
+          {
+            "name": "period_limits",
+            "type": {
+              "array": [
+                {
+                  "defined": {
+                    "name": "PeriodLimit"
+                  }
+                },
+                4
+              ]
+            }
+          },
+          {
+            "name": "reserved1",
+            "type": {
+              "array": ["u8", 32]
+            }
+          },
+          {
+            "name": "total_minted",
+            "type": {
+              "array": ["u8", 16]
+            }
+          },
+          {
+            "name": "total_redeemed",
+            "type": {
+              "array": ["u8", 16]
+            }
+          },
+          {
+            "name": "reserved",
+            "type": {
+              "array": ["u8", 256]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "VaultManagementAction",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Disable"
+          },
+          {
+            "name": "SetStatus",
+            "fields": [
+              {
+                "name": "status",
+                "type": {
+                  "defined": {
+                    "name": "VaultStatus"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "UpdateOracle",
+            "fields": [
+              {
+                "name": "index",
+                "type": "u8"
+              },
+              {
+                "name": "oracle",
+                "type": {
+                  "defined": {
+                    "name": "OracleConfig"
+                  }
+                }
+              }
+            ]
+          },
+          {
+            "name": "UpdatePeriodLimit",
+            "fields": [
+              {
+                "name": "index",
+                "type": "u8"
+              },
+              {
+                "name": "duration_seconds",
+                "type": "u64"
+              },
+              {
+                "name": "max_mint_amount",
+                "type": "u64"
+              },
+              {
+                "name": "max_redeem_amount",
+                "type": "u64"
+              }
+            ]
+          },
+          {
+            "name": "ResetPeriodLimit",
+            "fields": [
+              {
+                "name": "index",
+                "type": "u8"
+              }
+            ]
+          },
+          {
+            "name": "SetCustodian",
+            "fields": [
+              {
+                "name": "new_custodian",
+                "type": "pubkey"
+              }
+            ]
+          },
+          {
+            "name": "SetStalesnessThreshold",
+            "fields": [
+              {
+                "name": "stalesness_threshold",
+                "type": "u64"
+              }
+            ]
+          },
+          {
+            "name": "SetMinOraclePrice",
+            "fields": [
+              {
+                "name": "min_oracle_price_usd",
+                "type": "u64"
+              }
+            ]
+          },
+          {
+            "name": "SetMaxOraclePrice",
+            "fields": [
+              {
+                "name": "max_oracle_price_usd",
+                "type": "u64"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "name": "VaultStatus",
+      "repr": {
+        "kind": "rust"
+      },
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Enabled"
+          },
+          {
+            "name": "Disabled"
+          }
+        ]
+      }
+    }
+  ]
+}

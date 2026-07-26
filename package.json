@@ -43,6 +43,14 @@
     "./prediction/web3js": {
       "types": "./src/products/prediction/dist/web3js/index.d.ts",
       "default": "./src/products/prediction/dist/web3js/index.js"
+    },
+    "./stablecoin/kit": {
+      "types": "./src/products/stablecoin/dist/kit/index.d.ts",
+      "default": "./src/products/stablecoin/dist/kit/index.js"
+    },
+    "./stablecoin/web3js": {
+      "types": "./src/products/stablecoin/dist/web3js/index.d.ts",
+      "default": "./src/products/stablecoin/dist/web3js/index.js"
     }
   },
   "scripts": {

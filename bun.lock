@@ -14,7 +14,7 @@
         "lint-staged": "^17.2.0",
         "oxfmt": "^0.60.0",
         "oxlint": "^1.75.0",
-        "renderers-web3js": "^0.3.0",
+        "renderers-web3js": "^0.3.1",
         "tsdown": "^0.22.14",
         "turbo": "^2.10.7",
       },
@@ -456,7 +456,7 @@
 
     "quansync": ["quansync@1.0.0", "", {}, "sha512-5xZacEEufv3HSTPQuchrvV6soaiACMFnq1H8wkVioctoH3TRha9Sz66lOxRwPK/qZj7HPiSveih9yAyh98gvqA=="],
 
-    "renderers-web3js": ["renderers-web3js@0.3.0", "", { "dependencies": { "@codama/errors": "^1.9.0", "@codama/nodes": "^1.9.0", "@codama/renderers-core": "^1.3.10", "@codama/visitors-core": "^1.9.0", "@solana/codecs": "^6.10.0", "@solana/web3.js": "3.0.0-rc.2", "oxfmt": "^0.60.0", "semver": "^7.8.5" } }, "sha512-zVPA3FNNx3DOt56bhGhbLJqQff/agWLC/dFQBYEt7F6Go9C7QvEB2nC2KgE8r2vq/lc0OUVLEJpIT5/UXWLH5w=="],
+    "renderers-web3js": ["renderers-web3js@0.3.1", "", { "dependencies": { "@codama/errors": "^1.9.0", "@codama/nodes": "^1.9.0", "@codama/renderers-core": "^1.3.10", "@codama/visitors-core": "^1.9.0", "@solana/codecs": "^6.10.0", "@solana/web3.js": "3.0.0-rc.2", "oxfmt": "^0.60.0", "semver": "^7.8.5" } }, "sha512-+USMEU5QO+H6vXACK5IL6VKrw7eo8CZ6Cf5IMQ7K5YI4dCgH54UdRuViY0+qMwNLtQ8jA2FZ2zZlGpclhxY2WQ=="],
 
     "resolve-pkg-maps": ["resolve-pkg-maps@1.0.0", "", {}, "sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw=="],
 

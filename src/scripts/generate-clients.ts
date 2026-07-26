@@ -38,6 +38,7 @@ await codama.accept(
 
 codama.accept(
   renderRustVisitor(`${productDir}/rust`, {
+    // Codama's Rust renderer generates malformed Cargo.toml, hence we use generate-cargo-toml.ts instead
     syncCargoToml: false,
     formatCode: true,
     deleteFolderBeforeRendering: true,

@@ -16,6 +16,7 @@
     "release": "bun run build && changeset publish",
     "generate:codama-idl": "bun src/scripts/generate-codama-idl.ts",
     "generate:clients": "bun src/scripts/generate-clients.ts",
+    "generate:cargo-toml": "bun src/scripts/generate-cargo-toml.ts",
     "prepare": "husky"
   },
   "devDependencies": {

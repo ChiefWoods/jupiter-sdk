@@ -1,5 +1,5 @@
 # Root workspace + published umbrella crate.
-# Product Rust clients are unpublished workspace members, re-exported via features.
+# Product crates are also published so the umbrella's path deps can resolve on crates.io.
 
 [workspace]
 resolver = "2"
@@ -16,6 +16,10 @@ homepage = "https://github.com/ChiefWoods/jupiter-sdk"
 repository = "https://github.com/ChiefWoods/jupiter-sdk"
 keywords = ["jupiter", "solana", "sdk", "defi", "codama"]
 
+[workspace.dependencies]
+jupiter-offerbook-sdk = { path = "src/products/offerbook/rust", version = "0.0.0" }
+jupiter-prediction-sdk = { path = "src/products/prediction/rust", version = "0.0.0" }
+
 [package]
 name = "jupiter-program-sdk"
 version.workspace = true
@@ -27,7 +31,6 @@ homepage.workspace = true
 repository.workspace = true
 keywords.workspace = true
 readme = "README.md"
-publish = false
 
 [lib]
 path = "src/lib.rs"

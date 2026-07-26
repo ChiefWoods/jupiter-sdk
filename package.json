@@ -24,6 +24,7 @@
     "src/products/*"
   ],
   "type": "module",
+  "exports": {},
   "scripts": {
     "build": "turbo build",
     "test": "turbo test",
@@ -37,7 +38,8 @@
     "generate:package-json": "bun src/scripts/generate-package-json.ts",
     "generate:tsconfig-json": "bun src/scripts/generate-tsconfig-json.ts",
     "generate:tsdown": "bun src/scripts/generate-tsdown.ts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "prepublishOnly": "bun run build"
   },
   "devDependencies": {
     "@codama/nodes-from-anchor": "^1.5.2",

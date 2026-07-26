@@ -1,4 +1,5 @@
 import { rootNodeFromAnchor } from "@codama/nodes-from-anchor";
+import { resolve } from "node:path";
 import { createFromRoot } from "codama";
 import { formatFile } from "./format-file";
 import { resolveProductDir } from "./utils";
@@ -9,6 +10,14 @@ if (!productName) {
 }
 
 const productDir = resolveProductDir(productName);
+const productScriptPath = resolve(productDir, "generate-codama-idl.ts");
+
+if (await Bun.file(productScriptPath).exists()) {
+  console.log(`Using product Codama IDL script: ${productScriptPath}`);
+  await Bun.$`bun ${productScriptPath}`;
+  process.exit(0);
+}
+
 const anchorIdlPath = `${productDir}/idl/anchor.json`;
 const codamaIdlPath = `${productDir}/idl/codama.json`;
 

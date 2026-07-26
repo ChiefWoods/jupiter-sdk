@@ -30,9 +30,6 @@
     "lint": "turbo lint",
     "format": "turbo format",
     "typecheck": "turbo typecheck",
-    "changeset": "changeset",
-    "version": "changeset version && bun install",
-    "release": "bun run build && changeset publish",
     "generate": "bun src/scripts/generate.ts",
     "generate:codama-idl": "bun src/scripts/generate-codama-idl.ts",
     "generate:clients": "bun src/scripts/generate-clients.ts",
@@ -43,7 +40,6 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.31.1",
     "@codama/nodes-from-anchor": "^1.5.2",
     "@codama/renderers-js": "^2.3.0",
     "@codama/renderers-rust": "^3.1.1",

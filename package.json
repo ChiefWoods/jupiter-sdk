@@ -28,6 +28,14 @@
   ],
   "type": "module",
   "exports": {
+    "./lend-borrow/kit": {
+      "types": "./src/products/lend-borrow/dist/kit/index.d.ts",
+      "default": "./src/products/lend-borrow/dist/kit/index.js"
+    },
+    "./lend-borrow/web3js": {
+      "types": "./src/products/lend-borrow/dist/web3js/index.d.ts",
+      "default": "./src/products/lend-borrow/dist/web3js/index.js"
+    },
     "./lend-earn/kit": {
       "types": "./src/products/lend-earn/dist/kit/index.d.ts",
       "default": "./src/products/lend-earn/dist/kit/index.js"

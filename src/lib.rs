@@ -1,5 +1,8 @@
 //! Jupiter on-chain product SDKs.
 
+#[cfg(feature = "lend-borrow")]
+pub use jupiter_lend_borrow_sdk as lend_borrow;
+
 #[cfg(feature = "lend-earn")]
 pub use jupiter_lend_earn_sdk as lend_earn;
 

@@ -3,6 +3,9 @@
 #[cfg(feature = "lend-borrow")]
 pub use jupiter_lend_borrow_sdk as lend_borrow;
 
+#[cfg(feature = "lend-dex")]
+pub use jupiter_lend_dex_sdk as lend_dex;
+
 #[cfg(feature = "lend-earn")]
 pub use jupiter_lend_earn_sdk as lend_earn;
 

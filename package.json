@@ -36,6 +36,14 @@
       "types": "./src/products/lend-borrow/dist/web3js/index.d.ts",
       "default": "./src/products/lend-borrow/dist/web3js/index.js"
     },
+    "./lend-dex/kit": {
+      "types": "./src/products/lend-dex/dist/kit/index.d.ts",
+      "default": "./src/products/lend-dex/dist/kit/index.js"
+    },
+    "./lend-dex/web3js": {
+      "types": "./src/products/lend-dex/dist/web3js/index.d.ts",
+      "default": "./src/products/lend-dex/dist/web3js/index.js"
+    },
     "./lend-earn/kit": {
       "types": "./src/products/lend-earn/dist/kit/index.d.ts",
       "default": "./src/products/lend-earn/dist/kit/index.js"

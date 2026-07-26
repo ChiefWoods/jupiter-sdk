@@ -168,7 +168,7 @@ export type ClaimTokenLoanAsyncInput<
   config: Address<TAccountConfig>;
   collateralMint: Address<TAccountCollateralMint>;
   lenderCollateralEscrow?: Address<TAccountLenderCollateralEscrow>;
-  protocolFeeTokenAccount?: Address<TAccountProtocolFeeTokenAccount>;
+  protocolFeeTokenAccount: Address<TAccountProtocolFeeTokenAccount>;
   collateralTokenProgram: Address<TAccountCollateralTokenProgram>;
   eventAuthority?: Address<TAccountEventAuthority>;
   program: Address<TAccountProgram>;
@@ -275,32 +275,6 @@ export async function getClaimTokenLoanInstructionAsync<
           getAddressFromResolvedInstructionAccount(
             "signerUser",
             accounts.signerUser.value,
-          ),
-        ),
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "collateralTokenProgram",
-            accounts.collateralTokenProgram.value,
-          ),
-        ),
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "collateralMint",
-            accounts.collateralMint.value,
-          ),
-        ),
-      ],
-    });
-  }
-  if (!accounts.protocolFeeTokenAccount.value) {
-    accounts.protocolFeeTokenAccount.value = await getProgramDerivedAddress({
-      programAddress:
-        "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL" as Address<"ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL">,
-      seeds: [
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "config",
-            accounts.config.value,
           ),
         ),
         getAddressEncoder().encode(

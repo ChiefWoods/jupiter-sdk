@@ -214,7 +214,7 @@ export type FillNonFungibleCollateralOfferAsyncInput<
   collateralMint?: Address<TAccountCollateralMint>;
   lenderPrincipalEscrow?: Address<TAccountLenderPrincipalEscrow>;
   borrowerPrincipalTokenAccount: Address<TAccountBorrowerPrincipalTokenAccount>;
-  protocolFeeTokenAccount?: Address<TAccountProtocolFeeTokenAccount>;
+  protocolFeeTokenAccount: Address<TAccountProtocolFeeTokenAccount>;
   principalTokenProgram: Address<TAccountPrincipalTokenProgram>;
   collateralTokenProgram?: Address<TAccountCollateralTokenProgram>;
   systemProgram?: Address<TAccountSystemProgram>;
@@ -354,32 +354,6 @@ export async function getFillNonFungibleCollateralOfferInstructionAsync<
           getAddressFromResolvedInstructionAccount(
             "signerUser",
             accounts.signerUser.value,
-          ),
-        ),
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "principalTokenProgram",
-            accounts.principalTokenProgram.value,
-          ),
-        ),
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "principalMint",
-            accounts.principalMint.value,
-          ),
-        ),
-      ],
-    });
-  }
-  if (!accounts.protocolFeeTokenAccount.value) {
-    accounts.protocolFeeTokenAccount.value = await getProgramDerivedAddress({
-      programAddress:
-        "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL" as Address<"ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL">,
-      seeds: [
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "config",
-            accounts.config.value,
           ),
         ),
         getAddressEncoder().encode(

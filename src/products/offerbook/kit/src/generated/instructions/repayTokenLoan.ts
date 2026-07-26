@@ -193,7 +193,7 @@ export type RepayTokenLoanAsyncInput<
   signerPrincipalTokenAccount: Address<TAccountSignerPrincipalTokenAccount>;
   lenderPrincipalEscrow?: Address<TAccountLenderPrincipalEscrow>;
   borrowerCollateralEscrow?: Address<TAccountBorrowerCollateralEscrow>;
-  protocolFeeTokenAccount?: Address<TAccountProtocolFeeTokenAccount>;
+  protocolFeeTokenAccount: Address<TAccountProtocolFeeTokenAccount>;
   principalTokenProgram: Address<TAccountPrincipalTokenProgram>;
   collateralTokenProgram: Address<TAccountCollateralTokenProgram>;
   eventAuthority?: Address<TAccountEventAuthority>;
@@ -364,32 +364,6 @@ export async function getRepayTokenLoanInstructionAsync<
           getAddressFromResolvedInstructionAccount(
             "collateralMint",
             accounts.collateralMint.value,
-          ),
-        ),
-      ],
-    });
-  }
-  if (!accounts.protocolFeeTokenAccount.value) {
-    accounts.protocolFeeTokenAccount.value = await getProgramDerivedAddress({
-      programAddress:
-        "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL" as Address<"ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL">,
-      seeds: [
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "config",
-            accounts.config.value,
-          ),
-        ),
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "principalTokenProgram",
-            accounts.principalTokenProgram.value,
-          ),
-        ),
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "principalMint",
-            accounts.principalMint.value,
           ),
         ),
       ],

@@ -34,7 +34,7 @@ export async function createEscrowProgrammableNftDepositInstruction(
             {
                 signerUser: accounts.signerUser,
                 tokenProgram: accounts.tokenProgram,
-                nftMint: accounts.nftMint,
+                mint: accounts.nftMint,
             },
             programId,
         );

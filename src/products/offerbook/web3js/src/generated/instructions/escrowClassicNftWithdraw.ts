@@ -24,7 +24,7 @@ export async function createEscrowClassicNftWithdrawInstruction(
             {
                 signerUser: accounts.signerUser,
                 tokenProgram: accounts.tokenProgram,
-                nftMint: accounts.nftMint,
+                mint: accounts.nftMint,
             },
             programId,
         );

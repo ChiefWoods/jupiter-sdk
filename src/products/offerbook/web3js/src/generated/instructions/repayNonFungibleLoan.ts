@@ -3,7 +3,6 @@ import { OFFERBOOK_PROGRAM_ID } from '..';
 import { findEventAuthorityPda } from '../pdas/eventAuthority';
 import { findLenderPrincipalEscrowPda } from '../pdas/lenderPrincipalEscrow';
 import { findLoanVaultPda } from '../pdas/loanVault';
-import { findProtocolFeeTokenAccountPda } from '../pdas/protocolFeeTokenAccount';
 
 export interface RepayNonFungibleLoanInstructionAccounts {
     signer: Address;
@@ -16,7 +15,7 @@ export interface RepayNonFungibleLoanInstructionAccounts {
     principalMint: Address;
     signerPrincipalTokenAccount: Address;
     lenderPrincipalEscrow?: Address;
-    protocolFeeTokenAccount?: Address;
+    protocolFeeTokenAccount: Address;
     principalTokenProgram: Address;
     systemProgram: Address;
     eventAuthority?: Address;
@@ -49,18 +48,6 @@ export async function createRepayNonFungibleLoanInstruction(
         );
         lenderPrincipalEscrow = derived;
     }
-    let protocolFeeTokenAccount = accounts.protocolFeeTokenAccount;
-    if (!protocolFeeTokenAccount) {
-        const [derived] = await findProtocolFeeTokenAccountPda(
-            {
-                config: accounts.config,
-                principalTokenProgram: accounts.principalTokenProgram,
-                principalMint: accounts.principalMint,
-            },
-            programId,
-        );
-        protocolFeeTokenAccount = derived;
-    }
     let eventAuthority = accounts.eventAuthority;
     if (!eventAuthority) {
         const [derived] = await findEventAuthorityPda(programId);
@@ -77,7 +64,7 @@ export async function createRepayNonFungibleLoanInstruction(
         { pubkey: accounts.principalMint, isSigner: false, isWritable: false },
         { pubkey: accounts.signerPrincipalTokenAccount, isSigner: false, isWritable: true },
         { pubkey: lenderPrincipalEscrow, isSigner: false, isWritable: true },
-        { pubkey: protocolFeeTokenAccount, isSigner: false, isWritable: true },
+        { pubkey: accounts.protocolFeeTokenAccount, isSigner: false, isWritable: true },
         { pubkey: accounts.principalTokenProgram, isSigner: false, isWritable: false },
         { pubkey: accounts.systemProgram, isSigner: false, isWritable: false },
         { pubkey: eventAuthority, isSigner: false, isWritable: false },

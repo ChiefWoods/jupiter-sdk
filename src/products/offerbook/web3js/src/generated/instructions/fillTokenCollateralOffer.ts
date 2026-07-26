@@ -5,7 +5,6 @@ import { findBorrowerCollateralEscrowPda } from '../pdas/borrowerCollateralEscro
 import { findEventAuthorityPda } from '../pdas/eventAuthority';
 import { findLenderPrincipalEscrowPda } from '../pdas/lenderPrincipalEscrow';
 import { findLoanVaultPda } from '../pdas/loanVault';
-import { findProtocolFeeTokenAccountPda } from '../pdas/protocolFeeTokenAccount';
 import { getStructCodec, getU32Codec, getU64Codec } from '@solana/codecs';
 
 export interface FillTokenCollateralOfferInstructionAccounts {
@@ -22,7 +21,7 @@ export interface FillTokenCollateralOfferInstructionAccounts {
     lenderPrincipalEscrow?: Address;
     borrowerCollateralEscrow?: Address;
     borrowerPrincipalTokenAccount: Address;
-    protocolFeeTokenAccount?: Address;
+    protocolFeeTokenAccount: Address;
     principalTokenProgram: Address;
     collateralTokenProgram: Address;
     systemProgram: Address;
@@ -85,18 +84,6 @@ export async function createFillTokenCollateralOfferInstruction(
         );
         borrowerCollateralEscrow = derived;
     }
-    let protocolFeeTokenAccount = accounts.protocolFeeTokenAccount;
-    if (!protocolFeeTokenAccount) {
-        const [derived] = await findProtocolFeeTokenAccountPda(
-            {
-                config: accounts.config,
-                principalTokenProgram: accounts.principalTokenProgram,
-                principalMint: accounts.principalMint,
-            },
-            programId,
-        );
-        protocolFeeTokenAccount = derived;
-    }
     let eventAuthority = accounts.eventAuthority;
     if (!eventAuthority) {
         const [derived] = await findEventAuthorityPda(programId);
@@ -116,7 +103,7 @@ export async function createFillTokenCollateralOfferInstruction(
         { pubkey: lenderPrincipalEscrow, isSigner: false, isWritable: true },
         { pubkey: borrowerCollateralEscrow, isSigner: false, isWritable: true },
         { pubkey: accounts.borrowerPrincipalTokenAccount, isSigner: false, isWritable: true },
-        { pubkey: protocolFeeTokenAccount, isSigner: false, isWritable: true },
+        { pubkey: accounts.protocolFeeTokenAccount, isSigner: false, isWritable: true },
         { pubkey: accounts.principalTokenProgram, isSigner: false, isWritable: false },
         { pubkey: accounts.collateralTokenProgram, isSigner: false, isWritable: false },
         { pubkey: accounts.systemProgram, isSigner: false, isWritable: false },

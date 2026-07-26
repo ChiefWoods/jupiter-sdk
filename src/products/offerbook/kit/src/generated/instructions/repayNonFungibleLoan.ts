@@ -184,7 +184,7 @@ export type RepayNonFungibleLoanAsyncInput<
   principalMint: Address<TAccountPrincipalMint>;
   signerPrincipalTokenAccount: Address<TAccountSignerPrincipalTokenAccount>;
   lenderPrincipalEscrow?: Address<TAccountLenderPrincipalEscrow>;
-  protocolFeeTokenAccount?: Address<TAccountProtocolFeeTokenAccount>;
+  protocolFeeTokenAccount: Address<TAccountProtocolFeeTokenAccount>;
   principalTokenProgram: Address<TAccountPrincipalTokenProgram>;
   systemProgram?: Address<TAccountSystemProgram>;
   eventAuthority?: Address<TAccountEventAuthority>;
@@ -303,32 +303,6 @@ export async function getRepayNonFungibleLoanInstructionAsync<
           getAddressFromResolvedInstructionAccount(
             "lenderUser",
             accounts.lenderUser.value,
-          ),
-        ),
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "principalTokenProgram",
-            accounts.principalTokenProgram.value,
-          ),
-        ),
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "principalMint",
-            accounts.principalMint.value,
-          ),
-        ),
-      ],
-    });
-  }
-  if (!accounts.protocolFeeTokenAccount.value) {
-    accounts.protocolFeeTokenAccount.value = await getProgramDerivedAddress({
-      programAddress:
-        "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL" as Address<"ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL">,
-      seeds: [
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "config",
-            accounts.config.value,
           ),
         ),
         getAddressEncoder().encode(

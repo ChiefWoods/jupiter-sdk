@@ -3,7 +3,6 @@ import { OFFERBOOK_PROGRAM_ID } from '..';
 import { findEventAuthorityPda } from '../pdas/eventAuthority';
 import { findLenderPrincipalEscrowPda } from '../pdas/lenderPrincipalEscrow';
 import { findLoanVaultPda } from '../pdas/loanVault';
-import { findProtocolFeeTokenAccountPda } from '../pdas/protocolFeeTokenAccount';
 import { getStructCodec, getU32Codec } from '@solana/codecs';
 
 export interface FillNonFungibleCollateralOfferInstructionAccounts {
@@ -19,7 +18,7 @@ export interface FillNonFungibleCollateralOfferInstructionAccounts {
     collateralMint?: Address;
     lenderPrincipalEscrow?: Address;
     borrowerPrincipalTokenAccount: Address;
-    protocolFeeTokenAccount?: Address;
+    protocolFeeTokenAccount: Address;
     principalTokenProgram: Address;
     collateralTokenProgram?: Address;
     systemProgram: Address;
@@ -64,18 +63,6 @@ export async function createFillNonFungibleCollateralOfferInstruction(
         );
         lenderPrincipalEscrow = derived;
     }
-    let protocolFeeTokenAccount = accounts.protocolFeeTokenAccount;
-    if (!protocolFeeTokenAccount) {
-        const [derived] = await findProtocolFeeTokenAccountPda(
-            {
-                config: accounts.config,
-                principalTokenProgram: accounts.principalTokenProgram,
-                principalMint: accounts.principalMint,
-            },
-            programId,
-        );
-        protocolFeeTokenAccount = derived;
-    }
     let eventAuthority = accounts.eventAuthority;
     if (!eventAuthority) {
         const [derived] = await findEventAuthorityPda(programId);
@@ -96,7 +83,7 @@ export async function createFillNonFungibleCollateralOfferInstruction(
             : { pubkey: programId, isSigner: false, isWritable: false },
         { pubkey: lenderPrincipalEscrow, isSigner: false, isWritable: true },
         { pubkey: accounts.borrowerPrincipalTokenAccount, isSigner: false, isWritable: true },
-        { pubkey: protocolFeeTokenAccount, isSigner: false, isWritable: true },
+        { pubkey: accounts.protocolFeeTokenAccount, isSigner: false, isWritable: true },
         { pubkey: accounts.principalTokenProgram, isSigner: false, isWritable: false },
         accounts.collateralTokenProgram
             ? { pubkey: accounts.collateralTokenProgram, isSigner: false, isWritable: false }

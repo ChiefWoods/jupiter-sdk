@@ -1,0 +1,29 @@
+# Root workspace + published umbrella crate.
+# Product Rust clients are unpublished workspace members, re-exported via features.
+
+[workspace]
+resolver = "2"
+members = [
+    ".",
+]
+
+[workspace.package]
+version = "0.0.0"
+edition = "2021"
+license = "MIT"
+
+[package]
+name = "jupiter-program-sdk"
+version.workspace = true
+description = "Jupiter on-chain product SDKs"
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[lib]
+path = "src/lib.rs"
+
+[features]
+default = []
+
+[dependencies]

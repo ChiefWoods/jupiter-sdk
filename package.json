@@ -14,6 +14,7 @@
     "changeset": "changeset",
     "version": "changeset version && bun install",
     "release": "bun run build && changeset publish",
+    "generate:codama-idl": "bun src/scripts/generate-codama-idl.ts",
     "prepare": "husky"
   },
   "devDependencies": {

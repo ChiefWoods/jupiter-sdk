@@ -10,6 +10,7 @@ description: >-
 
 1. Create `anchor.json` or `codama.json` under `src/products/<product_name>/idl/`.
    - Prefer `anchor.json` when you have an Anchor IDL; `bun run generate` will create `codama.json` if it is missing.
+   - If the Anchor IDL is pre-v0.30, convert it into post-v0.30 spec using `anchor idl convert` before generating SDK.
    - If `codama.json` already exists, generation skips the Codama IDL step and renders clients from it.
 2. Run `bun run generate <product_name>`.
 3. Update root wiring to include the new product:

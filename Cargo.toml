@@ -8,6 +8,7 @@ members = [
     "src/products/lend-earn/rust",
     "src/products/lend-lending-reward-rate-model/rust",
     "src/products/lend-liquidity/rust",
+    "src/products/lend-oracle/rust",
     "src/products/lock/rust",
     "src/products/offerbook/rust",
     "src/products/prediction/rust",
@@ -27,6 +28,7 @@ keywords = ["jupiter", "solana", "sdk", "defi", "codama"]
 jupiter-lend-earn-sdk = { path = "src/products/lend-earn/rust", version = "0.1.0" }
 jupiter-lend-lending-reward-rate-model-sdk = { path = "src/products/lend-lending-reward-rate-model/rust", version = "0.1.0" }
 jupiter-lend-liquidity-sdk = { path = "src/products/lend-liquidity/rust", version = "0.1.0" }
+jupiter-lend-oracle-sdk = { path = "src/products/lend-oracle/rust", version = "0.1.0" }
 jupiter-lock-sdk = { path = "src/products/lock/rust", version = "0.1.0" }
 jupiter-offerbook-sdk = { path = "src/products/offerbook/rust", version = "0.1.0" }
 jupiter-prediction-sdk = { path = "src/products/prediction/rust", version = "0.1.0" }
@@ -52,6 +54,7 @@ default = []
 lend-earn = ["dep:jupiter-lend-earn-sdk"]
 lend-lending-reward-rate-model = ["dep:jupiter-lend-lending-reward-rate-model-sdk"]
 lend-liquidity = ["dep:jupiter-lend-liquidity-sdk"]
+lend-oracle = ["dep:jupiter-lend-oracle-sdk"]
 lock = ["dep:jupiter-lock-sdk"]
 offerbook = ["dep:jupiter-offerbook-sdk"]
 prediction = ["dep:jupiter-prediction-sdk"]
@@ -61,6 +64,7 @@ stablecoin = ["dep:jupiter-stablecoin-sdk"]
 jupiter-lend-earn-sdk = { workspace = true, optional = true }
 jupiter-lend-lending-reward-rate-model-sdk = { workspace = true, optional = true }
 jupiter-lend-liquidity-sdk = { workspace = true, optional = true }
+jupiter-lend-oracle-sdk = { workspace = true, optional = true }
 jupiter-lock-sdk = { workspace = true, optional = true }
 jupiter-offerbook-sdk = { workspace = true, optional = true }
 jupiter-prediction-sdk = { workspace = true, optional = true }

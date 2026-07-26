@@ -58,6 +58,18 @@
         "@solana/web3.js",
       ],
     },
+    "src/products/lend-oracle": {
+      "name": "jupiter-lend-oracle-sdk",
+      "version": "0.0.0",
+      "peerDependencies": {
+        "@solana/kit": "^6.10.0",
+        "@solana/web3.js": "3.0.0-rc.2",
+      },
+      "optionalPeers": [
+        "@solana/kit",
+        "@solana/web3.js",
+      ],
+    },
     "src/products/lock": {
       "name": "jupiter-lock-sdk",
       "version": "0.0.0",
@@ -503,6 +515,8 @@
     "jupiter-lend-lending-reward-rate-model-sdk": ["jupiter-lend-lending-reward-rate-model-sdk@workspace:src/products/lend-lending-reward-rate-model"],
 
     "jupiter-lend-liquidity-sdk": ["jupiter-lend-liquidity-sdk@workspace:src/products/lend-liquidity"],
+
+    "jupiter-lend-oracle-sdk": ["jupiter-lend-oracle-sdk@workspace:src/products/lend-oracle"],
 
     "jupiter-lock-sdk": ["jupiter-lock-sdk@workspace:src/products/lock"],
 

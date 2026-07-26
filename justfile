@@ -6,6 +6,7 @@ publish:
 	cargo publish -p jupiter-lend-earn-sdk --allow-dirty
 	cargo publish -p jupiter-lend-lending-reward-rate-model-sdk --allow-dirty
 	cargo publish -p jupiter-lend-liquidity-sdk --allow-dirty
+	cargo publish -p jupiter-lend-oracle-sdk --allow-dirty
 	cargo publish -p jupiter-lock-sdk --allow-dirty
 	cargo publish -p jupiter-offerbook-sdk --allow-dirty
 	cargo publish -p jupiter-prediction-sdk --allow-dirty

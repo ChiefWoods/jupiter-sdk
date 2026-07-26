@@ -1,0 +1,2317 @@
+{
+  "kind": "rootNode",
+  "standard": "codama",
+  "version": "1.7.0",
+  "program": {
+    "kind": "programNode",
+    "name": "oracle",
+    "publicKey": "jupnw4B6Eqs7ft6rxpzYLJZYSnrpRgPcr589n5Kv4oc",
+    "version": "0.1.5",
+    "origin": "anchor",
+    "accounts": [
+      {
+        "kind": "accountNode",
+        "name": "chainlinkDataStreamsCache",
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "41664b2f4f9c6dc1",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "nonce",
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "feeds",
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": { "kind": "definedTypeLinkNode", "name": "feedEntry" },
+                "count": {
+                  "kind": "prefixedCountNode",
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "price",
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "lastUpdateTimestampPrice",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "lastUpdateTimestampMultiplier",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "lastObservationsTimestamp",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "genericData",
+              "type": { "kind": "definedTypeLinkNode", "name": "chainlinkDsCacheGenericData" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "keepers",
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": { "kind": "publicKeyTypeNode" },
+                "count": {
+                  "kind": "prefixedCountNode",
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "accountNode",
+        "name": "dexPegOracleConfig",
+        "size": 287,
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "3bbd63958005ff48",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "nonce",
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "dex",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "positionToken0",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "positionToken1",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "tokenReserve0",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "tokenReserve1",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "quoteInToken0",
+              "docs": [
+                "Which token the combined reserves are denominated in (EVM",
+                "`QUOTE_IN_TOKEN0`). Irrelevant for pure 1:1 pegs (both orientations sum",
+                "identically); meaningful once a [`Self::conversion_source`] is set."
+              ],
+              "type": {
+                "kind": "booleanTypeNode",
+                "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "conversionSource",
+              "docs": [
+                "Optional reserves-conversion price source (EVM",
+                "`RESERVES_CONVERSION_ORACLE`), needed for non-1:1 pools like LST/SOL:",
+                "prices ONE unit of token0 in token1 units (1e15-scaled after the",
+                "entry's own `invert`). `source == Pubkey::default()` → hard 1:1 peg",
+                "(USDC/USDT style), no extra account.",
+                "Restricted to single-account source types (Pyth, StakePool, MsolPool,",
+                "Redstone, Chainlink, ChainlinkDataStreams)."
+              ],
+              "type": { "kind": "definedTypeLinkNode", "name": "sources" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "pegBufferPercent",
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "kind",
+              "type": { "kind": "definedTypeLinkNode", "name": "dexPegOracleKind" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "bump",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "reserved",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 32,
+                "type": { "kind": "bytesTypeNode" }
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "accountNode",
+        "name": "oracle",
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "8bc283b38cb3e5f4",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "nonce",
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "sources",
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": { "kind": "definedTypeLinkNode", "name": "sources" },
+                "count": {
+                  "kind": "prefixedCountNode",
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "bump",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "accountNode",
+        "name": "oracleAdmin",
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "efe80814fe3f19f6",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "authority",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "auths",
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": { "kind": "publicKeyTypeNode" },
+                "count": {
+                  "kind": "prefixedCountNode",
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      }
+    ],
+    "instructions": [
+      {
+        "kind": "instructionNode",
+        "name": "chainlinkDataStreamsFeedAccessController",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "chainlinkDsCache",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "b558b397e1260906",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "suspend",
+            "type": {
+              "kind": "booleanTypeNode",
+              "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "getBothExchangeRate",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "oracle",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "5c58a12ee6c12eed",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "nonce",
+            "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "getCenterPrice",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "oracle",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "3c330bf197b4c01b",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "nonce",
+            "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "getExchangeRate",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "oracle",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "994c11c2aad7598e",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "nonce",
+            "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "getExchangeRateLiquidate",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "oracle",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "e4a949275b521b05",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "nonce",
+            "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "getExchangeRateOperate",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "oracle",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "aea67e0a7a995ecb",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "nonce",
+            "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "initAdmin",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "signer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "oracleAdmin",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "oracleAdmin" },
+              "seeds": []
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "6141611bc8ce48db",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "authority",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "initChainlinkDataStreamsCache",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "signer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "oracleAdmin",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "chainlinkDsCache",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "chainlinkDsCache" },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "nonce",
+                  "value": { "kind": "argumentValueNode", "name": "nonce" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "2faecebd5efd19e9",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "nonce",
+            "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "feeds",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": { "kind": "definedTypeLinkNode", "name": "feedEntry" },
+              "count": {
+                "kind": "prefixedCountNode",
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "keepers",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": { "kind": "publicKeyTypeNode" },
+              "count": {
+                "kind": "prefixedCountNode",
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "initDexPegOracleConfig",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "signer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "oracleAdmin",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "dexPegConfig",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "dexPegConfig" },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "nonce",
+                  "value": { "kind": "argumentValueNode", "name": "nonce" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "dex",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "positionToken0",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "positionToken1",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenReserve0",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenReserve1",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "a39eb44ac9360730",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "nonce",
+            "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "kind",
+            "type": { "kind": "definedTypeLinkNode", "name": "dexPegOracleKind" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "pegBufferPercent",
+            "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "quoteInToken0",
+            "type": {
+              "kind": "booleanTypeNode",
+              "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "conversionSource",
+            "type": { "kind": "definedTypeLinkNode", "name": "sources" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "initOracleConfig",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "signer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "oracleAdmin",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "oracle",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "oracle" },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "nonce",
+                  "value": { "kind": "argumentValueNode", "name": "nonce" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "4d90b4f6d90f765c",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "sources",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": { "kind": "definedTypeLinkNode", "name": "sources" },
+              "count": {
+                "kind": "prefixedCountNode",
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "nonce",
+            "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "refreshPriceFeedWithChainlink",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "signer",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "chainlinkDsCache",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "verifierAccount",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "HJR45sRiFdGncL69HVzRK4HLS2SXcVW3KeTPkp2aFmWC",
+              "identifier": "verifierAccount"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "accessController",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "7mSn5MoBjyRLKoJShgkep8J17ueGG8rYioVAiSg5YWMF",
+              "identifier": "accessController"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "configAccount",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "verifierProgramId",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "Gt9S41PtjR58CbG9JhJ3J6vxesqrNAswbWYbLNTMZA3c",
+              "identifier": "verifierProgramId"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "4a0300b7f27598cb",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "feedId",
+            "type": { "kind": "fixedSizeTypeNode", "size": 32, "type": { "kind": "bytesTypeNode" } }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "serializedReport",
+            "type": {
+              "kind": "sizePrefixTypeNode",
+              "type": { "kind": "bytesTypeNode" },
+              "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateAuthority",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "oracleAdmin",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "202e401c954bf358",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "newAuthority",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateAuths",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "oracleAdmin",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "5d60b29c3975fdd1",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "authStatus",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": { "kind": "definedTypeLinkNode", "name": "addressBool" },
+              "count": {
+                "kind": "prefixedCountNode",
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateChainlinkDataStreamsCacheFeeds",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "signer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "oracleAdmin",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "chainlinkDsCache",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "37455dcb901ef8ad",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "feeds",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": { "kind": "definedTypeLinkNode", "name": "feedEntry" },
+              "count": {
+                "kind": "prefixedCountNode",
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateChainlinkDataStreamsCacheKeepers",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "signer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "oracleAdmin",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "chainlinkDsCache",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "7da8bcbb94cb6657",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "keeperStatus",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": { "kind": "definedTypeLinkNode", "name": "addressBool" },
+              "count": {
+                "kind": "prefixedCountNode",
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      }
+    ],
+    "definedTypes": [
+      {
+        "kind": "definedTypeNode",
+        "name": "addressBool",
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "addr",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "value",
+              "type": {
+                "kind": "booleanTypeNode",
+                "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "chainlinkDsCacheGenericData",
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "xstocksActivationDateTime",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "xstocksSuspended",
+              "type": {
+                "kind": "booleanTypeNode",
+                "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "marketStatus",
+              "docs": [
+                "Last market status observed from the most recent report (0 = not yet seen / Unknown).",
+                "Set directly from the report's market_status field on every cache refresh.",
+                "For V8/V10 feeds this maps to ReportDataMarketStatus; for V11 to ReportDataV11MarketStatus."
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "v11TransitionTimestampS",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "xstocksLastMultiplier",
+              "docs": ["Last current_multiplier seen for this feed via a v10 report."],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "xstocksLastObservationsTimestampMultiplierS",
+              "docs": [
+                "`observations_timestamp` (seconds) from the last accepted V10 report.",
+                "Enforces strictly-monotonic sequencing to prevent replay of old multiplier reports."
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "padding",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 24,
+                "type": { "kind": "bytesTypeNode" }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "chainlinkReportType",
+        "type": {
+          "kind": "enumTypeNode",
+          "variants": [
+            { "kind": "enumEmptyVariantTypeNode", "name": "xStocks" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "rWA" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "nAV" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "rWAAdvanced" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "exchangeRate" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "cryptoPrice" }
+          ],
+          "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "dexPegOracleKind",
+        "docs": ["Col vs debt side for a [`DexPegOracleConfig`] account."],
+        "type": {
+          "kind": "enumTypeNode",
+          "variants": [
+            { "kind": "enumEmptyVariantTypeNode", "name": "col" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "debt" }
+          ],
+          "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "feedEntry",
+        "docs": [
+          "One entry in the feed map: a 32-byte Chainlink feed ID paired with its report schema",
+          "type and, for V11 feeds, the set of trading sessions the feed supports."
+        ],
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "feedId",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 32,
+                "type": { "kind": "bytesTypeNode" }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "reportType",
+              "type": { "kind": "definedTypeLinkNode", "name": "chainlinkReportType" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "v11SessionType",
+              "type": { "kind": "definedTypeLinkNode", "name": "v11FeedSessionType" }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "sourceType",
+        "type": {
+          "kind": "enumTypeNode",
+          "variants": [
+            { "kind": "enumEmptyVariantTypeNode", "name": "pyth" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "stakePool" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "msolPool" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "redstone" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "chainlink" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "singlePool" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "jupLend" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "chainlinkDataStreams" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "pstPool" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "dexSmartColPegOracle" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "dexSmartDebtPegOracle" }
+          ],
+          "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "sources",
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "source",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "invert",
+              "type": {
+                "kind": "booleanTypeNode",
+                "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "multiplier",
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "divisor",
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "sourceType",
+              "type": { "kind": "definedTypeLinkNode", "name": "sourceType" }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "v11FeedSessionType",
+        "docs": [
+          "Trading-session scope for a V11 (24/5 US Equities) feed.",
+          "",
+          "Chainlink publishes a `market_status` field in every v11 report that indicates which",
+          "trading phase is currently active. This is done here because even when market is not",
+          "in session chainlink feeds can public other sessions data.",
+          "This enum captures which phases are valid for a given feed so that reports arriving",
+          "with an unsupported status can be rejected early rather than silently accepted.",
+          "",
+          "For non-V11 feed entries (`report_type != RWAAdvanced`) this field is ignored."
+        ],
+        "type": {
+          "kind": "enumTypeNode",
+          "variants": [
+            { "kind": "enumEmptyVariantTypeNode", "name": "regular" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "extended" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "overnight" }
+          ],
+          "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+        }
+      }
+    ],
+    "pdas": [
+      {
+        "kind": "pdaNode",
+        "name": "oracleAdmin",
+        "seeds": [
+          {
+            "kind": "constantPdaSeedNode",
+            "type": { "kind": "bytesTypeNode" },
+            "value": { "kind": "bytesValueNode", "data": "36ypUbksuaHtEVRVf", "encoding": "base58" }
+          }
+        ]
+      },
+      {
+        "kind": "pdaNode",
+        "name": "chainlinkDsCache",
+        "seeds": [
+          {
+            "kind": "constantPdaSeedNode",
+            "type": { "kind": "bytesTypeNode" },
+            "value": { "kind": "bytesValueNode", "data": "2soZUVQ6oCGwjPLjt", "encoding": "base58" }
+          },
+          {
+            "kind": "variablePdaSeedNode",
+            "name": "nonce",
+            "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+          }
+        ]
+      },
+      {
+        "kind": "pdaNode",
+        "name": "dexPegConfig",
+        "seeds": [
+          {
+            "kind": "constantPdaSeedNode",
+            "type": { "kind": "bytesTypeNode" },
+            "value": { "kind": "bytesValueNode", "data": "4ofajCiWD4", "encoding": "base58" }
+          },
+          {
+            "kind": "variablePdaSeedNode",
+            "name": "nonce",
+            "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+          }
+        ]
+      },
+      {
+        "kind": "pdaNode",
+        "name": "oracle",
+        "seeds": [
+          {
+            "kind": "constantPdaSeedNode",
+            "type": { "kind": "bytesTypeNode" },
+            "value": { "kind": "bytesValueNode", "data": "xVqkaR8Q", "encoding": "base58" }
+          },
+          {
+            "kind": "variablePdaSeedNode",
+            "name": "nonce",
+            "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "kind": "eventNode",
+        "name": "logChainlinkDataStreamsFeedMarketIsInTransition",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "feedId",
+                "type": {
+                  "kind": "fixedSizeTypeNode",
+                  "size": 32,
+                  "type": { "kind": "bytesTypeNode" }
+                }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "v11TransitionTimestampS",
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "d343803a93c0b36f",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "d343803a93c0b36f",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logChainlinkDataStreamsFeedSuspended",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "chainlinkDataStreamsCache",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "keeper",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "xstocksSuspended",
+                "type": {
+                  "kind": "booleanTypeNode",
+                  "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+                }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "3f95f7ffbd509afd",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "3f95f7ffbd509afd",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logStakePoolHighFeeDetected",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "stakePool",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "epoch",
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "c66a95071953279b",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "c66a95071953279b",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateAuthority",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "newAuthority",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "96989d8f0687c165",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "96989d8f0687c165",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateAuths",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "authStatus",
+                "type": {
+                  "kind": "arrayTypeNode",
+                  "item": { "kind": "definedTypeLinkNode", "name": "addressBool" },
+                  "count": {
+                    "kind": "prefixedCountNode",
+                    "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  }
+                }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "58506d306fcb4cfb",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "58506d306fcb4cfb",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateCacheFeeds",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "chainlinkDataStreamsCache",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "feeds",
+                "type": {
+                  "kind": "arrayTypeNode",
+                  "item": { "kind": "definedTypeLinkNode", "name": "feedEntry" },
+                  "count": {
+                    "kind": "prefixedCountNode",
+                    "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  }
+                }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "4b9b8638115eebbf",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "4b9b8638115eebbf",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateCacheKeepers",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "chainlinkDataStreamsCache",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "keeperStatus",
+                "type": {
+                  "kind": "arrayTypeNode",
+                  "item": { "kind": "definedTypeLinkNode", "name": "addressBool" },
+                  "count": {
+                    "kind": "prefixedCountNode",
+                    "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  }
+                }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "2181bf827577c6eb",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "2181bf827577c6eb",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "errors": [
+      {
+        "kind": "errorNode",
+        "name": "priceNotValid",
+        "code": 6000,
+        "message": "PRICE_NOT_VALID",
+        "docs": ["PriceNotValid: PRICE_NOT_VALID"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "priceTooOld",
+        "code": 6001,
+        "message": "PRICE_TOO_OLD",
+        "docs": ["PriceTooOld: PRICE_TOO_OLD"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "rateZero",
+        "code": 6002,
+        "message": "RATE_ZERO",
+        "docs": ["RateZero: RATE_ZERO"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidParams",
+        "code": 6003,
+        "message": "INVALID_PARAMS",
+        "docs": ["InvalidParams: INVALID_PARAMS"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidSourceMultiplierAndDivisor",
+        "code": 6004,
+        "message": "INVALID_SOURCE_MULTIPLIER_AND_DIVISOR",
+        "docs": ["InvalidSourceMultiplierAndDivisor: INVALID_SOURCE_MULTIPLIER_AND_DIVISOR"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidSource",
+        "code": 6005,
+        "message": "INVALID_SOURCE",
+        "docs": ["InvalidSource: INVALID_SOURCE"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidSourcesLength",
+        "code": 6006,
+        "message": "INVALID_SOURCES_LENGTH",
+        "docs": ["InvalidSourcesLength: INVALID_SOURCES_LENGTH"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "oracleAdminOnlyAuthority",
+        "code": 6007,
+        "message": "ORACLE_ADMIN_ONLY_AUTHORITY",
+        "docs": ["OracleAdminOnlyAuthority: ORACLE_ADMIN_ONLY_AUTHORITY"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "oracleAdminOnlyAuth",
+        "code": 6008,
+        "message": "ORACLE_ADMIN_ONLY_AUTH",
+        "docs": ["OracleAdminOnlyAuth: ORACLE_ADMIN_ONLY_AUTH"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "oracleAdminMaxAuthCountReached",
+        "code": 6009,
+        "message": "ORACLE_ADMIN_MAX_AUTH_COUNT_REACHED",
+        "docs": ["OracleAdminMaxAuthCountReached: ORACLE_ADMIN_MAX_AUTH_COUNT_REACHED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "oracleAdminInvalidParams",
+        "code": 6010,
+        "message": "ORACLE_ADMIN_INVALID_PARAMS",
+        "docs": ["OracleAdminInvalidParams: ORACLE_ADMIN_INVALID_PARAMS"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "oracleNonceMismatch",
+        "code": 6011,
+        "message": "ORACLE_NONCE_MISMATCH",
+        "docs": ["OracleNonceMismatch: ORACLE_NONCE_MISMATCH"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "priceConfidenceNotSufficient",
+        "code": 6012,
+        "message": "PRICE_CONFIDENCE_NOT_SUFFICIENT",
+        "docs": ["PriceConfidenceNotSufficient: PRICE_CONFIDENCE_NOT_SUFFICIENT"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "stakePoolNotRefreshed",
+        "code": 6013,
+        "message": "STAKE_POOL_NOT_REFRESHED",
+        "docs": ["StakePoolNotRefreshed: STAKE_POOL_NOT_REFRESHED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidPrice",
+        "code": 6014,
+        "message": "INVALID_PRICE",
+        "docs": ["InvalidPrice: INVALID_PRICE"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "feeTooHigh",
+        "code": 6015,
+        "message": "FEE_TOO_HIGH",
+        "docs": ["FeeTooHigh: FEE_TOO_HIGH"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "redstonePriceOverflow",
+        "code": 6016,
+        "message": "REDSTONE_PRICE_OVERFLOW",
+        "docs": ["RedstonePriceOverflow: REDSTONE_PRICE_OVERFLOW"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "timestampExpected",
+        "code": 6017,
+        "message": "TIMESTAMP_EXPECTED",
+        "docs": ["TimestampExpected: TIMESTAMP_EXPECTED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "cpiToStakeProgramFailed",
+        "code": 6018,
+        "message": "CPI_TO_STAKE_PROGRAM_FAILED",
+        "docs": ["CpiToStakeProgramFailed: CPI_TO_STAKE_PROGRAM_FAILED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidStakePoolReturnParams",
+        "code": 6019,
+        "message": "INVALID_STAKE_POOL_RETURN_PARAMS",
+        "docs": ["InvalidStakePoolReturnParams: INVALID_STAKE_POOL_RETURN_PARAMS"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkPriceReadError",
+        "code": 6020,
+        "message": "CHAINLINK_PRICE_READ_ERROR",
+        "docs": ["ChainlinkPriceReadError: CHAINLINK_PRICE_READ_ERROR"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "singlePoolTokenSupplyZero",
+        "code": 6021,
+        "message": "SINGLE_POOL_TOKEN_SUPPLY_ZERO",
+        "docs": ["SinglePoolTokenSupplyZero: SINGLE_POOL_TOKEN_SUPPLY_ZERO"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "singlePoolInvalidStakeAccount",
+        "code": 6022,
+        "message": "SINGLE_POOL_INVALID_STAKE_ACCOUNT",
+        "docs": ["SinglePoolInvalidStakeAccount: SINGLE_POOL_INVALID_STAKE_ACCOUNT"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "singlePoolInvalidMint",
+        "code": 6023,
+        "message": "SINGLE_POOL_INVALID_MINT",
+        "docs": ["SinglePoolInvalidMint: SINGLE_POOL_INVALID_MINT"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "jupLendAccountMismatch",
+        "code": 6024,
+        "message": "JUP_LEND_ACCOUNT_MISMATCH",
+        "docs": ["JupLendAccountMismatch: JUP_LEND_ACCOUNT_MISMATCH"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsNoReportData",
+        "code": 6025,
+        "message": "CHAINLINK_DATA_STREAMS_NO_REPORT_DATA",
+        "docs": ["ChainlinkDataStreamsNoReportData: CHAINLINK_DATA_STREAMS_NO_REPORT_DATA"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsInvalidReport",
+        "code": 6026,
+        "message": "CHAINLINK_DATA_STREAMS_INVALID_REPORT",
+        "docs": ["ChainlinkDataStreamsInvalidReport: CHAINLINK_DATA_STREAMS_INVALID_REPORT"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsFeedIdMismatch",
+        "code": 6027,
+        "message": "CHAINLINK_DATA_STREAMS_FEED_ID_MISMATCH",
+        "docs": ["ChainlinkDataStreamsFeedIdMismatch: CHAINLINK_DATA_STREAMS_FEED_ID_MISMATCH"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsInvalidReportType",
+        "code": 6028,
+        "message": "CHAINLINK_DATA_STREAMS_INVALID_REPORT_TYPE",
+        "docs": [
+          "ChainlinkDataStreamsInvalidReportType: CHAINLINK_DATA_STREAMS_INVALID_REPORT_TYPE"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsFeedSuspended",
+        "code": 6029,
+        "message": "CHAINLINK_DATA_STREAMS_FEED_SUSPENDED",
+        "docs": ["ChainlinkDataStreamsFeedSuspended: CHAINLINK_DATA_STREAMS_FEED_SUSPENDED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsFeedAlreadySuspendedOrResumed",
+        "code": 6030,
+        "message": "CHAINLINK_DATA_STREAMS_FEED_ALREADY_SUSPENDED_OR_RESUMED",
+        "docs": [
+          "ChainlinkDataStreamsFeedAlreadySuspendedOrResumed: CHAINLINK_DATA_STREAMS_FEED_ALREADY_SUSPENDED_OR_RESUMED"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsNotAKeeper",
+        "code": 6031,
+        "message": "CHAINLINK_DATA_STREAMS_NOT_A_KEEPER",
+        "docs": ["ChainlinkDataStreamsNotAKeeper: CHAINLINK_DATA_STREAMS_NOT_A_KEEPER"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsMaxFeedKeeperCountReached",
+        "code": 6032,
+        "message": "CHAINLINK_DATA_STREAMS_MAX_FEED_KEEPER_COUNT_REACHED",
+        "docs": [
+          "ChainlinkDataStreamsMaxFeedKeeperCountReached: CHAINLINK_DATA_STREAMS_MAX_FEED_KEEPER_COUNT_REACHED"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsMarketStatusUnknown",
+        "code": 6033,
+        "message": "CHAINLINK_DATA_STREAMS_MARKET_STATUS_UNKNOWN",
+        "docs": [
+          "ChainlinkDataStreamsMarketStatusUnknown: CHAINLINK_DATA_STREAMS_MARKET_STATUS_UNKNOWN"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsPriceTooOld",
+        "code": 6034,
+        "message": "CHAINLINK_DATA_STREAMS_PRICE_TOO_OLD",
+        "docs": ["ChainlinkDataStreamsPriceTooOld: CHAINLINK_DATA_STREAMS_PRICE_TOO_OLD"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsV10PriceNotAllowed",
+        "code": 6035,
+        "message": "CHAINLINK_DATA_STREAMS_V10_PRICE_NOT_ALLOWED",
+        "docs": [
+          "ChainlinkDataStreamsV10PriceNotAllowed: CHAINLINK_DATA_STREAMS_V10_PRICE_NOT_ALLOWED"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsMultipleV10Feeds",
+        "code": 6036,
+        "message": "CHAINLINK_DATA_STREAMS_MULTIPLE_V10_FEEDS",
+        "docs": ["ChainlinkDataStreamsMultipleV10Feeds: CHAINLINK_DATA_STREAMS_MULTIPLE_V10_FEEDS"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsV11FeedRequiresV10Feed",
+        "code": 6037,
+        "message": "CHAINLINK_DATA_STREAMS_V11_FEED_REQUIRES_V10_FEED",
+        "docs": [
+          "ChainlinkDataStreamsV11FeedRequiresV10Feed: CHAINLINK_DATA_STREAMS_V11_FEED_REQUIRES_V10_FEED"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsAllowedFeedNotFound",
+        "code": 6038,
+        "message": "CHAINLINK_DATA_STREAMS_ALLOWED_FEED_NOT_FOUND",
+        "docs": [
+          "ChainlinkDataStreamsAllowedFeedNotFound: CHAINLINK_DATA_STREAMS_ALLOWED_FEED_NOT_FOUND"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsMarketStatusNotSupportedByFeed",
+        "code": 6039,
+        "message": "CHAINLINK_DATA_STREAMS_MARKET_STATUS_NOT_SUPPORTED_BY_FEED",
+        "docs": [
+          "ChainlinkDataStreamsMarketStatusNotSupportedByFeed: CHAINLINK_DATA_STREAMS_MARKET_STATUS_NOT_SUPPORTED_BY_FEED"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsObservationTimestampTooOld",
+        "code": 6040,
+        "message": "CHAINLINK_DATA_STREAMS_OBSERVATION_TIMESTAMP_TOO_OLD",
+        "docs": [
+          "ChainlinkDataStreamsObservationTimestampTooOld: CHAINLINK_DATA_STREAMS_OBSERVATION_TIMESTAMP_TOO_OLD"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsFeedIdZero",
+        "code": 6041,
+        "message": "CHAINLINK_DATA_STREAMS_FEED_ID_ZERO",
+        "docs": ["ChainlinkDataStreamsFeedIdZero: CHAINLINK_DATA_STREAMS_FEED_ID_ZERO"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsDuplicateFeedIdReportType",
+        "code": 6042,
+        "message": "CHAINLINK_DATA_STREAMS_DUPLICATE_FEED_ID_REPORT_TYPE",
+        "docs": [
+          "ChainlinkDataStreamsDuplicateFeedIdReportType: CHAINLINK_DATA_STREAMS_DUPLICATE_FEED_ID_REPORT_TYPE"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsDuplicateFeedId",
+        "code": 6043,
+        "message": "CHAINLINK_DATA_STREAMS_DUPLICATE_FEED_ID",
+        "docs": ["ChainlinkDataStreamsDuplicateFeedId: CHAINLINK_DATA_STREAMS_DUPLICATE_FEED_ID"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "chainlinkDataStreamsNoFeedKeepers",
+        "code": 6044,
+        "message": "CHAINLINK_DATA_STREAMS_NO_FEED_KEEPERS",
+        "docs": ["ChainlinkDataStreamsNoFeedKeepers: CHAINLINK_DATA_STREAMS_NO_FEED_KEEPERS"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "pstPoolInvalidState",
+        "code": 6045,
+        "message": "PST_POOL_INVALID_STATE",
+        "docs": ["PstPoolInvalidState: PST_POOL_INVALID_STATE"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "pstPoolModeStatesEmpty",
+        "code": 6046,
+        "message": "PST_POOL_MODE_STATES_EMPTY",
+        "docs": ["PstPoolModeStatesEmpty: PST_POOL_MODE_STATES_EMPTY"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "pstPoolMintMismatch",
+        "code": 6047,
+        "message": "PST_POOL_MINT_MISMATCH",
+        "docs": ["PstPoolMintMismatch: PST_POOL_MINT_MISMATCH"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "pstPoolMintSupplyZero",
+        "code": 6048,
+        "message": "PST_POOL_MINT_SUPPLY_ZERO",
+        "docs": ["PstPoolMintSupplyZero: PST_POOL_MINT_SUPPLY_ZERO"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "dexSmartColNotEnabled",
+        "code": 6049,
+        "message": "DEX_SMART_COL_NOT_ENABLED",
+        "docs": ["DexSmartColNotEnabled: DEX_SMART_COL_NOT_ENABLED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "dexSmartDebtNotEnabled",
+        "code": 6050,
+        "message": "DEX_SMART_DEBT_NOT_ENABLED",
+        "docs": ["DexSmartDebtNotEnabled: DEX_SMART_DEBT_NOT_ENABLED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "dexPegInvalidQuoteMultiplier",
+        "code": 6051,
+        "message": "DEX_PEG_INVALID_QUOTE_MULTIPLIER",
+        "docs": ["DexPegInvalidQuoteMultiplier: DEX_PEG_INVALID_QUOTE_MULTIPLIER"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "dexPegInvalidPegBuffer",
+        "code": 6052,
+        "message": "DEX_PEG_INVALID_PEG_BUFFER",
+        "docs": ["DexPegInvalidPegBuffer: DEX_PEG_INVALID_PEG_BUFFER"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "dexPegAccountMismatch",
+        "code": 6053,
+        "message": "DEX_PEG_ACCOUNT_MISMATCH",
+        "docs": ["DexPegAccountMismatch: DEX_PEG_ACCOUNT_MISMATCH"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "dexPegZeroReserves",
+        "code": 6054,
+        "message": "DEX_PEG_ZERO_RESERVES",
+        "docs": ["DexPegZeroReserves: DEX_PEG_ZERO_RESERVES"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "dexPegConfigMismatch",
+        "code": 6055,
+        "message": "DEX_PEG_CONFIG_MISMATCH",
+        "docs": ["DexPegConfigMismatch: DEX_PEG_CONFIG_MISMATCH"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "dexPegInvalidKind",
+        "code": 6056,
+        "message": "DEX_PEG_INVALID_KIND",
+        "docs": ["DexPegInvalidKind: DEX_PEG_INVALID_KIND"]
+      }
+    ],
+    "constants": []
+  },
+  "additionalPrograms": []
+}

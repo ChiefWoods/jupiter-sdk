@@ -9,6 +9,9 @@ pub use jupiter_lend_lending_reward_rate_model_sdk as lend_lending_reward_rate_m
 #[cfg(feature = "lend-liquidity")]
 pub use jupiter_lend_liquidity_sdk as lend_liquidity;
 
+#[cfg(feature = "lend-oracle")]
+pub use jupiter_lend_oracle_sdk as lend_oracle;
+
 #[cfg(feature = "lock")]
 pub use jupiter_lock_sdk as lock;
 

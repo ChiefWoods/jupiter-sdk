@@ -52,6 +52,14 @@
       "types": "./src/products/lend-liquidity/dist/web3js/index.d.ts",
       "default": "./src/products/lend-liquidity/dist/web3js/index.js"
     },
+    "./lend-oracle/kit": {
+      "types": "./src/products/lend-oracle/dist/kit/index.d.ts",
+      "default": "./src/products/lend-oracle/dist/kit/index.js"
+    },
+    "./lend-oracle/web3js": {
+      "types": "./src/products/lend-oracle/dist/web3js/index.d.ts",
+      "default": "./src/products/lend-oracle/dist/web3js/index.js"
+    },
     "./lock/kit": {
       "types": "./src/products/lock/dist/kit/index.d.ts",
       "default": "./src/products/lock/dist/kit/index.js"

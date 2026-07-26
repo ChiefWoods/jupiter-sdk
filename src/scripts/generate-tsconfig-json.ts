@@ -1,12 +1,12 @@
-import { resolve } from "node:path";
 import { formatFile } from "./format-file";
+import { resolveProductDir } from "./utils";
 
-const productDirArg = Bun.argv[2];
-if (!productDirArg) {
-  throw new Error("Usage: bun src/scripts/generate-tsconfig-json.ts <product-directory>");
+const productName = Bun.argv[2];
+if (!productName) {
+  throw new Error("Usage: bun src/scripts/generate-tsconfig-json.ts <product-name>");
 }
 
-const productDir = resolve(productDirArg);
+const productDir = resolveProductDir(productName);
 
 if (!(await Bun.file(`${productDir}/idl/anchor.json`).exists())) {
   throw new Error(`Failed to find product IDL: ${productDir}/idl/anchor.json does not exist`);

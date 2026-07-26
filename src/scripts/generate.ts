@@ -1,11 +1,12 @@
-import { basename, resolve } from "node:path";
+import { resolve } from "node:path";
+import { resolveProductDir } from "./utils";
 
-const productDirArg = Bun.argv[2];
-if (!productDirArg) {
-  throw new Error("Usage: bun src/scripts/generate.ts <product-directory>");
+const productName = Bun.argv[2];
+if (!productName) {
+  throw new Error("Usage: bun src/scripts/generate.ts <product-name>");
 }
 
-const productDir = resolve(productDirArg);
+const productDir = resolveProductDir(productName);
 const anchorIdlPath = `${productDir}/idl/anchor.json`;
 const codamaIdlPath = `${productDir}/idl/codama.json`;
 
@@ -30,7 +31,7 @@ if (hasCodamaIdl) {
 for (const step of steps) {
   const scriptPath = resolve(import.meta.dir, step);
   console.log(`\n→ ${step}`);
-  await Bun.$`bun ${scriptPath} ${productDir}`;
+  await Bun.$`bun ${scriptPath} ${productName}`;
 }
 
-console.log(`\nGenerated product SDK for ${basename(productDir)}`);
+console.log(`\nGenerated product SDK for ${productName}`);

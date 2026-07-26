@@ -1,15 +1,15 @@
 import { renderVisitor as renderJavaScriptVisitor } from "@codama/renderers-js";
 import { renderVisitor as renderRustVisitor } from "@codama/renderers-rust";
 import { createFromJson } from "codama";
-import { resolve } from "node:path";
 import { renderVisitor as renderWeb3jsVisitor } from "renderers-web3js";
+import { resolveProductDir } from "./utils";
 
-const productDirArg = Bun.argv[2];
-if (!productDirArg) {
-  throw new Error("Usage: bun src/scripts/generate-clients.ts <product-directory>");
+const productName = Bun.argv[2];
+if (!productName) {
+  throw new Error("Usage: bun src/scripts/generate-clients.ts <product-name>");
 }
 
-const productDir = resolve(productDirArg);
+const productDir = resolveProductDir(productName);
 const codamaIdlPath = `${productDir}/idl/codama.json`;
 const codamaIdlFile = Bun.file(codamaIdlPath);
 
@@ -46,4 +46,4 @@ codama.accept(
   }),
 );
 
-console.log(`Wrote clients for ${productDir}`);
+console.log(`Wrote clients for ${productName}`);

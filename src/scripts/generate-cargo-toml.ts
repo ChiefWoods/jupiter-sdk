@@ -1,12 +1,11 @@
-import { basename, resolve } from "node:path";
+import { resolveProductDir } from "./utils";
 
-const productDirArg = Bun.argv[2];
-if (!productDirArg) {
-  throw new Error("Usage: bun src/scripts/generate-cargo-toml.ts <product-directory>");
+const productName = Bun.argv[2];
+if (!productName) {
+  throw new Error("Usage: bun src/scripts/generate-cargo-toml.ts <product-name>");
 }
 
-const productDir = resolve(productDirArg);
-const productName = basename(productDir);
+const productDir = resolveProductDir(productName);
 const rustDir = `${productDir}/rust`;
 const crateName = `jupiter-${productName}-sdk`;
 const displayName = productName.charAt(0).toUpperCase() + productName.slice(1);

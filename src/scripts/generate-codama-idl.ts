@@ -1,14 +1,14 @@
 import { rootNodeFromAnchor } from "@codama/nodes-from-anchor";
 import { createFromRoot } from "codama";
-import { resolve } from "node:path";
 import { formatFile } from "./format-file";
+import { resolveProductDir } from "./utils";
 
-const productDirArg = Bun.argv[2];
-if (!productDirArg) {
-  throw new Error("Usage: bun src/scripts/generate-codama-idl.ts <product-directory>");
+const productName = Bun.argv[2];
+if (!productName) {
+  throw new Error("Usage: bun src/scripts/generate-codama-idl.ts <product-name>");
 }
 
-const productDir = resolve(productDirArg);
+const productDir = resolveProductDir(productName);
 const anchorIdlPath = `${productDir}/idl/anchor.json`;
 const codamaIdlPath = `${productDir}/idl/codama.json`;
 

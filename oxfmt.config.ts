@@ -7,4 +7,5 @@ export default defineConfig({
   tabWidth: 2,
   trailingComma: "all",
   useTabs: false,
+  ignorePatterns: ["generated"],
 });

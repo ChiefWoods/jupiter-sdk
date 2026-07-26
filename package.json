@@ -18,6 +18,7 @@
     "generate:clients": "bun src/scripts/generate-clients.ts",
     "generate:cargo-toml": "bun src/scripts/generate-cargo-toml.ts",
     "generate:package-json": "bun src/scripts/generate-package-json.ts",
+    "generate:tsconfig-json": "bun src/scripts/generate-tsconfig-json.ts",
     "prepare": "husky"
   },
   "devDependencies": {

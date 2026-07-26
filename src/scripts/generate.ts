@@ -16,8 +16,8 @@ const productCodamaIdlScript = `${productDir}/generate-codama-idl.ts`;
 const hasProductCodamaIdlScript = await Bun.file(productCodamaIdlScript).exists();
 const steps = [
   ...(hasCodamaIdl ? [] : ["generate-codama-idl.ts"]),
-  "generate-clients.ts",
   "generate-cargo-toml.ts",
+  "generate-clients.ts",
   "generate-package-json.ts",
   "generate-tsconfig-json.ts",
   "generate-tsdown.ts",

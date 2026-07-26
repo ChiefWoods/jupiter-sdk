@@ -1383,7 +1383,7 @@ dependencies = [
 
 [[package]]
 name = "jupiter-offerbook-sdk"
-version = "0.0.0"
+version = "0.1.0"
 dependencies = [
  "anchor-lang",
  "borsh 1.8.0",
@@ -1401,7 +1401,7 @@ dependencies = [
 
 [[package]]
 name = "jupiter-prediction-sdk"
-version = "0.0.0"
+version = "0.1.0"
 dependencies = [
  "anchor-lang",
  "borsh 1.8.0",
@@ -1419,7 +1419,7 @@ dependencies = [
 
 [[package]]
 name = "jupiter-program-sdk"
-version = "0.0.0"
+version = "0.1.0"
 dependencies = [
  "jupiter-offerbook-sdk",
  "jupiter-prediction-sdk",

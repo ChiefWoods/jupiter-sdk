@@ -10,7 +10,7 @@ members = [
 ]
 
 [workspace.package]
-version = "0.0.0"
+version = "0.1.0"
 edition = "2021"
 license = "MIT"
 authors = ["Jupiter"]
@@ -19,8 +19,8 @@ repository = "https://github.com/ChiefWoods/jupiter-sdk"
 keywords = ["jupiter", "solana", "sdk", "defi", "codama"]
 
 [workspace.dependencies]
-jupiter-offerbook-sdk = { path = "src/products/offerbook/rust", version = "0.0.0" }
-jupiter-prediction-sdk = { path = "src/products/prediction/rust", version = "0.0.0" }
+jupiter-offerbook-sdk = { path = "src/products/offerbook/rust", version = "0.1.0" }
+jupiter-prediction-sdk = { path = "src/products/prediction/rust", version = "0.1.0" }
 
 [package]
 name = "jupiter-program-sdk"

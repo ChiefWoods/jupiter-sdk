@@ -1,6 +1,25 @@
 {
   "name": "@jupiter/sdk",
-  "private": true,
+  "version": "0.0.0",
+  "description": "Jupiter on-chain product SDKs",
+  "keywords": [
+    "codama",
+    "defi",
+    "jupiter",
+    "sdk",
+    "solana",
+    "web3"
+  ],
+  "homepage": "https://github.com/ChiefWoods/jupiter-sdk",
+  "bugs": {
+    "url": "https://github.com/ChiefWoods/jupiter-sdk/issues"
+  },
+  "license": "MIT",
+  "author": "Jupiter",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ChiefWoods/jupiter-sdk.git"
+  },
   "workspaces": [
     "src/products/*"
   ],

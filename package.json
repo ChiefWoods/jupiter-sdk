@@ -36,6 +36,14 @@
       "types": "./src/products/lend-earn/dist/web3js/index.d.ts",
       "default": "./src/products/lend-earn/dist/web3js/index.js"
     },
+    "./lend-lending-reward-rate-model/kit": {
+      "types": "./src/products/lend-lending-reward-rate-model/dist/kit/index.d.ts",
+      "default": "./src/products/lend-lending-reward-rate-model/dist/kit/index.js"
+    },
+    "./lend-lending-reward-rate-model/web3js": {
+      "types": "./src/products/lend-lending-reward-rate-model/dist/web3js/index.d.ts",
+      "default": "./src/products/lend-lending-reward-rate-model/dist/web3js/index.js"
+    },
     "./lend-liquidity/kit": {
       "types": "./src/products/lend-liquidity/dist/kit/index.d.ts",
       "default": "./src/products/lend-liquidity/dist/kit/index.js"

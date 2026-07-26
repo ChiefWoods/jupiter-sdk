@@ -1,0 +1,1359 @@
+{
+  "kind": "rootNode",
+  "standard": "codama",
+  "version": "1.7.0",
+  "program": {
+    "kind": "programNode",
+    "name": "lendingRewardRateModel",
+    "publicKey": "jup7TthsMgcR9Y3L277b8Eo9uboVSmu1utkuXHNUKar",
+    "version": "0.1.0",
+    "origin": "anchor",
+    "accounts": [
+      {
+        "kind": "accountNode",
+        "name": "lendingRewardsAdmin",
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "44126d120209ae65",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "authority",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "lendingProgram",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "auths",
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": { "kind": "publicKeyTypeNode" },
+                "count": {
+                  "kind": "prefixedCountNode",
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "bump",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "accountNode",
+        "name": "lendingRewardsRateModel",
+        "size": 89,
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "a6484783ac4aa6b5",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "mint",
+              "docs": ["@dev mint address"],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "startTvl",
+              "docs": [
+                "@dev tvl below which rewards rate is 0. If current TVL is below this value, triggering `update_rate()` on the fToken",
+                "might bring the total TVL above this cut-off."
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "duration",
+              "docs": ["@dev for how long current rewards should run"],
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "startTime",
+              "docs": ["@dev when current rewards got started"],
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "yearlyReward",
+              "docs": [
+                "@dev current annualized reward based on input params (duration, rewardAmount)"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "nextDuration",
+              "docs": ["@dev Duration for the next rewards phase"],
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "nextRewardAmount",
+              "docs": ["@dev Amount of rewards for the next phase"],
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "bump",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      }
+    ],
+    "instructions": [
+      {
+        "kind": "instructionNode",
+        "name": "cancelQueuedRewards",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingRewardsAdmin",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingAccount",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "fTokenMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "supplyTokenReservesLiquidity",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingRewardsRateModel",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "fdc67a60eae235e5",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "initLendingRewardsAdmin",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "signer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingRewardsAdmin",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "lendingRewardsAdmin" },
+              "seeds": []
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "ca242fd103c9ad5e",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "authority",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "lendingProgram",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "initLendingRewardsRateModel",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingRewardsAdmin",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingRewardsRateModel",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "lendingRewardsRateModel" },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "mint",
+                  "value": { "kind": "accountValueNode", "name": "mint" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "757bc434f65aa800",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "queueNextRewards",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingRewardsAdmin",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingAccount",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "fTokenMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "supplyTokenReservesLiquidity",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingRewardsRateModel",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "0c26f850804c9bd2",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "rewardAmount",
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "duration",
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "startRewards",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingRewardsAdmin",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingAccount",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "fTokenMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "supplyTokenReservesLiquidity",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingRewardsRateModel",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "3eb76c0ea1917973",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "rewardAmount",
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "duration",
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "startTime",
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "startTvl",
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "stopRewards",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingRewardsAdmin",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingAccount",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "fTokenMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "supplyTokenReservesLiquidity",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingRewardsRateModel",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "27e7c963e669644c",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "transitionToNextRewards",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingRewardsAdmin",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingAccount",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "fTokenMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "supplyTokenReservesLiquidity",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingRewardsRateModel",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "a732e95d00b29af7",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateAuthority",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingRewardsAdmin",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "202e401c954bf358",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "newAuthority",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateAuths",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lendingRewardsAdmin",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "5d60b29c3975fdd1",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "authStatus",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": { "kind": "definedTypeLinkNode", "name": "addressBool" },
+              "count": {
+                "kind": "prefixedCountNode",
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      }
+    ],
+    "definedTypes": [
+      {
+        "kind": "definedTypeNode",
+        "name": "addressBool",
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "addr",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "value",
+              "type": {
+                "kind": "booleanTypeNode",
+                "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "pdas": [
+      {
+        "kind": "pdaNode",
+        "name": "lendingRewardsAdmin",
+        "seeds": [
+          {
+            "kind": "constantPdaSeedNode",
+            "type": { "kind": "bytesTypeNode" },
+            "value": {
+              "kind": "bytesValueNode",
+              "data": "7fbagC3ytEo9cbMa2yETimswmXnG5",
+              "encoding": "base58"
+            }
+          }
+        ]
+      },
+      {
+        "kind": "pdaNode",
+        "name": "lendingRewardsRateModel",
+        "seeds": [
+          {
+            "kind": "constantPdaSeedNode",
+            "type": { "kind": "bytesTypeNode" },
+            "value": {
+              "kind": "bytesValueNode",
+              "data": "4KWnqS92nqEeWg261CLMUfcrycEHuZf5dw1u",
+              "encoding": "base58"
+            }
+          },
+          { "kind": "variablePdaSeedNode", "name": "mint", "type": { "kind": "publicKeyTypeNode" } }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "kind": "eventNode",
+        "name": "logCancelQueuedRewards",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "mint",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "b1ad3f8be4adbbcc",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "b1ad3f8be4adbbcc",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logQueueNextRewards",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "rewardAmount",
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "duration",
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "mint",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "3281d67e27cdd174",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "3281d67e27cdd174",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logStartRewards",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "rewardAmount",
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "duration",
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "startTime",
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "mint",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "1ef3a82de99665ee",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "1ef3a82de99665ee",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logStopRewards",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "mint",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "25daefe81595631f",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "25daefe81595631f",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logTransitionedToNextRewards",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "startTime",
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "endTime",
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "mint",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "b1e8efdee03d0965",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "b1e8efdee03d0965",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateAuthority",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "newAuthority",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "96989d8f0687c165",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "96989d8f0687c165",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateAuths",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "authStatus",
+                "type": {
+                  "kind": "arrayTypeNode",
+                  "item": { "kind": "definedTypeLinkNode", "name": "addressBool" },
+                  "count": {
+                    "kind": "prefixedCountNode",
+                    "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  }
+                }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "58506d306fcb4cfb",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "58506d306fcb4cfb",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "errors": [
+      {
+        "kind": "errorNode",
+        "name": "invalidParams",
+        "code": 6000,
+        "message": "LENDING_REWARD_RATE_MODEL_INVALID_PARAMS",
+        "docs": ["InvalidParams: LENDING_REWARD_RATE_MODEL_INVALID_PARAMS"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "alreadyStopped",
+        "code": 6001,
+        "message": "LENDING_REWARD_RATE_MODEL_ALREADY_STOPPED",
+        "docs": ["AlreadyStopped: LENDING_REWARD_RATE_MODEL_ALREADY_STOPPED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "nextRewardsQueued",
+        "code": 6002,
+        "message": "LENDING_REWARD_RATE_MODEL_NEXT_REWARDS_QUEUED",
+        "docs": ["NextRewardsQueued: LENDING_REWARD_RATE_MODEL_NEXT_REWARDS_QUEUED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "notEnded",
+        "code": 6003,
+        "message": "LENDING_REWARD_RATE_MODEL_NOT_ENDED",
+        "docs": ["NotEnded: LENDING_REWARD_RATE_MODEL_NOT_ENDED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "noQueuedRewards",
+        "code": 6004,
+        "message": "LENDING_REWARD_RATE_MODEL_NO_QUEUED_REWARDS",
+        "docs": ["NoQueuedRewards: LENDING_REWARD_RATE_MODEL_NO_QUEUED_REWARDS"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "mustTransitionToNext",
+        "code": 6005,
+        "message": "LENDING_REWARD_RATE_MODEL_MUST_TRANSITION_TO_NEXT",
+        "docs": ["MustTransitionToNext: LENDING_REWARD_RATE_MODEL_MUST_TRANSITION_TO_NEXT"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "noRewardsStarted",
+        "code": 6006,
+        "message": "LENDING_REWARD_RATE_MODEL_NO_REWARDS_STARTED",
+        "docs": ["NoRewardsStarted: LENDING_REWARD_RATE_MODEL_NO_REWARDS_STARTED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "maxAuthCountReached",
+        "code": 6007,
+        "message": "LENDING_REWARD_RATE_MODEL_MAX_AUTH_COUNT_REACHED",
+        "docs": ["MaxAuthCountReached: LENDING_REWARD_RATE_MODEL_MAX_AUTH_COUNT_REACHED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "onlyAuthority",
+        "code": 6008,
+        "message": "LENDING_REWARD_RATE_MODEL_ONLY_AUTHORITY",
+        "docs": ["OnlyAuthority: LENDING_REWARD_RATE_MODEL_ONLY_AUTHORITY"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "onlyAuths",
+        "code": 6009,
+        "message": "LENDING_REWARD_RATE_MODEL_ONLY_AUTH",
+        "docs": ["OnlyAuths: LENDING_REWARD_RATE_MODEL_ONLY_AUTH"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "cpiToLendingProgramFailed",
+        "code": 6010,
+        "message": "LENDING_REWARD_RATE_MODEL_CPI_TO_LENDING_PROGRAM_FAILED",
+        "docs": [
+          "CpiToLendingProgramFailed: LENDING_REWARD_RATE_MODEL_CPI_TO_LENDING_PROGRAM_FAILED"
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidLendingProgram",
+        "code": 6011,
+        "message": "LENDING_REWARD_RATE_MODEL_INVALID_LENDING_PROGRAM",
+        "docs": ["InvalidLendingProgram: LENDING_REWARD_RATE_MODEL_INVALID_LENDING_PROGRAM"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidMint",
+        "code": 6012,
+        "message": "LENDING_REWARD_RATE_MODEL_INVALID_MINT",
+        "docs": ["InvalidMint: LENDING_REWARD_RATE_MODEL_INVALID_MINT"]
+      }
+    ],
+    "constants": []
+  },
+  "additionalPrograms": []
+}

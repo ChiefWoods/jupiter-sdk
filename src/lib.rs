@@ -3,6 +3,9 @@
 #[cfg(feature = "lend-earn")]
 pub use jupiter_lend_earn_sdk as lend_earn;
 
+#[cfg(feature = "lend-lending-reward-rate-model")]
+pub use jupiter_lend_lending_reward_rate_model_sdk as lend_lending_reward_rate_model;
+
 #[cfg(feature = "lend-liquidity")]
 pub use jupiter_lend_liquidity_sdk as lend_liquidity;
 

@@ -13,6 +13,7 @@ Codama-generated SDKs for on-chain Jupiter programs. Each product ships three cl
 
 ### Products
 
+- `governance`
 - `lend-borrow`
 - `lend-dex`
 - `lend-earn`

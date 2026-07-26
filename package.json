@@ -28,6 +28,14 @@
   ],
   "type": "module",
   "exports": {
+    "./governance/kit": {
+      "types": "./src/products/governance/dist/kit/index.d.ts",
+      "default": "./src/products/governance/dist/kit/index.js"
+    },
+    "./governance/web3js": {
+      "types": "./src/products/governance/dist/web3js/index.d.ts",
+      "default": "./src/products/governance/dist/web3js/index.js"
+    },
     "./lend-borrow/kit": {
       "types": "./src/products/lend-borrow/dist/kit/index.d.ts",
       "default": "./src/products/lend-borrow/dist/kit/index.js"

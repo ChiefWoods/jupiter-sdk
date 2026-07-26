@@ -1,5 +1,8 @@
 //! Jupiter on-chain product SDKs.
 
+#[cfg(feature = "governance")]
+pub use jupiter_governance_sdk as governance;
+
 #[cfg(feature = "lend-borrow")]
 pub use jupiter_lend_borrow_sdk as lend_borrow;
 

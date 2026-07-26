@@ -1,0 +1,1430 @@
+{
+  "address": "GovaE4iu227srtG2s3tZzB4RmWBzw8sTwrCLZz7kN7rY",
+  "metadata": {
+    "name": "govern",
+    "version": "0.1.0",
+    "spec": "0.1.0"
+  },
+  "docs": ["The [govern] program."],
+  "instructions": [
+    {
+      "name": "create_governor",
+      "docs": ["Creates a [Governor]."],
+      "discriminator": [103, 30, 78, 252, 28, 128, 40, 3],
+      "accounts": [
+        {
+          "name": "base",
+          "docs": ["Base of the [Governor] key."],
+          "signer": true
+        },
+        {
+          "name": "governor",
+          "docs": ["Governor."],
+          "writable": true
+        },
+        {
+          "name": "smart_wallet",
+          "docs": ["The Smart Wallet."]
+        },
+        {
+          "name": "payer",
+          "docs": ["Payer."],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": ["System program."]
+        }
+      ],
+      "args": [
+        {
+          "name": "locker",
+          "type": "pubkey"
+        },
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "GovernanceParameters"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "create_proposal",
+      "docs": [
+        "Creates a [Proposal].",
+        "This may be called by anyone, since the [Proposal] does not do anything until",
+        "it is activated in [activate_proposal]."
+      ],
+      "discriminator": [132, 116, 68, 174, 216, 160, 198, 22],
+      "accounts": [
+        {
+          "name": "governor",
+          "docs": ["The [Governor]."],
+          "writable": true
+        },
+        {
+          "name": "proposal",
+          "docs": ["The [Proposal]."],
+          "writable": true
+        },
+        {
+          "name": "smart_wallet",
+          "docs": ["smart wallet of governor"]
+        },
+        {
+          "name": "proposer",
+          "docs": [
+            "Proposer of the proposal.",
+            "One of the owners. Checked in the handler via [SmartWallet::owner_index]."
+          ],
+          "signer": true
+        },
+        {
+          "name": "payer",
+          "docs": ["Payer of the proposal."],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": ["System program."]
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": [
+        {
+          "name": "proposal_type",
+          "type": "u8"
+        },
+        {
+          "name": "max_option",
+          "type": "u8"
+        },
+        {
+          "name": "instructions",
+          "type": {
+            "vec": {
+              "defined": {
+                "name": "ProposalInstruction"
+              }
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "activate_proposal",
+      "docs": [
+        "Activates a proposal.",
+        "Only the [Governor::voter] may call this; that program",
+        "may ensure that only certain types of users can activate proposals."
+      ],
+      "discriminator": [90, 186, 203, 234, 70, 185, 191, 21],
+      "accounts": [
+        {
+          "name": "governor",
+          "docs": ["The [Governor]."]
+        },
+        {
+          "name": "proposal",
+          "docs": ["The [Proposal] to activate."],
+          "writable": true
+        },
+        {
+          "name": "locker",
+          "docs": ["The locker of the [Governor] that may activate the proposal."],
+          "signer": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "cancel_proposal",
+      "docs": ["Cancels a proposal.", "This is only callable by the creator of the proposal."],
+      "discriminator": [106, 74, 128, 146, 19, 65, 39, 23],
+      "accounts": [
+        {
+          "name": "governor",
+          "docs": ["The [Governor]."]
+        },
+        {
+          "name": "proposal",
+          "docs": ["The [Proposal] to activate."],
+          "writable": true
+        },
+        {
+          "name": "proposer",
+          "docs": ["The [Proposal::proposer]."],
+          "signer": true
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "queue_proposal",
+      "docs": ["Queues a proposal for execution by the [SmartWallet]."],
+      "discriminator": [168, 219, 139, 211, 205, 152, 125, 110],
+      "accounts": [
+        {
+          "name": "governor",
+          "docs": ["The Governor."]
+        },
+        {
+          "name": "proposal",
+          "docs": ["The Proposal to queue."],
+          "writable": true
+        },
+        {
+          "name": "transaction",
+          "docs": [
+            "The transaction key of the proposal.",
+            "This account is passed to and validated by the Smart Wallet program to be initialized."
+          ],
+          "writable": true
+        },
+        {
+          "name": "smart_wallet",
+          "docs": ["The Smart Wallet."],
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "docs": ["Payer of the queued transaction."],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "smart_wallet_program",
+          "docs": ["The Smart Wallet program."]
+        },
+        {
+          "name": "system_program",
+          "docs": ["The System program."]
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "new_vote",
+      "docs": ["Creates a new [Vote]. Anyone can call this."],
+      "discriminator": [163, 108, 157, 189, 140, 80, 13, 143],
+      "accounts": [
+        {
+          "name": "proposal",
+          "docs": ["Proposal being voted on."]
+        },
+        {
+          "name": "vote",
+          "docs": ["The vote."],
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "docs": ["Payer of the [Vote]."],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": ["System program."]
+        }
+      ],
+      "args": [
+        {
+          "name": "voter",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "set_vote",
+      "docs": [
+        "Sets a [Vote] weight and side.",
+        "This may only be called by the [Governor::voter]."
+      ],
+      "discriminator": [171, 33, 83, 172, 148, 215, 239, 97],
+      "accounts": [
+        {
+          "name": "governor",
+          "docs": ["The [Governor]."]
+        },
+        {
+          "name": "proposal",
+          "docs": ["The [Proposal]."],
+          "writable": true
+        },
+        {
+          "name": "vote",
+          "docs": ["The [Vote]."],
+          "writable": true
+        },
+        {
+          "name": "locker",
+          "docs": ["The [Governor::locker]."],
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "side",
+          "type": "u8"
+        },
+        {
+          "name": "weight",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "set_governance_params",
+      "docs": [
+        "Sets the [GovernanceParameters].",
+        "This may only be called by the [Governor::smart_wallet]."
+      ],
+      "discriminator": [175, 187, 3, 73, 8, 251, 67, 178],
+      "accounts": [
+        {
+          "name": "governor",
+          "docs": ["The [Governor]"],
+          "writable": true
+        },
+        {
+          "name": "smart_wallet",
+          "docs": ["The Smart Wallet."],
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "params",
+          "type": {
+            "defined": {
+              "name": "GovernanceParameters"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "set_voting_reward",
+      "docs": ["Sets Voting Reward.", "This may only be called by the [Governor::smart_wallet]."],
+      "discriminator": [227, 241, 48, 137, 30, 26, 104, 70],
+      "accounts": [
+        {
+          "name": "governor",
+          "docs": ["The [Governor]"],
+          "writable": true
+        },
+        {
+          "name": "reward_mint",
+          "docs": ["reward mint"]
+        },
+        {
+          "name": "smart_wallet",
+          "docs": ["The Smart Wallet."],
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "reward_per_proposal",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "claim_reward",
+      "docs": ["Claim rewards, for voter"],
+      "discriminator": [149, 95, 181, 242, 94, 90, 158, 162],
+      "accounts": [
+        {
+          "name": "governor",
+          "docs": ["The [Governor]"],
+          "writable": true
+        },
+        {
+          "name": "reward_vault",
+          "docs": ["reward mint"],
+          "writable": true
+        },
+        {
+          "name": "proposal",
+          "docs": ["proposal"],
+          "writable": true
+        },
+        {
+          "name": "vote",
+          "docs": ["The [Vote]."],
+          "writable": true
+        },
+        {
+          "name": "voter",
+          "docs": [
+            "Owner of the vault",
+            "TODO: check whether vote delegrate can claim on behalf of owner?"
+          ],
+          "signer": true
+        },
+        {
+          "name": "voter_token_account",
+          "docs": ["Voter token account"],
+          "writable": true
+        },
+        {
+          "name": "token_program",
+          "docs": ["Token program."]
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "set_locker",
+      "docs": ["Sets the locker of the [Governor]."],
+      "discriminator": [17, 6, 101, 72, 250, 23, 152, 96],
+      "accounts": [
+        {
+          "name": "governor",
+          "docs": ["The [Governor]"],
+          "writable": true
+        },
+        {
+          "name": "smart_wallet",
+          "docs": ["The Smart Wallet."],
+          "signer": true
+        }
+      ],
+      "args": [
+        {
+          "name": "new_locker",
+          "type": "pubkey"
+        }
+      ]
+    },
+    {
+      "name": "create_proposal_meta",
+      "docs": ["Creates a [ProposalMeta]."],
+      "discriminator": [238, 138, 212, 160, 46, 53, 51, 88],
+      "accounts": [
+        {
+          "name": "proposal",
+          "docs": ["The [Proposal]."]
+        },
+        {
+          "name": "proposer",
+          "docs": ["Proposer of the proposal."],
+          "signer": true
+        },
+        {
+          "name": "proposal_meta",
+          "docs": ["The [ProposalMeta]."],
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "docs": ["Payer of the [ProposalMeta]."],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": ["System program."]
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": [
+        {
+          "name": "bump",
+          "type": "u8"
+        },
+        {
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "name": "description_link",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "name": "create_option_proposal_meta",
+      "docs": ["Creates an [OptionProposalMeta]."],
+      "discriminator": [152, 144, 104, 228, 245, 234, 164, 224],
+      "accounts": [
+        {
+          "name": "proposal",
+          "docs": ["The [Proposal]."]
+        },
+        {
+          "name": "proposer",
+          "docs": ["Proposer of the proposal."],
+          "signer": true
+        },
+        {
+          "name": "option_proposal_meta",
+          "docs": ["The [ProposalMeta]."],
+          "writable": true
+        },
+        {
+          "name": "payer",
+          "docs": ["Payer of the [ProposalMeta]."],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": ["System program."]
+        },
+        {
+          "name": "event_authority"
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": [
+        {
+          "name": "bump",
+          "type": "u8"
+        },
+        {
+          "name": "option_descriptions",
+          "type": {
+            "vec": "string"
+          }
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Governor",
+      "discriminator": [37, 136, 44, 80, 68, 85, 213, 178]
+    },
+    {
+      "name": "Proposal",
+      "discriminator": [26, 94, 189, 187, 116, 136, 53, 33]
+    },
+    {
+      "name": "ProposalMeta",
+      "discriminator": [50, 100, 46, 24, 151, 174, 216, 78]
+    },
+    {
+      "name": "OptionProposalMeta",
+      "discriminator": [200, 56, 229, 124, 113, 154, 32, 26]
+    },
+    {
+      "name": "Vote",
+      "discriminator": [96, 91, 104, 57, 145, 35, 172, 155]
+    }
+  ],
+  "events": [
+    {
+      "name": "ProposalActivateEvent",
+      "discriminator": [247, 53, 166, 250, 118, 62, 53, 80]
+    },
+    {
+      "name": "ProposalCancelEvent",
+      "discriminator": [24, 49, 11, 182, 23, 59, 122, 220]
+    },
+    {
+      "name": "ClaimRewardEvent",
+      "discriminator": [207, 16, 14, 170, 176, 71, 40, 53]
+    },
+    {
+      "name": "GovernorCreateEvent",
+      "discriminator": [117, 24, 15, 85, 39, 58, 62, 23]
+    },
+    {
+      "name": "OptionProposalMetaCreateEvent",
+      "discriminator": [120, 126, 65, 125, 85, 200, 75, 206]
+    },
+    {
+      "name": "ProposalMetaCreateEvent",
+      "discriminator": [50, 59, 195, 75, 85, 227, 187, 82]
+    },
+    {
+      "name": "ProposalCreateEvent",
+      "discriminator": [121, 18, 213, 155, 223, 158, 95, 70]
+    },
+    {
+      "name": "ProposalQueueEvent",
+      "discriminator": [48, 219, 123, 209, 140, 210, 248, 14]
+    },
+    {
+      "name": "GovernorSetParamsEvent",
+      "discriminator": [169, 129, 187, 152, 130, 17, 81, 157]
+    },
+    {
+      "name": "GovernorSetVoterEvent",
+      "discriminator": [31, 141, 33, 222, 105, 177, 230, 207]
+    },
+    {
+      "name": "VoteSetEvent",
+      "discriminator": [175, 119, 30, 108, 176, 233, 151, 252]
+    },
+    {
+      "name": "GovernorSetVotingReward",
+      "discriminator": [74, 82, 223, 19, 41, 16, 148, 200]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "InvalidVoteSide",
+      "msg": "Invalid vote side."
+    },
+    {
+      "code": 6001,
+      "name": "InvalidProposalType",
+      "msg": "Invalid proposal type."
+    },
+    {
+      "code": 6002,
+      "name": "GovernorNotFound",
+      "msg": "The owner of the smart wallet doesn't match with current."
+    },
+    {
+      "code": 6003,
+      "name": "VotingDelayNotMet",
+      "msg": "The proposal cannot be activated since it has not yet passed the voting delay."
+    },
+    {
+      "code": 6004,
+      "name": "ProposalNotDraft",
+      "msg": "Only drafts can be canceled."
+    },
+    {
+      "code": 6005,
+      "name": "ProposalNotActive",
+      "msg": "The proposal must be active."
+    },
+    {
+      "code": 6006,
+      "name": "InvalidMaxOption",
+      "msg": "Max option is invalid"
+    },
+    {
+      "code": 6007,
+      "name": "NotYesNoProposal",
+      "msg": "Proposal is not YesNo."
+    },
+    {
+      "code": 6008,
+      "name": "NotOptionProposal",
+      "msg": "Proposal is not Option."
+    },
+    {
+      "code": 6009,
+      "name": "InvalidOptionDescriptions",
+      "msg": "Invalid option descriptions."
+    }
+  ],
+  "types": [
+    {
+      "name": "VotingReward",
+      "docs": ["Governance parameters."],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "reward_mint",
+            "docs": ["Reward mint"],
+            "type": "pubkey"
+          },
+          {
+            "name": "reward_vault",
+            "docs": ["Reward vault"],
+            "type": "pubkey"
+          },
+          {
+            "name": "reward_per_proposal",
+            "docs": ["Total reward per proposal"],
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "GovernanceParameters",
+      "docs": ["Governance parameters."],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "voting_delay",
+            "docs": [
+              "The delay before voting on a proposal may take place, once proposed, in seconds"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "voting_period",
+            "docs": ["The duration of voting on a proposal, in seconds"],
+            "type": "u64"
+          },
+          {
+            "name": "quorum_votes",
+            "docs": [
+              "The number of votes in support of a proposal required in order for a quorum to be reached and for a vote to succeed"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "timelock_delay_seconds",
+            "docs": ["The timelock delay of the DAO's created proposals."],
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProposalInstruction",
+      "docs": ["Instruction."],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "program_id",
+            "docs": ["Pubkey of the instruction processor that executes this instruction"],
+            "type": "pubkey"
+          },
+          {
+            "name": "keys",
+            "docs": ["Metadata for what accounts should be passed to the instruction processor"],
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "ProposalAccountMeta"
+                }
+              }
+            }
+          },
+          {
+            "name": "data",
+            "docs": ["Opaque data passed to the instruction processor"],
+            "type": "bytes"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProposalAccountMeta",
+      "docs": ["Account metadata used to define Instructions"],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "pubkey",
+            "docs": ["An account's public key"],
+            "type": "pubkey"
+          },
+          {
+            "name": "is_signer",
+            "docs": ["True if an Instruction requires a Transaction signature matching `pubkey`."],
+            "type": "bool"
+          },
+          {
+            "name": "is_writable",
+            "docs": ["True if the `pubkey` can be loaded as a read-write account."],
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProposalState",
+      "docs": [
+        "The state of a proposal.",
+        "",
+        "The `expired` state from Compound is missing here, because the",
+        "Smart Wallet handles execution."
+      ],
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Draft"
+          },
+          {
+            "name": "Active"
+          },
+          {
+            "name": "Canceled"
+          },
+          {
+            "name": "Defeated"
+          },
+          {
+            "name": "Succeeded"
+          },
+          {
+            "name": "Queued"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProposalType",
+      "docs": ["Proposal type"],
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "YesNo"
+          },
+          {
+            "name": "Option"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Governor",
+      "docs": [
+        "A Governor is the \"DAO\": it is the account that holds control over important protocol functions,",
+        "including treasury, protocol parameters, and more."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "base",
+            "docs": ["Base."],
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "docs": ["Bump seed"],
+            "type": "u8"
+          },
+          {
+            "name": "proposal_count",
+            "docs": ["The total number of [Proposal]s"],
+            "type": "u64"
+          },
+          {
+            "name": "locker",
+            "docs": [
+              "The voting body associated with the Governor.",
+              "This account is responsible for handling vote proceedings, such as:",
+              "- activating proposals",
+              "- setting the number of votes per voter"
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "smart_wallet",
+            "docs": [
+              "The public key of the [smart_wallet::SmartWallet] account.",
+              "This smart wallet executes proposals."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "params",
+            "docs": ["Governance parameters."],
+            "type": {
+              "defined": {
+                "name": "GovernanceParameters"
+              }
+            }
+          },
+          {
+            "name": "voting_reward",
+            "docs": ["optional reward, can set by smartwallet"],
+            "type": {
+              "defined": {
+                "name": "VotingReward"
+              }
+            }
+          },
+          {
+            "name": "buffers",
+            "docs": ["buffer for further use"],
+            "type": {
+              "array": ["u128", 32]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Proposal",
+      "docs": [
+        "A Yes/No Proposal is a pending transaction that may or may not be executed by the DAO."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "governor",
+            "docs": ["The public key of the governor."],
+            "type": "pubkey"
+          },
+          {
+            "name": "index",
+            "docs": ["The unique ID of the proposal, auto-incremented."],
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "docs": ["Bump seed"],
+            "type": "u8"
+          },
+          {
+            "name": "proposer",
+            "docs": ["The public key of the proposer."],
+            "type": "pubkey"
+          },
+          {
+            "name": "quorum_votes",
+            "docs": [
+              "The number of votes in support of a proposal required in order for a quorum to be reached and for a vote to succeed"
+            ],
+            "type": "u64"
+          },
+          {
+            "name": "max_option",
+            "docs": ["maximum options of the proposal"],
+            "type": "u8"
+          },
+          {
+            "name": "option_votes",
+            "docs": ["Vote for each option"],
+            "type": {
+              "vec": "u64"
+            }
+          },
+          {
+            "name": "canceled_at",
+            "docs": ["The timestamp when the proposal was canceled."],
+            "type": "i64"
+          },
+          {
+            "name": "created_at",
+            "docs": ["The timestamp when the proposal was created."],
+            "type": "i64"
+          },
+          {
+            "name": "activated_at",
+            "docs": [
+              "The timestamp in which the proposal was activated.",
+              "This is when voting begins."
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "voting_ends_at",
+            "docs": ["The timestamp when voting ends.", "This only applies to active proposals."],
+            "type": "i64"
+          },
+          {
+            "name": "queued_at",
+            "docs": [
+              "The timestamp in which the proposal was queued, i.e.",
+              "approved for execution on the Smart Wallet."
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "queued_transaction",
+            "docs": [
+              "If the transaction was queued, this is the associated Smart Wallet transaction."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "voting_reward",
+            "docs": ["optional reward"],
+            "type": {
+              "defined": {
+                "name": "VotingReward"
+              }
+            }
+          },
+          {
+            "name": "total_claimed_reward",
+            "docs": ["total claimed reward"],
+            "type": "u64"
+          },
+          {
+            "name": "proposal_type",
+            "type": "u8"
+          },
+          {
+            "name": "buffers",
+            "docs": ["buffers for future use"],
+            "type": {
+              "array": ["u128", 10]
+            }
+          },
+          {
+            "name": "instructions",
+            "docs": ["The instructions associated with the proposal."],
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "ProposalInstruction"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProposalMeta",
+      "docs": ["Metadata about a proposal."],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "proposal",
+            "docs": ["The [Proposal]."],
+            "type": "pubkey"
+          },
+          {
+            "name": "title",
+            "docs": ["Title of the proposal."],
+            "type": "string"
+          },
+          {
+            "name": "description_link",
+            "docs": ["Link to a description of the proposal."],
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OptionProposalMeta",
+      "docs": ["Metadata about an option proposal."],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "proposal",
+            "docs": ["The [Proposal]."],
+            "type": "pubkey"
+          },
+          {
+            "name": "option_descriptions",
+            "docs": ["description for options"],
+            "type": {
+              "vec": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Vote",
+      "docs": ["A [Vote] is a vote made by a `voter`"],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "proposal",
+            "docs": ["The proposal being voted on."],
+            "type": "pubkey"
+          },
+          {
+            "name": "voter",
+            "docs": ["The voter."],
+            "type": "pubkey"
+          },
+          {
+            "name": "bump",
+            "docs": ["Bump seed"],
+            "type": "u8"
+          },
+          {
+            "name": "side",
+            "docs": ["The side of the vote taken."],
+            "type": "u8"
+          },
+          {
+            "name": "voting_power",
+            "docs": ["The number of votes this vote holds."],
+            "type": "u64"
+          },
+          {
+            "name": "claimed",
+            "docs": ["Flag to check whether voter has claim the reward or not"],
+            "type": "bool"
+          },
+          {
+            "name": "buffers",
+            "docs": ["buffers for future use"],
+            "type": {
+              "array": ["u8", 32]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProposalActivateEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "governor",
+            "type": "pubkey"
+          },
+          {
+            "name": "proposal",
+            "type": "pubkey"
+          },
+          {
+            "name": "voting_ends_at",
+            "type": "i64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProposalCancelEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "governor",
+            "type": "pubkey"
+          },
+          {
+            "name": "proposal",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ClaimRewardEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "governor",
+            "type": "pubkey"
+          },
+          {
+            "name": "voter",
+            "type": "pubkey"
+          },
+          {
+            "name": "proposal",
+            "type": "pubkey"
+          },
+          {
+            "name": "voting_reward",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "GovernorCreateEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "governor",
+            "type": "pubkey"
+          },
+          {
+            "name": "locker",
+            "type": "pubkey"
+          },
+          {
+            "name": "smart_wallet",
+            "type": "pubkey"
+          },
+          {
+            "name": "parameters",
+            "type": {
+              "defined": {
+                "name": "GovernanceParameters"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "OptionProposalMetaCreateEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "governor",
+            "type": "pubkey"
+          },
+          {
+            "name": "proposal",
+            "type": "pubkey"
+          },
+          {
+            "name": "option_descriptions",
+            "type": {
+              "vec": "string"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProposalMetaCreateEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "governor",
+            "type": "pubkey"
+          },
+          {
+            "name": "proposal",
+            "type": "pubkey"
+          },
+          {
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "name": "description_link",
+            "type": "string"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProposalCreateEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "governor",
+            "type": "pubkey"
+          },
+          {
+            "name": "proposal",
+            "type": "pubkey"
+          },
+          {
+            "name": "proposer",
+            "type": "pubkey"
+          },
+          {
+            "name": "proposal_type",
+            "type": "u8"
+          },
+          {
+            "name": "max_option",
+            "type": "u8"
+          },
+          {
+            "name": "index",
+            "type": "u64"
+          },
+          {
+            "name": "instructions",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "ProposalInstruction"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "ProposalQueueEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "governor",
+            "type": "pubkey"
+          },
+          {
+            "name": "proposal",
+            "type": "pubkey"
+          },
+          {
+            "name": "transaction",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "GovernorSetParamsEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "governor",
+            "type": "pubkey"
+          },
+          {
+            "name": "prev_params",
+            "type": {
+              "defined": {
+                "name": "GovernanceParameters"
+              }
+            }
+          },
+          {
+            "name": "params",
+            "type": {
+              "defined": {
+                "name": "GovernanceParameters"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "GovernorSetVoterEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "governor",
+            "type": "pubkey"
+          },
+          {
+            "name": "prev_locker",
+            "type": "pubkey"
+          },
+          {
+            "name": "new_locker",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "VoteSetEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "governor",
+            "type": "pubkey"
+          },
+          {
+            "name": "proposal",
+            "type": "pubkey"
+          },
+          {
+            "name": "voter",
+            "type": "pubkey"
+          },
+          {
+            "name": "vote",
+            "type": "pubkey"
+          },
+          {
+            "name": "side",
+            "type": "u8"
+          },
+          {
+            "name": "voting_power",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "GovernorSetVotingReward",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "governor",
+            "type": "pubkey"
+          },
+          {
+            "name": "reward_mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "reward_per_proposal",
+            "type": "u64"
+          }
+        ]
+      }
+    }
+  ],
+  "constants": [
+    {
+      "name": "MAX_OPTION",
+      "type": "u8",
+      "value": "10"
+    },
+    {
+      "name": "ABSTAIN_VOTE_INDEX",
+      "type": {
+        "defined": {
+          "name": "usize"
+        }
+      },
+      "value": "0"
+    },
+    {
+      "name": "AGAINST_VOTE_INDEX",
+      "type": {
+        "defined": {
+          "name": "usize"
+        }
+      },
+      "value": "1"
+    },
+    {
+      "name": "FOR_VOTE_INDEX",
+      "type": {
+        "defined": {
+          "name": "usize"
+        }
+      },
+      "value": "2"
+    }
+  ]
+}

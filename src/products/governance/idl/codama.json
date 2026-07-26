@@ -1,0 +1,2552 @@
+{
+  "kind": "rootNode",
+  "standard": "codama",
+  "version": "1.7.0",
+  "program": {
+    "kind": "programNode",
+    "name": "govern",
+    "publicKey": "GovaE4iu227srtG2s3tZzB4RmWBzw8sTwrCLZz7kN7rY",
+    "version": "0.1.0",
+    "origin": "anchor",
+    "accounts": [
+      {
+        "kind": "accountNode",
+        "name": "governor",
+        "size": 729,
+        "docs": [
+          "A Governor is the \"DAO\": it is the account that holds control over important protocol functions,",
+          "including treasury, protocol parameters, and more."
+        ],
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "25882c504455d5b2",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "base",
+              "docs": ["Base."],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "bump",
+              "docs": ["Bump seed"],
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "proposalCount",
+              "docs": ["The total number of [Proposal]s"],
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "locker",
+              "docs": [
+                "The voting body associated with the Governor.",
+                "This account is responsible for handling vote proceedings, such as:",
+                "- activating proposals",
+                "- setting the number of votes per voter"
+              ],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "smartWallet",
+              "docs": ["This smart wallet executes proposals."],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "params",
+              "docs": ["Governance parameters."],
+              "type": { "kind": "definedTypeLinkNode", "name": "governanceParameters" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "votingReward",
+              "docs": ["optional reward, can set by smartwallet"],
+              "type": { "kind": "definedTypeLinkNode", "name": "votingReward" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "buffers",
+              "docs": ["buffer for further use"],
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": { "kind": "numberTypeNode", "format": "u128", "endian": "le" },
+                "count": { "kind": "fixedCountNode", "value": 32 }
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "accountNode",
+        "name": "proposal",
+        "docs": [
+          "A Yes/No Proposal is a pending transaction that may or may not be executed by the DAO."
+        ],
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "1a5ebdbb74883521",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "governor",
+              "docs": ["The public key of the governor."],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "index",
+              "docs": ["The unique ID of the proposal, auto-incremented."],
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "bump",
+              "docs": ["Bump seed"],
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "proposer",
+              "docs": ["The public key of the proposer."],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "quorumVotes",
+              "docs": [
+                "The number of votes in support of a proposal required in order for a quorum to be reached and for a vote to succeed"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "maxOption",
+              "docs": ["maximum options of the proposal"],
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "optionVotes",
+              "docs": ["Vote for each option"],
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
+                "count": {
+                  "kind": "prefixedCountNode",
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "canceledAt",
+              "docs": ["The timestamp when the proposal was canceled."],
+              "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "createdAt",
+              "docs": ["The timestamp when the proposal was created."],
+              "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "activatedAt",
+              "docs": [
+                "The timestamp in which the proposal was activated.",
+                "This is when voting begins."
+              ],
+              "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "votingEndsAt",
+              "docs": ["The timestamp when voting ends.", "This only applies to active proposals."],
+              "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "queuedAt",
+              "docs": [
+                "The timestamp in which the proposal was queued, i.e.",
+                "approved for execution on the Smart Wallet."
+              ],
+              "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "queuedTransaction",
+              "docs": [
+                "If the transaction was queued, this is the associated Smart Wallet transaction."
+              ],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "votingReward",
+              "docs": ["optional reward"],
+              "type": { "kind": "definedTypeLinkNode", "name": "votingReward" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "totalClaimedReward",
+              "docs": ["total claimed reward"],
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "proposalType",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "buffers",
+              "docs": ["buffers for future use"],
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": { "kind": "numberTypeNode", "format": "u128", "endian": "le" },
+                "count": { "kind": "fixedCountNode", "value": 10 }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "instructions",
+              "docs": ["The instructions associated with the proposal."],
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": { "kind": "definedTypeLinkNode", "name": "proposalInstruction" },
+                "count": {
+                  "kind": "prefixedCountNode",
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "accountNode",
+        "name": "proposalMeta",
+        "docs": ["Metadata about a proposal."],
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "32642e1897aed84e",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "proposal",
+              "docs": ["The [Proposal]."],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "title",
+              "docs": ["Title of the proposal."],
+              "type": {
+                "kind": "sizePrefixTypeNode",
+                "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "descriptionLink",
+              "docs": ["Link to a description of the proposal."],
+              "type": {
+                "kind": "sizePrefixTypeNode",
+                "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "accountNode",
+        "name": "optionProposalMeta",
+        "docs": ["Metadata about an option proposal."],
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "c838e57c719a201a",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "proposal",
+              "docs": ["The [Proposal]."],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "optionDescriptions",
+              "docs": ["description for options"],
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": {
+                  "kind": "sizePrefixTypeNode",
+                  "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                },
+                "count": {
+                  "kind": "prefixedCountNode",
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "accountNode",
+        "name": "vote",
+        "size": 115,
+        "docs": ["A [Vote] is a vote made by a `voter`"],
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "605b68399123ac9b",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "proposal",
+              "docs": ["The proposal being voted on."],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "voter",
+              "docs": ["The voter."],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "bump",
+              "docs": ["Bump seed"],
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "side",
+              "docs": ["The side of the vote taken."],
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "votingPower",
+              "docs": ["The number of votes this vote holds."],
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "claimed",
+              "docs": ["Flag to check whether voter has claim the reward or not"],
+              "type": {
+                "kind": "booleanTypeNode",
+                "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "buffers",
+              "docs": ["buffers for future use"],
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 32,
+                "type": { "kind": "bytesTypeNode" }
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      }
+    ],
+    "instructions": [
+      {
+        "kind": "instructionNode",
+        "name": "createGovernor",
+        "docs": ["Creates a [Governor]."],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "base",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Base of the [Governor] key."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "governor",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Governor."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "smartWallet",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The Smart Wallet."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "payer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Payer."],
+            "defaultValue": { "kind": "payerValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["System program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "splSystem"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "671e4efc1c802803",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "locker",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "params",
+            "type": { "kind": "definedTypeLinkNode", "name": "governanceParameters" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "createProposal",
+        "docs": [
+          "Creates a [Proposal].",
+          "This may be called by anyone, since the [Proposal] does not do anything until",
+          "it is activated in [activate_proposal]."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "governor",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Governor]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "proposal",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Proposal]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "smartWallet",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["smart wallet of governor"]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "proposer",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": [
+              "Proposer of the proposal.",
+              "One of the owners. Checked in the handler via [SmartWallet::owner_index]."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "payer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Payer of the proposal."],
+            "defaultValue": { "kind": "payerValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["System program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "splSystem"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "eventAuthority",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "program",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "847444aed8a0c616",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "proposalType",
+            "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "maxOption",
+            "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "instructions",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": { "kind": "definedTypeLinkNode", "name": "proposalInstruction" },
+              "count": {
+                "kind": "prefixedCountNode",
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "activateProposal",
+        "docs": [
+          "Activates a proposal.",
+          "Only the [Governor::voter] may call this; that program",
+          "may ensure that only certain types of users can activate proposals."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "governor",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Governor]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "proposal",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Proposal] to activate."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "locker",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["The locker of the [Governor] that may activate the proposal."]
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "5abacbea46b9bf15",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "cancelProposal",
+        "docs": ["Cancels a proposal.", "This is only callable by the creator of the proposal."],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "governor",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Governor]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "proposal",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Proposal] to activate."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "proposer",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["The [Proposal::proposer]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "eventAuthority",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "program",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "6a4a809213412717",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "queueProposal",
+        "docs": ["Queues a proposal for execution by the [SmartWallet]."],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "governor",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The Governor."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "proposal",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The Proposal to queue."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "transaction",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": [
+              "The transaction key of the proposal.",
+              "This account is passed to and validated by the Smart Wallet program to be initialized."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "smartWallet",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The Smart Wallet."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "payer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Payer of the queued transaction."],
+            "defaultValue": { "kind": "payerValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "smartWalletProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The Smart Wallet program."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The System program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "splSystem"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "eventAuthority",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "program",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "a8db8bd3cd987d6e",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "newVote",
+        "docs": ["Creates a new [Vote]. Anyone can call this."],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "proposal",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Proposal being voted on."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "vote",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The vote."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "payer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Payer of the [Vote]."],
+            "defaultValue": { "kind": "payerValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["System program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "splSystem"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "a36c9dbd8c500d8f",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "voter",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "setVote",
+        "docs": [
+          "Sets a [Vote] weight and side.",
+          "This may only be called by the [Governor::voter]."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "governor",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Governor]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "proposal",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Proposal]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "vote",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Vote]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "locker",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["The [Governor::locker]."]
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "ab2153ac94d7ef61",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "side",
+            "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "weight",
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "setGovernanceParams",
+        "docs": [
+          "Sets the [GovernanceParameters].",
+          "This may only be called by the [Governor::smart_wallet]."
+        ],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "governor",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Governor]"]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "smartWallet",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["The Smart Wallet."]
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "afbb034908fb43b2",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "params",
+            "type": { "kind": "definedTypeLinkNode", "name": "governanceParameters" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "setVotingReward",
+        "docs": ["Sets Voting Reward.", "This may only be called by the [Governor::smart_wallet]."],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "governor",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Governor]"]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "rewardMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["reward mint"]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "smartWallet",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["The Smart Wallet."]
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "e3f130891e1a6846",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "rewardPerProposal",
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "claimReward",
+        "docs": ["Claim rewards, for voter"],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "governor",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Governor]"]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "rewardVault",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["reward mint"]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "proposal",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["proposal"]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "vote",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Vote]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "voter",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": [
+              "Owner of the vault",
+              "TODO: check whether vote delegrate can claim on behalf of owner?"
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "voterTokenAccount",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Voter token account"]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Token program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "identifier": "splToken"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "eventAuthority",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "program",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "955fb5f25e5a9ea2",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "setLocker",
+        "docs": ["Sets the locker of the [Governor]."],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "governor",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Governor]"]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "smartWallet",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["The Smart Wallet."]
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "11066548fa179860",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "newLocker",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "createProposalMeta",
+        "docs": ["Creates a [ProposalMeta]."],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "proposal",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Proposal]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "proposer",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Proposer of the proposal."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "proposalMeta",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [ProposalMeta]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "payer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Payer of the [ProposalMeta]."],
+            "defaultValue": { "kind": "payerValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["System program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "splSystem"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "eventAuthority",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "program",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "ee8ad4a02e353358",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "bump",
+            "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "title",
+            "type": {
+              "kind": "sizePrefixTypeNode",
+              "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+              "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "descriptionLink",
+            "type": {
+              "kind": "sizePrefixTypeNode",
+              "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+              "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "createOptionProposalMeta",
+        "docs": ["Creates an [OptionProposalMeta]."],
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "proposal",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Proposal]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "proposer",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Proposer of the proposal."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "optionProposalMeta",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [ProposalMeta]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "payer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Payer of the [ProposalMeta]."],
+            "defaultValue": { "kind": "payerValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["System program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "splSystem"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "eventAuthority",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "program",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "989068e4f5eaa4e0",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "bump",
+            "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "optionDescriptions",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": {
+                "kind": "sizePrefixTypeNode",
+                "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              },
+              "count": {
+                "kind": "prefixedCountNode",
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      }
+    ],
+    "definedTypes": [
+      {
+        "kind": "definedTypeNode",
+        "name": "votingReward",
+        "docs": ["Governance parameters."],
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "rewardMint",
+              "docs": ["Reward mint"],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "rewardVault",
+              "docs": ["Reward vault"],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "rewardPerProposal",
+              "docs": ["Total reward per proposal"],
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "governanceParameters",
+        "docs": ["Governance parameters."],
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "votingDelay",
+              "docs": [
+                "The delay before voting on a proposal may take place, once proposed, in seconds"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "votingPeriod",
+              "docs": ["The duration of voting on a proposal, in seconds"],
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "quorumVotes",
+              "docs": [
+                "The number of votes in support of a proposal required in order for a quorum to be reached and for a vote to succeed"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "timelockDelaySeconds",
+              "docs": ["The timelock delay of the DAO's created proposals."],
+              "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "proposalInstruction",
+        "docs": ["Instruction."],
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "programId",
+              "docs": ["Pubkey of the instruction processor that executes this instruction"],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "keys",
+              "docs": ["Metadata for what accounts should be passed to the instruction processor"],
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": { "kind": "definedTypeLinkNode", "name": "proposalAccountMeta" },
+                "count": {
+                  "kind": "prefixedCountNode",
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "data",
+              "docs": ["Opaque data passed to the instruction processor"],
+              "type": {
+                "kind": "sizePrefixTypeNode",
+                "type": { "kind": "bytesTypeNode" },
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "proposalAccountMeta",
+        "docs": ["Account metadata used to define Instructions"],
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "pubkey",
+              "docs": ["An account's public key"],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "isSigner",
+              "docs": [
+                "True if an Instruction requires a Transaction signature matching `pubkey`."
+              ],
+              "type": {
+                "kind": "booleanTypeNode",
+                "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "isWritable",
+              "docs": ["True if the `pubkey` can be loaded as a read-write account."],
+              "type": {
+                "kind": "booleanTypeNode",
+                "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "proposalState",
+        "docs": [
+          "The state of a proposal.",
+          "",
+          "The `expired` state from Compound is missing here, because the",
+          "Smart Wallet handles execution."
+        ],
+        "type": {
+          "kind": "enumTypeNode",
+          "variants": [
+            { "kind": "enumEmptyVariantTypeNode", "name": "draft" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "active" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "canceled" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "defeated" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "succeeded" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "queued" }
+          ],
+          "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "proposalType",
+        "docs": ["Proposal type"],
+        "type": {
+          "kind": "enumTypeNode",
+          "variants": [
+            { "kind": "enumEmptyVariantTypeNode", "name": "yesNo" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "option" }
+          ],
+          "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+        }
+      }
+    ],
+    "pdas": [],
+    "events": [
+      {
+        "kind": "eventNode",
+        "name": "proposalActivateEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "governor",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "proposal",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "votingEndsAt",
+                "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "f735a6fa763e3550",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "f735a6fa763e3550",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "proposalCancelEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "governor",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "proposal",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "18310bb6173b7adc",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "18310bb6173b7adc",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "claimRewardEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "governor",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "voter",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "proposal",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "votingReward",
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "cf100eaab0472835",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "cf100eaab0472835",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "governorCreateEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "governor",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "locker",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "smartWallet",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "parameters",
+                "type": { "kind": "definedTypeLinkNode", "name": "governanceParameters" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "75180f55273a3e17",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "75180f55273a3e17",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "optionProposalMetaCreateEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "governor",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "proposal",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "optionDescriptions",
+                "type": {
+                  "kind": "arrayTypeNode",
+                  "item": {
+                    "kind": "sizePrefixTypeNode",
+                    "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+                    "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  },
+                  "count": {
+                    "kind": "prefixedCountNode",
+                    "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  }
+                }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "787e417d55c84bce",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "787e417d55c84bce",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "proposalMetaCreateEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "governor",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "proposal",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "title",
+                "type": {
+                  "kind": "sizePrefixTypeNode",
+                  "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "descriptionLink",
+                "type": {
+                  "kind": "sizePrefixTypeNode",
+                  "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "323bc34b55e3bb52",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "323bc34b55e3bb52",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "proposalCreateEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "governor",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "proposal",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "proposer",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "proposalType",
+                "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "maxOption",
+                "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "index",
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "instructions",
+                "type": {
+                  "kind": "arrayTypeNode",
+                  "item": { "kind": "definedTypeLinkNode", "name": "proposalInstruction" },
+                  "count": {
+                    "kind": "prefixedCountNode",
+                    "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  }
+                }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "7912d59bdf9e5f46",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "7912d59bdf9e5f46",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "proposalQueueEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "governor",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "proposal",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "transaction",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "30db7bd18cd2f80e",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "30db7bd18cd2f80e",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "governorSetParamsEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "governor",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "prevParams",
+                "type": { "kind": "definedTypeLinkNode", "name": "governanceParameters" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "params",
+                "type": { "kind": "definedTypeLinkNode", "name": "governanceParameters" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "a981bb988211519d",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "a981bb988211519d",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "governorSetVoterEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "governor",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "prevLocker",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "newLocker",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "1f8d21de69b1e6cf",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "1f8d21de69b1e6cf",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "voteSetEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "governor",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "proposal",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "voter",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "vote",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "side",
+                "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "votingPower",
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "af771e6cb0e997fc",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "af771e6cb0e997fc",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "governorSetVotingReward",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "governor",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "rewardMint",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "rewardPerProposal",
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "4a52df13291094c8",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "4a52df13291094c8",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "errors": [
+      {
+        "kind": "errorNode",
+        "name": "invalidVoteSide",
+        "code": 6000,
+        "message": "Invalid vote side.",
+        "docs": ["InvalidVoteSide: Invalid vote side."]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidProposalType",
+        "code": 6001,
+        "message": "Invalid proposal type.",
+        "docs": ["InvalidProposalType: Invalid proposal type."]
+      },
+      {
+        "kind": "errorNode",
+        "name": "governorNotFound",
+        "code": 6002,
+        "message": "The owner of the smart wallet doesn't match with current.",
+        "docs": ["GovernorNotFound: The owner of the smart wallet doesn't match with current."]
+      },
+      {
+        "kind": "errorNode",
+        "name": "votingDelayNotMet",
+        "code": 6003,
+        "message": "The proposal cannot be activated since it has not yet passed the voting delay.",
+        "docs": [
+          "VotingDelayNotMet: The proposal cannot be activated since it has not yet passed the voting delay."
+        ]
+      },
+      {
+        "kind": "errorNode",
+        "name": "proposalNotDraft",
+        "code": 6004,
+        "message": "Only drafts can be canceled.",
+        "docs": ["ProposalNotDraft: Only drafts can be canceled."]
+      },
+      {
+        "kind": "errorNode",
+        "name": "proposalNotActive",
+        "code": 6005,
+        "message": "The proposal must be active.",
+        "docs": ["ProposalNotActive: The proposal must be active."]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidMaxOption",
+        "code": 6006,
+        "message": "Max option is invalid",
+        "docs": ["InvalidMaxOption: Max option is invalid"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "notYesNoProposal",
+        "code": 6007,
+        "message": "Proposal is not YesNo.",
+        "docs": ["NotYesNoProposal: Proposal is not YesNo."]
+      },
+      {
+        "kind": "errorNode",
+        "name": "notOptionProposal",
+        "code": 6008,
+        "message": "Proposal is not Option.",
+        "docs": ["NotOptionProposal: Proposal is not Option."]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidOptionDescriptions",
+        "code": 6009,
+        "message": "Invalid option descriptions.",
+        "docs": ["InvalidOptionDescriptions: Invalid option descriptions."]
+      }
+    ],
+    "constants": [
+      {
+        "kind": "constantNode",
+        "name": "mAXOPTION",
+        "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" },
+        "value": { "kind": "numberValueNode", "number": 10 }
+      },
+      {
+        "kind": "constantNode",
+        "name": "aBSTAINVOTEINDEX",
+        "type": { "kind": "definedTypeLinkNode", "name": "usize" },
+        "value": { "kind": "stringValueNode", "string": "0" }
+      },
+      {
+        "kind": "constantNode",
+        "name": "aGAINSTVOTEINDEX",
+        "type": { "kind": "definedTypeLinkNode", "name": "usize" },
+        "value": { "kind": "stringValueNode", "string": "1" }
+      },
+      {
+        "kind": "constantNode",
+        "name": "fORVOTEINDEX",
+        "type": { "kind": "definedTypeLinkNode", "name": "usize" },
+        "value": { "kind": "stringValueNode", "string": "2" }
+      }
+    ]
+  },
+  "additionalPrograms": []
+}

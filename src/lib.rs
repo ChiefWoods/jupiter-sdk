@@ -3,6 +3,9 @@
 #[cfg(feature = "lend-earn")]
 pub use jupiter_lend_earn_sdk as lend_earn;
 
+#[cfg(feature = "lend-liquidity")]
+pub use jupiter_lend_liquidity_sdk as lend_liquidity;
+
 #[cfg(feature = "lock")]
 pub use jupiter_lock_sdk as lock;
 

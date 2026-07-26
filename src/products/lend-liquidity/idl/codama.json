@@ -1,0 +1,4534 @@
+{
+  "kind": "rootNode",
+  "standard": "codama",
+  "version": "1.7.0",
+  "program": {
+    "kind": "programNode",
+    "name": "liquidity",
+    "publicKey": "jupeiUmn818Jg1ekPURTpr4mFo29p46vygyykFJ3wZC",
+    "version": "0.1.5",
+    "origin": "anchor",
+    "accounts": [
+      {
+        "kind": "accountNode",
+        "name": "authorizationList",
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "139d752beca7fb45",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "authUsers",
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": { "kind": "publicKeyTypeNode" },
+                "count": {
+                  "kind": "prefixedCountNode",
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "guardians",
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": { "kind": "publicKeyTypeNode" },
+                "count": {
+                  "kind": "prefixedCountNode",
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "userClasses",
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": { "kind": "definedTypeLinkNode", "name": "userClass" },
+                "count": {
+                  "kind": "prefixedCountNode",
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "accountNode",
+        "name": "liquidity",
+        "size": 74,
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "36fcf9e289ac793a",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "authority",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "revenueCollector",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "status",
+              "type": {
+                "kind": "booleanTypeNode",
+                "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "bump",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "accountNode",
+        "name": "rateModel",
+        "size": 53,
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "5e03cbdb6b8904a2",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "mint",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "version",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "rateAtZero",
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "kink1Utilization",
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "rateAtKink1",
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "rateAtMax",
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "kink2Utilization",
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "rateAtKink2",
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "accountNode",
+        "name": "tokenReserve",
+        "size": 192,
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "15123b8778141f0c",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "mint",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "vault",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "borrowRate",
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "feeOnInterest",
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "lastUtilization",
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "lastUpdateTimestamp",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "supplyExchangePrice",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "borrowExchangePrice",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "maxUtilization",
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "totalSupplyWithInterest",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "totalSupplyInterestFree",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "totalBorrowWithInterest",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "totalBorrowInterestFree",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "totalClaimAmount",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "interactingProtocol",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "interactingTimestamp",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "interactingBalance",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "accountNode",
+        "name": "userBorrowPosition",
+        "size": 120,
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "497e417bdc7ec518",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "protocol",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "mint",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "withInterest",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "amount",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "debtCeiling",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "lastUpdate",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "expandPct",
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "expandDuration",
+              "type": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "baseDebtCeiling",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "maxDebtCeiling",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "status",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "accountNode",
+        "name": "userClaim",
+        "size": 80,
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "e48ec3b5e49320d1",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "user",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "amount",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "mint",
+              "type": { "kind": "publicKeyTypeNode" }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "accountNode",
+        "name": "userSupplyPosition",
+        "size": 124,
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "cadb88763db11592",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "protocol",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "mint",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "withInterest",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "amount",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "withdrawalLimit",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "decayAmount",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "lastUpdate",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "expandPct",
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "expandDuration",
+              "type": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "decayDuration",
+              "type": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "baseWithdrawalLimit",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "status",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      }
+    ],
+    "instructions": [
+      {
+        "kind": "instructionNode",
+        "name": "changeStatus",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "liquidity",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "ec9183e4e311c0ff",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "status",
+            "type": {
+              "kind": "booleanTypeNode",
+              "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "claim",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "user",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "liquidity",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenReserve",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "recipientTokenAccount",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "vault",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "claimAccount",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "identifier": "splToken"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "3ec6d6c1d59f6cd2",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "recipient",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "closeClaimAccount",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "user",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "claimAccount",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "f192cbd83ade5b76",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "mint",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "collectRevenue",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "liquidity",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "revenueCollectorAccount",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "revenueCollectorAccount",
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "revenueCollector",
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "tokenProgram",
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "mint",
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "revenueCollector",
+                  "value": { "kind": "accountValueNode", "name": "revenueCollector" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "tokenProgram",
+                  "value": { "kind": "accountValueNode", "name": "tokenProgram" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "mint",
+                  "value": { "kind": "accountValueNode", "name": "mint" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "revenueCollector",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenReserve",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "vault",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "vault",
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "liquidity",
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "tokenProgram",
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "mint",
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "liquidity",
+                  "value": { "kind": "accountValueNode", "name": "liquidity" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "tokenProgram",
+                  "value": { "kind": "accountValueNode", "name": "tokenProgram" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "mint",
+                  "value": { "kind": "accountValueNode", "name": "mint" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "identifier": "splToken"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "associatedTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+              "identifier": "associatedTokenProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "5760d324f02bf657",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "initClaimAccount",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "signer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "claimAccount",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "claimAccount" },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "user",
+                  "value": { "kind": "argumentValueNode", "name": "user" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "mint",
+                  "value": { "kind": "argumentValueNode", "name": "mint" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "708d2faa2a639091",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "mint",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "user",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "initLiquidity",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "signer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "liquidity",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "liquidity" },
+              "seeds": []
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "authList" },
+              "seeds": []
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "5fbdd8b7bc3ef46c",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "authority",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "revenueCollector",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "initNewProtocol",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "userSupplyPosition",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "userSupplyPosition" },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "supplyMint",
+                  "value": { "kind": "argumentValueNode", "name": "supplyMint" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "protocol",
+                  "value": { "kind": "argumentValueNode", "name": "protocol" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "userBorrowPosition",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "userBorrowPosition" },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "borrowMint",
+                  "value": { "kind": "argumentValueNode", "name": "borrowMint" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "protocol",
+                  "value": { "kind": "argumentValueNode", "name": "protocol" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "c19305208a87d59e",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "supplyMint",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "borrowMint",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "protocol",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "initTokenReserve",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "liquidity",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "vault",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "vault",
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "liquidity",
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "tokenProgram",
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "mint",
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "liquidity",
+                  "value": { "kind": "accountValueNode", "name": "liquidity" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "tokenProgram",
+                  "value": { "kind": "accountValueNode", "name": "tokenProgram" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "mint",
+                  "value": { "kind": "accountValueNode", "name": "mint" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "rateModel",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "rateModel" },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "mint",
+                  "value": { "kind": "accountValueNode", "name": "mint" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenReserve",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "tokenReserve" },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "mint",
+                  "value": { "kind": "accountValueNode", "name": "mint" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "identifier": "splToken"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "associatedTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+              "identifier": "associatedTokenProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "e4eb41819f0f0654",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "operate",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "protocol",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "liquidity",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenReserve",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "vault",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "userSupplyPosition",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": true
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "userBorrowPosition",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": true
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "rateModel",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "withdrawToAccount",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": true
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "borrowToAccount",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": true
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "borrowClaimAccount",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": true
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "withdrawClaimAccount",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": true
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "identifier": "splToken"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "d96ad06374972a87",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "supplyAmount",
+            "type": { "kind": "numberTypeNode", "format": "i128", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "borrowAmount",
+            "type": { "kind": "numberTypeNode", "format": "i128", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "withdrawTo",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "borrowTo",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "transferType",
+            "type": { "kind": "definedTypeLinkNode", "name": "transferType" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "pauseToken",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenReserve",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "e29648d39f33e227",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "mint",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "pauseUser",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "userSupplyPosition",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "userBorrowPosition",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "123f2b5eef35650e",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "protocol",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "supplyMint",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "borrowMint",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "supplyStatus",
+            "type": {
+              "kind": "optionTypeNode",
+              "fixed": false,
+              "item": { "kind": "numberTypeNode", "format": "u8", "endian": "le" },
+              "prefix": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "borrowStatus",
+            "type": {
+              "kind": "optionTypeNode",
+              "fixed": false,
+              "item": { "kind": "numberTypeNode", "format": "u8", "endian": "le" },
+              "prefix": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "preOperate",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "protocol",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "liquidity",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "userSupplyPosition",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": true
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "userBorrowPosition",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": true
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "vault",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenReserve",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "identifier": "splToken"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "81cd9e9bc69b4885",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "mint",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "unpauseToken",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenReserve",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "6c753e1ec85cffca",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "mint",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "unpauseUser",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "userSupplyPosition",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "userBorrowPosition",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "477380fcb67eea3e",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "protocol",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "supplyMint",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "borrowMint",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "supplyStatus",
+            "type": {
+              "kind": "optionTypeNode",
+              "fixed": false,
+              "item": { "kind": "numberTypeNode", "format": "u8", "endian": "le" },
+              "prefix": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "borrowStatus",
+            "type": {
+              "kind": "optionTypeNode",
+              "fixed": false,
+              "item": { "kind": "numberTypeNode", "format": "u8", "endian": "le" },
+              "prefix": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateAuthority",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "liquidity",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "202e401c954bf358",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "newAuthority",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateAuths",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "liquidity",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "5d60b29c3975fdd1",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "authStatus",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": { "kind": "definedTypeLinkNode", "name": "addressBool" },
+              "count": {
+                "kind": "prefixedCountNode",
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateExchangePrice",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenReserve",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "rateModel",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "eff40af874193596",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "mint",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateGuardians",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "liquidity",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "2b3efa8a8d758461",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "guardianStatus",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": { "kind": "definedTypeLinkNode", "name": "addressBool" },
+              "count": {
+                "kind": "prefixedCountNode",
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateRateDataV1",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "rateModel",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenReserve",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "0614227a1696b416",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "rateData",
+            "type": { "kind": "definedTypeLinkNode", "name": "rateDataV1Params" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateRateDataV2",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "rateModel",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenReserve",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "74493592d82de47c",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "rateData",
+            "type": { "kind": "definedTypeLinkNode", "name": "rateDataV2Params" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateRevenueCollector",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "liquidity",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "a78e7cf0dc718d3b",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "revenueCollector",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateTokenConfig",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "rateModel",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenReserve",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "e77ab54fff4f90a7",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "tokenConfig",
+            "type": { "kind": "definedTypeLinkNode", "name": "tokenConfig" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateUserBorrowConfig",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "protocol",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "rateModel",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenReserve",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "userBorrowPosition",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "64b0c9aef70236a8",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "userBorrowConfig",
+            "type": { "kind": "definedTypeLinkNode", "name": "userBorrowConfig" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateUserClass",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "0cce44873fd43077",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "userClass",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": { "kind": "definedTypeLinkNode", "name": "addressU8" },
+              "count": {
+                "kind": "prefixedCountNode",
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateUserSupplyConfig",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "protocol",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "rateModel",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenReserve",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "userSupplyPosition",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "d9efe1da2131eab7",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "userSupplyConfig",
+            "type": { "kind": "definedTypeLinkNode", "name": "userSupplyConfig" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "updateUserWithdrawalLimit",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "authority",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "defaultValue": { "kind": "identityValueNode" }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "authList",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "userSupplyPosition",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "a209ba09d51ead4e",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "newLimit",
+            "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "protocol",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "mint",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      }
+    ],
+    "definedTypes": [
+      {
+        "kind": "definedTypeNode",
+        "name": "addressBool",
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "addr",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "value",
+              "type": {
+                "kind": "booleanTypeNode",
+                "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "addressU8",
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "addr",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "value",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "rateDataV1Params",
+        "docs": ["@notice struct to set borrow rate data for version 1"],
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "kink",
+              "docs": ["", "@param kink in borrow rate. in 1e2: 100% = 10_000; 1% = 100"],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "rateAtUtilizationZero",
+              "docs": [
+                "",
+                "@param rateAtUtilizationZero desired borrow rate when utilization is zero. in 1e2: 100% = 10_000; 1% = 100",
+                "i.e. constant minimum borrow rate",
+                "e.g. at utilization = 0.01% rate could still be at least 4% (rateAtUtilizationZero would be 400 then)"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "rateAtUtilizationKink",
+              "docs": [
+                "",
+                "@param rateAtUtilizationKink borrow rate when utilization is at kink. in 1e2: 100% = 10_000; 1% = 100",
+                "e.g. when rate should be 7% at kink then rateAtUtilizationKink would be 700"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "rateAtUtilizationMax",
+              "docs": [
+                "",
+                "@param rateAtUtilizationMax borrow rate when utilization is maximum at 100%. in 1e2: 100% = 10_000; 1% = 100",
+                "e.g. when rate should be 125% at 100% then rateAtUtilizationMax would be 12_500"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "rateDataV2Params",
+        "docs": ["@notice struct to set borrow rate data for version 2"],
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "kink1",
+              "docs": [
+                "",
+                "@param kink1 first kink in borrow rate. in 1e2: 100% = 10_000; 1% = 100",
+                "utilization below kink 1 usually means slow increase in rate, once utilization is above kink 1 borrow rate increases faster"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "kink2",
+              "docs": [
+                "",
+                "@param kink2 second kink in borrow rate. in 1e2: 100% = 10_000; 1% = 100",
+                "utilization below kink 2 usually means slow / medium increase in rate, once utilization is above kink 2 borrow rate increases fast"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "rateAtUtilizationZero",
+              "docs": [
+                "",
+                "@param rateAtUtilizationZero desired borrow rate when utilization is zero. in 1e2: 100% = 10_000; 1% = 100",
+                "i.e. constant minimum borrow rate",
+                "e.g. at utilization = 0.01% rate could still be at least 4% (rateAtUtilizationZero would be 400 then)"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "rateAtUtilizationKink1",
+              "docs": [
+                "",
+                "@param rateAtUtilizationKink1 desired borrow rate when utilization is at first kink. in 1e2: 100% = 10_000; 1% = 100",
+                "e.g. when rate should be 7% at first kink then rateAtUtilizationKink would be 700"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "rateAtUtilizationKink2",
+              "docs": [
+                "",
+                "@param rateAtUtilizationKink2 desired borrow rate when utilization is at second kink. in 1e2: 100% = 10_000; 1% = 100",
+                "e.g. when rate should be 7% at second kink then rateAtUtilizationKink would be 1_200"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "rateAtUtilizationMax",
+              "docs": [
+                "",
+                "@param rateAtUtilizationMax desired borrow rate when utilization is maximum at 100%. in 1e2: 100% = 10_000; 1% = 100",
+                "e.g. when rate should be 125% at 100% then rateAtUtilizationMax would be 12_500"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "tokenConfig",
+        "docs": ["@notice struct to set token config"],
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "token",
+              "docs": ["", "@param token address"],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "fee",
+              "docs": [
+                "",
+                "@param fee charges on borrower's interest. in 1e2: 100% = 10_000; 1% = 100"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "maxUtilization",
+              "docs": [
+                "",
+                "@param maxUtilization maximum allowed utilization. in 1e2: 100% = 10_000; 1% = 100",
+                "set to 100% to disable and have default limit of 100% (avoiding SLOAD)."
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "transferType",
+        "type": {
+          "kind": "enumTypeNode",
+          "variants": [
+            { "kind": "enumEmptyVariantTypeNode", "name": "sKIP" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "dIRECT" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "cLAIM" }
+          ],
+          "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "userBorrowConfig",
+        "docs": ["@notice struct to set user borrow & payback config"],
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "mode",
+              "docs": ["", "@param mode: 0 = without interest. 1 = with interest"],
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "expandPercent",
+              "docs": [
+                "",
+                "@param expandPercent debt limit expand percent. in 1e2: 100% = 10_000; 1% = 100",
+                "Also used to calculate rate at which debt limit should decrease (instant)."
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "expandDuration",
+              "docs": [
+                "",
+                "@param expandDuration debt limit expand duration in seconds.",
+                "used to calculate rate together with expandPercent"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "baseDebtCeiling",
+              "docs": [
+                "",
+                "@param baseDebtCeiling base borrow limit. until here, borrow limit remains as baseDebtCeiling",
+                "(user can borrow until this point at once without stepped expansion). Above this, automated limit comes in place.",
+                "amount in raw (to be multiplied with exchange price) or normal depends on configured mode in user config for the token:",
+                "with interest -> raw, without interest -> normal"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "maxDebtCeiling",
+              "docs": [
+                "",
+                "@param maxDebtCeiling max borrow ceiling, maximum amount the user can borrow.",
+                "amount in raw (to be multiplied with exchange price) or normal depends on configured mode in user config for the token:",
+                "with interest -> raw, without interest -> normal"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "userClass",
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "addr",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "class",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "userSupplyConfig",
+        "docs": ["@notice struct to set user supply & withdrawal config"],
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "mode",
+              "docs": ["", "@param mode: 0 = without interest. 1 = with interest"],
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "expandPercent",
+              "docs": [
+                "",
+                "@param expandPercent withdrawal limit expand percent. in 1e2: 100% = 10_000; 1% = 100",
+                "Also used to calculate rate at which withdrawal limit should decrease (instant)."
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "expandDuration",
+              "docs": [
+                "",
+                "@param expandDuration withdrawal limit expand duration in seconds.",
+                "used to calculate rate together with expandPercent"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "baseWithdrawalLimit",
+              "docs": [
+                "",
+                "@param baseWithdrawalLimit base limit, below this, user can withdraw the entire amount.",
+                "amount in raw (to be multiplied with exchange price) or normal depends on configured mode in user config for the token:",
+                "with interest -> raw, without interest -> normal"
+              ],
+              "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+            }
+          ]
+        }
+      }
+    ],
+    "pdas": [
+      {
+        "kind": "pdaNode",
+        "name": "claimAccount",
+        "seeds": [
+          {
+            "kind": "constantPdaSeedNode",
+            "type": { "kind": "bytesTypeNode" },
+            "value": { "kind": "bytesValueNode", "data": "7bigXQVfdmdCa8", "encoding": "base58" }
+          },
+          {
+            "kind": "variablePdaSeedNode",
+            "name": "user",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          { "kind": "variablePdaSeedNode", "name": "mint", "type": { "kind": "publicKeyTypeNode" } }
+        ]
+      },
+      {
+        "kind": "pdaNode",
+        "name": "liquidity",
+        "seeds": [
+          {
+            "kind": "constantPdaSeedNode",
+            "type": { "kind": "bytesTypeNode" },
+            "value": { "kind": "bytesValueNode", "data": "2P38AY2Hi3xhE", "encoding": "base58" }
+          }
+        ]
+      },
+      {
+        "kind": "pdaNode",
+        "name": "authList",
+        "seeds": [
+          {
+            "kind": "constantPdaSeedNode",
+            "type": { "kind": "bytesTypeNode" },
+            "value": { "kind": "bytesValueNode", "data": "2Ex7xtwrc1us1", "encoding": "base58" }
+          }
+        ]
+      },
+      {
+        "kind": "pdaNode",
+        "name": "userSupplyPosition",
+        "seeds": [
+          {
+            "kind": "constantPdaSeedNode",
+            "type": { "kind": "bytesTypeNode" },
+            "value": {
+              "kind": "bytesValueNode",
+              "data": "2duU9dwvZc7PYm3F75xWoVsNV1C1",
+              "encoding": "base58"
+            }
+          },
+          {
+            "kind": "variablePdaSeedNode",
+            "name": "supplyMint",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "variablePdaSeedNode",
+            "name": "protocol",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ]
+      },
+      {
+        "kind": "pdaNode",
+        "name": "userBorrowPosition",
+        "seeds": [
+          {
+            "kind": "constantPdaSeedNode",
+            "type": { "kind": "bytesTypeNode" },
+            "value": {
+              "kind": "bytesValueNode",
+              "data": "2duU9dwv5yxvATb5iCw6afdJy4jo",
+              "encoding": "base58"
+            }
+          },
+          {
+            "kind": "variablePdaSeedNode",
+            "name": "borrowMint",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "variablePdaSeedNode",
+            "name": "protocol",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ]
+      },
+      {
+        "kind": "pdaNode",
+        "name": "rateModel",
+        "seeds": [
+          {
+            "kind": "constantPdaSeedNode",
+            "type": { "kind": "bytesTypeNode" },
+            "value": { "kind": "bytesValueNode", "data": "7RiT3BKCfoo4wu", "encoding": "base58" }
+          },
+          { "kind": "variablePdaSeedNode", "name": "mint", "type": { "kind": "publicKeyTypeNode" } }
+        ]
+      },
+      {
+        "kind": "pdaNode",
+        "name": "tokenReserve",
+        "seeds": [
+          {
+            "kind": "constantPdaSeedNode",
+            "type": { "kind": "bytesTypeNode" },
+            "value": { "kind": "bytesValueNode", "data": "5LSJMMXobA", "encoding": "base58" }
+          },
+          { "kind": "variablePdaSeedNode", "name": "mint", "type": { "kind": "publicKeyTypeNode" } }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "kind": "eventNode",
+        "name": "logBorrowRateCap",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "token",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "9c83e85efe9c0e75",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "9c83e85efe9c0e75",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logChangeStatus",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "newStatus",
+                "type": {
+                  "kind": "booleanTypeNode",
+                  "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+                }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "594d25ac8d1f4a2a",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "594d25ac8d1f4a2a",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logClaim",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "user",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "token",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "recipient",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "amount",
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "ee329d55973ae72d",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "ee329d55973ae72d",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logCollectRevenue",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "token",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "revenueAmount",
+                "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "40c616c27b57a652",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "40c616c27b57a652",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logOperate",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "user",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "token",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "supplyAmount",
+                "type": { "kind": "numberTypeNode", "format": "i128", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "borrowAmount",
+                "type": { "kind": "numberTypeNode", "format": "i128", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "withdrawTo",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "borrowTo",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "supplyExchangePrice",
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "borrowExchangePrice",
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "b40851471384ad08",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "b40851471384ad08",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logPauseUser",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "user",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "mint",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "status",
+                "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "641172e0b41e34aa",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "641172e0b41e34aa",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logTokenLockdown",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "mint",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "suspend",
+                "type": {
+                  "kind": "booleanTypeNode",
+                  "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+                }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "0267ab0b001b1428",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "0267ab0b001b1428",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUnpauseUser",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "user",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "mint",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "status",
+                "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "aa5b8460b34da81a",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "aa5b8460b34da81a",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateAuthority",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "newAuthority",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "96989d8f0687c165",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "96989d8f0687c165",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateAuths",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "authStatus",
+                "type": {
+                  "kind": "arrayTypeNode",
+                  "item": { "kind": "definedTypeLinkNode", "name": "addressBool" },
+                  "count": {
+                    "kind": "prefixedCountNode",
+                    "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  }
+                }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "58506d306fcb4cfb",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "58506d306fcb4cfb",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateExchangePrices",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "token",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "supplyExchangePrice",
+                "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "borrowExchangePrice",
+                "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "borrowRate",
+                "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "utilization",
+                "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "bec245cc1e56b5a3",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "bec245cc1e56b5a3",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateGuardians",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "guardianStatus",
+                "type": {
+                  "kind": "arrayTypeNode",
+                  "item": { "kind": "definedTypeLinkNode", "name": "addressBool" },
+                  "count": {
+                    "kind": "prefixedCountNode",
+                    "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  }
+                }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "e71cbf33358c4f8e",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "e71cbf33358c4f8e",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateRateDataV1",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "token",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "rateData",
+                "type": { "kind": "definedTypeLinkNode", "name": "rateDataV1Params" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "1e6683c0001e55df",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "1e6683c0001e55df",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateRateDataV2",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "token",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "rateData",
+                "type": { "kind": "definedTypeLinkNode", "name": "rateDataV2Params" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "ce35c34671d35c81",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "ce35c34671d35c81",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateRevenueCollector",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "revenueCollector",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "2c8f50fad393b49f",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "2c8f50fad393b49f",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateTokenConfigs",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "tokenConfig",
+                "type": { "kind": "definedTypeLinkNode", "name": "tokenConfig" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "18cdbf822f28e9da",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "18cdbf822f28e9da",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateUserBorrowConfigs",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "user",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "token",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "userBorrowConfig",
+                "type": { "kind": "definedTypeLinkNode", "name": "userBorrowConfig" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "d2fbf29fcd219a4a",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "d2fbf29fcd219a4a",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateUserClass",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "userClass",
+                "type": {
+                  "kind": "arrayTypeNode",
+                  "item": { "kind": "definedTypeLinkNode", "name": "addressU8" },
+                  "count": {
+                    "kind": "prefixedCountNode",
+                    "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  }
+                }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "b9c16af80b350088",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "b9c16af80b350088",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateUserSupplyConfigs",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "user",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "token",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "userSupplyConfig",
+                "type": { "kind": "definedTypeLinkNode", "name": "userSupplyConfig" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "8ea0155a57581233",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "8ea0155a57581233",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "logUpdateUserWithdrawalLimit",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "user",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "token",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "newLimit",
+                "type": { "kind": "numberTypeNode", "format": "u128", "endian": "le" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "728398bd78fd5869",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "728398bd78fd5869",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "errors": [
+      {
+        "kind": "errorNode",
+        "name": "userClassNotPausable",
+        "code": 6000,
+        "message": "ADMIN_MODULE_USER_CLASS_NOT_PAUSABLE",
+        "docs": ["UserClassNotPausable: ADMIN_MODULE_USER_CLASS_NOT_PAUSABLE"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "userClassNotFound",
+        "code": 6001,
+        "message": "ADMIN_MODULE_USER_CLASS_NOT_FOUND",
+        "docs": ["UserClassNotFound: ADMIN_MODULE_USER_CLASS_NOT_FOUND"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "userAlreadyPaused",
+        "code": 6002,
+        "message": "ADMIN_MODULE_USER_ALREADY_PAUSED",
+        "docs": ["UserAlreadyPaused: ADMIN_MODULE_USER_ALREADY_PAUSED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "userAlreadyUnpaused",
+        "code": 6003,
+        "message": "ADMIN_MODULE_USER_ALREADY_UNPAUSED",
+        "docs": ["UserAlreadyUnpaused: ADMIN_MODULE_USER_ALREADY_UNPAUSED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "onlyLiquidityAuthority",
+        "code": 6004,
+        "message": "ADMIN_MODULE_ONLY_LIQUIDITY_AUTHORITY",
+        "docs": ["OnlyLiquidityAuthority: ADMIN_MODULE_ONLY_LIQUIDITY_AUTHORITY"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "onlyAuth",
+        "code": 6005,
+        "message": "ADMIN_MODULE_ONLY_AUTH",
+        "docs": ["OnlyAuth: ADMIN_MODULE_ONLY_AUTH"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "onlyGuardians",
+        "code": 6006,
+        "message": "ADMIN_MODULE_ONLY_GUARDIANS",
+        "docs": ["OnlyGuardians: ADMIN_MODULE_ONLY_GUARDIANS"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidParams",
+        "code": 6007,
+        "message": "ADMIN_MODULE_INVALID_PARAMS",
+        "docs": ["InvalidParams: ADMIN_MODULE_INVALID_PARAMS"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidConfigOrder",
+        "code": 6008,
+        "message": "ADMIN_MODULE_INVALID_CONFIG_ORDER",
+        "docs": ["InvalidConfigOrder: ADMIN_MODULE_INVALID_CONFIG_ORDER"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "statusAlreadySet",
+        "code": 6009,
+        "message": "ADMIN_MODULE_STATUS_ALREADY_SET",
+        "docs": ["StatusAlreadySet: ADMIN_MODULE_STATUS_ALREADY_SET"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "limitsCannotBeZero",
+        "code": 6010,
+        "message": "ADMIN_MODULE_LIMITS_CAN_NOT_BE_ZERO",
+        "docs": ["LimitsCannotBeZero: ADMIN_MODULE_LIMITS_CAN_NOT_BE_ZERO"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "maxAuthCountReached",
+        "code": 6011,
+        "message": "ADMIN_MODULE_MAX_AUTH_COUNT",
+        "docs": ["MaxAuthCountReached: ADMIN_MODULE_MAX_AUTH_COUNT"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "maxUserClassesReached",
+        "code": 6012,
+        "message": "ADMIN_MODULE_MAX_USER_CLASSES",
+        "docs": ["MaxUserClassesReached: ADMIN_MODULE_MAX_USER_CLASSES"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "insufficientBalance",
+        "code": 6013,
+        "message": "USER_MODULE_INSUFFICIENT_BALANCE",
+        "docs": ["InsufficientBalance: USER_MODULE_INSUFFICIENT_BALANCE"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "userSupplyPositionRequired",
+        "code": 6014,
+        "message": "USER_MODULE_USER_SUPPLY_POSITION_REQUIRED",
+        "docs": ["UserSupplyPositionRequired: USER_MODULE_USER_SUPPLY_POSITION_REQUIRED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "userBorrowPositionRequired",
+        "code": 6015,
+        "message": "USER_MODULE_USER_BORROW_POSITION_REQUIRED",
+        "docs": ["UserBorrowPositionRequired: USER_MODULE_USER_BORROW_POSITION_REQUIRED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "claimAccountRequired",
+        "code": 6016,
+        "message": "USER_MODULE_CLAIM_ACCOUNT_REQUIRED",
+        "docs": ["ClaimAccountRequired: USER_MODULE_CLAIM_ACCOUNT_REQUIRED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "withdrawToAccountRequired",
+        "code": 6017,
+        "message": "USER_MODULE_WITHDRAW_TO_ACCOUNT_REQUIRED",
+        "docs": ["WithdrawToAccountRequired: USER_MODULE_WITHDRAW_TO_ACCOUNT_REQUIRED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "borrowToAccountRequired",
+        "code": 6018,
+        "message": "USER_MODULE_BORROW_TO_ACCOUNT_REQUIRED",
+        "docs": ["BorrowToAccountRequired: USER_MODULE_BORROW_TO_ACCOUNT_REQUIRED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidClaimAmount",
+        "code": 6019,
+        "message": "USER_MODULE_INVALID_CLAIM_AMOUNT",
+        "docs": ["InvalidClaimAmount: USER_MODULE_INVALID_CLAIM_AMOUNT"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "noAmountToClaim",
+        "code": 6020,
+        "message": "USER_MODULE_NO_AMOUNT_TO_CLAIM",
+        "docs": ["NoAmountToClaim: USER_MODULE_NO_AMOUNT_TO_CLAIM"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "amountNotZero",
+        "code": 6021,
+        "message": "USER_MODULE_AMOUNT_NOT_ZERO",
+        "docs": ["AmountNotZero: USER_MODULE_AMOUNT_NOT_ZERO"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "valueOverflow",
+        "code": 6022,
+        "message": "USER_MODULE_VALUE_OVERFLOW",
+        "docs": ["ValueOverflow: USER_MODULE_VALUE_OVERFLOW"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidTransferType",
+        "code": 6023,
+        "message": "USER_MODULE_INVALID_TRANSFER_TYPE",
+        "docs": ["InvalidTransferType: USER_MODULE_INVALID_TRANSFER_TYPE"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "mintMismatch",
+        "code": 6024,
+        "message": "USER_MODULE_MINT_MISMATCH",
+        "docs": ["MintMismatch: USER_MODULE_MINT_MISMATCH"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "userNotDefined",
+        "code": 6025,
+        "message": "USER_MODULE_USER_NOT_DEFINED",
+        "docs": ["UserNotDefined: USER_MODULE_USER_NOT_DEFINED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidUserClaim",
+        "code": 6026,
+        "message": "USER_MODULE_INVALID_USER_CLAIM",
+        "docs": ["InvalidUserClaim: USER_MODULE_INVALID_USER_CLAIM"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "userPaused",
+        "code": 6027,
+        "message": "USER_MODULE_USER_PAUSED",
+        "docs": ["UserPaused: USER_MODULE_USER_PAUSED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "withdrawalLimitReached",
+        "code": 6028,
+        "message": "USER_MODULE_WITHDRAWAL_LIMIT_REACHED",
+        "docs": ["WithdrawalLimitReached: USER_MODULE_WITHDRAWAL_LIMIT_REACHED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "borrowLimitReached",
+        "code": 6029,
+        "message": "USER_MODULE_BORROW_LIMIT_REACHED",
+        "docs": ["BorrowLimitReached: USER_MODULE_BORROW_LIMIT_REACHED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "operateAmountsNearlyZero",
+        "code": 6030,
+        "message": "USER_MODULE_OPERATE_AMOUNTS_ZERO",
+        "docs": ["OperateAmountsNearlyZero: USER_MODULE_OPERATE_AMOUNTS_ZERO"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "operateAmountTooBig",
+        "code": 6031,
+        "message": "USER_MODULE_OPERATE_AMOUNTS_TOO_BIG",
+        "docs": ["OperateAmountTooBig: USER_MODULE_OPERATE_AMOUNTS_TOO_BIG"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "operateAmountsInsufficient",
+        "code": 6032,
+        "message": "USER_MODULE_OPERATE_AMOUNTS_INSUFFICIENT",
+        "docs": ["OperateAmountsInsufficient: USER_MODULE_OPERATE_AMOUNTS_INSUFFICIENT"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "transferAmountOutOfBounds",
+        "code": 6033,
+        "message": "USER_MODULE_TRANSFER_AMOUNT_OUT_OF_BOUNDS",
+        "docs": ["TransferAmountOutOfBounds: USER_MODULE_TRANSFER_AMOUNT_OUT_OF_BOUNDS"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "forbiddenOperateCall",
+        "code": 6034,
+        "message": "FORBIDDEN_OPERATE_CALL",
+        "docs": ["ForbiddenOperateCall: FORBIDDEN_OPERATE_CALL"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "maxUtilizationReached",
+        "code": 6035,
+        "message": "USER_MODULE_MAX_UTILIZATION_REACHED",
+        "docs": ["MaxUtilizationReached: USER_MODULE_MAX_UTILIZATION_REACHED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "valueOverflowTotalSupply",
+        "code": 6036,
+        "message": "USER_MODULE_VALUE_OVERFLOW_TOTAL_SUPPLY",
+        "docs": ["ValueOverflowTotalSupply: USER_MODULE_VALUE_OVERFLOW_TOTAL_SUPPLY"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "valueOverflowTotalBorrow",
+        "code": 6037,
+        "message": "USER_MODULE_VALUE_OVERFLOW_TOTAL_BORROW",
+        "docs": ["ValueOverflowTotalBorrow: USER_MODULE_VALUE_OVERFLOW_TOTAL_BORROW"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "depositExpected",
+        "code": 6038,
+        "message": "USER_MODULE_DEPOSIT_EXPECTED",
+        "docs": ["DepositExpected: USER_MODULE_DEPOSIT_EXPECTED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "exchangePriceZero",
+        "code": 6039,
+        "message": "LIQUIDITY_CALCS_EXCHANGE_PRICE_ZERO",
+        "docs": ["ExchangePriceZero: LIQUIDITY_CALCS_EXCHANGE_PRICE_ZERO"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "unsupportedRateVersion",
+        "code": 6040,
+        "message": "LIQUIDITY_CALCS_UNSUPPORTED_RATE_VERSION",
+        "docs": ["UnsupportedRateVersion: LIQUIDITY_CALCS_UNSUPPORTED_RATE_VERSION"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "borrowRateNegative",
+        "code": 6041,
+        "message": "LIQUIDITY_CALCS_BORROW_RATE_NEGATIVE",
+        "docs": ["BorrowRateNegative: LIQUIDITY_CALCS_BORROW_RATE_NEGATIVE"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "protocolLockdown",
+        "code": 6042,
+        "message": "PROTOCOL_LOCKDOWN",
+        "docs": ["ProtocolLockdown: PROTOCOL_LOCKDOWN"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "tokenLockDown",
+        "code": 6043,
+        "message": "TOKEN_LOCKED_DOWN",
+        "docs": ["TokenLockDown: TOKEN_LOCKED_DOWN"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "tokenAlreadyLocked",
+        "code": 6044,
+        "message": "TOKEN_ALREADY_LOCKED",
+        "docs": ["TokenAlreadyLocked: TOKEN_ALREADY_LOCKED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "tokenAlreadyUnlocked",
+        "code": 6045,
+        "message": "TOKEN_ALREADY_UNLOCKED",
+        "docs": ["TokenAlreadyUnlocked: TOKEN_ALREADY_UNLOCKED"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "operateSkipTransferInvalid",
+        "code": 6046,
+        "message": "USER_MODULE_OPERATE_SKIP_TRANSFER_INVALID",
+        "docs": ["OperateSkipTransferInvalid: USER_MODULE_OPERATE_SKIP_TRANSFER_INVALID"]
+      }
+    ],
+    "constants": []
+  },
+  "additionalPrograms": []
+}

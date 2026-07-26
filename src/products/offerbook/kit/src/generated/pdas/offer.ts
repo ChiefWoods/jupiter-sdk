@@ -8,15 +8,16 @@
 
 import {
   getAddressEncoder,
-  getBytesEncoder,
   getProgramDerivedAddress,
+  getU64Encoder,
+  getUtf8Encoder,
   type Address,
   type ProgramDerivedAddress,
 } from "@solana/kit";
 
 export type OfferSeeds = {
   signer: Address;
-  signerUser: Address;
+  offerIndex: number | bigint;
 };
 
 export async function findOfferPda(
@@ -29,9 +30,9 @@ export async function findOfferPda(
   return await getProgramDerivedAddress({
     programAddress,
     seeds: [
-      getBytesEncoder().encode(new Uint8Array([111, 102, 102, 101, 114])),
+      getUtf8Encoder().encode("offer"),
       getAddressEncoder().encode(seeds.signer),
-      getAddressEncoder().encode(seeds.signerUser),
+      getU64Encoder().encode(seeds.offerIndex),
     ],
   });
 }

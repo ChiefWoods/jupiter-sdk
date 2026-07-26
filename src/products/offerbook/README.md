@@ -2,13 +2,14 @@
 
 ## Custom Codama IDL generation
 
-The published Anchor IDL defines the loan PDA seeds as `["loan", offer, offer]`, which is wrong on-chain and produces invalid generated TypeScript (duplicate `offer` seed names).
+The published Anchor IDL has incorrect PDA seeds. Use [`generate-codama-idl.ts`](./generate-codama-idl.ts) instead of the shared script. It builds the Codama tree from `idl/anchor.json`, then overrides:
 
-Use [`generate-codama-idl.ts`](./generate-codama-idl.ts) instead of the shared script. It builds the Codama tree from `idl/anchor.json`, then overrides the loan PDA to the correct seeds:
+| PDA     | Correct seeds                        |
+| ------- | ------------------------------------ |
+| `loan`  | `["loan", offer, u64(fillIndex)]`    |
+| `offer` | `["offer", signer, u64(offerIndex)]` |
 
-`["loan", offer, u64(fillIndex)]`
-
-It also clears auto-derive defaults on fill instructions for the loan account, since `fillIndex` is not an instruction argument — callers should pass `loan` or use `findLoanPda`.
+It also clears auto-derive defaults on create/fill instructions for these accounts, since the index seeds are not instruction arguments — callers should pass the account or use `findLoanPda` / `findOfferPda`.
 
 ```sh
 bun src/products/offerbook/generate-codama-idl.ts

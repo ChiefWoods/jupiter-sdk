@@ -3,7 +3,7 @@ import { OFFERBOOK_PROGRAM_ID } from '..';
 
 export interface OfferPdaSeeds {
     signer: Address;
-    signerUser: Address;
+    offerIndex: bigint;
 }
 
 export async function findOfferPda(
@@ -13,7 +13,7 @@ export async function findOfferPda(
     const seedsBuffer: Uint8Array[] = [
         Buffer.from('offer', 'utf8'),
         seeds.signer.toBytes(),
-        seeds.signerUser.toBytes(),
+        Buffer.from(new Uint8Array(new BigUint64Array([BigInt(seeds.offerIndex)]).buffer)),
     ];
     return await Address.findProgramAddress(seedsBuffer, programId);
 }

@@ -2,14 +2,13 @@ import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/w
 import { NftCollateralAsset, nftCollateralAssetCodec } from '../types/nftCollateralAsset';
 import { OFFERBOOK_PROGRAM_ID } from '..';
 import { findEventAuthorityPda } from '../pdas/eventAuthority';
-import { findOfferPda } from '../pdas/offer';
 import { getStructCodec, getU32Codec, getU64Codec } from '@solana/codecs';
 
 export interface CreateNftCollateralOfferInstructionAccounts {
     signer: Address;
     signerUser: Address;
     config: Address;
-    offer?: Address;
+    offer: Address;
     principalMint: Address;
     counteredOffer?: Address;
     systemProgram: Address;
@@ -38,17 +37,6 @@ export async function createCreateNftCollateralOfferInstruction(
     args: CreateNftCollateralOfferInstructionArgs,
     programId: Address = OFFERBOOK_PROGRAM_ID,
 ): Promise<TransactionInstruction> {
-    let offer = accounts.offer;
-    if (!offer) {
-        const [derived] = await findOfferPda(
-            {
-                signer: accounts.signer,
-                signerUser: accounts.signerUser,
-            },
-            programId,
-        );
-        offer = derived;
-    }
     let eventAuthority = accounts.eventAuthority;
     if (!eventAuthority) {
         const [derived] = await findEventAuthorityPda(programId);
@@ -58,7 +46,7 @@ export async function createCreateNftCollateralOfferInstruction(
         { pubkey: accounts.signer, isSigner: true, isWritable: true },
         { pubkey: accounts.signerUser, isSigner: false, isWritable: true },
         { pubkey: accounts.config, isSigner: false, isWritable: false },
-        { pubkey: offer, isSigner: false, isWritable: true },
+        { pubkey: accounts.offer, isSigner: false, isWritable: true },
         { pubkey: accounts.principalMint, isSigner: false, isWritable: false },
         accounts.counteredOffer
             ? { pubkey: accounts.counteredOffer, isSigner: false, isWritable: false }

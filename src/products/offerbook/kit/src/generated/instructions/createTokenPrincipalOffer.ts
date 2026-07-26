@@ -40,10 +40,9 @@ import {
 } from "@solana/kit";
 import {
   getAccountMetaFactory,
-  getAddressFromResolvedInstructionAccount,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { findEventAuthorityPda, findOfferPda } from "../pdas";
+import { findEventAuthorityPda } from "../pdas";
 import { OFFERBOOK_PROGRAM_ADDRESS } from "../programs";
 
 export const CREATE_TOKEN_PRINCIPAL_OFFER_DISCRIMINATOR: ReadonlyUint8Array =
@@ -196,7 +195,7 @@ export type CreateTokenPrincipalOfferAsyncInput<
    */
   config: Address<TAccountConfig>;
   /** Newly initialized offer account that will store all offer terms. */
-  offer?: Address<TAccountOffer>;
+  offer: Address<TAccountOffer>;
   /**
    * The token mint the lender is offering to lend. Must differ from
    * the collateral mint.
@@ -293,18 +292,6 @@ export async function getCreateTokenPrincipalOfferInstructionAsync<
   const args = { ...input };
 
   // Resolve default values.
-  if (!accounts.offer.value) {
-    accounts.offer.value = await findOfferPda({
-      signer: getAddressFromResolvedInstructionAccount(
-        "signer",
-        accounts.signer.value,
-      ),
-      signerUser: getAddressFromResolvedInstructionAccount(
-        "signerUser",
-        accounts.signerUser.value,
-      ),
-    });
-  }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =
       "11111111111111111111111111111111" as Address<"11111111111111111111111111111111">;

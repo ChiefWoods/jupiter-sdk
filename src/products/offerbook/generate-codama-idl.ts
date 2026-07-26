@@ -25,9 +25,25 @@ const loanPda = pdaNode({
   ],
 });
 
+/** Correct on-chain offer PDA: ["offer", signer, u64(offerIndex)]. The published Anchor IDL wrongly uses signerUser. */
+const offerPda = pdaNode({
+  name: "offer",
+  seeds: [
+    constantPdaSeedNodeFromString("utf8", "offer"),
+    variablePdaSeedNode("signer", publicKeyTypeNode()),
+    variablePdaSeedNode("offerIndex", numberTypeNode("u64")),
+  ],
+});
+
 const clearLoanPdaDefault = {
   accounts: {
     loan: { defaultValue: null },
+  },
+} as const;
+
+const clearOfferPdaDefault = {
+  accounts: {
+    offer: { defaultValue: null },
   },
 } as const;
 
@@ -45,17 +61,24 @@ codama.update(
       select: "[pdaNode]loan",
       transform: () => loanPda,
     },
+    {
+      select: "[pdaNode]offer",
+      transform: () => offerPda,
+    },
   ]),
 );
 
-// fillIndex is not an instruction argument, so loan cannot be auto-derived from accounts/args.
-// Clear the stale IDL defaults (duplicate offer seeds) and let callers pass loan or use findLoanPda.
+// fillIndex / offerIndex are not instruction arguments, so these PDAs cannot be auto-derived.
 codama.update(
   updateInstructionsVisitor({
     fillNonFungibleCollateralOffer: clearLoanPdaDefault,
     fillNonFungiblePrincipalOffer: clearLoanPdaDefault,
     fillTokenCollateralOffer: clearLoanPdaDefault,
     fillTokenPrincipalOffer: clearLoanPdaDefault,
+    createNftCollateralOffer: clearOfferPdaDefault,
+    createNftPrincipalOffer: clearOfferPdaDefault,
+    createTokenCollateralOffer: clearOfferPdaDefault,
+    createTokenPrincipalOffer: clearOfferPdaDefault,
   }),
 );
 

@@ -1125,23 +1125,7 @@
             "isWritable": true,
             "isSigner": false,
             "isOptional": false,
-            "docs": ["Newly initialized offer account that will store all offer terms."],
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "offer" },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "signer",
-                  "value": { "kind": "accountValueNode", "name": "signer" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "signerUser",
-                  "value": { "kind": "accountValueNode", "name": "signerUser" }
-                }
-              ]
-            }
+            "docs": ["Newly initialized offer account that will store all offer terms."]
           },
           {
             "kind": "instructionAccountNode",
@@ -1282,23 +1266,7 @@
             "isWritable": true,
             "isSigner": false,
             "isOptional": false,
-            "docs": ["Newly initialized offer account that will store all offer terms."],
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "offer" },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "signer",
-                  "value": { "kind": "accountValueNode", "name": "signer" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "signerUser",
-                  "value": { "kind": "accountValueNode", "name": "signerUser" }
-                }
-              ]
-            }
+            "docs": ["Newly initialized offer account that will store all offer terms."]
           },
           {
             "kind": "instructionAccountNode",
@@ -1439,23 +1407,7 @@
             "isWritable": true,
             "isSigner": false,
             "isOptional": false,
-            "docs": ["Newly initialized offer account that will store all offer terms."],
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "offer" },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "signer",
-                  "value": { "kind": "accountValueNode", "name": "signer" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "signerUser",
-                  "value": { "kind": "accountValueNode", "name": "signerUser" }
-                }
-              ]
-            }
+            "docs": ["Newly initialized offer account that will store all offer terms."]
           },
           {
             "kind": "instructionAccountNode",
@@ -1621,23 +1573,7 @@
             "isWritable": true,
             "isSigner": false,
             "isOptional": false,
-            "docs": ["Newly initialized offer account that will store all offer terms."],
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "offer" },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "signer",
-                  "value": { "kind": "accountValueNode", "name": "signer" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "signerUser",
-                  "value": { "kind": "accountValueNode", "name": "signerUser" }
-                }
-              ]
-            }
+            "docs": ["Newly initialized offer account that will store all offer terms."]
           },
           {
             "kind": "instructionAccountNode",
@@ -6112,8 +6048,8 @@
         "seeds": [
           {
             "kind": "constantPdaSeedNode",
-            "type": { "kind": "bytesTypeNode" },
-            "value": { "kind": "bytesValueNode", "data": "DZxpGRX", "encoding": "base58" }
+            "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+            "value": { "kind": "stringValueNode", "string": "offer" }
           },
           {
             "kind": "variablePdaSeedNode",
@@ -6122,8 +6058,8 @@
           },
           {
             "kind": "variablePdaSeedNode",
-            "name": "signerUser",
-            "type": { "kind": "publicKeyTypeNode" }
+            "name": "offerIndex",
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
           }
         ]
       },

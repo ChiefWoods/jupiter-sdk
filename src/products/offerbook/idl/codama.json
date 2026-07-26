@@ -947,49 +947,7 @@
             "name": "lenderCollateralEscrow",
             "isWritable": true,
             "isSigner": false,
-            "isOptional": false,
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": {
-                "kind": "pdaNode",
-                "name": "lenderCollateralEscrow",
-                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
-                "seeds": [
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "signerUser",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "collateralTokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "collateralMint",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  }
-                ]
-              },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "signerUser",
-                  "value": { "kind": "accountValueNode", "name": "signerUser" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "collateralTokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "collateralTokenProgram" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "collateralMint",
-                  "value": { "kind": "accountValueNode", "name": "collateralMint" }
-                }
-              ]
-            }
+            "isOptional": false
           },
           {
             "kind": "instructionAccountNode",
@@ -2992,49 +2950,7 @@
             "name": "lenderPrincipalEscrow",
             "isWritable": true,
             "isSigner": false,
-            "isOptional": false,
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": {
-                "kind": "pdaNode",
-                "name": "lenderPrincipalEscrow",
-                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
-                "seeds": [
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "signerUser",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "principalTokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "principalMint",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  }
-                ]
-              },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "signerUser",
-                  "value": { "kind": "accountValueNode", "name": "signerUser" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "principalTokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "principalTokenProgram" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "principalMint",
-                  "value": { "kind": "accountValueNode", "name": "principalMint" }
-                }
-              ]
-            }
+            "isOptional": false
           },
           {
             "kind": "instructionAccountNode",
@@ -3214,49 +3130,7 @@
             "name": "lenderPrincipalEscrow",
             "isWritable": true,
             "isSigner": false,
-            "isOptional": false,
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": {
-                "kind": "pdaNode",
-                "name": "lenderPrincipalEscrow",
-                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
-                "seeds": [
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "lenderUser",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "principalTokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "principalMint",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  }
-                ]
-              },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "lenderUser",
-                  "value": { "kind": "accountValueNode", "name": "lenderUser" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "principalTokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "principalTokenProgram" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "principalMint",
-                  "value": { "kind": "accountValueNode", "name": "principalMint" }
-                }
-              ]
-            }
+            "isOptional": false
           },
           {
             "kind": "instructionAccountNode",
@@ -3436,98 +3310,14 @@
             "name": "lenderPrincipalEscrow",
             "isWritable": true,
             "isSigner": false,
-            "isOptional": false,
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": {
-                "kind": "pdaNode",
-                "name": "lenderPrincipalEscrow",
-                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
-                "seeds": [
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "signerUser",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "principalTokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "principalMint",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  }
-                ]
-              },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "signerUser",
-                  "value": { "kind": "accountValueNode", "name": "signerUser" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "principalTokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "principalTokenProgram" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "principalMint",
-                  "value": { "kind": "accountValueNode", "name": "principalMint" }
-                }
-              ]
-            }
+            "isOptional": false
           },
           {
             "kind": "instructionAccountNode",
             "name": "borrowerCollateralEscrow",
             "isWritable": true,
             "isSigner": false,
-            "isOptional": false,
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": {
-                "kind": "pdaNode",
-                "name": "borrowerCollateralEscrow",
-                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
-                "seeds": [
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "borrowerUser",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "collateralTokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "collateralMint",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  }
-                ]
-              },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "borrowerUser",
-                  "value": { "kind": "accountValueNode", "name": "borrowerUser" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "collateralTokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "collateralTokenProgram" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "collateralMint",
-                  "value": { "kind": "accountValueNode", "name": "collateralMint" }
-                }
-              ]
-            }
+            "isOptional": false
           },
           {
             "kind": "instructionAccountNode",
@@ -3722,98 +3512,14 @@
             "name": "lenderPrincipalEscrow",
             "isWritable": true,
             "isSigner": false,
-            "isOptional": false,
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": {
-                "kind": "pdaNode",
-                "name": "lenderPrincipalEscrow",
-                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
-                "seeds": [
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "lenderUser",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "principalTokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "principalMint",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  }
-                ]
-              },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "lenderUser",
-                  "value": { "kind": "accountValueNode", "name": "lenderUser" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "principalTokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "principalTokenProgram" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "principalMint",
-                  "value": { "kind": "accountValueNode", "name": "principalMint" }
-                }
-              ]
-            }
+            "isOptional": false
           },
           {
             "kind": "instructionAccountNode",
             "name": "borrowerCollateralEscrow",
             "isWritable": true,
             "isSigner": false,
-            "isOptional": false,
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": {
-                "kind": "pdaNode",
-                "name": "borrowerCollateralEscrow",
-                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
-                "seeds": [
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "signerUser",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "collateralTokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "collateralMint",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  }
-                ]
-              },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "signerUser",
-                  "value": { "kind": "accountValueNode", "name": "signerUser" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "collateralTokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "collateralTokenProgram" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "collateralMint",
-                  "value": { "kind": "accountValueNode", "name": "collateralMint" }
-                }
-              ]
-            }
+            "isOptional": false
           },
           {
             "kind": "instructionAccountNode",
@@ -4094,49 +3800,7 @@
             "name": "lenderPrincipalEscrow",
             "isWritable": true,
             "isSigner": false,
-            "isOptional": false,
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": {
-                "kind": "pdaNode",
-                "name": "lenderPrincipalEscrow",
-                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
-                "seeds": [
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "lenderUser",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "principalTokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "principalMint",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  }
-                ]
-              },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "lenderUser",
-                  "value": { "kind": "accountValueNode", "name": "lenderUser" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "principalTokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "principalTokenProgram" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "principalMint",
-                  "value": { "kind": "accountValueNode", "name": "principalMint" }
-                }
-              ]
-            }
+            "isOptional": false
           },
           {
             "kind": "instructionAccountNode",
@@ -4292,98 +3956,14 @@
             "name": "lenderPrincipalEscrow",
             "isWritable": true,
             "isSigner": false,
-            "isOptional": false,
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": {
-                "kind": "pdaNode",
-                "name": "lenderPrincipalEscrow",
-                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
-                "seeds": [
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "lenderUser",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "principalTokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "principalMint",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  }
-                ]
-              },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "lenderUser",
-                  "value": { "kind": "accountValueNode", "name": "lenderUser" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "principalTokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "principalTokenProgram" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "principalMint",
-                  "value": { "kind": "accountValueNode", "name": "principalMint" }
-                }
-              ]
-            }
+            "isOptional": false
           },
           {
             "kind": "instructionAccountNode",
             "name": "borrowerCollateralEscrow",
             "isWritable": true,
             "isSigner": false,
-            "isOptional": false,
-            "defaultValue": {
-              "kind": "pdaValueNode",
-              "pda": {
-                "kind": "pdaNode",
-                "name": "borrowerCollateralEscrow",
-                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
-                "seeds": [
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "signerUser",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "collateralTokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  },
-                  {
-                    "kind": "variablePdaSeedNode",
-                    "name": "collateralMint",
-                    "type": { "kind": "publicKeyTypeNode" }
-                  }
-                ]
-              },
-              "seeds": [
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "signerUser",
-                  "value": { "kind": "accountValueNode", "name": "signerUser" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "collateralTokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "collateralTokenProgram" }
-                },
-                {
-                  "kind": "pdaSeedValueNode",
-                  "name": "collateralMint",
-                  "value": { "kind": "accountValueNode", "name": "collateralMint" }
-                }
-              ]
-            }
+            "isOptional": false
           },
           {
             "kind": "instructionAccountNode",

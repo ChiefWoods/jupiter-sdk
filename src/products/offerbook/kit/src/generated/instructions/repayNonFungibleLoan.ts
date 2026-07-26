@@ -10,10 +10,8 @@ import {
   combineCodec,
   fixDecoderSize,
   fixEncoderSize,
-  getAddressEncoder,
   getBytesDecoder,
   getBytesEncoder,
-  getProgramDerivedAddress,
   getStructDecoder,
   getStructEncoder,
   SOLANA_ERROR__PROGRAM_CLIENTS__INSUFFICIENT_ACCOUNT_METAS,
@@ -183,7 +181,7 @@ export type RepayNonFungibleLoanAsyncInput<
   config: Address<TAccountConfig>;
   principalMint: Address<TAccountPrincipalMint>;
   signerPrincipalTokenAccount: Address<TAccountSignerPrincipalTokenAccount>;
-  lenderPrincipalEscrow?: Address<TAccountLenderPrincipalEscrow>;
+  lenderPrincipalEscrow: Address<TAccountLenderPrincipalEscrow>;
   protocolFeeTokenAccount: Address<TAccountProtocolFeeTokenAccount>;
   principalTokenProgram: Address<TAccountPrincipalTokenProgram>;
   systemProgram?: Address<TAccountSystemProgram>;
@@ -292,32 +290,6 @@ export async function getRepayNonFungibleLoanInstructionAsync<
         "loan",
         accounts.loan.value,
       ),
-    });
-  }
-  if (!accounts.lenderPrincipalEscrow.value) {
-    accounts.lenderPrincipalEscrow.value = await getProgramDerivedAddress({
-      programAddress:
-        "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL" as Address<"ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL">,
-      seeds: [
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "lenderUser",
-            accounts.lenderUser.value,
-          ),
-        ),
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "principalTokenProgram",
-            accounts.principalTokenProgram.value,
-          ),
-        ),
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "principalMint",
-            accounts.principalMint.value,
-          ),
-        ),
-      ],
     });
   }
   if (!accounts.systemProgram.value) {

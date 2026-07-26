@@ -10,10 +10,8 @@ import {
   combineCodec,
   fixDecoderSize,
   fixEncoderSize,
-  getAddressEncoder,
   getBytesDecoder,
   getBytesEncoder,
-  getProgramDerivedAddress,
   getStructDecoder,
   getStructEncoder,
   SOLANA_ERROR__PROGRAM_CLIENTS__INSUFFICIENT_ACCOUNT_METAS,
@@ -191,8 +189,8 @@ export type RepayTokenLoanAsyncInput<
   principalMint: Address<TAccountPrincipalMint>;
   collateralMint: Address<TAccountCollateralMint>;
   signerPrincipalTokenAccount: Address<TAccountSignerPrincipalTokenAccount>;
-  lenderPrincipalEscrow?: Address<TAccountLenderPrincipalEscrow>;
-  borrowerCollateralEscrow?: Address<TAccountBorrowerCollateralEscrow>;
+  lenderPrincipalEscrow: Address<TAccountLenderPrincipalEscrow>;
+  borrowerCollateralEscrow: Address<TAccountBorrowerCollateralEscrow>;
   protocolFeeTokenAccount: Address<TAccountProtocolFeeTokenAccount>;
   principalTokenProgram: Address<TAccountPrincipalTokenProgram>;
   collateralTokenProgram: Address<TAccountCollateralTokenProgram>;
@@ -315,58 +313,6 @@ export async function getRepayTokenLoanInstructionAsync<
         "loan",
         accounts.loan.value,
       ),
-    });
-  }
-  if (!accounts.lenderPrincipalEscrow.value) {
-    accounts.lenderPrincipalEscrow.value = await getProgramDerivedAddress({
-      programAddress:
-        "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL" as Address<"ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL">,
-      seeds: [
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "lenderUser",
-            accounts.lenderUser.value,
-          ),
-        ),
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "principalTokenProgram",
-            accounts.principalTokenProgram.value,
-          ),
-        ),
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "principalMint",
-            accounts.principalMint.value,
-          ),
-        ),
-      ],
-    });
-  }
-  if (!accounts.borrowerCollateralEscrow.value) {
-    accounts.borrowerCollateralEscrow.value = await getProgramDerivedAddress({
-      programAddress:
-        "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL" as Address<"ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL">,
-      seeds: [
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "signerUser",
-            accounts.signerUser.value,
-          ),
-        ),
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "collateralTokenProgram",
-            accounts.collateralTokenProgram.value,
-          ),
-        ),
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "collateralMint",
-            accounts.collateralMint.value,
-          ),
-        ),
-      ],
     });
   }
   if (!accounts.eventAuthority.value) {

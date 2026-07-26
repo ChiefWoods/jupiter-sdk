@@ -10,10 +10,8 @@ import {
   combineCodec,
   fixDecoderSize,
   fixEncoderSize,
-  getAddressEncoder,
   getBytesDecoder,
   getBytesEncoder,
-  getProgramDerivedAddress,
   getStructDecoder,
   getStructEncoder,
   SOLANA_ERROR__PROGRAM_CLIENTS__INSUFFICIENT_ACCOUNT_METAS,
@@ -167,7 +165,7 @@ export type ClaimTokenLoanAsyncInput<
   loanVault?: Address<TAccountLoanVault>;
   config: Address<TAccountConfig>;
   collateralMint: Address<TAccountCollateralMint>;
-  lenderCollateralEscrow?: Address<TAccountLenderCollateralEscrow>;
+  lenderCollateralEscrow: Address<TAccountLenderCollateralEscrow>;
   protocolFeeTokenAccount: Address<TAccountProtocolFeeTokenAccount>;
   collateralTokenProgram: Address<TAccountCollateralTokenProgram>;
   eventAuthority?: Address<TAccountEventAuthority>;
@@ -264,32 +262,6 @@ export async function getClaimTokenLoanInstructionAsync<
         "loan",
         accounts.loan.value,
       ),
-    });
-  }
-  if (!accounts.lenderCollateralEscrow.value) {
-    accounts.lenderCollateralEscrow.value = await getProgramDerivedAddress({
-      programAddress:
-        "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL" as Address<"ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL">,
-      seeds: [
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "signerUser",
-            accounts.signerUser.value,
-          ),
-        ),
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "collateralTokenProgram",
-            accounts.collateralTokenProgram.value,
-          ),
-        ),
-        getAddressEncoder().encode(
-          getAddressFromResolvedInstructionAccount(
-            "collateralMint",
-            accounts.collateralMint.value,
-          ),
-        ),
-      ],
     });
   }
   if (!accounts.eventAuthority.value) {

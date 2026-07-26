@@ -1,9 +1,7 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
 import { LoanType, loanTypeCodec } from '../types/loanType';
 import { OFFERBOOK_PROGRAM_ID } from '..';
-import { findBorrowerCollateralEscrowPda } from '../pdas/borrowerCollateralEscrow';
 import { findEventAuthorityPda } from '../pdas/eventAuthority';
-import { findLenderPrincipalEscrowPda } from '../pdas/lenderPrincipalEscrow';
 import { findLoanVaultPda } from '../pdas/loanVault';
 import { getStructCodec, getU32Codec, getU64Codec } from '@solana/codecs';
 
@@ -18,8 +16,8 @@ export interface FillTokenPrincipalOfferInstructionAccounts {
     config: Address;
     principalMint: Address;
     collateralMint: Address;
-    lenderPrincipalEscrow?: Address;
-    borrowerCollateralEscrow?: Address;
+    lenderPrincipalEscrow: Address;
+    borrowerCollateralEscrow: Address;
     borrowerPrincipalTokenAccount: Address;
     protocolFeeTokenAccount: Address;
     principalTokenProgram: Address;
@@ -60,30 +58,6 @@ export async function createFillTokenPrincipalOfferInstruction(
         );
         loanVault = derived;
     }
-    let lenderPrincipalEscrow = accounts.lenderPrincipalEscrow;
-    if (!lenderPrincipalEscrow) {
-        const [derived] = await findLenderPrincipalEscrowPda(
-            {
-                lenderUser: accounts.lenderUser,
-                principalTokenProgram: accounts.principalTokenProgram,
-                principalMint: accounts.principalMint,
-            },
-            programId,
-        );
-        lenderPrincipalEscrow = derived;
-    }
-    let borrowerCollateralEscrow = accounts.borrowerCollateralEscrow;
-    if (!borrowerCollateralEscrow) {
-        const [derived] = await findBorrowerCollateralEscrowPda(
-            {
-                signerUser: accounts.signerUser,
-                collateralTokenProgram: accounts.collateralTokenProgram,
-                collateralMint: accounts.collateralMint,
-            },
-            programId,
-        );
-        borrowerCollateralEscrow = derived;
-    }
     let eventAuthority = accounts.eventAuthority;
     if (!eventAuthority) {
         const [derived] = await findEventAuthorityPda(programId);
@@ -100,8 +74,8 @@ export async function createFillTokenPrincipalOfferInstruction(
         { pubkey: accounts.config, isSigner: false, isWritable: false },
         { pubkey: accounts.principalMint, isSigner: false, isWritable: false },
         { pubkey: accounts.collateralMint, isSigner: false, isWritable: false },
-        { pubkey: lenderPrincipalEscrow, isSigner: false, isWritable: true },
-        { pubkey: borrowerCollateralEscrow, isSigner: false, isWritable: true },
+        { pubkey: accounts.lenderPrincipalEscrow, isSigner: false, isWritable: true },
+        { pubkey: accounts.borrowerCollateralEscrow, isSigner: false, isWritable: true },
         { pubkey: accounts.borrowerPrincipalTokenAccount, isSigner: false, isWritable: true },
         { pubkey: accounts.protocolFeeTokenAccount, isSigner: false, isWritable: true },
         { pubkey: accounts.principalTokenProgram, isSigner: false, isWritable: false },

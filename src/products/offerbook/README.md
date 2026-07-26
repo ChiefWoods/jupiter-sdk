@@ -11,7 +11,7 @@ The published Anchor IDL has incorrect PDA seeds. Use [`generate-codama-idl.ts`]
 | `userEscrowTokenAccount`  | ATA `[signerUser, tokenProgram, mint]`                  |
 | `protocolFeeTokenAccount` | ATA `[feeAuthority, tokenProgram, mint]` (not `config`) |
 
-It also clears auto-derive defaults where seeds cannot be resolved from instruction accounts (`offerIndex` / `fillIndex`, and protocol fee ATAs whose owner is `feeAuthority`). Callers should pass those accounts or use the PDA helpers.
+It also clears auto-derive defaults where seeds cannot be resolved from instruction accounts (`offerIndex` / `fillIndex`, protocol fee ATAs whose owner is `feeAuthority`), and for lender/borrower escrow ATAs whose shared Codama helpers collide on seed property names across instructions. Callers should pass those accounts or derive them separately.
 
 ```sh
 bun src/products/offerbook/generate-codama-idl.ts

@@ -73,6 +73,28 @@ const clearProtocolFeeTokenAccountDefault = {
   },
 } as const;
 
+/**
+ * Escrow ATAs are correct on-chain, but Codama merges them into one helper whose seed
+ * property names come from the first instruction. Clear auto-derive instead of renaming seeds.
+ */
+const clearLenderPrincipalEscrowDefault = {
+  accounts: {
+    lenderPrincipalEscrow: { defaultValue: null },
+  },
+} as const;
+
+const clearBorrowerCollateralEscrowDefault = {
+  accounts: {
+    borrowerCollateralEscrow: { defaultValue: null },
+  },
+} as const;
+
+const clearLenderCollateralEscrowDefault = {
+  accounts: {
+    lenderCollateralEscrow: { defaultValue: null },
+  },
+} as const;
+
 function seedAccountName(
   seeds: readonly PdaSeedValueNode[],
   ...candidates: string[]
@@ -126,28 +148,53 @@ codama.update(
   ]),
 );
 
-const clearLoanAndProtocolFeeDefaults = {
+const clearFillDefaults = {
   accounts: {
     ...clearLoanPdaDefault.accounts,
     ...clearProtocolFeeTokenAccountDefault.accounts,
+    ...clearLenderPrincipalEscrowDefault.accounts,
+  },
+} as const;
+
+const clearFillTokenDefaults = {
+  accounts: {
+    ...clearFillDefaults.accounts,
+    ...clearBorrowerCollateralEscrowDefault.accounts,
   },
 } as const;
 
 // fillIndex / offerIndex are not instruction arguments, so these PDAs cannot be auto-derived.
 // Protocol fee token accounts are ATAs of feeAuthority (IDL wrongly uses config); clear broken defaults.
+// Escrow ATA defaults are cleared to avoid shared-helper seed-name collisions across instructions.
 codama.update(
   updateInstructionsVisitor({
-    fillNonFungibleCollateralOffer: clearLoanAndProtocolFeeDefaults,
-    fillNonFungiblePrincipalOffer: clearLoanAndProtocolFeeDefaults,
-    fillTokenCollateralOffer: clearLoanAndProtocolFeeDefaults,
-    fillTokenPrincipalOffer: clearLoanAndProtocolFeeDefaults,
+    fillNonFungibleCollateralOffer: clearFillDefaults,
+    fillNonFungiblePrincipalOffer: clearFillDefaults,
+    fillTokenCollateralOffer: clearFillTokenDefaults,
+    fillTokenPrincipalOffer: clearFillTokenDefaults,
     createNftCollateralOffer: clearOfferPdaDefault,
     createNftPrincipalOffer: clearOfferPdaDefault,
     createTokenCollateralOffer: clearOfferPdaDefault,
     createTokenPrincipalOffer: clearOfferPdaDefault,
-    claimTokenLoan: clearProtocolFeeTokenAccountDefault,
-    repayNonFungibleLoan: clearProtocolFeeTokenAccountDefault,
-    repayTokenLoan: clearProtocolFeeTokenAccountDefault,
+    claimTokenLoan: {
+      accounts: {
+        ...clearProtocolFeeTokenAccountDefault.accounts,
+        ...clearLenderCollateralEscrowDefault.accounts,
+      },
+    },
+    repayNonFungibleLoan: {
+      accounts: {
+        ...clearProtocolFeeTokenAccountDefault.accounts,
+        ...clearLenderPrincipalEscrowDefault.accounts,
+      },
+    },
+    repayTokenLoan: {
+      accounts: {
+        ...clearProtocolFeeTokenAccountDefault.accounts,
+        ...clearLenderPrincipalEscrowDefault.accounts,
+        ...clearBorrowerCollateralEscrowDefault.accounts,
+      },
+    },
   }),
 );
 

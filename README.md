@@ -8,7 +8,7 @@ Codama-generated SDKs for on-chain Jupiter programs. Each product ships three cl
 | Flavor     | Import / crate                                 | Stack                                                                                |
 | ---------- | ---------------------------------------------- | ------------------------------------------------------------------------------------ |
 | **kit**    | `jupiter-sdk/<product>/kit`                    | [`@solana/kit`](https://www.npmjs.com/package/@solana/kit)                           |
-| **web3js** | `jupiter-sdk/<product>/web3js`                 | [`@solana/web3.js`](https://www.npmjs.com/package/@solana/web3.js) v2 (`3.0.0-rc.x`) |
+| **web3js** | `jupiter-sdk/<product>/web3js`                 | [`@solana/web3.js`](https://www.npmjs.com/package/@solana/web3.js) v3 (`3.0.0-rc.x`) |
 | **rust**   | `jupiter-program-sdk` with feature `<product>` | Solana program / CPI client                                                          |
 
 ### Products

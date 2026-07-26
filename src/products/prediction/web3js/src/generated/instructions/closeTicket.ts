@@ -1,0 +1,32 @@
+import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
+import { PREDICTIONMARKET_PROGRAM_ID } from '..';
+
+export interface CloseTicketInstructionAccounts {
+    authority: Address;
+    owner: Address;
+    vault: Address;
+    ticket: Address;
+    rentDestination: Address;
+    ticketAta: Address;
+    ownerTokenAccount: Address;
+    tokenProgram: Address;
+}
+
+export function createCloseTicketInstruction(
+    accounts: CloseTicketInstructionAccounts,
+    programId: Address = PREDICTIONMARKET_PROGRAM_ID,
+): TransactionInstruction {
+    const keys: AccountMeta[] = [
+        { pubkey: accounts.authority, isSigner: true, isWritable: true },
+        { pubkey: accounts.owner, isSigner: false, isWritable: false },
+        { pubkey: accounts.vault, isSigner: false, isWritable: false },
+        { pubkey: accounts.ticket, isSigner: false, isWritable: true },
+        { pubkey: accounts.rentDestination, isSigner: false, isWritable: true },
+        { pubkey: accounts.ticketAta, isSigner: false, isWritable: true },
+        { pubkey: accounts.ownerTokenAccount, isSigner: false, isWritable: true },
+        { pubkey: accounts.tokenProgram, isSigner: false, isWritable: false },
+    ];
+    const data = Buffer.from('42d172c54b1bb675', 'hex');
+
+    return new TransactionInstruction({ keys, programId, data });
+}

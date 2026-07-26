@@ -35,6 +35,14 @@
     "./offerbook/web3js": {
       "types": "./src/products/offerbook/dist/web3js/index.d.ts",
       "default": "./src/products/offerbook/dist/web3js/index.js"
+    },
+    "./prediction/kit": {
+      "types": "./src/products/prediction/dist/kit/index.d.ts",
+      "default": "./src/products/prediction/dist/kit/index.js"
+    },
+    "./prediction/web3js": {
+      "types": "./src/products/prediction/dist/web3js/index.d.ts",
+      "default": "./src/products/prediction/dist/web3js/index.js"
     }
   },
   "scripts": {

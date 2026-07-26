@@ -6,6 +6,9 @@ pub use jupiter_lend_borrow_sdk as lend_borrow;
 #[cfg(feature = "lend-earn")]
 pub use jupiter_lend_earn_sdk as lend_earn;
 
+#[cfg(feature = "lend-flash-loan")]
+pub use jupiter_lend_flash_loan_sdk as lend_flash_loan;
+
 #[cfg(feature = "lend-lending-reward-rate-model")]
 pub use jupiter_lend_lending_reward_rate_model_sdk as lend_lending_reward_rate_model;
 

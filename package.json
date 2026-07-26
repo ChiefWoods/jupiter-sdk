@@ -44,6 +44,14 @@
       "types": "./src/products/lend-earn/dist/web3js/index.d.ts",
       "default": "./src/products/lend-earn/dist/web3js/index.js"
     },
+    "./lend-flash-loan/kit": {
+      "types": "./src/products/lend-flash-loan/dist/kit/index.d.ts",
+      "default": "./src/products/lend-flash-loan/dist/kit/index.js"
+    },
+    "./lend-flash-loan/web3js": {
+      "types": "./src/products/lend-flash-loan/dist/web3js/index.d.ts",
+      "default": "./src/products/lend-flash-loan/dist/web3js/index.js"
+    },
     "./lend-lending-reward-rate-model/kit": {
       "types": "./src/products/lend-lending-reward-rate-model/dist/kit/index.d.ts",
       "default": "./src/products/lend-lending-reward-rate-model/dist/kit/index.js"

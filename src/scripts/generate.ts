@@ -1,5 +1,5 @@
 import { resolve } from "node:path";
-import { resolveProductDir } from "./utils";
+import { assertProductIdl, resolveProductDir } from "./utils";
 
 const productName = Bun.argv[2];
 if (!productName) {
@@ -7,12 +7,9 @@ if (!productName) {
 }
 
 const productDir = resolveProductDir(productName);
-const anchorIdlPath = `${productDir}/idl/anchor.json`;
 const codamaIdlPath = `${productDir}/idl/codama.json`;
 
-if (!(await Bun.file(anchorIdlPath).exists())) {
-  throw new Error(`Failed to find product IDL: ${anchorIdlPath} does not exist`);
-}
+await assertProductIdl(productDir);
 
 const hasCodamaIdl = await Bun.file(codamaIdlPath).exists();
 const productCodamaIdlScript = `${productDir}/generate-codama-idl.ts`;

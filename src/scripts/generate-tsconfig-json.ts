@@ -1,5 +1,5 @@
 import { formatFile } from "./format-file";
-import { resolveProductDir } from "./utils";
+import { assertProductIdl, resolveProductDir } from "./utils";
 
 const productName = Bun.argv[2];
 if (!productName) {
@@ -7,10 +7,7 @@ if (!productName) {
 }
 
 const productDir = resolveProductDir(productName);
-
-if (!(await Bun.file(`${productDir}/idl/anchor.json`).exists())) {
-  throw new Error(`Failed to find product IDL: ${productDir}/idl/anchor.json does not exist`);
-}
+await assertProductIdl(productDir);
 
 const tsconfig = {
   $schema: "https://json.schemastore.org/tsconfig",

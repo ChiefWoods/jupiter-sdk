@@ -5,6 +5,7 @@
 resolver = "2"
 members = [
     ".",
+    "src/products/offerbook/rust",
 ]
 
 [workspace.package]
@@ -37,5 +38,7 @@ path = "src/lib.rs"
 
 [features]
 default = []
+offerbook = ["dep:jupiter-offerbook-sdk"]
 
 [dependencies]
+jupiter-offerbook-sdk = { workspace = true, optional = true }

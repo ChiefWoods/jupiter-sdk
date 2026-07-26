@@ -23,8 +23,20 @@
   "workspaces": [
     "src/products/*"
   ],
+  "files": [
+    "src/products/*/dist"
+  ],
   "type": "module",
-  "exports": {},
+  "exports": {
+    "./offerbook/kit": {
+      "types": "./src/products/offerbook/dist/kit/index.d.ts",
+      "default": "./src/products/offerbook/dist/kit/index.js"
+    },
+    "./offerbook/web3js": {
+      "types": "./src/products/offerbook/dist/web3js/index.d.ts",
+      "default": "./src/products/offerbook/dist/web3js/index.js"
+    }
+  },
   "scripts": {
     "build": "turbo build",
     "test": "turbo test",

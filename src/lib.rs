@@ -39,5 +39,8 @@ pub use jupiter_perps_sdk as perps;
 #[cfg(feature = "prediction")]
 pub use jupiter_prediction_sdk as prediction;
 
+#[cfg(feature = "rewards-hub")]
+pub use jupiter_rewards_hub_sdk as rewards_hub;
+
 #[cfg(feature = "stablecoin")]
 pub use jupiter_stablecoin_sdk as stablecoin;

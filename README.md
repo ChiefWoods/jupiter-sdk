@@ -26,6 +26,7 @@ Codama-generated SDKs for on-chain Jupiter programs. Each product ships three cl
 - `offerbook`
 - `perps`
 - `prediction`
+- `rewards-hub`
 - `stablecoin`
 
 ## Setup

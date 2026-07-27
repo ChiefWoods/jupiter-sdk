@@ -1,0 +1,1722 @@
+{
+  "kind": "rootNode",
+  "standard": "codama",
+  "version": "1.7.0",
+  "program": {
+    "kind": "programNode",
+    "name": "genieDistributor",
+    "publicKey": "GenieRGuCtgfDGThwjp2GLreQMFtJoG1fqFE8MF1gAzG",
+    "version": "0.0.1",
+    "origin": "anchor",
+    "accounts": [
+      {
+        "kind": "accountNode",
+        "name": "campaign",
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "3228310b9ddce5c0",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "bump",
+              "docs": ["Bump seed."],
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "campaignId",
+              "docs": ["The campaign id."],
+              "type": {
+                "kind": "sizePrefixTypeNode",
+                "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "claimsPubkey",
+              "docs": [
+                "The [Pubkey] to check against when checking the signature of the claims message."
+              ],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "mint",
+              "docs": ["[Mint] of the token to be distributed."],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "base",
+              "docs": ["base key of campaign."],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "tokenVault",
+              "docs": ["Token Address of the vault"],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "allocatedAmounts",
+              "docs": [
+                "Maximum number of tokens that can ever be claimed from this [Campaign] by mission level."
+              ],
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
+                "count": { "kind": "fixedCountNode", "value": 5 }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "unclaimedAmounts",
+              "docs": ["Total amount of tokens that have been claimed."],
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
+                "count": { "kind": "fixedCountNode", "value": 5 }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "numClaimed",
+              "docs": ["Number of nodes that have been claimed."],
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "startTs",
+              "docs": ["Lockup time start (Unix Timestamp)"],
+              "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "endTs",
+              "docs": ["Lockup time end (Unix Timestamp)"],
+              "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "clawbackReceiver",
+              "docs": ["Clawback receiver"],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "admin",
+              "docs": ["Admin wallet"],
+              "type": { "kind": "publicKeyTypeNode" }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "accountNode",
+        "name": "claimStatus",
+        "size": 120,
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": {
+                "kind": "bytesValueNode",
+                "data": "16b7f99df75f9660",
+                "encoding": "base16"
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "claimant",
+              "docs": ["Authority that claimed the tokens."],
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "claimedAmounts",
+              "docs": ["Amount of tokens claimed by the claimant, per mission."],
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
+                "count": { "kind": "fixedCountNode", "value": 5 }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "claimedLootbox",
+              "docs": ["Amount of lootboxes claimed by the claimant, per mission."],
+              "type": {
+                "kind": "arrayTypeNode",
+                "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
+                "count": { "kind": "fixedCountNode", "value": 5 }
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      }
+    ],
+    "instructions": [
+      {
+        "kind": "instructionNode",
+        "name": "claim",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "campaign",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Campaign]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "claimStatus",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Claim status PDA"],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "claimStatus" },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "claimant",
+                  "value": { "kind": "accountValueNode", "name": "claimant" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "campaign",
+                  "value": { "kind": "accountValueNode", "name": "campaign" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "from",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Distributor ATA containing the tokens to distribute."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "to",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Account to send the claimed tokens to."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "claimant",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Who is claiming the tokens."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "claimsPubkey",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Genie pubkey must sign the claim"]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["SPL [Token] program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "identifier": "tokenProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "3ec6d6c1d59f6cd2",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "amountUnlocked",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
+              "count": { "kind": "fixedCountNode", "value": 5 }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "lootboxInfo",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
+              "count": { "kind": "fixedCountNode", "value": 5 }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "clawback",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "campaign",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Campaign]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "from",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Campaign ATA containing the tokens to distribute."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "to",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The Clawback token account."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "admin",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Claimant account"]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [System] program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["SPL [Token] program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "identifier": "tokenProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "6f5c8e4f21ea521b",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "closeClaimStatus",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "campaign",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Campaign"]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "claimStatus",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "closer",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "claimant",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "a3d6bfa5f5bc11b9",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "idempotentClaim",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "campaign",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Campaign]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "claimStatus",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "from",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "to",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "claimant",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Who is claiming the tokens."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "claimsPubkey",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Genie pubkey must sign the claim"]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["SPL [Token] program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "identifier": "tokenProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [System] program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "associatedTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Associated Token] program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+              "identifier": "associatedTokenProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "program",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["This program"],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "GenieRGuCtgfDGThwjp2GLreQMFtJoG1fqFE8MF1gAzG",
+              "identifier": "program"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Mint of the campaign"]
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "e575b554d9c83d96",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "amount",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
+              "count": { "kind": "fixedCountNode", "value": 5 }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "lootboxInfo",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
+              "count": { "kind": "fixedCountNode", "value": 5 }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "initializeCampaign",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "campaign",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["[Campaign]."],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "campaign" },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "admin",
+                  "value": { "kind": "accountValueNode", "name": "admin" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "mint",
+                  "value": { "kind": "accountValueNode", "name": "mint" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "campaignId",
+                  "value": { "kind": "argumentValueNode", "name": "campaignId" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "clawbackReceiver",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Clawback receiver token account"]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "mint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The mint to distribute."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenVault",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Token vault", "Should create previously"],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "tokenVault",
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "campaign",
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "constantPdaSeedNode",
+                    "type": { "kind": "bytesTypeNode" },
+                    "value": {
+                      "kind": "bytesValueNode",
+                      "data": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+                      "encoding": "base58"
+                    }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "mint",
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "campaign",
+                  "value": { "kind": "accountValueNode", "name": "campaign" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "mint",
+                  "value": { "kind": "accountValueNode", "name": "mint" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "admin",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": [
+              "Admin wallet, responsible for creating the campaign and paying for the transaction.",
+              "Also has the authority to set the clawback receiver and change itself."
+            ]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [System] program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "associatedTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Associated Token] program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+              "identifier": "associatedTokenProgram"
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "tokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Token] program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+              "identifier": "tokenProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "a958070609a54184",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "campaignId",
+            "type": {
+              "kind": "sizePrefixTypeNode",
+              "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+              "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "claimsPubkey",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "allocatedAmounts",
+            "type": {
+              "kind": "arrayTypeNode",
+              "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
+              "count": { "kind": "fixedCountNode", "value": 5 }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "startTs",
+            "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "endTs",
+            "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "initializeClaimStatus",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "campaign",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [GenieDistributor]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "claimStatus",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["Claim status PDA"],
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "claimStatus" },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "claimant",
+                  "value": { "kind": "accountValueNode", "name": "claimant" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "campaign",
+                  "value": { "kind": "accountValueNode", "name": "campaign" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "claimant",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Who is claiming the tokens."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "systemProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [System] program."],
+            "defaultValue": {
+              "kind": "publicKeyValueNode",
+              "publicKey": "11111111111111111111111111111111",
+              "identifier": "systemProgram"
+            }
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "8506fad485914588",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "setAdmin",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "campaign",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Campaign]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "admin",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Admin signer"]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "newAdmin",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["New admin account"]
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "fba300345bc2bb5c",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "setClawbackReceiver",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "campaign",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["The [Campaign]."]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "newClawbackAccount",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "docs": ["New clawback account"]
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "admin",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false,
+            "docs": ["Admin signer"]
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "99d92214131de54b",
+              "encoding": "base16"
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      }
+    ],
+    "definedTypes": [],
+    "pdas": [
+      {
+        "kind": "pdaNode",
+        "name": "claimStatus",
+        "seeds": [
+          {
+            "kind": "constantPdaSeedNode",
+            "type": { "kind": "bytesTypeNode" },
+            "value": { "kind": "bytesValueNode", "data": "HiijTj3aVcJVpPC", "encoding": "base58" }
+          },
+          {
+            "kind": "variablePdaSeedNode",
+            "name": "claimant",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "variablePdaSeedNode",
+            "name": "campaign",
+            "type": { "kind": "publicKeyTypeNode" }
+          }
+        ]
+      },
+      {
+        "kind": "pdaNode",
+        "name": "campaign",
+        "seeds": [
+          {
+            "kind": "constantPdaSeedNode",
+            "type": { "kind": "bytesTypeNode" },
+            "value": { "kind": "bytesValueNode", "data": "CGgD3MiaR6u", "encoding": "base58" }
+          },
+          {
+            "kind": "variablePdaSeedNode",
+            "name": "admin",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "variablePdaSeedNode",
+            "name": "mint",
+            "type": { "kind": "publicKeyTypeNode" }
+          },
+          {
+            "kind": "variablePdaSeedNode",
+            "name": "campaignId",
+            "type": { "kind": "stringTypeNode", "encoding": "utf8" }
+          }
+        ]
+      }
+    ],
+    "events": [
+      {
+        "kind": "eventNode",
+        "name": "campaignAdminChangedEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "campaignId",
+                "docs": ["Campaign id."],
+                "type": {
+                  "kind": "sizePrefixTypeNode",
+                  "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "base",
+                "docs": ["Base key of the campaign."],
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "newAdmin",
+                "docs": ["New admin."],
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "31de68fd1f6544b5",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "31de68fd1f6544b5",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "campaignClawbackReceiverChangedEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "campaignId",
+                "docs": ["Campaign id."],
+                "type": {
+                  "kind": "sizePrefixTypeNode",
+                  "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "base",
+                "docs": ["Base key of the campaign."],
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "newClawbackReceiver",
+                "docs": ["New clawback receiver. f"],
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "d3f9535f52618764",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "d3f9535f52618764",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "campaignClosedEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "campaignId",
+                "docs": ["Campaign id."],
+                "type": {
+                  "kind": "sizePrefixTypeNode",
+                  "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "base",
+                "docs": ["Base key of the campaign."],
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "remainingAmount",
+                "docs": ["Amount of tokens left in the vault."],
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "receiver",
+                "docs": ["Receiver of the remaining tokens."],
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "8d100dcc9eb870c9",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "8d100dcc9eb870c9",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "campaignInitializedEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "campaignId",
+                "docs": ["Campaign id."],
+                "type": {
+                  "kind": "sizePrefixTypeNode",
+                  "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "base",
+                "docs": ["Base key of the campaign."],
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "mint",
+                "docs": ["Mint of the token to be distributed."],
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "allocatedAmounts",
+                "docs": ["Allocated amounts per mission."],
+                "type": {
+                  "kind": "arrayTypeNode",
+                  "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
+                  "count": { "kind": "fixedCountNode", "value": 5 }
+                }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "startTs",
+                "docs": ["Start timestamp."],
+                "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "endTs",
+                "docs": ["End timestamp."],
+                "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "clawbackReceiver",
+                "docs": ["Clawback receiver."],
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "3ef73db3dfb1bfd4",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "3ef73db3dfb1bfd4",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "claimEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "claimant",
+                "docs": ["User that claimed."],
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "timestamp",
+                "docs": ["Timestamp."],
+                "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "claimedAmounts",
+                "type": {
+                  "kind": "arrayTypeNode",
+                  "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
+                  "count": { "kind": "fixedCountNode", "value": 5 }
+                }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "claimedLootboxes",
+                "type": {
+                  "kind": "arrayTypeNode",
+                  "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
+                  "count": { "kind": "fixedCountNode", "value": 5 }
+                }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "accumulatedAmounts",
+                "type": {
+                  "kind": "arrayTypeNode",
+                  "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
+                  "count": { "kind": "fixedCountNode", "value": 5 }
+                }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "accumulatedLootboxes",
+                "type": {
+                  "kind": "arrayTypeNode",
+                  "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
+                  "count": { "kind": "fixedCountNode", "value": 5 }
+                }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "5d0f46aa308cd4db",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "5d0f46aa308cd4db",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "clawbackEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "campaignId",
+                "docs": ["Campaign id."],
+                "type": {
+                  "kind": "sizePrefixTypeNode",
+                  "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "base",
+                "docs": ["Base key of the campaign."],
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "clawedBackAmount",
+                "docs": ["Amount clawed back."],
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "receiver",
+                "docs": ["Receiver of the clawback."],
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "2f173c54f572b2a9",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "2f173c54f572b2a9",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "closeClaimStatusEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "campaignId",
+                "docs": ["Campaign id."],
+                "type": {
+                  "kind": "sizePrefixTypeNode",
+                  "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "base",
+                "docs": ["Base key of the campaign."],
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "claimsPubkey",
+                "docs": ["Claim status public key."],
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "18315aaa50c8f3ba",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "18315aaa50c8f3ba",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "initializeClaimStatusEvent",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "campaignId",
+                "docs": ["Campaign id."],
+                "type": {
+                  "kind": "sizePrefixTypeNode",
+                  "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "base",
+                "docs": ["Base key of the campaign."],
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "claimsPubkey",
+                "docs": ["Claim status public key."],
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "79a7f4b9a2cf6bea",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "79a7f4b9a2cf6bea",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "errors": [
+      {
+        "kind": "errorNode",
+        "name": "unauthorized",
+        "code": 6000,
+        "message": "Account is not authorized to execute this instruction",
+        "docs": ["Unauthorized: Account is not authorized to execute this instruction"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "ownerMismatch",
+        "code": 6001,
+        "message": "Token account owner did not match intended owner",
+        "docs": ["OwnerMismatch: Token account owner did not match intended owner"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "clawbackBeforeEnd",
+        "code": 6002,
+        "message": "Attempted clawback before end of campaign",
+        "docs": ["ClawbackBeforeEnd: Attempted clawback before end of campaign"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "sameClawbackReceiver",
+        "code": 6003,
+        "message": "New and old Clawback receivers are identical",
+        "docs": ["SameClawbackReceiver: New and old Clawback receivers are identical"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "sameAdmin",
+        "code": 6004,
+        "message": "New and old admin are identical",
+        "docs": ["SameAdmin: New and old admin are identical"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "claimExpired",
+        "code": 6005,
+        "message": "Claim window expired",
+        "docs": ["ClaimExpired: Claim window expired"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "arithmeticError",
+        "code": 6006,
+        "message": "Arithmetic Error (overflow/underflow)",
+        "docs": ["ArithmeticError: Arithmetic Error (overflow/underflow)"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "startTimestampAfterEnd",
+        "code": 6007,
+        "message": "Start Timestamp cannot be after end Timestamp",
+        "docs": ["StartTimestampAfterEnd: Start Timestamp cannot be after end Timestamp"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "timestampsNotInFuture",
+        "code": 6008,
+        "message": "Timestamps cannot be in the past",
+        "docs": ["TimestampsNotInFuture: Timestamps cannot be in the past"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "claimingIsNotStarted",
+        "code": 6009,
+        "message": "Claiming is not started",
+        "docs": ["ClaimingIsNotStarted: Claiming is not started"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidClaimAmount",
+        "code": 6010,
+        "message": "Invalid claim amount",
+        "docs": ["InvalidClaimAmount: Invalid claim amount"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "invalidLootboxAmount",
+        "code": 6011,
+        "message": "Invalid lootbox amount",
+        "docs": ["InvalidLootboxAmount: Invalid lootbox amount"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "campaignNotEnded",
+        "code": 6012,
+        "message": "Campaign not yet ended",
+        "docs": ["CampaignNotEnded: Campaign not yet ended"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "sigVerificationFailed",
+        "code": 6013,
+        "message": "Signature verification failed",
+        "docs": ["SigVerificationFailed: Signature verification failed"]
+      }
+    ],
+    "constants": []
+  },
+  "additionalPrograms": []
+}

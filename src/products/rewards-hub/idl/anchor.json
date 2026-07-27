@@ -1,0 +1,957 @@
+{
+  "address": "GenieRGuCtgfDGThwjp2GLreQMFtJoG1fqFE8MF1gAzG",
+  "metadata": {
+    "name": "genie_distributor",
+    "version": "0.0.1",
+    "spec": "0.1.0",
+    "description": "A Solana program for distributing tokens according to a signed message."
+  },
+  "instructions": [
+    {
+      "name": "claim",
+      "discriminator": [62, 198, 214, 193, 213, 159, 108, 210],
+      "accounts": [
+        {
+          "name": "campaign",
+          "docs": ["The [Campaign]."],
+          "writable": true
+        },
+        {
+          "name": "claim_status",
+          "docs": ["Claim status PDA"],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [67, 108, 97, 105, 109, 83, 116, 97, 116, 117, 115]
+              },
+              {
+                "kind": "account",
+                "path": "claimant"
+              },
+              {
+                "kind": "account",
+                "path": "campaign"
+              }
+            ]
+          }
+        },
+        {
+          "name": "from",
+          "docs": ["Distributor ATA containing the tokens to distribute."],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "campaign"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6, 221, 246, 225, 215, 101, 161, 147, 217, 203, 225, 70, 206, 235, 121, 172, 28,
+                  180, 133, 237, 95, 91, 55, 145, 58, 140, 245, 133, 126, 255, 0, 169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "campaign.mint",
+                "account": "Campaign"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142, 13, 131, 11, 90, 19,
+                153, 218, 255, 16, 132, 4, 142, 123, 216, 219, 233, 248, 89
+              ]
+            }
+          }
+        },
+        {
+          "name": "to",
+          "docs": ["Account to send the claimed tokens to."],
+          "writable": true
+        },
+        {
+          "name": "claimant",
+          "docs": ["Who is claiming the tokens."],
+          "writable": true,
+          "signer": true,
+          "relations": ["claim_status"]
+        },
+        {
+          "name": "claims_pubkey",
+          "docs": ["Genie pubkey must sign the claim"],
+          "signer": true,
+          "relations": ["campaign"]
+        },
+        {
+          "name": "token_program",
+          "docs": ["SPL [Token] program."],
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount_unlocked",
+          "type": {
+            "array": ["u64", 5]
+          }
+        },
+        {
+          "name": "lootbox_info",
+          "type": {
+            "array": ["u64", 5]
+          }
+        }
+      ]
+    },
+    {
+      "name": "clawback",
+      "discriminator": [111, 92, 142, 79, 33, 234, 82, 27],
+      "accounts": [
+        {
+          "name": "campaign",
+          "docs": ["The [Campaign]."]
+        },
+        {
+          "name": "from",
+          "docs": ["Campaign ATA containing the tokens to distribute."],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "campaign"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6, 221, 246, 225, 215, 101, 161, 147, 217, 203, 225, 70, 206, 235, 121, 172, 28,
+                  180, 133, 237, 95, 91, 55, 145, 58, 140, 245, 133, 126, 255, 0, 169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "campaign.mint",
+                "account": "Campaign"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142, 13, 131, 11, 90, 19,
+                153, 218, 255, 16, 132, 4, 142, 123, 216, 219, 233, 248, 89
+              ]
+            }
+          }
+        },
+        {
+          "name": "to",
+          "docs": ["The Clawback token account."],
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "docs": ["Claimant account"],
+          "writable": true,
+          "signer": true,
+          "relations": ["campaign"]
+        },
+        {
+          "name": "system_program",
+          "docs": ["The [System] program."],
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "token_program",
+          "docs": ["SPL [Token] program."],
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "close_claim_status",
+      "discriminator": [163, 214, 191, 165, 245, 188, 17, 185],
+      "accounts": [
+        {
+          "name": "campaign",
+          "docs": ["Campaign"]
+        },
+        {
+          "name": "claim_status",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [67, 108, 97, 105, 109, 83, 116, 97, 116, 117, 115]
+              },
+              {
+                "kind": "account",
+                "path": "claim_status.claimant",
+                "account": "ClaimStatus"
+              },
+              {
+                "kind": "account",
+                "path": "campaign"
+              }
+            ]
+          }
+        },
+        {
+          "name": "closer",
+          "signer": true
+        },
+        {
+          "name": "claimant",
+          "writable": true,
+          "relations": ["claim_status"]
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "idempotent_claim",
+      "discriminator": [229, 117, 181, 84, 217, 200, 61, 150],
+      "accounts": [
+        {
+          "name": "campaign",
+          "docs": ["The [Campaign]."],
+          "writable": true
+        },
+        {
+          "name": "claim_status"
+        },
+        {
+          "name": "from"
+        },
+        {
+          "name": "to"
+        },
+        {
+          "name": "claimant",
+          "docs": ["Who is claiming the tokens."],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "claims_pubkey",
+          "docs": ["Genie pubkey must sign the claim"],
+          "signer": true,
+          "relations": ["campaign"]
+        },
+        {
+          "name": "token_program",
+          "docs": ["SPL [Token] program."],
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        },
+        {
+          "name": "system_program",
+          "docs": ["The [System] program."],
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "associated_token_program",
+          "docs": ["The [Associated Token] program."],
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "program",
+          "docs": ["This program"],
+          "address": "GenieRGuCtgfDGThwjp2GLreQMFtJoG1fqFE8MF1gAzG"
+        },
+        {
+          "name": "mint",
+          "docs": ["Mint of the campaign"]
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": {
+            "array": ["u64", 5]
+          }
+        },
+        {
+          "name": "lootbox_info",
+          "type": {
+            "array": ["u64", 5]
+          }
+        }
+      ]
+    },
+    {
+      "name": "initialize_campaign",
+      "discriminator": [169, 88, 7, 6, 9, 165, 65, 132],
+      "accounts": [
+        {
+          "name": "campaign",
+          "docs": ["[Campaign]."],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [67, 97, 109, 112, 97, 105, 103, 110]
+              },
+              {
+                "kind": "account",
+                "path": "admin"
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              },
+              {
+                "kind": "arg",
+                "path": "campaign_id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "clawback_receiver",
+          "docs": ["Clawback receiver token account"]
+        },
+        {
+          "name": "mint",
+          "docs": ["The mint to distribute."]
+        },
+        {
+          "name": "token_vault",
+          "docs": ["Token vault", "Should create previously"],
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "campaign"
+              },
+              {
+                "kind": "const",
+                "value": [
+                  6, 221, 246, 225, 215, 101, 161, 147, 217, 203, 225, 70, 206, 235, 121, 172, 28,
+                  180, 133, 237, 95, 91, 55, 145, 58, 140, 245, 133, 126, 255, 0, 169
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142, 13, 131, 11, 90, 19,
+                153, 218, 255, 16, 132, 4, 142, 123, 216, 219, 233, 248, 89
+              ]
+            }
+          }
+        },
+        {
+          "name": "admin",
+          "docs": [
+            "Admin wallet, responsible for creating the campaign and paying for the transaction.",
+            "Also has the authority to set the clawback receiver and change itself."
+          ],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": ["The [System] program."],
+          "address": "11111111111111111111111111111111"
+        },
+        {
+          "name": "associated_token_program",
+          "docs": ["The [Associated Token] program."],
+          "address": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL"
+        },
+        {
+          "name": "token_program",
+          "docs": ["The [Token] program."],
+          "address": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
+        }
+      ],
+      "args": [
+        {
+          "name": "campaign_id",
+          "type": "string"
+        },
+        {
+          "name": "claims_pubkey",
+          "type": "pubkey"
+        },
+        {
+          "name": "allocated_amounts",
+          "type": {
+            "array": ["u64", 5]
+          }
+        },
+        {
+          "name": "start_ts",
+          "type": "i64"
+        },
+        {
+          "name": "end_ts",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "initialize_claim_status",
+      "discriminator": [133, 6, 250, 212, 133, 145, 69, 136],
+      "accounts": [
+        {
+          "name": "campaign",
+          "docs": ["The [GenieDistributor]."],
+          "writable": true
+        },
+        {
+          "name": "claim_status",
+          "docs": ["Claim status PDA"],
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [67, 108, 97, 105, 109, 83, 116, 97, 116, 117, 115]
+              },
+              {
+                "kind": "account",
+                "path": "claimant"
+              },
+              {
+                "kind": "account",
+                "path": "campaign"
+              }
+            ]
+          }
+        },
+        {
+          "name": "claimant",
+          "docs": ["Who is claiming the tokens."],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "system_program",
+          "docs": ["The [System] program."],
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "set_admin",
+      "discriminator": [251, 163, 0, 52, 91, 194, 187, 92],
+      "accounts": [
+        {
+          "name": "campaign",
+          "docs": ["The [Campaign]."],
+          "writable": true
+        },
+        {
+          "name": "admin",
+          "docs": ["Admin signer"],
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "new_admin",
+          "docs": ["New admin account"],
+          "writable": true
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "set_clawback_receiver",
+      "discriminator": [153, 217, 34, 20, 19, 29, 229, 75],
+      "accounts": [
+        {
+          "name": "campaign",
+          "docs": ["The [Campaign]."],
+          "writable": true
+        },
+        {
+          "name": "new_clawback_account",
+          "docs": ["New clawback account"]
+        },
+        {
+          "name": "admin",
+          "docs": ["Admin signer"],
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Campaign",
+      "discriminator": [50, 40, 49, 11, 157, 220, 229, 192]
+    },
+    {
+      "name": "ClaimStatus",
+      "discriminator": [22, 183, 249, 157, 247, 95, 150, 96]
+    }
+  ],
+  "events": [
+    {
+      "name": "CampaignAdminChangedEvent",
+      "discriminator": [49, 222, 104, 253, 31, 101, 68, 181]
+    },
+    {
+      "name": "CampaignClawbackReceiverChangedEvent",
+      "discriminator": [211, 249, 83, 95, 82, 97, 135, 100]
+    },
+    {
+      "name": "CampaignClosedEvent",
+      "discriminator": [141, 16, 13, 204, 158, 184, 112, 201]
+    },
+    {
+      "name": "CampaignInitializedEvent",
+      "discriminator": [62, 247, 61, 179, 223, 177, 191, 212]
+    },
+    {
+      "name": "ClaimEvent",
+      "discriminator": [93, 15, 70, 170, 48, 140, 212, 219]
+    },
+    {
+      "name": "ClawbackEvent",
+      "discriminator": [47, 23, 60, 84, 245, 114, 178, 169]
+    },
+    {
+      "name": "CloseClaimStatusEvent",
+      "discriminator": [24, 49, 90, 170, 80, 200, 243, 186]
+    },
+    {
+      "name": "InitializeClaimStatusEvent",
+      "discriminator": [121, 167, 244, 185, 162, 207, 107, 234]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Unauthorized",
+      "msg": "Account is not authorized to execute this instruction"
+    },
+    {
+      "code": 6001,
+      "name": "OwnerMismatch",
+      "msg": "Token account owner did not match intended owner"
+    },
+    {
+      "code": 6002,
+      "name": "ClawbackBeforeEnd",
+      "msg": "Attempted clawback before end of campaign"
+    },
+    {
+      "code": 6003,
+      "name": "SameClawbackReceiver",
+      "msg": "New and old Clawback receivers are identical"
+    },
+    {
+      "code": 6004,
+      "name": "SameAdmin",
+      "msg": "New and old admin are identical"
+    },
+    {
+      "code": 6005,
+      "name": "ClaimExpired",
+      "msg": "Claim window expired"
+    },
+    {
+      "code": 6006,
+      "name": "ArithmeticError",
+      "msg": "Arithmetic Error (overflow/underflow)"
+    },
+    {
+      "code": 6007,
+      "name": "StartTimestampAfterEnd",
+      "msg": "Start Timestamp cannot be after end Timestamp"
+    },
+    {
+      "code": 6008,
+      "name": "TimestampsNotInFuture",
+      "msg": "Timestamps cannot be in the past"
+    },
+    {
+      "code": 6009,
+      "name": "ClaimingIsNotStarted",
+      "msg": "Claiming is not started"
+    },
+    {
+      "code": 6010,
+      "name": "InvalidClaimAmount",
+      "msg": "Invalid claim amount"
+    },
+    {
+      "code": 6011,
+      "name": "InvalidLootboxAmount",
+      "msg": "Invalid lootbox amount"
+    },
+    {
+      "code": 6012,
+      "name": "CampaignNotEnded",
+      "msg": "Campaign not yet ended"
+    },
+    {
+      "code": 6013,
+      "name": "SigVerificationFailed",
+      "msg": "Signature verification failed"
+    }
+  ],
+  "types": [
+    {
+      "name": "Campaign",
+      "docs": ["State for the account which distributes tokens."],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "bump",
+            "docs": ["Bump seed."],
+            "type": "u8"
+          },
+          {
+            "name": "campaign_id",
+            "docs": ["The campaign id."],
+            "type": "string"
+          },
+          {
+            "name": "claims_pubkey",
+            "docs": [
+              "The [Pubkey] to check against when checking the signature of the claims message."
+            ],
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "docs": ["[Mint] of the token to be distributed."],
+            "type": "pubkey"
+          },
+          {
+            "name": "base",
+            "docs": ["base key of campaign."],
+            "type": "pubkey"
+          },
+          {
+            "name": "token_vault",
+            "docs": ["Token Address of the vault"],
+            "type": "pubkey"
+          },
+          {
+            "name": "allocated_amounts",
+            "docs": [
+              "Maximum number of tokens that can ever be claimed from this [Campaign] by mission level."
+            ],
+            "type": {
+              "array": ["u64", 5]
+            }
+          },
+          {
+            "name": "unclaimed_amounts",
+            "docs": ["Total amount of tokens that have been claimed."],
+            "type": {
+              "array": ["u64", 5]
+            }
+          },
+          {
+            "name": "num_claimed",
+            "docs": ["Number of nodes that have been claimed."],
+            "type": "u64"
+          },
+          {
+            "name": "start_ts",
+            "docs": ["Lockup time start (Unix Timestamp)"],
+            "type": "i64"
+          },
+          {
+            "name": "end_ts",
+            "docs": ["Lockup time end (Unix Timestamp)"],
+            "type": "i64"
+          },
+          {
+            "name": "clawback_receiver",
+            "docs": ["Clawback receiver"],
+            "type": "pubkey"
+          },
+          {
+            "name": "admin",
+            "docs": ["Admin wallet"],
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CampaignAdminChangedEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "campaign_id",
+            "docs": ["Campaign id."],
+            "type": "string"
+          },
+          {
+            "name": "base",
+            "docs": ["Base key of the campaign."],
+            "type": "pubkey"
+          },
+          {
+            "name": "new_admin",
+            "docs": ["New admin."],
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CampaignClawbackReceiverChangedEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "campaign_id",
+            "docs": ["Campaign id."],
+            "type": "string"
+          },
+          {
+            "name": "base",
+            "docs": ["Base key of the campaign."],
+            "type": "pubkey"
+          },
+          {
+            "name": "new_clawback_receiver",
+            "docs": ["New clawback receiver. f"],
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CampaignClosedEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "campaign_id",
+            "docs": ["Campaign id."],
+            "type": "string"
+          },
+          {
+            "name": "base",
+            "docs": ["Base key of the campaign."],
+            "type": "pubkey"
+          },
+          {
+            "name": "remaining_amount",
+            "docs": ["Amount of tokens left in the vault."],
+            "type": "u64"
+          },
+          {
+            "name": "receiver",
+            "docs": ["Receiver of the remaining tokens."],
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CampaignInitializedEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "campaign_id",
+            "docs": ["Campaign id."],
+            "type": "string"
+          },
+          {
+            "name": "base",
+            "docs": ["Base key of the campaign."],
+            "type": "pubkey"
+          },
+          {
+            "name": "mint",
+            "docs": ["Mint of the token to be distributed."],
+            "type": "pubkey"
+          },
+          {
+            "name": "allocated_amounts",
+            "docs": ["Allocated amounts per mission."],
+            "type": {
+              "array": ["u64", 5]
+            }
+          },
+          {
+            "name": "start_ts",
+            "docs": ["Start timestamp."],
+            "type": "i64"
+          },
+          {
+            "name": "end_ts",
+            "docs": ["End timestamp."],
+            "type": "i64"
+          },
+          {
+            "name": "clawback_receiver",
+            "docs": ["Clawback receiver."],
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "ClaimEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "claimant",
+            "docs": ["User that claimed."],
+            "type": "pubkey"
+          },
+          {
+            "name": "timestamp",
+            "docs": ["Timestamp."],
+            "type": "i64"
+          },
+          {
+            "name": "claimed_amounts",
+            "type": {
+              "array": ["u64", 5]
+            }
+          },
+          {
+            "name": "claimed_lootboxes",
+            "type": {
+              "array": ["u64", 5]
+            }
+          },
+          {
+            "name": "accumulated_amounts",
+            "type": {
+              "array": ["u64", 5]
+            }
+          },
+          {
+            "name": "accumulated_lootboxes",
+            "type": {
+              "array": ["u64", 5]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "ClaimStatus",
+      "docs": ["Holds whether or not a claimant has claimed tokens."],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "claimant",
+            "docs": ["Authority that claimed the tokens."],
+            "type": "pubkey"
+          },
+          {
+            "name": "claimed_amounts",
+            "docs": ["Amount of tokens claimed by the claimant, per mission."],
+            "type": {
+              "array": ["u64", 5]
+            }
+          },
+          {
+            "name": "claimed_lootbox",
+            "docs": ["Amount of lootboxes claimed by the claimant, per mission."],
+            "type": {
+              "array": ["u64", 5]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "ClawbackEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "campaign_id",
+            "docs": ["Campaign id."],
+            "type": "string"
+          },
+          {
+            "name": "base",
+            "docs": ["Base key of the campaign."],
+            "type": "pubkey"
+          },
+          {
+            "name": "clawed_back_amount",
+            "docs": ["Amount clawed back."],
+            "type": "u64"
+          },
+          {
+            "name": "receiver",
+            "docs": ["Receiver of the clawback."],
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "CloseClaimStatusEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "campaign_id",
+            "docs": ["Campaign id."],
+            "type": "string"
+          },
+          {
+            "name": "base",
+            "docs": ["Base key of the campaign."],
+            "type": "pubkey"
+          },
+          {
+            "name": "claims_pubkey",
+            "docs": ["Claim status public key."],
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "InitializeClaimStatusEvent",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "campaign_id",
+            "docs": ["Campaign id."],
+            "type": "string"
+          },
+          {
+            "name": "base",
+            "docs": ["Base key of the campaign."],
+            "type": "pubkey"
+          },
+          {
+            "name": "claims_pubkey",
+            "docs": ["Claim status public key."],
+            "type": "pubkey"
+          }
+        ]
+      }
+    }
+  ]
+}

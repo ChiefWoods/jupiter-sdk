@@ -132,6 +132,14 @@
       "types": "./src/products/prediction/dist/web3js/index.d.ts",
       "default": "./src/products/prediction/dist/web3js/index.js"
     },
+    "./rewards-hub/kit": {
+      "types": "./src/products/rewards-hub/dist/kit/index.d.ts",
+      "default": "./src/products/rewards-hub/dist/kit/index.js"
+    },
+    "./rewards-hub/web3js": {
+      "types": "./src/products/rewards-hub/dist/web3js/index.d.ts",
+      "default": "./src/products/rewards-hub/dist/web3js/index.js"
+    },
     "./stablecoin/kit": {
       "types": "./src/products/stablecoin/dist/kit/index.d.ts",
       "default": "./src/products/stablecoin/dist/kit/index.js"

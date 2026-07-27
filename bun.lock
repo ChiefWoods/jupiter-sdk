@@ -178,6 +178,18 @@
         "@solana/web3.js",
       ],
     },
+    "src/products/rewards-hub": {
+      "name": "jupiter-rewards-hub-sdk",
+      "version": "0.0.0",
+      "peerDependencies": {
+        "@solana/kit": "^6.10.0",
+        "@solana/web3.js": "3.0.0-rc.2",
+      },
+      "optionalPeers": [
+        "@solana/kit",
+        "@solana/web3.js",
+      ],
+    },
     "src/products/stablecoin": {
       "name": "jupiter-stablecoin-sdk",
       "version": "0.0.0",
@@ -607,6 +619,8 @@
     "jupiter-perps-sdk": ["jupiter-perps-sdk@workspace:src/products/perps"],
 
     "jupiter-prediction-sdk": ["jupiter-prediction-sdk@workspace:src/products/prediction"],
+
+    "jupiter-rewards-hub-sdk": ["jupiter-rewards-hub-sdk@workspace:src/products/rewards-hub"],
 
     "jupiter-stablecoin-sdk": ["jupiter-stablecoin-sdk@workspace:src/products/stablecoin"],
 

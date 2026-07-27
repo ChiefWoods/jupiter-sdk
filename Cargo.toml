@@ -18,6 +18,7 @@ members = [
     "src/products/offerbook/rust",
     "src/products/perps/rust",
     "src/products/prediction/rust",
+    "src/products/rewards-hub/rust",
     "src/products/stablecoin/rust",
 ]
 
@@ -44,6 +45,7 @@ jupiter-lock-sdk = { path = "src/products/lock/rust", version = "0.1.0" }
 jupiter-offerbook-sdk = { path = "src/products/offerbook/rust", version = "0.1.0" }
 jupiter-perps-sdk = { path = "src/products/perps/rust", version = "0.1.0" }
 jupiter-prediction-sdk = { path = "src/products/prediction/rust", version = "0.1.0" }
+jupiter-rewards-hub-sdk = { path = "src/products/rewards-hub/rust", version = "0.1.0" }
 jupiter-stablecoin-sdk = { path = "src/products/stablecoin/rust", version = "0.1.0" }
 
 [package]
@@ -76,6 +78,7 @@ lock = ["dep:jupiter-lock-sdk"]
 offerbook = ["dep:jupiter-offerbook-sdk"]
 perps = ["dep:jupiter-perps-sdk"]
 prediction = ["dep:jupiter-prediction-sdk"]
+rewards-hub = ["dep:jupiter-rewards-hub-sdk"]
 stablecoin = ["dep:jupiter-stablecoin-sdk"]
 
 [dependencies]
@@ -92,4 +95,5 @@ jupiter-lock-sdk = { workspace = true, optional = true }
 jupiter-offerbook-sdk = { workspace = true, optional = true }
 jupiter-perps-sdk = { workspace = true, optional = true }
 jupiter-prediction-sdk = { workspace = true, optional = true }
+jupiter-rewards-hub-sdk = { workspace = true, optional = true }
 jupiter-stablecoin-sdk = { workspace = true, optional = true }

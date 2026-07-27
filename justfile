@@ -13,6 +13,7 @@ publish:
 	cargo publish -p jupiter-lend-oracle-sdk --allow-dirty
 	cargo publish -p jupiter-lock-sdk --allow-dirty
 	cargo publish -p jupiter-offerbook-sdk --allow-dirty
+	cargo publish -p jupiter-perps-sdk --allow-dirty
 	cargo publish -p jupiter-prediction-sdk --allow-dirty
 	cargo publish -p jupiter-stablecoin-sdk --allow-dirty
 	cargo publish -p jupiter-program-sdk --allow-dirty

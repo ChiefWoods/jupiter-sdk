@@ -23,6 +23,7 @@ Codama-generated SDKs for on-chain Jupiter programs. Each product ships three cl
 - `lend-oracle`
 - `lock`
 - `offerbook`
+- `perps`
 - `prediction`
 - `stablecoin`
 

@@ -108,6 +108,14 @@
       "types": "./src/products/offerbook/dist/web3js/index.d.ts",
       "default": "./src/products/offerbook/dist/web3js/index.js"
     },
+    "./perps/kit": {
+      "types": "./src/products/perps/dist/kit/index.d.ts",
+      "default": "./src/products/perps/dist/kit/index.js"
+    },
+    "./perps/web3js": {
+      "types": "./src/products/perps/dist/web3js/index.d.ts",
+      "default": "./src/products/perps/dist/web3js/index.js"
+    },
     "./prediction/kit": {
       "types": "./src/products/prediction/dist/kit/index.d.ts",
       "default": "./src/products/prediction/dist/kit/index.js"

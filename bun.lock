@@ -22,8 +22,56 @@
         "typescript": "^5",
       },
     },
+    "src/products/governance": {
+      "name": "jupiter-governance-sdk",
+      "version": "0.0.0",
+      "peerDependencies": {
+        "@solana/kit": "^6.10.0",
+        "@solana/web3.js": "3.0.0-rc.2",
+      },
+      "optionalPeers": [
+        "@solana/kit",
+        "@solana/web3.js",
+      ],
+    },
+    "src/products/lend-borrow": {
+      "name": "jupiter-lend-borrow-sdk",
+      "version": "0.0.0",
+      "peerDependencies": {
+        "@solana/kit": "^6.10.0",
+        "@solana/web3.js": "3.0.0-rc.2",
+      },
+      "optionalPeers": [
+        "@solana/kit",
+        "@solana/web3.js",
+      ],
+    },
+    "src/products/lend-dex": {
+      "name": "jupiter-lend-dex-sdk",
+      "version": "0.0.0",
+      "peerDependencies": {
+        "@solana/kit": "^6.10.0",
+        "@solana/web3.js": "3.0.0-rc.2",
+      },
+      "optionalPeers": [
+        "@solana/kit",
+        "@solana/web3.js",
+      ],
+    },
     "src/products/lend-earn": {
       "name": "jupiter-lend-earn-sdk",
+      "version": "0.0.0",
+      "peerDependencies": {
+        "@solana/kit": "^6.10.0",
+        "@solana/web3.js": "3.0.0-rc.2",
+      },
+      "optionalPeers": [
+        "@solana/kit",
+        "@solana/web3.js",
+      ],
+    },
+    "src/products/lend-flash-loan": {
+      "name": "jupiter-lend-flash-loan-sdk",
       "version": "0.0.0",
       "peerDependencies": {
         "@solana/kit": "^6.10.0",
@@ -84,6 +132,18 @@
     },
     "src/products/offerbook": {
       "name": "jupiter-offerbook-sdk",
+      "version": "0.0.0",
+      "peerDependencies": {
+        "@solana/kit": "^6.10.0",
+        "@solana/web3.js": "3.0.0-rc.2",
+      },
+      "optionalPeers": [
+        "@solana/kit",
+        "@solana/web3.js",
+      ],
+    },
+    "src/products/perps": {
+      "name": "jupiter-perps-sdk",
       "version": "0.0.0",
       "peerDependencies": {
         "@solana/kit": "^6.10.0",
@@ -510,7 +570,15 @@
 
     "jsonify": ["jsonify@0.0.1", "", {}, "sha512-2/Ki0GcmuqSrgFyelQq9M05y7PS0mEwuIzrf3f1fPqkVDVRvZrPZtVSMHxdgo8Aq0sxAOb/cr2aqqA3LeWHVPg=="],
 
+    "jupiter-governance-sdk": ["jupiter-governance-sdk@workspace:src/products/governance"],
+
+    "jupiter-lend-borrow-sdk": ["jupiter-lend-borrow-sdk@workspace:src/products/lend-borrow"],
+
+    "jupiter-lend-dex-sdk": ["jupiter-lend-dex-sdk@workspace:src/products/lend-dex"],
+
     "jupiter-lend-earn-sdk": ["jupiter-lend-earn-sdk@workspace:src/products/lend-earn"],
+
+    "jupiter-lend-flash-loan-sdk": ["jupiter-lend-flash-loan-sdk@workspace:src/products/lend-flash-loan"],
 
     "jupiter-lend-lending-reward-rate-model-sdk": ["jupiter-lend-lending-reward-rate-model-sdk@workspace:src/products/lend-lending-reward-rate-model"],
 
@@ -521,6 +589,8 @@
     "jupiter-lock-sdk": ["jupiter-lock-sdk@workspace:src/products/lock"],
 
     "jupiter-offerbook-sdk": ["jupiter-offerbook-sdk@workspace:src/products/offerbook"],
+
+    "jupiter-perps-sdk": ["jupiter-perps-sdk@workspace:src/products/perps"],
 
     "jupiter-prediction-sdk": ["jupiter-prediction-sdk@workspace:src/products/prediction"],
 

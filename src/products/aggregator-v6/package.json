@@ -1,0 +1,29 @@
+{
+  "name": "jupiter-aggregator-v6-sdk",
+  "version": "0.0.0",
+  "private": true,
+  "files": [
+    "dist"
+  ],
+  "type": "module",
+  "exports": {
+    "./kit": "./dist/kit/index.js",
+    "./web3js": "./dist/web3js/index.js"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@solana/kit": "^6.10.0",
+    "@solana/web3.js": "3.0.0-rc.2"
+  },
+  "peerDependenciesMeta": {
+    "@solana/kit": {
+      "optional": true
+    },
+    "@solana/web3.js": {
+      "optional": true
+    }
+  }
+}

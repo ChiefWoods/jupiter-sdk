@@ -28,6 +28,14 @@
   ],
   "type": "module",
   "exports": {
+    "./aggregator-v6/kit": {
+      "types": "./src/products/aggregator-v6/dist/kit/index.d.ts",
+      "default": "./src/products/aggregator-v6/dist/kit/index.js"
+    },
+    "./aggregator-v6/web3js": {
+      "types": "./src/products/aggregator-v6/dist/web3js/index.d.ts",
+      "default": "./src/products/aggregator-v6/dist/web3js/index.js"
+    },
     "./governance/kit": {
       "types": "./src/products/governance/dist/kit/index.d.ts",
       "default": "./src/products/governance/dist/kit/index.js"

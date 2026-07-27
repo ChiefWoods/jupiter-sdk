@@ -1,0 +1,1466 @@
+import {
+    addDecoderSizePrefix,
+    addEncoderSizePrefix,
+    combineCodec,
+    getArrayDecoder,
+    getArrayEncoder,
+    getBooleanDecoder,
+    getBooleanEncoder,
+    getBytesDecoder,
+    getBytesEncoder,
+    getDiscriminatedUnionDecoder,
+    getDiscriminatedUnionEncoder,
+    getOptionDecoder,
+    getOptionEncoder,
+    getStructDecoder,
+    getStructEncoder,
+    getU128Decoder,
+    getU128Encoder,
+    getU32Decoder,
+    getU32Encoder,
+    getU64Decoder,
+    getU64Encoder,
+    getU8Decoder,
+    getU8Encoder,
+    getUnitDecoder,
+    getUnitEncoder,
+    type Codec,
+    type Decoder,
+    type Encoder,
+    type GetDiscriminatedUnionVariant,
+    type GetDiscriminatedUnionVariantContent,
+    type Option,
+    type OptionOrNullable,
+    type ReadonlyUint8Array,
+} from '@solana/codecs';
+import {
+    getBisonFiPredictSideDecoder,
+    getBisonFiPredictSideEncoder,
+    type BisonFiPredictSide,
+    type BisonFiPredictSideArgs,
+} from '../types/bisonFiPredictSide';
+import {
+    getCandidateSwapDecoder,
+    getCandidateSwapEncoder,
+    type CandidateSwap,
+    type CandidateSwapArgs,
+} from '../types/candidateSwap';
+import {
+    getCandidateSwapWithBpsDecoder,
+    getCandidateSwapWithBpsEncoder,
+    type CandidateSwapWithBps,
+    type CandidateSwapWithBpsArgs,
+} from '../types/candidateSwapWithBps';
+import {
+    getHyloSwapTypeDecoder,
+    getHyloSwapTypeEncoder,
+    type HyloSwapType,
+    type HyloSwapTypeArgs,
+} from '../types/hyloSwapType';
+import {
+    getRemainingAccountsInfoDecoder,
+    getRemainingAccountsInfoEncoder,
+    type RemainingAccountsInfo,
+    type RemainingAccountsInfoArgs,
+} from '../types/remainingAccountsInfo';
+import { getSideDecoder, getSideEncoder, type Side, type SideArgs } from '../types/side';
+
+export type Swap =
+    | { __kind: 'Saber' }
+    | { __kind: 'SaberAddDecimalsDeposit' }
+    | { __kind: 'SaberAddDecimalsWithdraw' }
+    | { __kind: 'TokenSwap' }
+    | { __kind: 'Sencha' }
+    | { __kind: 'Step' }
+    | { __kind: 'Cropper' }
+    | { __kind: 'Raydium' }
+    | { __kind: 'Crema'; aToB: boolean }
+    | { __kind: 'Lifinity' }
+    | { __kind: 'Mercurial' }
+    | { __kind: 'Cykura' }
+    | { __kind: 'Serum'; side: Side }
+    | { __kind: 'MarinadeDeposit' }
+    | { __kind: 'MarinadeUnstake' }
+    | { __kind: 'Aldrin'; side: Side }
+    | { __kind: 'AldrinV2'; side: Side }
+    | { __kind: 'Whirlpool'; aToB: boolean }
+    | { __kind: 'Invariant'; xToY: boolean }
+    | { __kind: 'Meteora' }
+    | { __kind: 'GooseFX' }
+    | { __kind: 'DeltaFi'; stable: boolean }
+    | { __kind: 'Balansol' }
+    | { __kind: 'MarcoPolo'; xToY: boolean }
+    | { __kind: 'Dradex'; side: Side }
+    | { __kind: 'LifinityV2' }
+    | { __kind: 'RaydiumClmm' }
+    | { __kind: 'Openbook'; side: Side }
+    | { __kind: 'Phoenix'; side: Side }
+    | { __kind: 'Symmetry'; fromTokenId: bigint; toTokenId: bigint }
+    | { __kind: 'TokenSwapV2' }
+    | { __kind: 'HeliumTreasuryManagementRedeemV0' }
+    | { __kind: 'StakeDexStakeWrappedSol' }
+    | { __kind: 'StakeDexSwapViaStake'; bridgeStakeSeed: number }
+    | { __kind: 'GooseFXV2' }
+    | { __kind: 'Perps' }
+    | { __kind: 'PerpsAddLiquidity' }
+    | { __kind: 'PerpsRemoveLiquidity' }
+    | { __kind: 'MeteoraDlmm' }
+    | { __kind: 'OpenBookV2'; side: Side }
+    | { __kind: 'RaydiumClmmV2' }
+    | { __kind: 'StakeDexPrefundWithdrawStakeAndDepositStake'; bridgeStakeSeed: number }
+    | { __kind: 'Clone'; poolIndex: number; quantityIsInput: boolean; quantityIsCollateral: boolean }
+    | {
+          __kind: 'SanctumS';
+          srcLstValueCalcAccs: number;
+          dstLstValueCalcAccs: number;
+          srcLstIndex: number;
+          dstLstIndex: number;
+      }
+    | { __kind: 'SanctumSAddLiquidity'; lstValueCalcAccs: number; lstIndex: number }
+    | { __kind: 'SanctumSRemoveLiquidity'; lstValueCalcAccs: number; lstIndex: number }
+    | { __kind: 'RaydiumCP' }
+    | { __kind: 'WhirlpoolSwapV2'; aToB: boolean; remainingAccountsInfo: Option<RemainingAccountsInfo> }
+    | { __kind: 'OneIntro' }
+    | { __kind: 'PumpWrappedBuy' }
+    | { __kind: 'PumpWrappedSell' }
+    | { __kind: 'PerpsV2' }
+    | { __kind: 'PerpsV2AddLiquidity' }
+    | { __kind: 'PerpsV2RemoveLiquidity' }
+    | { __kind: 'MoonshotWrappedBuy' }
+    | { __kind: 'MoonshotWrappedSell' }
+    | { __kind: 'StabbleStableSwap' }
+    | { __kind: 'StabbleWeightedSwap' }
+    | { __kind: 'Obric'; xToY: boolean }
+    | { __kind: 'FoxBuyFromEstimatedCost' }
+    | { __kind: 'FoxClaimPartial'; isY: boolean }
+    | { __kind: 'SolFi'; isQuoteToBase: boolean }
+    | { __kind: 'SolayerDelegateNoInit' }
+    | { __kind: 'SolayerUndelegateNoInit' }
+    | { __kind: 'TokenMill'; side: Side }
+    | { __kind: 'DaosFunBuy' }
+    | { __kind: 'DaosFunSell' }
+    | { __kind: 'ZeroFi' }
+    | { __kind: 'StakeDexWithdrawWrappedSol' }
+    | { __kind: 'VirtualsBuy' }
+    | { __kind: 'VirtualsSell' }
+    | { __kind: 'Perena'; inIndex: number; outIndex: number }
+    | { __kind: 'PumpSwapBuy' }
+    | { __kind: 'PumpSwapSell' }
+    | { __kind: 'Gamma' }
+    | { __kind: 'MeteoraDlmmSwapV2'; remainingAccountsInfo: RemainingAccountsInfo }
+    | { __kind: 'Woofi' }
+    | { __kind: 'MeteoraDammV2' }
+    | { __kind: 'MeteoraDynamicBondingCurveSwap' }
+    | { __kind: 'StabbleStableSwapV2' }
+    | { __kind: 'StabbleWeightedSwapV2' }
+    | { __kind: 'RaydiumLaunchlabBuy'; shareFeeRate: bigint }
+    | { __kind: 'RaydiumLaunchlabSell'; shareFeeRate: bigint }
+    | { __kind: 'BoopdotfunWrappedBuy' }
+    | { __kind: 'BoopdotfunWrappedSell' }
+    | { __kind: 'Plasma'; side: Side }
+    | { __kind: 'GoonFi'; isBid: boolean; blacklistBump: number }
+    | { __kind: 'HumidiFi'; swapId: bigint; isBaseToQuote: boolean }
+    | { __kind: 'MeteoraDynamicBondingCurveSwapWithRemainingAccounts' }
+    | { __kind: 'TesseraV'; side: Side }
+    | { __kind: 'PumpWrappedBuyV2' }
+    | { __kind: 'PumpWrappedSellV2' }
+    | { __kind: 'PumpSwapBuyV2' }
+    | { __kind: 'PumpSwapSellV2' }
+    | { __kind: 'Heaven'; aToB: boolean }
+    | { __kind: 'SolFiV2'; isQuoteToBase: boolean }
+    | { __kind: 'Aquifer' }
+    | { __kind: 'PumpWrappedBuyV3' }
+    | { __kind: 'PumpWrappedSellV3' }
+    | { __kind: 'PumpSwapBuyV3' }
+    | { __kind: 'PumpSwapSellV3' }
+    | { __kind: 'JupiterLendDeposit' }
+    | { __kind: 'JupiterLendRedeem' }
+    | { __kind: 'DefiTuna'; aToB: boolean; remainingAccountsInfo: Option<RemainingAccountsInfo> }
+    | { __kind: 'AlphaQ'; aToB: boolean }
+    | { __kind: 'RaydiumV2' }
+    | { __kind: 'SarosDlmm'; swapForY: boolean }
+    | { __kind: 'Futarchy'; side: Side }
+    | { __kind: 'MeteoraDammV2WithRemainingAccounts' }
+    | { __kind: 'Obsidian' }
+    | { __kind: 'WhaleStreet'; side: Side }
+    | { __kind: 'DynamicV1'; candidateSwaps: Array<CandidateSwap>; bestPosition: Option<number> }
+    | { __kind: 'PumpWrappedBuyV4' }
+    | { __kind: 'PumpWrappedSellV4' }
+    | { __kind: 'CarrotIssue' }
+    | { __kind: 'CarrotRedeem' }
+    | { __kind: 'Manifest'; side: Side }
+    | { __kind: 'BisonFi'; aToB: boolean }
+    | { __kind: 'HumidiFiV2'; swapId: bigint; isBaseToQuote: boolean }
+    | { __kind: 'PerenaStar'; isMint: boolean }
+    | { __kind: 'JupiterRfqV2'; side: Side; fillData: ReadonlyUint8Array }
+    | { __kind: 'GoonFiV2'; isBid: boolean }
+    | { __kind: 'Scorch'; swapId: bigint }
+    | { __kind: 'VaultLiquidUnstake'; lstAmounts: Array<bigint>; seed: bigint }
+    | { __kind: 'XOrca' }
+    | { __kind: 'Quantum'; side: Side }
+    | { __kind: 'WhaleStreetV2'; side: Side; authAmountIn: bigint; auth: bigint }
+    | { __kind: 'Riptide'; amountIsTokenA: boolean }
+    | { __kind: 'RunnerRodeo' }
+    | { __kind: 'TaurusFi'; isBaseIn: boolean }
+    | { __kind: 'Omnipair' }
+    | { __kind: 'MSwap' }
+    | { __kind: 'Hylo'; swapType: HyloSwapType }
+    | { __kind: 'VoltrDeposit' }
+    | { __kind: 'VoltrWithdraw' }
+    | {
+          __kind: 'SanctumSV2';
+          srcLstValueCalcAccs: number;
+          dstLstValueCalcAccs: number;
+          srcLstIndex: number;
+          dstLstIndex: number;
+      }
+    | { __kind: 'LemmingsFi'; isBaseIn: boolean }
+    | { __kind: 'ScaleVmmBuy' }
+    | { __kind: 'ScaleVmmSell' }
+    | { __kind: 'ScaleAmmBuy' }
+    | { __kind: 'ScaleAmmSell' }
+    | { __kind: 'BisonFiV2'; aToB: boolean }
+    | { __kind: 'Trends' }
+    | { __kind: 'HumaDeposit' }
+    | { __kind: 'HumaInstantWithdraw' }
+    | { __kind: 'Kipseli'; isBaseToQuote: boolean }
+    | {
+          __kind: 'DynamicV2';
+          candidateSwaps: Array<CandidateSwapWithBps>;
+          maxSplitQuoteCalls: number;
+          maxSplitCandidates: number;
+      }
+    | { __kind: 'PumpSwapBuyV3WithCashbackClaim' }
+    | { __kind: 'PumpSwapSellV3WithCashbackClaim' }
+    | { __kind: 'PumpWrappedBuyV4WithCashbackClaim' }
+    | { __kind: 'PumpWrappedSellV4WithCashbackClaim' }
+    | { __kind: 'GoonFiV3'; isBid: boolean }
+    | { __kind: 'PumpWrappedBuyV5'; claimCashback: boolean }
+    | { __kind: 'PumpWrappedSellV5'; claimCashback: boolean }
+    | { __kind: 'ZeroFiSwapV2' }
+    | { __kind: 'BisonFiPredict'; side: BisonFiPredictSide; isBuy: boolean }
+    | { __kind: 'ByrealDynamicV3' }
+    | { __kind: 'Flux'; swapId: bigint; baseToQuote: boolean }
+    | { __kind: 'VaultLiquidSellLst' }
+    | { __kind: 'VaultLiquidBuyLst'; lstAmount: bigint }
+    | { __kind: 'KipseliV2'; isBaseToQuote: boolean }
+    | { __kind: 'Deriverse'; side: Side; instrId: number }
+    | { __kind: 'Hadron'; isX: boolean }
+    | { __kind: 'BinaryFi' }
+    | { __kind: 'Metric'; zeroForOne: boolean };
+
+export type SwapArgs =
+    | { __kind: 'Saber' }
+    | { __kind: 'SaberAddDecimalsDeposit' }
+    | { __kind: 'SaberAddDecimalsWithdraw' }
+    | { __kind: 'TokenSwap' }
+    | { __kind: 'Sencha' }
+    | { __kind: 'Step' }
+    | { __kind: 'Cropper' }
+    | { __kind: 'Raydium' }
+    | { __kind: 'Crema'; aToB: boolean }
+    | { __kind: 'Lifinity' }
+    | { __kind: 'Mercurial' }
+    | { __kind: 'Cykura' }
+    | { __kind: 'Serum'; side: SideArgs }
+    | { __kind: 'MarinadeDeposit' }
+    | { __kind: 'MarinadeUnstake' }
+    | { __kind: 'Aldrin'; side: SideArgs }
+    | { __kind: 'AldrinV2'; side: SideArgs }
+    | { __kind: 'Whirlpool'; aToB: boolean }
+    | { __kind: 'Invariant'; xToY: boolean }
+    | { __kind: 'Meteora' }
+    | { __kind: 'GooseFX' }
+    | { __kind: 'DeltaFi'; stable: boolean }
+    | { __kind: 'Balansol' }
+    | { __kind: 'MarcoPolo'; xToY: boolean }
+    | { __kind: 'Dradex'; side: SideArgs }
+    | { __kind: 'LifinityV2' }
+    | { __kind: 'RaydiumClmm' }
+    | { __kind: 'Openbook'; side: SideArgs }
+    | { __kind: 'Phoenix'; side: SideArgs }
+    | { __kind: 'Symmetry'; fromTokenId: number | bigint; toTokenId: number | bigint }
+    | { __kind: 'TokenSwapV2' }
+    | { __kind: 'HeliumTreasuryManagementRedeemV0' }
+    | { __kind: 'StakeDexStakeWrappedSol' }
+    | { __kind: 'StakeDexSwapViaStake'; bridgeStakeSeed: number }
+    | { __kind: 'GooseFXV2' }
+    | { __kind: 'Perps' }
+    | { __kind: 'PerpsAddLiquidity' }
+    | { __kind: 'PerpsRemoveLiquidity' }
+    | { __kind: 'MeteoraDlmm' }
+    | { __kind: 'OpenBookV2'; side: SideArgs }
+    | { __kind: 'RaydiumClmmV2' }
+    | { __kind: 'StakeDexPrefundWithdrawStakeAndDepositStake'; bridgeStakeSeed: number }
+    | { __kind: 'Clone'; poolIndex: number; quantityIsInput: boolean; quantityIsCollateral: boolean }
+    | {
+          __kind: 'SanctumS';
+          srcLstValueCalcAccs: number;
+          dstLstValueCalcAccs: number;
+          srcLstIndex: number;
+          dstLstIndex: number;
+      }
+    | { __kind: 'SanctumSAddLiquidity'; lstValueCalcAccs: number; lstIndex: number }
+    | { __kind: 'SanctumSRemoveLiquidity'; lstValueCalcAccs: number; lstIndex: number }
+    | { __kind: 'RaydiumCP' }
+    | { __kind: 'WhirlpoolSwapV2'; aToB: boolean; remainingAccountsInfo: OptionOrNullable<RemainingAccountsInfoArgs> }
+    | { __kind: 'OneIntro' }
+    | { __kind: 'PumpWrappedBuy' }
+    | { __kind: 'PumpWrappedSell' }
+    | { __kind: 'PerpsV2' }
+    | { __kind: 'PerpsV2AddLiquidity' }
+    | { __kind: 'PerpsV2RemoveLiquidity' }
+    | { __kind: 'MoonshotWrappedBuy' }
+    | { __kind: 'MoonshotWrappedSell' }
+    | { __kind: 'StabbleStableSwap' }
+    | { __kind: 'StabbleWeightedSwap' }
+    | { __kind: 'Obric'; xToY: boolean }
+    | { __kind: 'FoxBuyFromEstimatedCost' }
+    | { __kind: 'FoxClaimPartial'; isY: boolean }
+    | { __kind: 'SolFi'; isQuoteToBase: boolean }
+    | { __kind: 'SolayerDelegateNoInit' }
+    | { __kind: 'SolayerUndelegateNoInit' }
+    | { __kind: 'TokenMill'; side: SideArgs }
+    | { __kind: 'DaosFunBuy' }
+    | { __kind: 'DaosFunSell' }
+    | { __kind: 'ZeroFi' }
+    | { __kind: 'StakeDexWithdrawWrappedSol' }
+    | { __kind: 'VirtualsBuy' }
+    | { __kind: 'VirtualsSell' }
+    | { __kind: 'Perena'; inIndex: number; outIndex: number }
+    | { __kind: 'PumpSwapBuy' }
+    | { __kind: 'PumpSwapSell' }
+    | { __kind: 'Gamma' }
+    | { __kind: 'MeteoraDlmmSwapV2'; remainingAccountsInfo: RemainingAccountsInfoArgs }
+    | { __kind: 'Woofi' }
+    | { __kind: 'MeteoraDammV2' }
+    | { __kind: 'MeteoraDynamicBondingCurveSwap' }
+    | { __kind: 'StabbleStableSwapV2' }
+    | { __kind: 'StabbleWeightedSwapV2' }
+    | { __kind: 'RaydiumLaunchlabBuy'; shareFeeRate: number | bigint }
+    | { __kind: 'RaydiumLaunchlabSell'; shareFeeRate: number | bigint }
+    | { __kind: 'BoopdotfunWrappedBuy' }
+    | { __kind: 'BoopdotfunWrappedSell' }
+    | { __kind: 'Plasma'; side: SideArgs }
+    | { __kind: 'GoonFi'; isBid: boolean; blacklistBump: number }
+    | { __kind: 'HumidiFi'; swapId: number | bigint; isBaseToQuote: boolean }
+    | { __kind: 'MeteoraDynamicBondingCurveSwapWithRemainingAccounts' }
+    | { __kind: 'TesseraV'; side: SideArgs }
+    | { __kind: 'PumpWrappedBuyV2' }
+    | { __kind: 'PumpWrappedSellV2' }
+    | { __kind: 'PumpSwapBuyV2' }
+    | { __kind: 'PumpSwapSellV2' }
+    | { __kind: 'Heaven'; aToB: boolean }
+    | { __kind: 'SolFiV2'; isQuoteToBase: boolean }
+    | { __kind: 'Aquifer' }
+    | { __kind: 'PumpWrappedBuyV3' }
+    | { __kind: 'PumpWrappedSellV3' }
+    | { __kind: 'PumpSwapBuyV3' }
+    | { __kind: 'PumpSwapSellV3' }
+    | { __kind: 'JupiterLendDeposit' }
+    | { __kind: 'JupiterLendRedeem' }
+    | { __kind: 'DefiTuna'; aToB: boolean; remainingAccountsInfo: OptionOrNullable<RemainingAccountsInfoArgs> }
+    | { __kind: 'AlphaQ'; aToB: boolean }
+    | { __kind: 'RaydiumV2' }
+    | { __kind: 'SarosDlmm'; swapForY: boolean }
+    | { __kind: 'Futarchy'; side: SideArgs }
+    | { __kind: 'MeteoraDammV2WithRemainingAccounts' }
+    | { __kind: 'Obsidian' }
+    | { __kind: 'WhaleStreet'; side: SideArgs }
+    | { __kind: 'DynamicV1'; candidateSwaps: Array<CandidateSwapArgs>; bestPosition: OptionOrNullable<number> }
+    | { __kind: 'PumpWrappedBuyV4' }
+    | { __kind: 'PumpWrappedSellV4' }
+    | { __kind: 'CarrotIssue' }
+    | { __kind: 'CarrotRedeem' }
+    | { __kind: 'Manifest'; side: SideArgs }
+    | { __kind: 'BisonFi'; aToB: boolean }
+    | { __kind: 'HumidiFiV2'; swapId: number | bigint; isBaseToQuote: boolean }
+    | { __kind: 'PerenaStar'; isMint: boolean }
+    | { __kind: 'JupiterRfqV2'; side: SideArgs; fillData: ReadonlyUint8Array }
+    | { __kind: 'GoonFiV2'; isBid: boolean }
+    | { __kind: 'Scorch'; swapId: number | bigint }
+    | { __kind: 'VaultLiquidUnstake'; lstAmounts: Array<number | bigint>; seed: number | bigint }
+    | { __kind: 'XOrca' }
+    | { __kind: 'Quantum'; side: SideArgs }
+    | { __kind: 'WhaleStreetV2'; side: SideArgs; authAmountIn: number | bigint; auth: number | bigint }
+    | { __kind: 'Riptide'; amountIsTokenA: boolean }
+    | { __kind: 'RunnerRodeo' }
+    | { __kind: 'TaurusFi'; isBaseIn: boolean }
+    | { __kind: 'Omnipair' }
+    | { __kind: 'MSwap' }
+    | { __kind: 'Hylo'; swapType: HyloSwapTypeArgs }
+    | { __kind: 'VoltrDeposit' }
+    | { __kind: 'VoltrWithdraw' }
+    | {
+          __kind: 'SanctumSV2';
+          srcLstValueCalcAccs: number;
+          dstLstValueCalcAccs: number;
+          srcLstIndex: number;
+          dstLstIndex: number;
+      }
+    | { __kind: 'LemmingsFi'; isBaseIn: boolean }
+    | { __kind: 'ScaleVmmBuy' }
+    | { __kind: 'ScaleVmmSell' }
+    | { __kind: 'ScaleAmmBuy' }
+    | { __kind: 'ScaleAmmSell' }
+    | { __kind: 'BisonFiV2'; aToB: boolean }
+    | { __kind: 'Trends' }
+    | { __kind: 'HumaDeposit' }
+    | { __kind: 'HumaInstantWithdraw' }
+    | { __kind: 'Kipseli'; isBaseToQuote: boolean }
+    | {
+          __kind: 'DynamicV2';
+          candidateSwaps: Array<CandidateSwapWithBpsArgs>;
+          maxSplitQuoteCalls: number;
+          maxSplitCandidates: number;
+      }
+    | { __kind: 'PumpSwapBuyV3WithCashbackClaim' }
+    | { __kind: 'PumpSwapSellV3WithCashbackClaim' }
+    | { __kind: 'PumpWrappedBuyV4WithCashbackClaim' }
+    | { __kind: 'PumpWrappedSellV4WithCashbackClaim' }
+    | { __kind: 'GoonFiV3'; isBid: boolean }
+    | { __kind: 'PumpWrappedBuyV5'; claimCashback: boolean }
+    | { __kind: 'PumpWrappedSellV5'; claimCashback: boolean }
+    | { __kind: 'ZeroFiSwapV2' }
+    | { __kind: 'BisonFiPredict'; side: BisonFiPredictSideArgs; isBuy: boolean }
+    | { __kind: 'ByrealDynamicV3' }
+    | { __kind: 'Flux'; swapId: number | bigint; baseToQuote: boolean }
+    | { __kind: 'VaultLiquidSellLst' }
+    | { __kind: 'VaultLiquidBuyLst'; lstAmount: number | bigint }
+    | { __kind: 'KipseliV2'; isBaseToQuote: boolean }
+    | { __kind: 'Deriverse'; side: SideArgs; instrId: number }
+    | { __kind: 'Hadron'; isX: boolean }
+    | { __kind: 'BinaryFi' }
+    | { __kind: 'Metric'; zeroForOne: boolean };
+
+export function getSwapEncoder(): Encoder<SwapArgs> {
+    return getDiscriminatedUnionEncoder([
+        ['Saber', getUnitEncoder()],
+        ['SaberAddDecimalsDeposit', getUnitEncoder()],
+        ['SaberAddDecimalsWithdraw', getUnitEncoder()],
+        ['TokenSwap', getUnitEncoder()],
+        ['Sencha', getUnitEncoder()],
+        ['Step', getUnitEncoder()],
+        ['Cropper', getUnitEncoder()],
+        ['Raydium', getUnitEncoder()],
+        ['Crema', getStructEncoder([['aToB', getBooleanEncoder()]])],
+        ['Lifinity', getUnitEncoder()],
+        ['Mercurial', getUnitEncoder()],
+        ['Cykura', getUnitEncoder()],
+        ['Serum', getStructEncoder([['side', getSideEncoder()]])],
+        ['MarinadeDeposit', getUnitEncoder()],
+        ['MarinadeUnstake', getUnitEncoder()],
+        ['Aldrin', getStructEncoder([['side', getSideEncoder()]])],
+        ['AldrinV2', getStructEncoder([['side', getSideEncoder()]])],
+        ['Whirlpool', getStructEncoder([['aToB', getBooleanEncoder()]])],
+        ['Invariant', getStructEncoder([['xToY', getBooleanEncoder()]])],
+        ['Meteora', getUnitEncoder()],
+        ['GooseFX', getUnitEncoder()],
+        ['DeltaFi', getStructEncoder([['stable', getBooleanEncoder()]])],
+        ['Balansol', getUnitEncoder()],
+        ['MarcoPolo', getStructEncoder([['xToY', getBooleanEncoder()]])],
+        ['Dradex', getStructEncoder([['side', getSideEncoder()]])],
+        ['LifinityV2', getUnitEncoder()],
+        ['RaydiumClmm', getUnitEncoder()],
+        ['Openbook', getStructEncoder([['side', getSideEncoder()]])],
+        ['Phoenix', getStructEncoder([['side', getSideEncoder()]])],
+        [
+            'Symmetry',
+            getStructEncoder([
+                ['fromTokenId', getU64Encoder()],
+                ['toTokenId', getU64Encoder()],
+            ]),
+        ],
+        ['TokenSwapV2', getUnitEncoder()],
+        ['HeliumTreasuryManagementRedeemV0', getUnitEncoder()],
+        ['StakeDexStakeWrappedSol', getUnitEncoder()],
+        ['StakeDexSwapViaStake', getStructEncoder([['bridgeStakeSeed', getU32Encoder()]])],
+        ['GooseFXV2', getUnitEncoder()],
+        ['Perps', getUnitEncoder()],
+        ['PerpsAddLiquidity', getUnitEncoder()],
+        ['PerpsRemoveLiquidity', getUnitEncoder()],
+        ['MeteoraDlmm', getUnitEncoder()],
+        ['OpenBookV2', getStructEncoder([['side', getSideEncoder()]])],
+        ['RaydiumClmmV2', getUnitEncoder()],
+        ['StakeDexPrefundWithdrawStakeAndDepositStake', getStructEncoder([['bridgeStakeSeed', getU32Encoder()]])],
+        [
+            'Clone',
+            getStructEncoder([
+                ['poolIndex', getU8Encoder()],
+                ['quantityIsInput', getBooleanEncoder()],
+                ['quantityIsCollateral', getBooleanEncoder()],
+            ]),
+        ],
+        [
+            'SanctumS',
+            getStructEncoder([
+                ['srcLstValueCalcAccs', getU8Encoder()],
+                ['dstLstValueCalcAccs', getU8Encoder()],
+                ['srcLstIndex', getU32Encoder()],
+                ['dstLstIndex', getU32Encoder()],
+            ]),
+        ],
+        [
+            'SanctumSAddLiquidity',
+            getStructEncoder([
+                ['lstValueCalcAccs', getU8Encoder()],
+                ['lstIndex', getU32Encoder()],
+            ]),
+        ],
+        [
+            'SanctumSRemoveLiquidity',
+            getStructEncoder([
+                ['lstValueCalcAccs', getU8Encoder()],
+                ['lstIndex', getU32Encoder()],
+            ]),
+        ],
+        ['RaydiumCP', getUnitEncoder()],
+        [
+            'WhirlpoolSwapV2',
+            getStructEncoder([
+                ['aToB', getBooleanEncoder()],
+                ['remainingAccountsInfo', getOptionEncoder(getRemainingAccountsInfoEncoder())],
+            ]),
+        ],
+        ['OneIntro', getUnitEncoder()],
+        ['PumpWrappedBuy', getUnitEncoder()],
+        ['PumpWrappedSell', getUnitEncoder()],
+        ['PerpsV2', getUnitEncoder()],
+        ['PerpsV2AddLiquidity', getUnitEncoder()],
+        ['PerpsV2RemoveLiquidity', getUnitEncoder()],
+        ['MoonshotWrappedBuy', getUnitEncoder()],
+        ['MoonshotWrappedSell', getUnitEncoder()],
+        ['StabbleStableSwap', getUnitEncoder()],
+        ['StabbleWeightedSwap', getUnitEncoder()],
+        ['Obric', getStructEncoder([['xToY', getBooleanEncoder()]])],
+        ['FoxBuyFromEstimatedCost', getUnitEncoder()],
+        ['FoxClaimPartial', getStructEncoder([['isY', getBooleanEncoder()]])],
+        ['SolFi', getStructEncoder([['isQuoteToBase', getBooleanEncoder()]])],
+        ['SolayerDelegateNoInit', getUnitEncoder()],
+        ['SolayerUndelegateNoInit', getUnitEncoder()],
+        ['TokenMill', getStructEncoder([['side', getSideEncoder()]])],
+        ['DaosFunBuy', getUnitEncoder()],
+        ['DaosFunSell', getUnitEncoder()],
+        ['ZeroFi', getUnitEncoder()],
+        ['StakeDexWithdrawWrappedSol', getUnitEncoder()],
+        ['VirtualsBuy', getUnitEncoder()],
+        ['VirtualsSell', getUnitEncoder()],
+        [
+            'Perena',
+            getStructEncoder([
+                ['inIndex', getU8Encoder()],
+                ['outIndex', getU8Encoder()],
+            ]),
+        ],
+        ['PumpSwapBuy', getUnitEncoder()],
+        ['PumpSwapSell', getUnitEncoder()],
+        ['Gamma', getUnitEncoder()],
+        ['MeteoraDlmmSwapV2', getStructEncoder([['remainingAccountsInfo', getRemainingAccountsInfoEncoder()]])],
+        ['Woofi', getUnitEncoder()],
+        ['MeteoraDammV2', getUnitEncoder()],
+        ['MeteoraDynamicBondingCurveSwap', getUnitEncoder()],
+        ['StabbleStableSwapV2', getUnitEncoder()],
+        ['StabbleWeightedSwapV2', getUnitEncoder()],
+        ['RaydiumLaunchlabBuy', getStructEncoder([['shareFeeRate', getU64Encoder()]])],
+        ['RaydiumLaunchlabSell', getStructEncoder([['shareFeeRate', getU64Encoder()]])],
+        ['BoopdotfunWrappedBuy', getUnitEncoder()],
+        ['BoopdotfunWrappedSell', getUnitEncoder()],
+        ['Plasma', getStructEncoder([['side', getSideEncoder()]])],
+        [
+            'GoonFi',
+            getStructEncoder([
+                ['isBid', getBooleanEncoder()],
+                ['blacklistBump', getU8Encoder()],
+            ]),
+        ],
+        [
+            'HumidiFi',
+            getStructEncoder([
+                ['swapId', getU64Encoder()],
+                ['isBaseToQuote', getBooleanEncoder()],
+            ]),
+        ],
+        ['MeteoraDynamicBondingCurveSwapWithRemainingAccounts', getUnitEncoder()],
+        ['TesseraV', getStructEncoder([['side', getSideEncoder()]])],
+        ['PumpWrappedBuyV2', getUnitEncoder()],
+        ['PumpWrappedSellV2', getUnitEncoder()],
+        ['PumpSwapBuyV2', getUnitEncoder()],
+        ['PumpSwapSellV2', getUnitEncoder()],
+        ['Heaven', getStructEncoder([['aToB', getBooleanEncoder()]])],
+        ['SolFiV2', getStructEncoder([['isQuoteToBase', getBooleanEncoder()]])],
+        ['Aquifer', getUnitEncoder()],
+        ['PumpWrappedBuyV3', getUnitEncoder()],
+        ['PumpWrappedSellV3', getUnitEncoder()],
+        ['PumpSwapBuyV3', getUnitEncoder()],
+        ['PumpSwapSellV3', getUnitEncoder()],
+        ['JupiterLendDeposit', getUnitEncoder()],
+        ['JupiterLendRedeem', getUnitEncoder()],
+        [
+            'DefiTuna',
+            getStructEncoder([
+                ['aToB', getBooleanEncoder()],
+                ['remainingAccountsInfo', getOptionEncoder(getRemainingAccountsInfoEncoder())],
+            ]),
+        ],
+        ['AlphaQ', getStructEncoder([['aToB', getBooleanEncoder()]])],
+        ['RaydiumV2', getUnitEncoder()],
+        ['SarosDlmm', getStructEncoder([['swapForY', getBooleanEncoder()]])],
+        ['Futarchy', getStructEncoder([['side', getSideEncoder()]])],
+        ['MeteoraDammV2WithRemainingAccounts', getUnitEncoder()],
+        ['Obsidian', getUnitEncoder()],
+        ['WhaleStreet', getStructEncoder([['side', getSideEncoder()]])],
+        [
+            'DynamicV1',
+            getStructEncoder([
+                ['candidateSwaps', getArrayEncoder(getCandidateSwapEncoder())],
+                ['bestPosition', getOptionEncoder(getU8Encoder())],
+            ]),
+        ],
+        ['PumpWrappedBuyV4', getUnitEncoder()],
+        ['PumpWrappedSellV4', getUnitEncoder()],
+        ['CarrotIssue', getUnitEncoder()],
+        ['CarrotRedeem', getUnitEncoder()],
+        ['Manifest', getStructEncoder([['side', getSideEncoder()]])],
+        ['BisonFi', getStructEncoder([['aToB', getBooleanEncoder()]])],
+        [
+            'HumidiFiV2',
+            getStructEncoder([
+                ['swapId', getU64Encoder()],
+                ['isBaseToQuote', getBooleanEncoder()],
+            ]),
+        ],
+        ['PerenaStar', getStructEncoder([['isMint', getBooleanEncoder()]])],
+        [
+            'JupiterRfqV2',
+            getStructEncoder([
+                ['side', getSideEncoder()],
+                ['fillData', addEncoderSizePrefix(getBytesEncoder(), getU32Encoder())],
+            ]),
+        ],
+        ['GoonFiV2', getStructEncoder([['isBid', getBooleanEncoder()]])],
+        ['Scorch', getStructEncoder([['swapId', getU128Encoder()]])],
+        [
+            'VaultLiquidUnstake',
+            getStructEncoder([
+                ['lstAmounts', getArrayEncoder(getU64Encoder(), { size: 5 })],
+                ['seed', getU64Encoder()],
+            ]),
+        ],
+        ['XOrca', getUnitEncoder()],
+        ['Quantum', getStructEncoder([['side', getSideEncoder()]])],
+        [
+            'WhaleStreetV2',
+            getStructEncoder([
+                ['side', getSideEncoder()],
+                ['authAmountIn', getU64Encoder()],
+                ['auth', getU64Encoder()],
+            ]),
+        ],
+        ['Riptide', getStructEncoder([['amountIsTokenA', getBooleanEncoder()]])],
+        ['RunnerRodeo', getUnitEncoder()],
+        ['TaurusFi', getStructEncoder([['isBaseIn', getBooleanEncoder()]])],
+        ['Omnipair', getUnitEncoder()],
+        ['MSwap', getUnitEncoder()],
+        ['Hylo', getStructEncoder([['swapType', getHyloSwapTypeEncoder()]])],
+        ['VoltrDeposit', getUnitEncoder()],
+        ['VoltrWithdraw', getUnitEncoder()],
+        [
+            'SanctumSV2',
+            getStructEncoder([
+                ['srcLstValueCalcAccs', getU8Encoder()],
+                ['dstLstValueCalcAccs', getU8Encoder()],
+                ['srcLstIndex', getU32Encoder()],
+                ['dstLstIndex', getU32Encoder()],
+            ]),
+        ],
+        ['LemmingsFi', getStructEncoder([['isBaseIn', getBooleanEncoder()]])],
+        ['ScaleVmmBuy', getUnitEncoder()],
+        ['ScaleVmmSell', getUnitEncoder()],
+        ['ScaleAmmBuy', getUnitEncoder()],
+        ['ScaleAmmSell', getUnitEncoder()],
+        ['BisonFiV2', getStructEncoder([['aToB', getBooleanEncoder()]])],
+        ['Trends', getUnitEncoder()],
+        ['HumaDeposit', getUnitEncoder()],
+        ['HumaInstantWithdraw', getUnitEncoder()],
+        ['Kipseli', getStructEncoder([['isBaseToQuote', getBooleanEncoder()]])],
+        [
+            'DynamicV2',
+            getStructEncoder([
+                ['candidateSwaps', getArrayEncoder(getCandidateSwapWithBpsEncoder())],
+                ['maxSplitQuoteCalls', getU8Encoder()],
+                ['maxSplitCandidates', getU8Encoder()],
+            ]),
+        ],
+        ['PumpSwapBuyV3WithCashbackClaim', getUnitEncoder()],
+        ['PumpSwapSellV3WithCashbackClaim', getUnitEncoder()],
+        ['PumpWrappedBuyV4WithCashbackClaim', getUnitEncoder()],
+        ['PumpWrappedSellV4WithCashbackClaim', getUnitEncoder()],
+        ['GoonFiV3', getStructEncoder([['isBid', getBooleanEncoder()]])],
+        ['PumpWrappedBuyV5', getStructEncoder([['claimCashback', getBooleanEncoder()]])],
+        ['PumpWrappedSellV5', getStructEncoder([['claimCashback', getBooleanEncoder()]])],
+        ['ZeroFiSwapV2', getUnitEncoder()],
+        [
+            'BisonFiPredict',
+            getStructEncoder([
+                ['side', getBisonFiPredictSideEncoder()],
+                ['isBuy', getBooleanEncoder()],
+            ]),
+        ],
+        ['ByrealDynamicV3', getUnitEncoder()],
+        [
+            'Flux',
+            getStructEncoder([
+                ['swapId', getU64Encoder()],
+                ['baseToQuote', getBooleanEncoder()],
+            ]),
+        ],
+        ['VaultLiquidSellLst', getUnitEncoder()],
+        ['VaultLiquidBuyLst', getStructEncoder([['lstAmount', getU64Encoder()]])],
+        ['KipseliV2', getStructEncoder([['isBaseToQuote', getBooleanEncoder()]])],
+        [
+            'Deriverse',
+            getStructEncoder([
+                ['side', getSideEncoder()],
+                ['instrId', getU32Encoder()],
+            ]),
+        ],
+        ['Hadron', getStructEncoder([['isX', getBooleanEncoder()]])],
+        ['BinaryFi', getUnitEncoder()],
+        ['Metric', getStructEncoder([['zeroForOne', getBooleanEncoder()]])],
+    ]);
+}
+
+export function getSwapDecoder(): Decoder<Swap> {
+    return getDiscriminatedUnionDecoder([
+        ['Saber', getUnitDecoder()],
+        ['SaberAddDecimalsDeposit', getUnitDecoder()],
+        ['SaberAddDecimalsWithdraw', getUnitDecoder()],
+        ['TokenSwap', getUnitDecoder()],
+        ['Sencha', getUnitDecoder()],
+        ['Step', getUnitDecoder()],
+        ['Cropper', getUnitDecoder()],
+        ['Raydium', getUnitDecoder()],
+        ['Crema', getStructDecoder([['aToB', getBooleanDecoder()]])],
+        ['Lifinity', getUnitDecoder()],
+        ['Mercurial', getUnitDecoder()],
+        ['Cykura', getUnitDecoder()],
+        ['Serum', getStructDecoder([['side', getSideDecoder()]])],
+        ['MarinadeDeposit', getUnitDecoder()],
+        ['MarinadeUnstake', getUnitDecoder()],
+        ['Aldrin', getStructDecoder([['side', getSideDecoder()]])],
+        ['AldrinV2', getStructDecoder([['side', getSideDecoder()]])],
+        ['Whirlpool', getStructDecoder([['aToB', getBooleanDecoder()]])],
+        ['Invariant', getStructDecoder([['xToY', getBooleanDecoder()]])],
+        ['Meteora', getUnitDecoder()],
+        ['GooseFX', getUnitDecoder()],
+        ['DeltaFi', getStructDecoder([['stable', getBooleanDecoder()]])],
+        ['Balansol', getUnitDecoder()],
+        ['MarcoPolo', getStructDecoder([['xToY', getBooleanDecoder()]])],
+        ['Dradex', getStructDecoder([['side', getSideDecoder()]])],
+        ['LifinityV2', getUnitDecoder()],
+        ['RaydiumClmm', getUnitDecoder()],
+        ['Openbook', getStructDecoder([['side', getSideDecoder()]])],
+        ['Phoenix', getStructDecoder([['side', getSideDecoder()]])],
+        [
+            'Symmetry',
+            getStructDecoder([
+                ['fromTokenId', getU64Decoder()],
+                ['toTokenId', getU64Decoder()],
+            ]),
+        ],
+        ['TokenSwapV2', getUnitDecoder()],
+        ['HeliumTreasuryManagementRedeemV0', getUnitDecoder()],
+        ['StakeDexStakeWrappedSol', getUnitDecoder()],
+        ['StakeDexSwapViaStake', getStructDecoder([['bridgeStakeSeed', getU32Decoder()]])],
+        ['GooseFXV2', getUnitDecoder()],
+        ['Perps', getUnitDecoder()],
+        ['PerpsAddLiquidity', getUnitDecoder()],
+        ['PerpsRemoveLiquidity', getUnitDecoder()],
+        ['MeteoraDlmm', getUnitDecoder()],
+        ['OpenBookV2', getStructDecoder([['side', getSideDecoder()]])],
+        ['RaydiumClmmV2', getUnitDecoder()],
+        ['StakeDexPrefundWithdrawStakeAndDepositStake', getStructDecoder([['bridgeStakeSeed', getU32Decoder()]])],
+        [
+            'Clone',
+            getStructDecoder([
+                ['poolIndex', getU8Decoder()],
+                ['quantityIsInput', getBooleanDecoder()],
+                ['quantityIsCollateral', getBooleanDecoder()],
+            ]),
+        ],
+        [
+            'SanctumS',
+            getStructDecoder([
+                ['srcLstValueCalcAccs', getU8Decoder()],
+                ['dstLstValueCalcAccs', getU8Decoder()],
+                ['srcLstIndex', getU32Decoder()],
+                ['dstLstIndex', getU32Decoder()],
+            ]),
+        ],
+        [
+            'SanctumSAddLiquidity',
+            getStructDecoder([
+                ['lstValueCalcAccs', getU8Decoder()],
+                ['lstIndex', getU32Decoder()],
+            ]),
+        ],
+        [
+            'SanctumSRemoveLiquidity',
+            getStructDecoder([
+                ['lstValueCalcAccs', getU8Decoder()],
+                ['lstIndex', getU32Decoder()],
+            ]),
+        ],
+        ['RaydiumCP', getUnitDecoder()],
+        [
+            'WhirlpoolSwapV2',
+            getStructDecoder([
+                ['aToB', getBooleanDecoder()],
+                ['remainingAccountsInfo', getOptionDecoder(getRemainingAccountsInfoDecoder())],
+            ]),
+        ],
+        ['OneIntro', getUnitDecoder()],
+        ['PumpWrappedBuy', getUnitDecoder()],
+        ['PumpWrappedSell', getUnitDecoder()],
+        ['PerpsV2', getUnitDecoder()],
+        ['PerpsV2AddLiquidity', getUnitDecoder()],
+        ['PerpsV2RemoveLiquidity', getUnitDecoder()],
+        ['MoonshotWrappedBuy', getUnitDecoder()],
+        ['MoonshotWrappedSell', getUnitDecoder()],
+        ['StabbleStableSwap', getUnitDecoder()],
+        ['StabbleWeightedSwap', getUnitDecoder()],
+        ['Obric', getStructDecoder([['xToY', getBooleanDecoder()]])],
+        ['FoxBuyFromEstimatedCost', getUnitDecoder()],
+        ['FoxClaimPartial', getStructDecoder([['isY', getBooleanDecoder()]])],
+        ['SolFi', getStructDecoder([['isQuoteToBase', getBooleanDecoder()]])],
+        ['SolayerDelegateNoInit', getUnitDecoder()],
+        ['SolayerUndelegateNoInit', getUnitDecoder()],
+        ['TokenMill', getStructDecoder([['side', getSideDecoder()]])],
+        ['DaosFunBuy', getUnitDecoder()],
+        ['DaosFunSell', getUnitDecoder()],
+        ['ZeroFi', getUnitDecoder()],
+        ['StakeDexWithdrawWrappedSol', getUnitDecoder()],
+        ['VirtualsBuy', getUnitDecoder()],
+        ['VirtualsSell', getUnitDecoder()],
+        [
+            'Perena',
+            getStructDecoder([
+                ['inIndex', getU8Decoder()],
+                ['outIndex', getU8Decoder()],
+            ]),
+        ],
+        ['PumpSwapBuy', getUnitDecoder()],
+        ['PumpSwapSell', getUnitDecoder()],
+        ['Gamma', getUnitDecoder()],
+        ['MeteoraDlmmSwapV2', getStructDecoder([['remainingAccountsInfo', getRemainingAccountsInfoDecoder()]])],
+        ['Woofi', getUnitDecoder()],
+        ['MeteoraDammV2', getUnitDecoder()],
+        ['MeteoraDynamicBondingCurveSwap', getUnitDecoder()],
+        ['StabbleStableSwapV2', getUnitDecoder()],
+        ['StabbleWeightedSwapV2', getUnitDecoder()],
+        ['RaydiumLaunchlabBuy', getStructDecoder([['shareFeeRate', getU64Decoder()]])],
+        ['RaydiumLaunchlabSell', getStructDecoder([['shareFeeRate', getU64Decoder()]])],
+        ['BoopdotfunWrappedBuy', getUnitDecoder()],
+        ['BoopdotfunWrappedSell', getUnitDecoder()],
+        ['Plasma', getStructDecoder([['side', getSideDecoder()]])],
+        [
+            'GoonFi',
+            getStructDecoder([
+                ['isBid', getBooleanDecoder()],
+                ['blacklistBump', getU8Decoder()],
+            ]),
+        ],
+        [
+            'HumidiFi',
+            getStructDecoder([
+                ['swapId', getU64Decoder()],
+                ['isBaseToQuote', getBooleanDecoder()],
+            ]),
+        ],
+        ['MeteoraDynamicBondingCurveSwapWithRemainingAccounts', getUnitDecoder()],
+        ['TesseraV', getStructDecoder([['side', getSideDecoder()]])],
+        ['PumpWrappedBuyV2', getUnitDecoder()],
+        ['PumpWrappedSellV2', getUnitDecoder()],
+        ['PumpSwapBuyV2', getUnitDecoder()],
+        ['PumpSwapSellV2', getUnitDecoder()],
+        ['Heaven', getStructDecoder([['aToB', getBooleanDecoder()]])],
+        ['SolFiV2', getStructDecoder([['isQuoteToBase', getBooleanDecoder()]])],
+        ['Aquifer', getUnitDecoder()],
+        ['PumpWrappedBuyV3', getUnitDecoder()],
+        ['PumpWrappedSellV3', getUnitDecoder()],
+        ['PumpSwapBuyV3', getUnitDecoder()],
+        ['PumpSwapSellV3', getUnitDecoder()],
+        ['JupiterLendDeposit', getUnitDecoder()],
+        ['JupiterLendRedeem', getUnitDecoder()],
+        [
+            'DefiTuna',
+            getStructDecoder([
+                ['aToB', getBooleanDecoder()],
+                ['remainingAccountsInfo', getOptionDecoder(getRemainingAccountsInfoDecoder())],
+            ]),
+        ],
+        ['AlphaQ', getStructDecoder([['aToB', getBooleanDecoder()]])],
+        ['RaydiumV2', getUnitDecoder()],
+        ['SarosDlmm', getStructDecoder([['swapForY', getBooleanDecoder()]])],
+        ['Futarchy', getStructDecoder([['side', getSideDecoder()]])],
+        ['MeteoraDammV2WithRemainingAccounts', getUnitDecoder()],
+        ['Obsidian', getUnitDecoder()],
+        ['WhaleStreet', getStructDecoder([['side', getSideDecoder()]])],
+        [
+            'DynamicV1',
+            getStructDecoder([
+                ['candidateSwaps', getArrayDecoder(getCandidateSwapDecoder())],
+                ['bestPosition', getOptionDecoder(getU8Decoder())],
+            ]),
+        ],
+        ['PumpWrappedBuyV4', getUnitDecoder()],
+        ['PumpWrappedSellV4', getUnitDecoder()],
+        ['CarrotIssue', getUnitDecoder()],
+        ['CarrotRedeem', getUnitDecoder()],
+        ['Manifest', getStructDecoder([['side', getSideDecoder()]])],
+        ['BisonFi', getStructDecoder([['aToB', getBooleanDecoder()]])],
+        [
+            'HumidiFiV2',
+            getStructDecoder([
+                ['swapId', getU64Decoder()],
+                ['isBaseToQuote', getBooleanDecoder()],
+            ]),
+        ],
+        ['PerenaStar', getStructDecoder([['isMint', getBooleanDecoder()]])],
+        [
+            'JupiterRfqV2',
+            getStructDecoder([
+                ['side', getSideDecoder()],
+                ['fillData', addDecoderSizePrefix(getBytesDecoder(), getU32Decoder())],
+            ]),
+        ],
+        ['GoonFiV2', getStructDecoder([['isBid', getBooleanDecoder()]])],
+        ['Scorch', getStructDecoder([['swapId', getU128Decoder()]])],
+        [
+            'VaultLiquidUnstake',
+            getStructDecoder([
+                ['lstAmounts', getArrayDecoder(getU64Decoder(), { size: 5 })],
+                ['seed', getU64Decoder()],
+            ]),
+        ],
+        ['XOrca', getUnitDecoder()],
+        ['Quantum', getStructDecoder([['side', getSideDecoder()]])],
+        [
+            'WhaleStreetV2',
+            getStructDecoder([
+                ['side', getSideDecoder()],
+                ['authAmountIn', getU64Decoder()],
+                ['auth', getU64Decoder()],
+            ]),
+        ],
+        ['Riptide', getStructDecoder([['amountIsTokenA', getBooleanDecoder()]])],
+        ['RunnerRodeo', getUnitDecoder()],
+        ['TaurusFi', getStructDecoder([['isBaseIn', getBooleanDecoder()]])],
+        ['Omnipair', getUnitDecoder()],
+        ['MSwap', getUnitDecoder()],
+        ['Hylo', getStructDecoder([['swapType', getHyloSwapTypeDecoder()]])],
+        ['VoltrDeposit', getUnitDecoder()],
+        ['VoltrWithdraw', getUnitDecoder()],
+        [
+            'SanctumSV2',
+            getStructDecoder([
+                ['srcLstValueCalcAccs', getU8Decoder()],
+                ['dstLstValueCalcAccs', getU8Decoder()],
+                ['srcLstIndex', getU32Decoder()],
+                ['dstLstIndex', getU32Decoder()],
+            ]),
+        ],
+        ['LemmingsFi', getStructDecoder([['isBaseIn', getBooleanDecoder()]])],
+        ['ScaleVmmBuy', getUnitDecoder()],
+        ['ScaleVmmSell', getUnitDecoder()],
+        ['ScaleAmmBuy', getUnitDecoder()],
+        ['ScaleAmmSell', getUnitDecoder()],
+        ['BisonFiV2', getStructDecoder([['aToB', getBooleanDecoder()]])],
+        ['Trends', getUnitDecoder()],
+        ['HumaDeposit', getUnitDecoder()],
+        ['HumaInstantWithdraw', getUnitDecoder()],
+        ['Kipseli', getStructDecoder([['isBaseToQuote', getBooleanDecoder()]])],
+        [
+            'DynamicV2',
+            getStructDecoder([
+                ['candidateSwaps', getArrayDecoder(getCandidateSwapWithBpsDecoder())],
+                ['maxSplitQuoteCalls', getU8Decoder()],
+                ['maxSplitCandidates', getU8Decoder()],
+            ]),
+        ],
+        ['PumpSwapBuyV3WithCashbackClaim', getUnitDecoder()],
+        ['PumpSwapSellV3WithCashbackClaim', getUnitDecoder()],
+        ['PumpWrappedBuyV4WithCashbackClaim', getUnitDecoder()],
+        ['PumpWrappedSellV4WithCashbackClaim', getUnitDecoder()],
+        ['GoonFiV3', getStructDecoder([['isBid', getBooleanDecoder()]])],
+        ['PumpWrappedBuyV5', getStructDecoder([['claimCashback', getBooleanDecoder()]])],
+        ['PumpWrappedSellV5', getStructDecoder([['claimCashback', getBooleanDecoder()]])],
+        ['ZeroFiSwapV2', getUnitDecoder()],
+        [
+            'BisonFiPredict',
+            getStructDecoder([
+                ['side', getBisonFiPredictSideDecoder()],
+                ['isBuy', getBooleanDecoder()],
+            ]),
+        ],
+        ['ByrealDynamicV3', getUnitDecoder()],
+        [
+            'Flux',
+            getStructDecoder([
+                ['swapId', getU64Decoder()],
+                ['baseToQuote', getBooleanDecoder()],
+            ]),
+        ],
+        ['VaultLiquidSellLst', getUnitDecoder()],
+        ['VaultLiquidBuyLst', getStructDecoder([['lstAmount', getU64Decoder()]])],
+        ['KipseliV2', getStructDecoder([['isBaseToQuote', getBooleanDecoder()]])],
+        [
+            'Deriverse',
+            getStructDecoder([
+                ['side', getSideDecoder()],
+                ['instrId', getU32Decoder()],
+            ]),
+        ],
+        ['Hadron', getStructDecoder([['isX', getBooleanDecoder()]])],
+        ['BinaryFi', getUnitDecoder()],
+        ['Metric', getStructDecoder([['zeroForOne', getBooleanDecoder()]])],
+    ]);
+}
+
+export function getSwapCodec(): Codec<SwapArgs, Swap> {
+    return combineCodec(getSwapEncoder(), getSwapDecoder());
+}
+
+// Data Enum Helpers.
+export function swap(kind: 'Saber'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Saber'>;
+export function swap(
+    kind: 'SaberAddDecimalsDeposit',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SaberAddDecimalsDeposit'>;
+export function swap(
+    kind: 'SaberAddDecimalsWithdraw',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SaberAddDecimalsWithdraw'>;
+export function swap(kind: 'TokenSwap'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'TokenSwap'>;
+export function swap(kind: 'Sencha'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Sencha'>;
+export function swap(kind: 'Step'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Step'>;
+export function swap(kind: 'Cropper'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Cropper'>;
+export function swap(kind: 'Raydium'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Raydium'>;
+export function swap(
+    kind: 'Crema',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Crema'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Crema'>;
+export function swap(kind: 'Lifinity'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Lifinity'>;
+export function swap(kind: 'Mercurial'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Mercurial'>;
+export function swap(kind: 'Cykura'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Cykura'>;
+export function swap(
+    kind: 'Serum',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Serum'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Serum'>;
+export function swap(kind: 'MarinadeDeposit'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MarinadeDeposit'>;
+export function swap(kind: 'MarinadeUnstake'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MarinadeUnstake'>;
+export function swap(
+    kind: 'Aldrin',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Aldrin'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Aldrin'>;
+export function swap(
+    kind: 'AldrinV2',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'AldrinV2'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'AldrinV2'>;
+export function swap(
+    kind: 'Whirlpool',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Whirlpool'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Whirlpool'>;
+export function swap(
+    kind: 'Invariant',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Invariant'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Invariant'>;
+export function swap(kind: 'Meteora'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Meteora'>;
+export function swap(kind: 'GooseFX'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'GooseFX'>;
+export function swap(
+    kind: 'DeltaFi',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'DeltaFi'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'DeltaFi'>;
+export function swap(kind: 'Balansol'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Balansol'>;
+export function swap(
+    kind: 'MarcoPolo',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'MarcoPolo'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MarcoPolo'>;
+export function swap(
+    kind: 'Dradex',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Dradex'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Dradex'>;
+export function swap(kind: 'LifinityV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'LifinityV2'>;
+export function swap(kind: 'RaydiumClmm'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'RaydiumClmm'>;
+export function swap(
+    kind: 'Openbook',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Openbook'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Openbook'>;
+export function swap(
+    kind: 'Phoenix',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Phoenix'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Phoenix'>;
+export function swap(
+    kind: 'Symmetry',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Symmetry'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Symmetry'>;
+export function swap(kind: 'TokenSwapV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'TokenSwapV2'>;
+export function swap(
+    kind: 'HeliumTreasuryManagementRedeemV0',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'HeliumTreasuryManagementRedeemV0'>;
+export function swap(
+    kind: 'StakeDexStakeWrappedSol',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'StakeDexStakeWrappedSol'>;
+export function swap(
+    kind: 'StakeDexSwapViaStake',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'StakeDexSwapViaStake'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'StakeDexSwapViaStake'>;
+export function swap(kind: 'GooseFXV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'GooseFXV2'>;
+export function swap(kind: 'Perps'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Perps'>;
+export function swap(kind: 'PerpsAddLiquidity'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PerpsAddLiquidity'>;
+export function swap(
+    kind: 'PerpsRemoveLiquidity',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PerpsRemoveLiquidity'>;
+export function swap(kind: 'MeteoraDlmm'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MeteoraDlmm'>;
+export function swap(
+    kind: 'OpenBookV2',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'OpenBookV2'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'OpenBookV2'>;
+export function swap(kind: 'RaydiumClmmV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'RaydiumClmmV2'>;
+export function swap(
+    kind: 'StakeDexPrefundWithdrawStakeAndDepositStake',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'StakeDexPrefundWithdrawStakeAndDepositStake'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'StakeDexPrefundWithdrawStakeAndDepositStake'>;
+export function swap(
+    kind: 'Clone',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Clone'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Clone'>;
+export function swap(
+    kind: 'SanctumS',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'SanctumS'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SanctumS'>;
+export function swap(
+    kind: 'SanctumSAddLiquidity',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'SanctumSAddLiquidity'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SanctumSAddLiquidity'>;
+export function swap(
+    kind: 'SanctumSRemoveLiquidity',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'SanctumSRemoveLiquidity'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SanctumSRemoveLiquidity'>;
+export function swap(kind: 'RaydiumCP'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'RaydiumCP'>;
+export function swap(
+    kind: 'WhirlpoolSwapV2',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'WhirlpoolSwapV2'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'WhirlpoolSwapV2'>;
+export function swap(kind: 'OneIntro'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'OneIntro'>;
+export function swap(kind: 'PumpWrappedBuy'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedBuy'>;
+export function swap(kind: 'PumpWrappedSell'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedSell'>;
+export function swap(kind: 'PerpsV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PerpsV2'>;
+export function swap(
+    kind: 'PerpsV2AddLiquidity',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PerpsV2AddLiquidity'>;
+export function swap(
+    kind: 'PerpsV2RemoveLiquidity',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PerpsV2RemoveLiquidity'>;
+export function swap(
+    kind: 'MoonshotWrappedBuy',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MoonshotWrappedBuy'>;
+export function swap(
+    kind: 'MoonshotWrappedSell',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MoonshotWrappedSell'>;
+export function swap(kind: 'StabbleStableSwap'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'StabbleStableSwap'>;
+export function swap(
+    kind: 'StabbleWeightedSwap',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'StabbleWeightedSwap'>;
+export function swap(
+    kind: 'Obric',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Obric'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Obric'>;
+export function swap(
+    kind: 'FoxBuyFromEstimatedCost',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'FoxBuyFromEstimatedCost'>;
+export function swap(
+    kind: 'FoxClaimPartial',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'FoxClaimPartial'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'FoxClaimPartial'>;
+export function swap(
+    kind: 'SolFi',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'SolFi'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SolFi'>;
+export function swap(
+    kind: 'SolayerDelegateNoInit',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SolayerDelegateNoInit'>;
+export function swap(
+    kind: 'SolayerUndelegateNoInit',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SolayerUndelegateNoInit'>;
+export function swap(
+    kind: 'TokenMill',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'TokenMill'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'TokenMill'>;
+export function swap(kind: 'DaosFunBuy'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'DaosFunBuy'>;
+export function swap(kind: 'DaosFunSell'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'DaosFunSell'>;
+export function swap(kind: 'ZeroFi'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'ZeroFi'>;
+export function swap(
+    kind: 'StakeDexWithdrawWrappedSol',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'StakeDexWithdrawWrappedSol'>;
+export function swap(kind: 'VirtualsBuy'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'VirtualsBuy'>;
+export function swap(kind: 'VirtualsSell'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'VirtualsSell'>;
+export function swap(
+    kind: 'Perena',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Perena'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Perena'>;
+export function swap(kind: 'PumpSwapBuy'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpSwapBuy'>;
+export function swap(kind: 'PumpSwapSell'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpSwapSell'>;
+export function swap(kind: 'Gamma'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Gamma'>;
+export function swap(
+    kind: 'MeteoraDlmmSwapV2',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'MeteoraDlmmSwapV2'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MeteoraDlmmSwapV2'>;
+export function swap(kind: 'Woofi'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Woofi'>;
+export function swap(kind: 'MeteoraDammV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MeteoraDammV2'>;
+export function swap(
+    kind: 'MeteoraDynamicBondingCurveSwap',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MeteoraDynamicBondingCurveSwap'>;
+export function swap(
+    kind: 'StabbleStableSwapV2',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'StabbleStableSwapV2'>;
+export function swap(
+    kind: 'StabbleWeightedSwapV2',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'StabbleWeightedSwapV2'>;
+export function swap(
+    kind: 'RaydiumLaunchlabBuy',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'RaydiumLaunchlabBuy'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'RaydiumLaunchlabBuy'>;
+export function swap(
+    kind: 'RaydiumLaunchlabSell',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'RaydiumLaunchlabSell'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'RaydiumLaunchlabSell'>;
+export function swap(
+    kind: 'BoopdotfunWrappedBuy',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'BoopdotfunWrappedBuy'>;
+export function swap(
+    kind: 'BoopdotfunWrappedSell',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'BoopdotfunWrappedSell'>;
+export function swap(
+    kind: 'Plasma',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Plasma'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Plasma'>;
+export function swap(
+    kind: 'GoonFi',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'GoonFi'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'GoonFi'>;
+export function swap(
+    kind: 'HumidiFi',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'HumidiFi'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'HumidiFi'>;
+export function swap(
+    kind: 'MeteoraDynamicBondingCurveSwapWithRemainingAccounts',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MeteoraDynamicBondingCurveSwapWithRemainingAccounts'>;
+export function swap(
+    kind: 'TesseraV',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'TesseraV'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'TesseraV'>;
+export function swap(kind: 'PumpWrappedBuyV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedBuyV2'>;
+export function swap(kind: 'PumpWrappedSellV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedSellV2'>;
+export function swap(kind: 'PumpSwapBuyV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpSwapBuyV2'>;
+export function swap(kind: 'PumpSwapSellV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpSwapSellV2'>;
+export function swap(
+    kind: 'Heaven',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Heaven'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Heaven'>;
+export function swap(
+    kind: 'SolFiV2',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'SolFiV2'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SolFiV2'>;
+export function swap(kind: 'Aquifer'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Aquifer'>;
+export function swap(kind: 'PumpWrappedBuyV3'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedBuyV3'>;
+export function swap(kind: 'PumpWrappedSellV3'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedSellV3'>;
+export function swap(kind: 'PumpSwapBuyV3'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpSwapBuyV3'>;
+export function swap(kind: 'PumpSwapSellV3'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpSwapSellV3'>;
+export function swap(
+    kind: 'JupiterLendDeposit',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'JupiterLendDeposit'>;
+export function swap(kind: 'JupiterLendRedeem'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'JupiterLendRedeem'>;
+export function swap(
+    kind: 'DefiTuna',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'DefiTuna'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'DefiTuna'>;
+export function swap(
+    kind: 'AlphaQ',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'AlphaQ'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'AlphaQ'>;
+export function swap(kind: 'RaydiumV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'RaydiumV2'>;
+export function swap(
+    kind: 'SarosDlmm',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'SarosDlmm'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SarosDlmm'>;
+export function swap(
+    kind: 'Futarchy',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Futarchy'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Futarchy'>;
+export function swap(
+    kind: 'MeteoraDammV2WithRemainingAccounts',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MeteoraDammV2WithRemainingAccounts'>;
+export function swap(kind: 'Obsidian'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Obsidian'>;
+export function swap(
+    kind: 'WhaleStreet',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'WhaleStreet'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'WhaleStreet'>;
+export function swap(
+    kind: 'DynamicV1',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'DynamicV1'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'DynamicV1'>;
+export function swap(kind: 'PumpWrappedBuyV4'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedBuyV4'>;
+export function swap(kind: 'PumpWrappedSellV4'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedSellV4'>;
+export function swap(kind: 'CarrotIssue'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'CarrotIssue'>;
+export function swap(kind: 'CarrotRedeem'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'CarrotRedeem'>;
+export function swap(
+    kind: 'Manifest',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Manifest'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Manifest'>;
+export function swap(
+    kind: 'BisonFi',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'BisonFi'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'BisonFi'>;
+export function swap(
+    kind: 'HumidiFiV2',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'HumidiFiV2'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'HumidiFiV2'>;
+export function swap(
+    kind: 'PerenaStar',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'PerenaStar'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PerenaStar'>;
+export function swap(
+    kind: 'JupiterRfqV2',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'JupiterRfqV2'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'JupiterRfqV2'>;
+export function swap(
+    kind: 'GoonFiV2',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'GoonFiV2'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'GoonFiV2'>;
+export function swap(
+    kind: 'Scorch',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Scorch'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Scorch'>;
+export function swap(
+    kind: 'VaultLiquidUnstake',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'VaultLiquidUnstake'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'VaultLiquidUnstake'>;
+export function swap(kind: 'XOrca'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'XOrca'>;
+export function swap(
+    kind: 'Quantum',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Quantum'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Quantum'>;
+export function swap(
+    kind: 'WhaleStreetV2',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'WhaleStreetV2'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'WhaleStreetV2'>;
+export function swap(
+    kind: 'Riptide',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Riptide'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Riptide'>;
+export function swap(kind: 'RunnerRodeo'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'RunnerRodeo'>;
+export function swap(
+    kind: 'TaurusFi',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'TaurusFi'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'TaurusFi'>;
+export function swap(kind: 'Omnipair'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Omnipair'>;
+export function swap(kind: 'MSwap'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MSwap'>;
+export function swap(
+    kind: 'Hylo',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Hylo'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Hylo'>;
+export function swap(kind: 'VoltrDeposit'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'VoltrDeposit'>;
+export function swap(kind: 'VoltrWithdraw'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'VoltrWithdraw'>;
+export function swap(
+    kind: 'SanctumSV2',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'SanctumSV2'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SanctumSV2'>;
+export function swap(
+    kind: 'LemmingsFi',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'LemmingsFi'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'LemmingsFi'>;
+export function swap(kind: 'ScaleVmmBuy'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'ScaleVmmBuy'>;
+export function swap(kind: 'ScaleVmmSell'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'ScaleVmmSell'>;
+export function swap(kind: 'ScaleAmmBuy'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'ScaleAmmBuy'>;
+export function swap(kind: 'ScaleAmmSell'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'ScaleAmmSell'>;
+export function swap(
+    kind: 'BisonFiV2',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'BisonFiV2'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'BisonFiV2'>;
+export function swap(kind: 'Trends'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Trends'>;
+export function swap(kind: 'HumaDeposit'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'HumaDeposit'>;
+export function swap(
+    kind: 'HumaInstantWithdraw',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'HumaInstantWithdraw'>;
+export function swap(
+    kind: 'Kipseli',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Kipseli'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Kipseli'>;
+export function swap(
+    kind: 'DynamicV2',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'DynamicV2'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'DynamicV2'>;
+export function swap(
+    kind: 'PumpSwapBuyV3WithCashbackClaim',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpSwapBuyV3WithCashbackClaim'>;
+export function swap(
+    kind: 'PumpSwapSellV3WithCashbackClaim',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpSwapSellV3WithCashbackClaim'>;
+export function swap(
+    kind: 'PumpWrappedBuyV4WithCashbackClaim',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedBuyV4WithCashbackClaim'>;
+export function swap(
+    kind: 'PumpWrappedSellV4WithCashbackClaim',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedSellV4WithCashbackClaim'>;
+export function swap(
+    kind: 'GoonFiV3',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'GoonFiV3'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'GoonFiV3'>;
+export function swap(
+    kind: 'PumpWrappedBuyV5',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'PumpWrappedBuyV5'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedBuyV5'>;
+export function swap(
+    kind: 'PumpWrappedSellV5',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'PumpWrappedSellV5'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedSellV5'>;
+export function swap(kind: 'ZeroFiSwapV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'ZeroFiSwapV2'>;
+export function swap(
+    kind: 'BisonFiPredict',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'BisonFiPredict'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'BisonFiPredict'>;
+export function swap(kind: 'ByrealDynamicV3'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'ByrealDynamicV3'>;
+export function swap(
+    kind: 'Flux',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Flux'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Flux'>;
+export function swap(
+    kind: 'VaultLiquidSellLst',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'VaultLiquidSellLst'>;
+export function swap(
+    kind: 'VaultLiquidBuyLst',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'VaultLiquidBuyLst'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'VaultLiquidBuyLst'>;
+export function swap(
+    kind: 'KipseliV2',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'KipseliV2'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'KipseliV2'>;
+export function swap(
+    kind: 'Deriverse',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Deriverse'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Deriverse'>;
+export function swap(
+    kind: 'Hadron',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Hadron'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Hadron'>;
+export function swap(kind: 'BinaryFi'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'BinaryFi'>;
+export function swap(
+    kind: 'Metric',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Metric'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Metric'>;
+export function swap<K extends SwapArgs['__kind'], Data>(kind: K, data?: Data) {
+    return Array.isArray(data) ? { __kind: kind, fields: data } : { __kind: kind, ...(data ?? {}) };
+}
+
+export function isSwap<K extends Swap['__kind']>(kind: K, value: Swap): value is Swap & { __kind: K } {
+    return value.__kind === kind;
+}

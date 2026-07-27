@@ -1,5 +1,8 @@
 //! Jupiter on-chain product SDKs.
 
+#[cfg(feature = "aggregator-v6")]
+pub use jupiter_aggregator_v6_sdk as aggregator_v6;
+
 #[cfg(feature = "governance")]
 pub use jupiter_governance_sdk as governance;
 

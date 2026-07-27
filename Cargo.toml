@@ -5,6 +5,7 @@
 resolver = "2"
 members = [
     ".",
+    "src/products/aggregator-v6/rust",
     "src/products/governance/rust",
     "src/products/lend-borrow/rust",
     "src/products/lend-dex/rust",
@@ -30,6 +31,7 @@ repository = "https://github.com/ChiefWoods/jupiter-sdk"
 keywords = ["jupiter", "solana", "sdk", "defi", "codama"]
 
 [workspace.dependencies]
+jupiter-aggregator-v6-sdk = { path = "src/products/aggregator-v6/rust", version = "0.1.0" }
 jupiter-governance-sdk = { path = "src/products/governance/rust", version = "0.1.0" }
 jupiter-lend-borrow-sdk = { path = "src/products/lend-borrow/rust", version = "0.1.0" }
 jupiter-lend-dex-sdk = { path = "src/products/lend-dex/rust", version = "0.1.0" }
@@ -61,6 +63,7 @@ path = "src/lib.rs"
 
 [features]
 default = []
+aggregator-v6 = ["dep:jupiter-aggregator-v6-sdk"]
 governance = ["dep:jupiter-governance-sdk"]
 lend-borrow = ["dep:jupiter-lend-borrow-sdk"]
 lend-dex = ["dep:jupiter-lend-dex-sdk"]
@@ -76,6 +79,7 @@ prediction = ["dep:jupiter-prediction-sdk"]
 stablecoin = ["dep:jupiter-stablecoin-sdk"]
 
 [dependencies]
+jupiter-aggregator-v6-sdk = { workspace = true, optional = true }
 jupiter-governance-sdk = { workspace = true, optional = true }
 jupiter-lend-borrow-sdk = { workspace = true, optional = true }
 jupiter-lend-dex-sdk = { workspace = true, optional = true }

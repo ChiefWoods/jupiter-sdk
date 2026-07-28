@@ -25,4 +25,6 @@ description: >-
    - **README.md** — add `` `<product_name>` `` to the Products list under Flavors (keep alphabetical order).
 4. Make sure `bun run build` and `bun run typecheck` are green.
    - If typecheck fails for the product SDK (e.g. incorrect PDA seeds or account defaults from the Anchor IDL), add an optional `src/products/<product_name>/generate-codama-idl.ts` that builds from `idl/anchor.json` and applies Codama-tree overrides. Remove `idl/codama.json` (or run `bun run generate:codama-idl <product_name>`), then re-run `bun run generate <product_name>` so the product script is used. See `src/products/offerbook/` for the pattern.
-5. Commit using message `feat: add <product_name>`.
+   - If Rust client generation needs product-specific renderer options (e.g. `traitOptions`), add an optional `src/products/<product_name>/generate-clients.ts`. `bun run generate` / `generate:clients` prefer it over the shared script. See `src/products/perps/` for the pattern.
+5. If the product has any custom SDK generation scripts (`generate-codama-idl.ts`, `generate-clients.ts`, etc.), add `src/products/<product_name>/README.md` documenting what each script overrides and how to run it (direct path and shared entrypoint). Follow the style in `src/products/offerbook/README.md`.
+6. Commit using message `feat: add <product_name>`.

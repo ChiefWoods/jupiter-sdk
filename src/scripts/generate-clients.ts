@@ -34,6 +34,7 @@ await codama.accept(
     syncPackageJson: false,
     formatCode: true,
     deleteFolderBeforeRendering: true,
+    generatedFolder: "generated",
   }),
 );
 
@@ -42,6 +43,7 @@ await codama.accept(
     syncPackageJson: false,
     formatCode: true,
     deleteFolderBeforeRendering: true,
+    packageFolder: "generated",
   }),
 );
 
@@ -52,6 +54,7 @@ codama.accept(
     formatCode: true,
     deleteFolderBeforeRendering: true,
     anchorTraits: true,
+    generatedFolder: "generated",
   }),
 );
 

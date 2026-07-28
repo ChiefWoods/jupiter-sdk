@@ -1,0 +1,53 @@
+import {
+    combineCodec,
+    getI128Decoder,
+    getI128Encoder,
+    getOptionDecoder,
+    getOptionEncoder,
+    getStructDecoder,
+    getStructEncoder,
+    type Codec,
+    type Decoder,
+    type Encoder,
+    type Option,
+    type OptionOrNullable,
+} from '@solana/codecs';
+import {
+    getOperatePerfectDexAmountsDecoder,
+    getOperatePerfectDexAmountsEncoder,
+    type OperatePerfectDexAmounts,
+    type OperatePerfectDexAmountsArgs,
+} from '../types/operatePerfectDexAmounts';
+
+/**
+ * Collateral leg for `operate_perfect_dex`.
+ * `amounts`  — perfect DEX amounts for smart col (T2/T4).
+ * `new_col`  — token delta for non-smart col (T1/T3).
+ */
+export type OperatePerfectDexColAmounts = { amounts: Option<OperatePerfectDexAmounts>; newCol: Option<bigint> };
+
+export type OperatePerfectDexColAmountsArgs = {
+    amounts: OptionOrNullable<OperatePerfectDexAmountsArgs>;
+    newCol: OptionOrNullable<number | bigint>;
+};
+
+export function getOperatePerfectDexColAmountsEncoder(): Encoder<OperatePerfectDexColAmountsArgs> {
+    return getStructEncoder([
+        ['amounts', getOptionEncoder(getOperatePerfectDexAmountsEncoder())],
+        ['newCol', getOptionEncoder(getI128Encoder())],
+    ]);
+}
+
+export function getOperatePerfectDexColAmountsDecoder(): Decoder<OperatePerfectDexColAmounts> {
+    return getStructDecoder([
+        ['amounts', getOptionDecoder(getOperatePerfectDexAmountsDecoder())],
+        ['newCol', getOptionDecoder(getI128Decoder())],
+    ]);
+}
+
+export function getOperatePerfectDexColAmountsCodec(): Codec<
+    OperatePerfectDexColAmountsArgs,
+    OperatePerfectDexColAmounts
+> {
+    return combineCodec(getOperatePerfectDexColAmountsEncoder(), getOperatePerfectDexColAmountsDecoder());
+}

@@ -29,7 +29,7 @@ keywords.workspace = true
 publish = true
 
 [lib]
-path = "src/lib.rs"
+path = "lib.rs"
 
 [features]
 anchor = ["dep:anchor-lang"]
@@ -56,7 +56,7 @@ anchor-lang = { version = "~0.31", optional = true }
 );
 console.log(`Wrote ${rustDir}/Cargo.toml`);
 
-const libPath = `${rustDir}/src/lib.rs`;
+const libPath = `${rustDir}/lib.rs`;
 await Bun.write(
   libPath,
   `//! Generated ${productName} Rust client.

@@ -1,0 +1,44 @@
+import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
+import { VAULTS_PROGRAM_ID } from '..';
+import { getStructEncoder, getU16Encoder, getU8Encoder, type Encoder } from '@solana/codecs';
+
+export interface UpdateBorrowFeeInstructionAccounts {
+    authority: Address;
+    vaultAdmin: Address;
+    vaultState: Address;
+    vaultConfig: Address;
+    supplyTokenReservesLiquidity: Address;
+    borrowTokenReservesLiquidity: Address;
+}
+
+export interface UpdateBorrowFeeInstructionArgs {
+    vaultId: number;
+    borrowFee: number;
+}
+
+function getUpdateBorrowFeeInstructionDataEncoder(): Encoder<UpdateBorrowFeeInstructionArgs> {
+    return getStructEncoder([
+        ['vaultId', getU16Encoder()],
+        ['borrowFee', getU8Encoder()],
+    ]);
+}
+
+export function createUpdateBorrowFeeInstruction(
+    accounts: UpdateBorrowFeeInstructionAccounts,
+    args: UpdateBorrowFeeInstructionArgs,
+    programId: Address = VAULTS_PROGRAM_ID,
+): TransactionInstruction {
+    const keys: AccountMeta[] = [
+        { pubkey: accounts.authority, isSigner: true, isWritable: false },
+        { pubkey: accounts.vaultAdmin, isSigner: false, isWritable: false },
+        { pubkey: accounts.vaultState, isSigner: false, isWritable: true },
+        { pubkey: accounts.vaultConfig, isSigner: false, isWritable: true },
+        { pubkey: accounts.supplyTokenReservesLiquidity, isSigner: false, isWritable: false },
+        { pubkey: accounts.borrowTokenReservesLiquidity, isSigner: false, isWritable: false },
+    ];
+    const instructionData = Buffer.from(getUpdateBorrowFeeInstructionDataEncoder().encode(args));
+    const discriminator = Buffer.from('fb7c2394caa79d41', 'hex');
+    const data = Buffer.concat([discriminator, instructionData]);
+
+    return new TransactionInstruction({ keys, programId, data });
+}

@@ -1,0 +1,195 @@
+import { Address } from '@solana/web3.js';
+import {
+    combineCodec,
+    fixDecoderSize,
+    fixEncoderSize,
+    getBooleanDecoder,
+    getBooleanEncoder,
+    getBytesDecoder,
+    getBytesEncoder,
+    getDiscriminatedUnionDecoder,
+    getDiscriminatedUnionEncoder,
+    getStructDecoder,
+    getStructEncoder,
+    getU16Decoder,
+    getU16Encoder,
+    getU32Decoder,
+    getU32Encoder,
+    getU64Decoder,
+    getU64Encoder,
+    getUnitDecoder,
+    getUnitEncoder,
+    transformDecoder,
+    transformEncoder,
+    type Codec,
+    type Decoder,
+    type Encoder,
+    type GetDiscriminatedUnionVariant,
+    type GetDiscriminatedUnionVariantContent,
+} from '@solana/codecs';
+
+export type UpdateConfigAction =
+    | { __kind: 'UpdateAdmin'; admin: Address }
+    | { __kind: 'PauseProtocol' }
+    | { __kind: 'UnpauseProtocol' }
+    | { __kind: 'SetDisableRepayment'; disableRepayment: boolean }
+    | { __kind: 'SetInterestFeeBps'; interestFeeBps: number }
+    | { __kind: 'SetLiquidationFeeBps'; liquidationFeeBps: number }
+    | { __kind: 'SetReferralRewardsFeeBps'; referralRewardsFeeBps: number }
+    | { __kind: 'SetRefereeRewardsFeeBps'; refereeRewardsFeeBps: number }
+    | { __kind: 'SetRepayFeeBps'; repayFeeBps: number }
+    | { __kind: 'SetMinPrincipalAmount'; minPrincipalAmount: bigint }
+    | { __kind: 'SetMinCollateralAmount'; minCollateralAmount: bigint }
+    | { __kind: 'SetMinDuration'; minDuration: number }
+    | { __kind: 'SetMinExpiry'; minExpiry: number }
+    | { __kind: 'SetMaxApy'; maxApy: number }
+    | { __kind: 'SetMaxDuration'; maxDuration: number }
+    | { __kind: 'SetMaxExpiry'; maxExpiry: number };
+
+export type UpdateConfigActionArgs =
+    | { __kind: 'UpdateAdmin'; admin: Address }
+    | { __kind: 'PauseProtocol' }
+    | { __kind: 'UnpauseProtocol' }
+    | { __kind: 'SetDisableRepayment'; disableRepayment: boolean }
+    | { __kind: 'SetInterestFeeBps'; interestFeeBps: number }
+    | { __kind: 'SetLiquidationFeeBps'; liquidationFeeBps: number }
+    | { __kind: 'SetReferralRewardsFeeBps'; referralRewardsFeeBps: number }
+    | { __kind: 'SetRefereeRewardsFeeBps'; refereeRewardsFeeBps: number }
+    | { __kind: 'SetRepayFeeBps'; repayFeeBps: number }
+    | { __kind: 'SetMinPrincipalAmount'; minPrincipalAmount: number | bigint }
+    | { __kind: 'SetMinCollateralAmount'; minCollateralAmount: number | bigint }
+    | { __kind: 'SetMinDuration'; minDuration: number }
+    | { __kind: 'SetMinExpiry'; minExpiry: number }
+    | { __kind: 'SetMaxApy'; maxApy: number }
+    | { __kind: 'SetMaxDuration'; maxDuration: number }
+    | { __kind: 'SetMaxExpiry'; maxExpiry: number };
+
+export function getUpdateConfigActionEncoder(): Encoder<UpdateConfigActionArgs> {
+    return getDiscriminatedUnionEncoder([
+        [
+            'UpdateAdmin',
+            getStructEncoder([
+                ['admin', transformEncoder(fixEncoderSize(getBytesEncoder(), 32), (value: Address) => value.toBytes())],
+            ]),
+        ],
+        ['PauseProtocol', getUnitEncoder()],
+        ['UnpauseProtocol', getUnitEncoder()],
+        ['SetDisableRepayment', getStructEncoder([['disableRepayment', getBooleanEncoder()]])],
+        ['SetInterestFeeBps', getStructEncoder([['interestFeeBps', getU16Encoder()]])],
+        ['SetLiquidationFeeBps', getStructEncoder([['liquidationFeeBps', getU16Encoder()]])],
+        ['SetReferralRewardsFeeBps', getStructEncoder([['referralRewardsFeeBps', getU16Encoder()]])],
+        ['SetRefereeRewardsFeeBps', getStructEncoder([['refereeRewardsFeeBps', getU16Encoder()]])],
+        ['SetRepayFeeBps', getStructEncoder([['repayFeeBps', getU16Encoder()]])],
+        ['SetMinPrincipalAmount', getStructEncoder([['minPrincipalAmount', getU64Encoder()]])],
+        ['SetMinCollateralAmount', getStructEncoder([['minCollateralAmount', getU64Encoder()]])],
+        ['SetMinDuration', getStructEncoder([['minDuration', getU32Encoder()]])],
+        ['SetMinExpiry', getStructEncoder([['minExpiry', getU32Encoder()]])],
+        ['SetMaxApy', getStructEncoder([['maxApy', getU32Encoder()]])],
+        ['SetMaxDuration', getStructEncoder([['maxDuration', getU32Encoder()]])],
+        ['SetMaxExpiry', getStructEncoder([['maxExpiry', getU32Encoder()]])],
+    ]);
+}
+
+export function getUpdateConfigActionDecoder(): Decoder<UpdateConfigAction> {
+    return getDiscriminatedUnionDecoder([
+        [
+            'UpdateAdmin',
+            getStructDecoder([
+                ['admin', transformDecoder(fixDecoderSize(getBytesDecoder(), 32), value => new Address(value))],
+            ]),
+        ],
+        ['PauseProtocol', getUnitDecoder()],
+        ['UnpauseProtocol', getUnitDecoder()],
+        ['SetDisableRepayment', getStructDecoder([['disableRepayment', getBooleanDecoder()]])],
+        ['SetInterestFeeBps', getStructDecoder([['interestFeeBps', getU16Decoder()]])],
+        ['SetLiquidationFeeBps', getStructDecoder([['liquidationFeeBps', getU16Decoder()]])],
+        ['SetReferralRewardsFeeBps', getStructDecoder([['referralRewardsFeeBps', getU16Decoder()]])],
+        ['SetRefereeRewardsFeeBps', getStructDecoder([['refereeRewardsFeeBps', getU16Decoder()]])],
+        ['SetRepayFeeBps', getStructDecoder([['repayFeeBps', getU16Decoder()]])],
+        ['SetMinPrincipalAmount', getStructDecoder([['minPrincipalAmount', getU64Decoder()]])],
+        ['SetMinCollateralAmount', getStructDecoder([['minCollateralAmount', getU64Decoder()]])],
+        ['SetMinDuration', getStructDecoder([['minDuration', getU32Decoder()]])],
+        ['SetMinExpiry', getStructDecoder([['minExpiry', getU32Decoder()]])],
+        ['SetMaxApy', getStructDecoder([['maxApy', getU32Decoder()]])],
+        ['SetMaxDuration', getStructDecoder([['maxDuration', getU32Decoder()]])],
+        ['SetMaxExpiry', getStructDecoder([['maxExpiry', getU32Decoder()]])],
+    ]);
+}
+
+export function getUpdateConfigActionCodec(): Codec<UpdateConfigActionArgs, UpdateConfigAction> {
+    return combineCodec(getUpdateConfigActionEncoder(), getUpdateConfigActionDecoder());
+}
+
+// Data Enum Helpers.
+export function updateConfigAction(
+    kind: 'UpdateAdmin',
+    data: GetDiscriminatedUnionVariantContent<UpdateConfigActionArgs, '__kind', 'UpdateAdmin'>,
+): GetDiscriminatedUnionVariant<UpdateConfigActionArgs, '__kind', 'UpdateAdmin'>;
+export function updateConfigAction(
+    kind: 'PauseProtocol',
+): GetDiscriminatedUnionVariant<UpdateConfigActionArgs, '__kind', 'PauseProtocol'>;
+export function updateConfigAction(
+    kind: 'UnpauseProtocol',
+): GetDiscriminatedUnionVariant<UpdateConfigActionArgs, '__kind', 'UnpauseProtocol'>;
+export function updateConfigAction(
+    kind: 'SetDisableRepayment',
+    data: GetDiscriminatedUnionVariantContent<UpdateConfigActionArgs, '__kind', 'SetDisableRepayment'>,
+): GetDiscriminatedUnionVariant<UpdateConfigActionArgs, '__kind', 'SetDisableRepayment'>;
+export function updateConfigAction(
+    kind: 'SetInterestFeeBps',
+    data: GetDiscriminatedUnionVariantContent<UpdateConfigActionArgs, '__kind', 'SetInterestFeeBps'>,
+): GetDiscriminatedUnionVariant<UpdateConfigActionArgs, '__kind', 'SetInterestFeeBps'>;
+export function updateConfigAction(
+    kind: 'SetLiquidationFeeBps',
+    data: GetDiscriminatedUnionVariantContent<UpdateConfigActionArgs, '__kind', 'SetLiquidationFeeBps'>,
+): GetDiscriminatedUnionVariant<UpdateConfigActionArgs, '__kind', 'SetLiquidationFeeBps'>;
+export function updateConfigAction(
+    kind: 'SetReferralRewardsFeeBps',
+    data: GetDiscriminatedUnionVariantContent<UpdateConfigActionArgs, '__kind', 'SetReferralRewardsFeeBps'>,
+): GetDiscriminatedUnionVariant<UpdateConfigActionArgs, '__kind', 'SetReferralRewardsFeeBps'>;
+export function updateConfigAction(
+    kind: 'SetRefereeRewardsFeeBps',
+    data: GetDiscriminatedUnionVariantContent<UpdateConfigActionArgs, '__kind', 'SetRefereeRewardsFeeBps'>,
+): GetDiscriminatedUnionVariant<UpdateConfigActionArgs, '__kind', 'SetRefereeRewardsFeeBps'>;
+export function updateConfigAction(
+    kind: 'SetRepayFeeBps',
+    data: GetDiscriminatedUnionVariantContent<UpdateConfigActionArgs, '__kind', 'SetRepayFeeBps'>,
+): GetDiscriminatedUnionVariant<UpdateConfigActionArgs, '__kind', 'SetRepayFeeBps'>;
+export function updateConfigAction(
+    kind: 'SetMinPrincipalAmount',
+    data: GetDiscriminatedUnionVariantContent<UpdateConfigActionArgs, '__kind', 'SetMinPrincipalAmount'>,
+): GetDiscriminatedUnionVariant<UpdateConfigActionArgs, '__kind', 'SetMinPrincipalAmount'>;
+export function updateConfigAction(
+    kind: 'SetMinCollateralAmount',
+    data: GetDiscriminatedUnionVariantContent<UpdateConfigActionArgs, '__kind', 'SetMinCollateralAmount'>,
+): GetDiscriminatedUnionVariant<UpdateConfigActionArgs, '__kind', 'SetMinCollateralAmount'>;
+export function updateConfigAction(
+    kind: 'SetMinDuration',
+    data: GetDiscriminatedUnionVariantContent<UpdateConfigActionArgs, '__kind', 'SetMinDuration'>,
+): GetDiscriminatedUnionVariant<UpdateConfigActionArgs, '__kind', 'SetMinDuration'>;
+export function updateConfigAction(
+    kind: 'SetMinExpiry',
+    data: GetDiscriminatedUnionVariantContent<UpdateConfigActionArgs, '__kind', 'SetMinExpiry'>,
+): GetDiscriminatedUnionVariant<UpdateConfigActionArgs, '__kind', 'SetMinExpiry'>;
+export function updateConfigAction(
+    kind: 'SetMaxApy',
+    data: GetDiscriminatedUnionVariantContent<UpdateConfigActionArgs, '__kind', 'SetMaxApy'>,
+): GetDiscriminatedUnionVariant<UpdateConfigActionArgs, '__kind', 'SetMaxApy'>;
+export function updateConfigAction(
+    kind: 'SetMaxDuration',
+    data: GetDiscriminatedUnionVariantContent<UpdateConfigActionArgs, '__kind', 'SetMaxDuration'>,
+): GetDiscriminatedUnionVariant<UpdateConfigActionArgs, '__kind', 'SetMaxDuration'>;
+export function updateConfigAction(
+    kind: 'SetMaxExpiry',
+    data: GetDiscriminatedUnionVariantContent<UpdateConfigActionArgs, '__kind', 'SetMaxExpiry'>,
+): GetDiscriminatedUnionVariant<UpdateConfigActionArgs, '__kind', 'SetMaxExpiry'>;
+export function updateConfigAction<K extends UpdateConfigActionArgs['__kind'], Data>(kind: K, data?: Data) {
+    return Array.isArray(data) ? { __kind: kind, fields: data } : { __kind: kind, ...(data ?? {}) };
+}
+
+export function isUpdateConfigAction<K extends UpdateConfigAction['__kind']>(
+    kind: K,
+    value: UpdateConfigAction,
+): value is UpdateConfigAction & { __kind: K } {
+    return value.__kind === kind;
+}

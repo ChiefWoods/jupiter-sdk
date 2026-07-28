@@ -1,0 +1,87 @@
+import {
+    combineCodec,
+    getStructDecoder,
+    getStructEncoder,
+    getU128Decoder,
+    getU128Encoder,
+    type Codec,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+/** @notice struct to set borrow rate data for version 1 */
+export type RateDataV1Params = {
+    /**
+     *
+     * @param kink in borrow rate. in 1e2: 100% = 10_000; 1% = 100
+     */
+    kink: bigint;
+    /**
+     *
+     * @param rateAtUtilizationZero desired borrow rate when utilization is zero. in 1e2: 100% = 10_000; 1% = 100
+     * i.e. constant minimum borrow rate
+     * e.g. at utilization = 0.01% rate could still be at least 4% (rateAtUtilizationZero would be 400 then)
+     */
+    rateAtUtilizationZero: bigint;
+    /**
+     *
+     * @param rateAtUtilizationKink borrow rate when utilization is at kink. in 1e2: 100% = 10_000; 1% = 100
+     * e.g. when rate should be 7% at kink then rateAtUtilizationKink would be 700
+     */
+    rateAtUtilizationKink: bigint;
+    /**
+     *
+     * @param rateAtUtilizationMax borrow rate when utilization is maximum at 100%. in 1e2: 100% = 10_000; 1% = 100
+     * e.g. when rate should be 125% at 100% then rateAtUtilizationMax would be 12_500
+     */
+    rateAtUtilizationMax: bigint;
+};
+
+export type RateDataV1ParamsArgs = {
+    /**
+     *
+     * @param kink in borrow rate. in 1e2: 100% = 10_000; 1% = 100
+     */
+    kink: number | bigint;
+    /**
+     *
+     * @param rateAtUtilizationZero desired borrow rate when utilization is zero. in 1e2: 100% = 10_000; 1% = 100
+     * i.e. constant minimum borrow rate
+     * e.g. at utilization = 0.01% rate could still be at least 4% (rateAtUtilizationZero would be 400 then)
+     */
+    rateAtUtilizationZero: number | bigint;
+    /**
+     *
+     * @param rateAtUtilizationKink borrow rate when utilization is at kink. in 1e2: 100% = 10_000; 1% = 100
+     * e.g. when rate should be 7% at kink then rateAtUtilizationKink would be 700
+     */
+    rateAtUtilizationKink: number | bigint;
+    /**
+     *
+     * @param rateAtUtilizationMax borrow rate when utilization is maximum at 100%. in 1e2: 100% = 10_000; 1% = 100
+     * e.g. when rate should be 125% at 100% then rateAtUtilizationMax would be 12_500
+     */
+    rateAtUtilizationMax: number | bigint;
+};
+
+export function getRateDataV1ParamsEncoder(): Encoder<RateDataV1ParamsArgs> {
+    return getStructEncoder([
+        ['kink', getU128Encoder()],
+        ['rateAtUtilizationZero', getU128Encoder()],
+        ['rateAtUtilizationKink', getU128Encoder()],
+        ['rateAtUtilizationMax', getU128Encoder()],
+    ]);
+}
+
+export function getRateDataV1ParamsDecoder(): Decoder<RateDataV1Params> {
+    return getStructDecoder([
+        ['kink', getU128Decoder()],
+        ['rateAtUtilizationZero', getU128Decoder()],
+        ['rateAtUtilizationKink', getU128Decoder()],
+        ['rateAtUtilizationMax', getU128Decoder()],
+    ]);
+}
+
+export function getRateDataV1ParamsCodec(): Codec<RateDataV1ParamsArgs, RateDataV1Params> {
+    return combineCodec(getRateDataV1ParamsEncoder(), getRateDataV1ParamsDecoder());
+}

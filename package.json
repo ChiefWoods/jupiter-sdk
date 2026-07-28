@@ -24,7 +24,7 @@
     "src/products/*"
   ],
   "files": [
-    "src/products/*/dist"
+    "src/products/*/dist/**"
   ],
   "type": "module",
   "exports": {

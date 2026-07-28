@@ -14,6 +14,8 @@ await assertProductIdl(productDir);
 const hasCodamaIdl = await Bun.file(codamaIdlPath).exists();
 const productCodamaIdlScript = `${productDir}/generate-codama-idl.ts`;
 const hasProductCodamaIdlScript = await Bun.file(productCodamaIdlScript).exists();
+const productClientsScript = `${productDir}/generate-clients.ts`;
+const hasProductClientsScript = await Bun.file(productClientsScript).exists();
 const steps = [
   ...(hasCodamaIdl ? [] : ["generate-codama-idl.ts"]),
   "generate-cargo-toml.ts",
@@ -31,8 +33,12 @@ for (const step of steps) {
   const scriptPath =
     step === "generate-codama-idl.ts" && hasProductCodamaIdlScript
       ? productCodamaIdlScript
-      : resolve(import.meta.dir, step);
-  console.log(`\n→ ${step}${scriptPath === productCodamaIdlScript ? " (product)" : ""}`);
+      : step === "generate-clients.ts" && hasProductClientsScript
+        ? productClientsScript
+        : resolve(import.meta.dir, step);
+  const isProductScript =
+    scriptPath === productCodamaIdlScript || scriptPath === productClientsScript;
+  console.log(`\n→ ${step}${isProductScript ? " (product)" : ""}`);
   await Bun.$`bun ${scriptPath} ${productName}`;
 }
 

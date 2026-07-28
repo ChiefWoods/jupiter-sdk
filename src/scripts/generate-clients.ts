@@ -1,5 +1,6 @@
 import { renderVisitor as renderJavaScriptVisitor } from "@codama/renderers-js";
 import { renderVisitor as renderRustVisitor } from "@codama/renderers-rust";
+import { resolve } from "node:path";
 import { createFromJson } from "codama";
 import { renderVisitor as renderWeb3jsVisitor } from "renderers-web3js";
 import { resolveProductDir } from "./utils";
@@ -10,6 +11,14 @@ if (!productName) {
 }
 
 const productDir = resolveProductDir(productName);
+const productScriptPath = resolve(productDir, "generate-clients.ts");
+
+if (await Bun.file(productScriptPath).exists()) {
+  console.log(`Using product clients script: ${productScriptPath}`);
+  await Bun.$`bun ${productScriptPath}`;
+  process.exit(0);
+}
+
 const codamaIdlPath = `${productDir}/idl/codama.json`;
 const codamaIdlFile = Bun.file(codamaIdlPath);
 

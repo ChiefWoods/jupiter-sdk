@@ -1,5 +1,8 @@
 # Jupiter SDK
 
+[![npm](https://img.shields.io/npm/v/jupiter-sdk.svg)](https://www.npmjs.com/package/jupiter-sdk)
+[![Crates.io](https://img.shields.io/crates/v/jupiter-program-sdk.svg)](https://crates.io/crates/jupiter-program-sdk)
+
 > [!WARNING]
 > This is **not** an official package by the Jupiter team. It is an independent, community-maintained project.
 

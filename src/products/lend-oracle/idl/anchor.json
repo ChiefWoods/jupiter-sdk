@@ -1,7 +1,7 @@
 {
   "address": "jupnw4B6Eqs7ft6rxpzYLJZYSnrpRgPcr589n5Kv4oc",
   "metadata": {
-    "name": "oracle",
+    "name": "lend_oracle",
     "version": "0.1.5",
     "spec": "0.1.0",
     "description": "Created with Anchor"

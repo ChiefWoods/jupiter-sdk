@@ -4,7 +4,7 @@
   "version": "1.7.0",
   "program": {
     "kind": "programNode",
-    "name": "genieDistributor",
+    "name": "rewardsHub",
     "publicKey": "GenieRGuCtgfDGThwjp2GLreQMFtJoG1fqFE8MF1gAzG",
     "version": "0.0.1",
     "origin": "anchor",
@@ -22,7 +22,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "defaultValue": {
                 "kind": "bytesValueNode",
@@ -34,7 +36,11 @@
               "kind": "structFieldTypeNode",
               "name": "bump",
               "docs": ["Bump seed."],
-              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
@@ -42,8 +48,15 @@
               "docs": ["The campaign id."],
               "type": {
                 "kind": "sizePrefixTypeNode",
-                "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                "type": {
+                  "kind": "stringTypeNode",
+                  "encoding": "utf8"
+                },
+                "prefix": {
+                  "kind": "numberTypeNode",
+                  "format": "u32",
+                  "endian": "le"
+                }
               }
             },
             {
@@ -52,25 +65,33 @@
               "docs": [
                 "The [Pubkey] to check against when checking the signature of the claims message."
               ],
-              "type": { "kind": "publicKeyTypeNode" }
+              "type": {
+                "kind": "publicKeyTypeNode"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "mint",
               "docs": ["[Mint] of the token to be distributed."],
-              "type": { "kind": "publicKeyTypeNode" }
+              "type": {
+                "kind": "publicKeyTypeNode"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "base",
               "docs": ["base key of campaign."],
-              "type": { "kind": "publicKeyTypeNode" }
+              "type": {
+                "kind": "publicKeyTypeNode"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "tokenVault",
               "docs": ["Token Address of the vault"],
-              "type": { "kind": "publicKeyTypeNode" }
+              "type": {
+                "kind": "publicKeyTypeNode"
+              }
             },
             {
               "kind": "structFieldTypeNode",
@@ -80,8 +101,15 @@
               ],
               "type": {
                 "kind": "arrayTypeNode",
-                "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
-                "count": { "kind": "fixedCountNode", "value": 5 }
+                "item": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                },
+                "count": {
+                  "kind": "fixedCountNode",
+                  "value": 5
+                }
               }
             },
             {
@@ -90,44 +118,71 @@
               "docs": ["Total amount of tokens that have been claimed."],
               "type": {
                 "kind": "arrayTypeNode",
-                "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
-                "count": { "kind": "fixedCountNode", "value": 5 }
+                "item": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                },
+                "count": {
+                  "kind": "fixedCountNode",
+                  "value": 5
+                }
               }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "numClaimed",
               "docs": ["Number of nodes that have been claimed."],
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "startTs",
               "docs": ["Lockup time start (Unix Timestamp)"],
-              "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "i64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "endTs",
               "docs": ["Lockup time end (Unix Timestamp)"],
-              "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "i64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "clawbackReceiver",
               "docs": ["Clawback receiver"],
-              "type": { "kind": "publicKeyTypeNode" }
+              "type": {
+                "kind": "publicKeyTypeNode"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "admin",
               "docs": ["Admin wallet"],
-              "type": { "kind": "publicKeyTypeNode" }
+              "type": {
+                "kind": "publicKeyTypeNode"
+              }
             }
           ]
         },
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -144,7 +199,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "defaultValue": {
                 "kind": "bytesValueNode",
@@ -156,7 +213,9 @@
               "kind": "structFieldTypeNode",
               "name": "claimant",
               "docs": ["Authority that claimed the tokens."],
-              "type": { "kind": "publicKeyTypeNode" }
+              "type": {
+                "kind": "publicKeyTypeNode"
+              }
             },
             {
               "kind": "structFieldTypeNode",
@@ -164,8 +223,15 @@
               "docs": ["Amount of tokens claimed by the claimant, per mission."],
               "type": {
                 "kind": "arrayTypeNode",
-                "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
-                "count": { "kind": "fixedCountNode", "value": 5 }
+                "item": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                },
+                "count": {
+                  "kind": "fixedCountNode",
+                  "value": 5
+                }
               }
             },
             {
@@ -174,14 +240,25 @@
               "docs": ["Amount of lootboxes claimed by the claimant, per mission."],
               "type": {
                 "kind": "arrayTypeNode",
-                "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
-                "count": { "kind": "fixedCountNode", "value": 5 }
+                "item": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                },
+                "count": {
+                  "kind": "fixedCountNode",
+                  "value": 5
+                }
               }
             }
           ]
         },
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       }
     ],
@@ -208,17 +285,26 @@
             "docs": ["Claim status PDA"],
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "claimStatus" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "claimStatus"
+              },
               "seeds": [
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "claimant",
-                  "value": { "kind": "accountValueNode", "name": "claimant" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "claimant"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "campaign",
-                  "value": { "kind": "accountValueNode", "name": "campaign" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "campaign"
+                  }
                 }
               ]
             }
@@ -274,7 +360,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "3ec6d6c1d59f6cd2",
@@ -286,8 +378,15 @@
             "name": "amountUnlocked",
             "type": {
               "kind": "arrayTypeNode",
-              "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
-              "count": { "kind": "fixedCountNode", "value": 5 }
+              "item": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              },
+              "count": {
+                "kind": "fixedCountNode",
+                "value": 5
+              }
             }
           },
           {
@@ -295,13 +394,24 @@
             "name": "lootboxInfo",
             "type": {
               "kind": "arrayTypeNode",
-              "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
-              "count": { "kind": "fixedCountNode", "value": 5 }
+              "item": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              },
+              "count": {
+                "kind": "fixedCountNode",
+                "value": 5
+              }
             }
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -373,7 +483,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "6f5c8e4f21ea521b",
@@ -382,7 +498,11 @@
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -425,7 +545,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "a3d6bfa5f5bc11b9",
@@ -434,7 +560,11 @@
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -553,7 +683,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "e575b554d9c83d96",
@@ -565,8 +701,15 @@
             "name": "amount",
             "type": {
               "kind": "arrayTypeNode",
-              "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
-              "count": { "kind": "fixedCountNode", "value": 5 }
+              "item": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              },
+              "count": {
+                "kind": "fixedCountNode",
+                "value": 5
+              }
             }
           },
           {
@@ -574,13 +717,24 @@
             "name": "lootboxInfo",
             "type": {
               "kind": "arrayTypeNode",
-              "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
-              "count": { "kind": "fixedCountNode", "value": 5 }
+              "item": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              },
+              "count": {
+                "kind": "fixedCountNode",
+                "value": 5
+              }
             }
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -597,22 +751,34 @@
             "docs": ["[Campaign]."],
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "campaign" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "campaign"
+              },
               "seeds": [
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "admin",
-                  "value": { "kind": "accountValueNode", "name": "admin" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "admin"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "mint",
-                  "value": { "kind": "accountValueNode", "name": "mint" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "mint"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "campaignId",
-                  "value": { "kind": "argumentValueNode", "name": "campaignId" }
+                  "value": {
+                    "kind": "argumentValueNode",
+                    "name": "campaignId"
+                  }
                 }
               ]
             }
@@ -650,11 +816,15 @@
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "campaign",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   },
                   {
                     "kind": "constantPdaSeedNode",
-                    "type": { "kind": "bytesTypeNode" },
+                    "type": {
+                      "kind": "bytesTypeNode"
+                    },
                     "value": {
                       "kind": "bytesValueNode",
                       "data": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
@@ -664,7 +834,9 @@
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "mint",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   }
                 ]
               },
@@ -672,12 +844,18 @@
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "campaign",
-                  "value": { "kind": "accountValueNode", "name": "campaign" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "campaign"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "mint",
-                  "value": { "kind": "accountValueNode", "name": "mint" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "mint"
+                  }
                 }
               ]
             }
@@ -738,7 +916,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "a958070609a54184",
@@ -750,37 +934,65 @@
             "name": "campaignId",
             "type": {
               "kind": "sizePrefixTypeNode",
-              "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-              "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              "type": {
+                "kind": "stringTypeNode",
+                "encoding": "utf8"
+              },
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u32",
+                "endian": "le"
+              }
             }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "claimsPubkey",
-            "type": { "kind": "publicKeyTypeNode" }
+            "type": {
+              "kind": "publicKeyTypeNode"
+            }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "allocatedAmounts",
             "type": {
               "kind": "arrayTypeNode",
-              "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
-              "count": { "kind": "fixedCountNode", "value": 5 }
+              "item": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              },
+              "count": {
+                "kind": "fixedCountNode",
+                "value": 5
+              }
             }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "startTs",
-            "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "i64",
+              "endian": "le"
+            }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "endTs",
-            "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "i64",
+              "endian": "le"
+            }
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -805,17 +1017,26 @@
             "docs": ["Claim status PDA"],
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "claimStatus" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "claimStatus"
+              },
               "seeds": [
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "claimant",
-                  "value": { "kind": "accountValueNode", "name": "claimant" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "claimant"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "campaign",
-                  "value": { "kind": "accountValueNode", "name": "campaign" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "campaign"
+                  }
                 }
               ]
             }
@@ -847,7 +1068,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "8506fad485914588",
@@ -856,7 +1083,11 @@
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -894,7 +1125,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "fba300345bc2bb5c",
@@ -903,7 +1140,11 @@
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -941,7 +1182,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "99d92214131de54b",
@@ -950,7 +1197,11 @@
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       }
     ],
@@ -962,18 +1213,28 @@
         "seeds": [
           {
             "kind": "constantPdaSeedNode",
-            "type": { "kind": "bytesTypeNode" },
-            "value": { "kind": "bytesValueNode", "data": "HiijTj3aVcJVpPC", "encoding": "base58" }
+            "type": {
+              "kind": "bytesTypeNode"
+            },
+            "value": {
+              "kind": "bytesValueNode",
+              "data": "HiijTj3aVcJVpPC",
+              "encoding": "base58"
+            }
           },
           {
             "kind": "variablePdaSeedNode",
             "name": "claimant",
-            "type": { "kind": "publicKeyTypeNode" }
+            "type": {
+              "kind": "publicKeyTypeNode"
+            }
           },
           {
             "kind": "variablePdaSeedNode",
             "name": "campaign",
-            "type": { "kind": "publicKeyTypeNode" }
+            "type": {
+              "kind": "publicKeyTypeNode"
+            }
           }
         ]
       },
@@ -983,23 +1244,36 @@
         "seeds": [
           {
             "kind": "constantPdaSeedNode",
-            "type": { "kind": "bytesTypeNode" },
-            "value": { "kind": "bytesValueNode", "data": "CGgD3MiaR6u", "encoding": "base58" }
+            "type": {
+              "kind": "bytesTypeNode"
+            },
+            "value": {
+              "kind": "bytesValueNode",
+              "data": "CGgD3MiaR6u",
+              "encoding": "base58"
+            }
           },
           {
             "kind": "variablePdaSeedNode",
             "name": "admin",
-            "type": { "kind": "publicKeyTypeNode" }
+            "type": {
+              "kind": "publicKeyTypeNode"
+            }
           },
           {
             "kind": "variablePdaSeedNode",
             "name": "mint",
-            "type": { "kind": "publicKeyTypeNode" }
+            "type": {
+              "kind": "publicKeyTypeNode"
+            }
           },
           {
             "kind": "variablePdaSeedNode",
             "name": "campaignId",
-            "type": { "kind": "stringTypeNode", "encoding": "utf8" }
+            "type": {
+              "kind": "stringTypeNode",
+              "encoding": "utf8"
+            }
           }
         ]
       }
@@ -1019,21 +1293,32 @@
                 "docs": ["Campaign id."],
                 "type": {
                   "kind": "sizePrefixTypeNode",
-                  "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  "type": {
+                    "kind": "stringTypeNode",
+                    "encoding": "utf8"
+                  },
+                  "prefix": {
+                    "kind": "numberTypeNode",
+                    "format": "u32",
+                    "endian": "le"
+                  }
                 }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "base",
                 "docs": ["Base key of the campaign."],
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "newAdmin",
                 "docs": ["New admin."],
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               }
             ]
           },
@@ -1043,7 +1328,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -1062,7 +1349,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -1087,21 +1376,32 @@
                 "docs": ["Campaign id."],
                 "type": {
                   "kind": "sizePrefixTypeNode",
-                  "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  "type": {
+                    "kind": "stringTypeNode",
+                    "encoding": "utf8"
+                  },
+                  "prefix": {
+                    "kind": "numberTypeNode",
+                    "format": "u32",
+                    "endian": "le"
+                  }
                 }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "base",
                 "docs": ["Base key of the campaign."],
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "newClawbackReceiver",
                 "docs": ["New clawback receiver. f"],
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               }
             ]
           },
@@ -1111,7 +1411,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -1130,7 +1432,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -1155,27 +1459,42 @@
                 "docs": ["Campaign id."],
                 "type": {
                   "kind": "sizePrefixTypeNode",
-                  "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  "type": {
+                    "kind": "stringTypeNode",
+                    "encoding": "utf8"
+                  },
+                  "prefix": {
+                    "kind": "numberTypeNode",
+                    "format": "u32",
+                    "endian": "le"
+                  }
                 }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "base",
                 "docs": ["Base key of the campaign."],
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "remainingAmount",
                 "docs": ["Amount of tokens left in the vault."],
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "receiver",
                 "docs": ["Receiver of the remaining tokens."],
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               }
             ]
           },
@@ -1185,7 +1504,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -1204,7 +1525,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -1229,21 +1552,32 @@
                 "docs": ["Campaign id."],
                 "type": {
                   "kind": "sizePrefixTypeNode",
-                  "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  "type": {
+                    "kind": "stringTypeNode",
+                    "encoding": "utf8"
+                  },
+                  "prefix": {
+                    "kind": "numberTypeNode",
+                    "format": "u32",
+                    "endian": "le"
+                  }
                 }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "base",
                 "docs": ["Base key of the campaign."],
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "mint",
                 "docs": ["Mint of the token to be distributed."],
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
@@ -1251,27 +1585,44 @@
                 "docs": ["Allocated amounts per mission."],
                 "type": {
                   "kind": "arrayTypeNode",
-                  "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
-                  "count": { "kind": "fixedCountNode", "value": 5 }
+                  "item": {
+                    "kind": "numberTypeNode",
+                    "format": "u64",
+                    "endian": "le"
+                  },
+                  "count": {
+                    "kind": "fixedCountNode",
+                    "value": 5
+                  }
                 }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "startTs",
                 "docs": ["Start timestamp."],
-                "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "i64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "endTs",
                 "docs": ["End timestamp."],
-                "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "i64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "clawbackReceiver",
                 "docs": ["Clawback receiver."],
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               }
             ]
           },
@@ -1281,7 +1632,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -1300,7 +1653,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -1323,21 +1678,34 @@
                 "kind": "structFieldTypeNode",
                 "name": "claimant",
                 "docs": ["User that claimed."],
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "timestamp",
                 "docs": ["Timestamp."],
-                "type": { "kind": "numberTypeNode", "format": "i64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "i64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "claimedAmounts",
                 "type": {
                   "kind": "arrayTypeNode",
-                  "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
-                  "count": { "kind": "fixedCountNode", "value": 5 }
+                  "item": {
+                    "kind": "numberTypeNode",
+                    "format": "u64",
+                    "endian": "le"
+                  },
+                  "count": {
+                    "kind": "fixedCountNode",
+                    "value": 5
+                  }
                 }
               },
               {
@@ -1345,8 +1713,15 @@
                 "name": "claimedLootboxes",
                 "type": {
                   "kind": "arrayTypeNode",
-                  "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
-                  "count": { "kind": "fixedCountNode", "value": 5 }
+                  "item": {
+                    "kind": "numberTypeNode",
+                    "format": "u64",
+                    "endian": "le"
+                  },
+                  "count": {
+                    "kind": "fixedCountNode",
+                    "value": 5
+                  }
                 }
               },
               {
@@ -1354,8 +1729,15 @@
                 "name": "accumulatedAmounts",
                 "type": {
                   "kind": "arrayTypeNode",
-                  "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
-                  "count": { "kind": "fixedCountNode", "value": 5 }
+                  "item": {
+                    "kind": "numberTypeNode",
+                    "format": "u64",
+                    "endian": "le"
+                  },
+                  "count": {
+                    "kind": "fixedCountNode",
+                    "value": 5
+                  }
                 }
               },
               {
@@ -1363,8 +1745,15 @@
                 "name": "accumulatedLootboxes",
                 "type": {
                   "kind": "arrayTypeNode",
-                  "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
-                  "count": { "kind": "fixedCountNode", "value": 5 }
+                  "item": {
+                    "kind": "numberTypeNode",
+                    "format": "u64",
+                    "endian": "le"
+                  },
+                  "count": {
+                    "kind": "fixedCountNode",
+                    "value": 5
+                  }
                 }
               }
             ]
@@ -1375,7 +1764,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -1394,7 +1785,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -1419,27 +1812,42 @@
                 "docs": ["Campaign id."],
                 "type": {
                   "kind": "sizePrefixTypeNode",
-                  "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  "type": {
+                    "kind": "stringTypeNode",
+                    "encoding": "utf8"
+                  },
+                  "prefix": {
+                    "kind": "numberTypeNode",
+                    "format": "u32",
+                    "endian": "le"
+                  }
                 }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "base",
                 "docs": ["Base key of the campaign."],
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "clawedBackAmount",
                 "docs": ["Amount clawed back."],
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "receiver",
                 "docs": ["Receiver of the clawback."],
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               }
             ]
           },
@@ -1449,7 +1857,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -1468,7 +1878,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -1493,21 +1905,32 @@
                 "docs": ["Campaign id."],
                 "type": {
                   "kind": "sizePrefixTypeNode",
-                  "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  "type": {
+                    "kind": "stringTypeNode",
+                    "encoding": "utf8"
+                  },
+                  "prefix": {
+                    "kind": "numberTypeNode",
+                    "format": "u32",
+                    "endian": "le"
+                  }
                 }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "base",
                 "docs": ["Base key of the campaign."],
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "claimsPubkey",
                 "docs": ["Claim status public key."],
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               }
             ]
           },
@@ -1517,7 +1940,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -1536,7 +1961,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -1561,21 +1988,32 @@
                 "docs": ["Campaign id."],
                 "type": {
                   "kind": "sizePrefixTypeNode",
-                  "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  "type": {
+                    "kind": "stringTypeNode",
+                    "encoding": "utf8"
+                  },
+                  "prefix": {
+                    "kind": "numberTypeNode",
+                    "format": "u32",
+                    "endian": "le"
+                  }
                 }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "base",
                 "docs": ["Base key of the campaign."],
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "claimsPubkey",
                 "docs": ["Claim status public key."],
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               }
             ]
           },
@@ -1585,7 +2023,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -1604,7 +2044,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",

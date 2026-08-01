@@ -1,7 +1,7 @@
 {
   "address": "jupgfSgfuAXv4B6R2Uxu85Z1qdzgju79s6MfZekN6XS",
   "metadata": {
-    "name": "flashloan",
+    "name": "lend_flash_loan",
     "version": "0.1.4",
     "spec": "0.1.0",
     "description": "Created with Anchor"

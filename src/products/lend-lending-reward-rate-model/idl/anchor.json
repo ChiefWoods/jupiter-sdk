@@ -1,7 +1,7 @@
 {
   "address": "jup7TthsMgcR9Y3L277b8Eo9uboVSmu1utkuXHNUKar",
   "metadata": {
-    "name": "lending_reward_rate_model",
+    "name": "lend_lending_reward_rate_model",
     "version": "0.1.0",
     "spec": "0.1.0",
     "description": "Created with Anchor"

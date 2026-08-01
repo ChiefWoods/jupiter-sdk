@@ -1,7 +1,7 @@
 {
   "address": "JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4",
   "metadata": {
-    "name": "jupiter",
+    "name": "aggregator_v6",
     "version": "0.1.0",
     "spec": "0.1.0",
     "description": "Jupiter aggregator program"

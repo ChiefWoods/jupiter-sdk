@@ -4,7 +4,7 @@
   "version": "1.7.0",
   "program": {
     "kind": "programNode",
-    "name": "locker",
+    "name": "lock",
     "publicKey": "LocpQgucEQHbqNABEYvBvwoxCPsSbG91A1QaQhQQqjn",
     "version": "0.4.0",
     "origin": "anchor",
@@ -23,7 +23,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "defaultValue": {
                 "kind": "bytesValueNode",
@@ -35,19 +37,25 @@
               "kind": "structFieldTypeNode",
               "name": "tokenMint",
               "docs": ["token mint"],
-              "type": { "kind": "publicKeyTypeNode" }
+              "type": {
+                "kind": "publicKeyTypeNode"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "creator",
               "docs": ["creator of the escrow"],
-              "type": { "kind": "publicKeyTypeNode" }
+              "type": {
+                "kind": "publicKeyTypeNode"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "base",
               "docs": ["escrow base key"],
-              "type": { "kind": "publicKeyTypeNode" }
+              "type": {
+                "kind": "publicKeyTypeNode"
+              }
             },
             {
               "kind": "structFieldTypeNode",
@@ -56,20 +64,30 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 32,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "bump",
               "docs": ["bump"],
-              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "tokenProgramFlag",
               "docs": ["token program flag"],
-              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
@@ -78,50 +96,80 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 6,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "maxClaimAmount",
               "docs": ["max claim amount"],
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "maxEscrow",
               "docs": ["max escrow"],
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "totalFundedAmount",
               "docs": ["total funded amount"],
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "totalEscrowCreated",
               "docs": ["total escrow created"],
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "totalDistributeAmount",
               "docs": ["total distributed amount"],
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "version",
               "docs": ["version"],
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "padding",
               "docs": ["padding"],
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
@@ -129,14 +177,25 @@
               "docs": ["buffer"],
               "type": {
                 "kind": "arrayTypeNode",
-                "item": { "kind": "numberTypeNode", "format": "u128", "endian": "le" },
-                "count": { "kind": "fixedCountNode", "value": 5 }
+                "item": {
+                  "kind": "numberTypeNode",
+                  "format": "u128",
+                  "endian": "le"
+                },
+                "count": {
+                  "kind": "fixedCountNode",
+                  "value": 5
+                }
               }
             }
           ]
         },
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -153,7 +212,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "defaultValue": {
                 "kind": "bytesValueNode",
@@ -165,49 +226,73 @@
               "kind": "structFieldTypeNode",
               "name": "recipient",
               "docs": ["recipient address"],
-              "type": { "kind": "publicKeyTypeNode" }
+              "type": {
+                "kind": "publicKeyTypeNode"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "tokenMint",
               "docs": ["token mint"],
-              "type": { "kind": "publicKeyTypeNode" }
+              "type": {
+                "kind": "publicKeyTypeNode"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "creator",
               "docs": ["creator of the escrow"],
-              "type": { "kind": "publicKeyTypeNode" }
+              "type": {
+                "kind": "publicKeyTypeNode"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "base",
               "docs": ["escrow base key"],
-              "type": { "kind": "publicKeyTypeNode" }
+              "type": {
+                "kind": "publicKeyTypeNode"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "escrowBump",
               "docs": ["escrow bump"],
-              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "updateRecipientMode",
               "docs": ["update_recipient_mode"],
-              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "cancelMode",
               "docs": ["cancel_mode"],
-              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "tokenProgramFlag",
               "docs": ["token program flag"],
-              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
@@ -216,62 +301,100 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 4,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "cliffTime",
               "docs": ["cliff time"],
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "frequency",
               "docs": ["frequency"],
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "cliffUnlockAmount",
               "docs": ["cliff unlock amount"],
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "amountPerPeriod",
               "docs": ["amount per period"],
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "numberOfPeriod",
               "docs": ["number of period"],
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "totalClaimedAmount",
               "docs": ["total claimed amount"],
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "vestingStartTime",
               "docs": ["vesting start time"],
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "cancelledAt",
               "docs": ["cancelled_at"],
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "padding1",
               "docs": ["buffer"],
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
@@ -279,14 +402,25 @@
               "docs": ["buffer"],
               "type": {
                 "kind": "arrayTypeNode",
-                "item": { "kind": "numberTypeNode", "format": "u128", "endian": "le" },
-                "count": { "kind": "fixedCountNode", "value": 5 }
+                "item": {
+                  "kind": "numberTypeNode",
+                  "format": "u128",
+                  "endian": "le"
+                },
+                "count": {
+                  "kind": "fixedCountNode",
+                  "value": 5
+                }
               }
             }
           ]
         },
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -302,7 +436,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "defaultValue": {
                 "kind": "bytesValueNode",
@@ -314,7 +450,9 @@
               "kind": "structFieldTypeNode",
               "name": "escrow",
               "docs": ["The [Escrow]."],
-              "type": { "kind": "publicKeyTypeNode" }
+              "type": {
+                "kind": "publicKeyTypeNode"
+              }
             },
             {
               "kind": "structFieldTypeNode",
@@ -322,8 +460,15 @@
               "docs": ["Name of escrow."],
               "type": {
                 "kind": "sizePrefixTypeNode",
-                "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                "type": {
+                  "kind": "stringTypeNode",
+                  "encoding": "utf8"
+                },
+                "prefix": {
+                  "kind": "numberTypeNode",
+                  "format": "u32",
+                  "endian": "le"
+                }
               }
             },
             {
@@ -332,8 +477,15 @@
               "docs": ["Description of escrow."],
               "type": {
                 "kind": "sizePrefixTypeNode",
-                "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                "type": {
+                  "kind": "stringTypeNode",
+                  "encoding": "utf8"
+                },
+                "prefix": {
+                  "kind": "numberTypeNode",
+                  "format": "u32",
+                  "endian": "le"
+                }
               }
             },
             {
@@ -342,8 +494,15 @@
               "docs": ["Email of creator"],
               "type": {
                 "kind": "sizePrefixTypeNode",
-                "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                "type": {
+                  "kind": "stringTypeNode",
+                  "encoding": "utf8"
+                },
+                "prefix": {
+                  "kind": "numberTypeNode",
+                  "format": "u32",
+                  "endian": "le"
+                }
               }
             },
             {
@@ -352,14 +511,25 @@
               "docs": ["Email of recipient"],
               "type": {
                 "kind": "sizePrefixTypeNode",
-                "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                "type": {
+                  "kind": "stringTypeNode",
+                  "encoding": "utf8"
+                },
+                "prefix": {
+                  "kind": "numberTypeNode",
+                  "format": "u32",
+                  "endian": "le"
+                }
               }
             }
           ]
         },
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       }
     ],
@@ -413,17 +583,23 @@
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "escrow",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenMint",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   }
                 ]
               },
@@ -431,17 +607,26 @@
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "escrow",
-                  "value": { "kind": "accountValueNode", "name": "escrow" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "escrow"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "tokenProgram" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenProgram"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenMint",
-                  "value": { "kind": "accountValueNode", "name": "tokenMint" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMint"
+                  }
                 }
               ]
             }
@@ -463,17 +648,23 @@
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "escrow",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenMint",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   }
                 ]
               },
@@ -481,17 +672,26 @@
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "escrow",
-                  "value": { "kind": "accountValueNode", "name": "escrow" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "escrow"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "tokenProgram" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenProgram"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenMint",
-                  "value": { "kind": "accountValueNode", "name": "tokenMint" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMint"
+                  }
                 }
               ]
             }
@@ -513,17 +713,23 @@
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "escrow",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenMint",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   }
                 ]
               },
@@ -531,17 +737,26 @@
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "escrow",
-                  "value": { "kind": "accountValueNode", "name": "escrow" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "escrow"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "tokenProgram" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenProgram"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenMint",
-                  "value": { "kind": "accountValueNode", "name": "tokenMint" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMint"
+                  }
                 }
               ]
             }
@@ -596,7 +811,10 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "eventAuthority"
+              },
               "seeds": []
             }
           },
@@ -613,7 +831,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "d9e90d038f6535c9",
@@ -626,13 +850,24 @@
             "type": {
               "kind": "optionTypeNode",
               "fixed": false,
-              "item": { "kind": "definedTypeLinkNode", "name": "remainingAccountsInfo" },
-              "prefix": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              "item": {
+                "kind": "definedTypeLinkNode",
+                "name": "remainingAccountsInfo"
+              },
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
             }
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -701,7 +936,10 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "eventAuthority"
+              },
               "seeds": []
             }
           },
@@ -718,7 +956,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "3ec6d6c1d59f6cd2",
@@ -728,11 +972,19 @@
           {
             "kind": "instructionArgumentNode",
             "name": "maxAmount",
-            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -783,17 +1035,23 @@
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "escrow",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenMint",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   }
                 ]
               },
@@ -801,17 +1059,26 @@
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "escrow",
-                  "value": { "kind": "accountValueNode", "name": "escrow" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "escrow"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "tokenProgram" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenProgram"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenMint",
-                  "value": { "kind": "accountValueNode", "name": "tokenMint" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMint"
+                  }
                 }
               ]
             }
@@ -866,7 +1133,10 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "eventAuthority"
+              },
               "seeds": []
             }
           },
@@ -883,7 +1153,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "e5572ea2159de772",
@@ -893,7 +1169,11 @@
           {
             "kind": "instructionArgumentNode",
             "name": "maxAmount",
-            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
           },
           {
             "kind": "instructionArgumentNode",
@@ -901,13 +1181,24 @@
             "type": {
               "kind": "optionTypeNode",
               "fixed": false,
-              "item": { "kind": "definedTypeLinkNode", "name": "remainingAccountsInfo" },
-              "prefix": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              "item": {
+                "kind": "definedTypeLinkNode",
+                "name": "remainingAccountsInfo"
+              },
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
             }
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -942,12 +1233,18 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "escrowMetadata" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "escrowMetadata"
+              },
               "seeds": [
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "escrow",
-                  "value": { "kind": "accountValueNode", "name": "escrow" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "escrow"
+                  }
                 }
               ]
             }
@@ -1016,7 +1313,10 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "eventAuthority"
+              },
               "seeds": []
             }
           },
@@ -1033,7 +1333,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "ddb95f878843fc57",
@@ -1046,13 +1352,24 @@
             "type": {
               "kind": "optionTypeNode",
               "fixed": false,
-              "item": { "kind": "definedTypeLinkNode", "name": "remainingAccountsInfo" },
-              "prefix": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              "item": {
+                "kind": "definedTypeLinkNode",
+                "name": "remainingAccountsInfo"
+              },
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
             }
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -1090,7 +1407,9 @@
             "isSigner": true,
             "isOptional": false,
             "docs": ["payer."],
-            "defaultValue": { "kind": "payerValueNode" }
+            "defaultValue": {
+              "kind": "payerValueNode"
+            }
           },
           {
             "kind": "instructionAccountNode",
@@ -1120,7 +1439,10 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "eventAuthority"
+              },
               "seeds": []
             }
           },
@@ -1137,7 +1459,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "74d40cbc4de220c9",
@@ -1147,26 +1475,48 @@
           {
             "kind": "instructionArgumentNode",
             "name": "maxClaimAmount",
-            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "maxEscrow",
-            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "version",
-            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "root",
-            "type": { "kind": "fixedSizeTypeNode", "size": 32, "type": { "kind": "bytesTypeNode" } }
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 32,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            }
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -1207,12 +1557,18 @@
             "docs": ["Escrow."],
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "escrow" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "escrow"
+              },
               "seeds": [
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "base",
-                  "value": { "kind": "accountValueNode", "name": "base" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "base"
+                  }
                 }
               ]
             }
@@ -1282,7 +1638,10 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "eventAuthority"
+              },
               "seeds": []
             }
           },
@@ -1299,7 +1658,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "1764c55ede99265a",
@@ -1309,11 +1674,18 @@
           {
             "kind": "instructionArgumentNode",
             "name": "params",
-            "type": { "kind": "definedTypeLinkNode", "name": "createVestingEscrowParameters" }
+            "type": {
+              "kind": "definedTypeLinkNode",
+              "name": "createVestingEscrowParameters"
+            }
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -1338,17 +1710,26 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "base" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "base"
+              },
               "seeds": [
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "rootEscrow",
-                  "value": { "kind": "accountValueNode", "name": "rootEscrow" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "rootEscrow"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "recipient",
-                  "value": { "kind": "accountValueNode", "name": "recipient" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "recipient"
+                  }
                 }
               ]
             }
@@ -1362,12 +1743,18 @@
             "docs": ["Escrow."],
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "escrow" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "escrow"
+              },
               "seeds": [
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "base",
-                  "value": { "kind": "accountValueNode", "name": "base" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "base"
+                  }
                 }
               ]
             }
@@ -1389,17 +1776,23 @@
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "escrow",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenMint",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   }
                 ]
               },
@@ -1407,17 +1800,26 @@
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "escrow",
-                  "value": { "kind": "accountValueNode", "name": "escrow" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "escrow"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "tokenProgram" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenProgram"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenMint",
-                  "value": { "kind": "accountValueNode", "name": "tokenMint" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMint"
+                  }
                 }
               ]
             }
@@ -1438,17 +1840,23 @@
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "rootEscrow",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenMint",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   }
                 ]
               },
@@ -1456,17 +1864,26 @@
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "rootEscrow",
-                  "value": { "kind": "accountValueNode", "name": "rootEscrow" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "rootEscrow"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "tokenProgram" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenProgram"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenMint",
-                  "value": { "kind": "accountValueNode", "name": "tokenMint" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMint"
+                  }
                 }
               ]
             }
@@ -1486,7 +1903,9 @@
             "isSigner": true,
             "isOptional": false,
             "docs": ["Rent Payer"],
-            "defaultValue": { "kind": "payerValueNode" }
+            "defaultValue": {
+              "kind": "payerValueNode"
+            }
           },
           {
             "kind": "instructionAccountNode",
@@ -1541,7 +1960,10 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "eventAuthority"
+              },
               "seeds": []
             }
           },
@@ -1558,7 +1980,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "06eea16cfc72f65b",
@@ -1568,42 +1996,74 @@
           {
             "kind": "instructionArgumentNode",
             "name": "vestingStartTime",
-            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "cliffTime",
-            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "frequency",
-            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "cliffUnlockAmount",
-            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "amountPerPeriod",
-            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "numberOfPeriod",
-            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "updateRecipientMode",
-            "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u8",
+              "endian": "le"
+            }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "cancelMode",
-            "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u8",
+              "endian": "le"
+            }
           },
           {
             "kind": "instructionArgumentNode",
@@ -1613,11 +2073,17 @@
               "item": {
                 "kind": "fixedSizeTypeNode",
                 "size": 32,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "count": {
                 "kind": "prefixedCountNode",
-                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                "prefix": {
+                  "kind": "numberTypeNode",
+                  "format": "u32",
+                  "endian": "le"
+                }
               }
             }
           },
@@ -1627,13 +2093,24 @@
             "type": {
               "kind": "optionTypeNode",
               "fixed": false,
-              "item": { "kind": "definedTypeLinkNode", "name": "remainingAccountsInfo" },
-              "prefix": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              "item": {
+                "kind": "definedTypeLinkNode",
+                "name": "remainingAccountsInfo"
+              },
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
             }
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -1678,12 +2155,18 @@
             "docs": ["The [ProposalMeta]."],
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "escrowMetadata" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "escrowMetadata"
+              },
               "seeds": [
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "escrow",
-                  "value": { "kind": "accountValueNode", "name": "escrow" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "escrow"
+                  }
                 }
               ]
             }
@@ -1695,7 +2178,9 @@
             "isSigner": true,
             "isOptional": false,
             "docs": ["Payer of the [ProposalMeta]."],
-            "defaultValue": { "kind": "payerValueNode" }
+            "defaultValue": {
+              "kind": "payerValueNode"
+            }
           },
           {
             "kind": "instructionAccountNode",
@@ -1716,7 +2201,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "5d4e2167ad7d4600",
@@ -1728,8 +2219,15 @@
             "name": "name",
             "type": {
               "kind": "sizePrefixTypeNode",
-              "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-              "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              "type": {
+                "kind": "stringTypeNode",
+                "encoding": "utf8"
+              },
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u32",
+                "endian": "le"
+              }
             }
           },
           {
@@ -1737,8 +2235,15 @@
             "name": "description",
             "type": {
               "kind": "sizePrefixTypeNode",
-              "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-              "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              "type": {
+                "kind": "stringTypeNode",
+                "encoding": "utf8"
+              },
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u32",
+                "endian": "le"
+              }
             }
           },
           {
@@ -1746,8 +2251,15 @@
             "name": "creatorEmail",
             "type": {
               "kind": "sizePrefixTypeNode",
-              "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-              "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              "type": {
+                "kind": "stringTypeNode",
+                "encoding": "utf8"
+              },
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u32",
+                "endian": "le"
+              }
             }
           },
           {
@@ -1755,13 +2267,24 @@
             "name": "recipientEmail",
             "type": {
               "kind": "sizePrefixTypeNode",
-              "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-              "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              "type": {
+                "kind": "stringTypeNode",
+                "encoding": "utf8"
+              },
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u32",
+                "endian": "le"
+              }
             }
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -1804,12 +2327,18 @@
             "docs": ["Escrow."],
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "escrow" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "escrow"
+              },
               "seeds": [
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "base",
-                  "value": { "kind": "accountValueNode", "name": "base" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "base"
+                  }
                 }
               ]
             }
@@ -1838,17 +2367,23 @@
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "escrow",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenMint",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   }
                 ]
               },
@@ -1856,17 +2391,26 @@
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "escrow",
-                  "value": { "kind": "accountValueNode", "name": "escrow" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "escrow"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "tokenProgram" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenProgram"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenMint",
-                  "value": { "kind": "accountValueNode", "name": "tokenMint" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMint"
+                  }
                 }
               ]
             }
@@ -1928,7 +2472,10 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "eventAuthority"
+              },
               "seeds": []
             }
           },
@@ -1945,7 +2492,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "b59b68b7b680232f",
@@ -1955,7 +2508,10 @@
           {
             "kind": "instructionArgumentNode",
             "name": "params",
-            "type": { "kind": "definedTypeLinkNode", "name": "createVestingEscrowParameters" }
+            "type": {
+              "kind": "definedTypeLinkNode",
+              "name": "createVestingEscrowParameters"
+            }
           },
           {
             "kind": "instructionArgumentNode",
@@ -1963,13 +2519,24 @@
             "type": {
               "kind": "optionTypeNode",
               "fixed": false,
-              "item": { "kind": "definedTypeLinkNode", "name": "remainingAccountsInfo" },
-              "prefix": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              "item": {
+                "kind": "definedTypeLinkNode",
+                "name": "remainingAccountsInfo"
+              },
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
             }
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -2010,17 +2577,23 @@
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "rootEscrow",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenProgram",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenMint",
-                    "type": { "kind": "publicKeyTypeNode" }
+                    "type": {
+                      "kind": "publicKeyTypeNode"
+                    }
                   }
                 ]
               },
@@ -2028,17 +2601,26 @@
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "rootEscrow",
-                  "value": { "kind": "accountValueNode", "name": "rootEscrow" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "rootEscrow"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenProgram",
-                  "value": { "kind": "accountValueNode", "name": "tokenProgram" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenProgram"
+                  }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenMint",
-                  "value": { "kind": "accountValueNode", "name": "tokenMint" }
+                  "value": {
+                    "kind": "accountValueNode",
+                    "name": "tokenMint"
+                  }
                 }
               ]
             }
@@ -2050,7 +2632,9 @@
             "isSigner": true,
             "isOptional": false,
             "docs": ["Payer."],
-            "defaultValue": { "kind": "payerValueNode" }
+            "defaultValue": {
+              "kind": "payerValueNode"
+            }
           },
           {
             "kind": "instructionAccountNode",
@@ -2106,7 +2690,10 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "eventAuthority"
+              },
               "seeds": []
             }
           },
@@ -2123,7 +2710,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "fb6abdc86c0f905f",
@@ -2133,7 +2726,11 @@
           {
             "kind": "instructionArgumentNode",
             "name": "maxAmount",
-            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            "type": {
+              "kind": "numberTypeNode",
+              "format": "u64",
+              "endian": "le"
+            }
           },
           {
             "kind": "instructionArgumentNode",
@@ -2141,13 +2738,24 @@
             "type": {
               "kind": "optionTypeNode",
               "fixed": false,
-              "item": { "kind": "definedTypeLinkNode", "name": "remainingAccountsInfo" },
-              "prefix": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              "item": {
+                "kind": "definedTypeLinkNode",
+                "name": "remainingAccountsInfo"
+              },
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
             }
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       },
       {
@@ -2209,7 +2817,10 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
+              "pda": {
+                "kind": "pdaLinkNode",
+                "name": "eventAuthority"
+              },
               "seeds": []
             }
           },
@@ -2226,7 +2837,13 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "type": {
+              "kind": "fixedSizeTypeNode",
+              "size": 8,
+              "type": {
+                "kind": "bytesTypeNode"
+              }
+            },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "1af27fffed6d2fce",
@@ -2236,7 +2853,9 @@
           {
             "kind": "instructionArgumentNode",
             "name": "newRecipient",
-            "type": { "kind": "publicKeyTypeNode" }
+            "type": {
+              "kind": "publicKeyTypeNode"
+            }
           },
           {
             "kind": "instructionArgumentNode",
@@ -2246,15 +2865,30 @@
               "fixed": false,
               "item": {
                 "kind": "sizePrefixTypeNode",
-                "type": { "kind": "stringTypeNode", "encoding": "utf8" },
-                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                "type": {
+                  "kind": "stringTypeNode",
+                  "encoding": "utf8"
+                },
+                "prefix": {
+                  "kind": "numberTypeNode",
+                  "format": "u32",
+                  "endian": "le"
+                }
               },
-              "prefix": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              "prefix": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
             }
           }
         ],
         "discriminators": [
-          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+          {
+            "kind": "fieldDiscriminatorNode",
+            "name": "discriminator",
+            "offset": 0
+          }
         ]
       }
     ],
@@ -2264,8 +2898,17 @@
         "name": "accountsType",
         "type": {
           "kind": "enumTypeNode",
-          "variants": [{ "kind": "enumEmptyVariantTypeNode", "name": "transferHookEscrow" }],
-          "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+          "variants": [
+            {
+              "kind": "enumEmptyVariantTypeNode",
+              "name": "transferHookEscrow"
+            }
+          ],
+          "size": {
+            "kind": "numberTypeNode",
+            "format": "u8",
+            "endian": "le"
+          }
         }
       },
       {
@@ -2277,42 +2920,74 @@
             {
               "kind": "structFieldTypeNode",
               "name": "vestingStartTime",
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "cliffTime",
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "frequency",
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "cliffUnlockAmount",
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "amountPerPeriod",
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "numberOfPeriod",
-              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u64",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "updateRecipientMode",
-              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "cancelMode",
-              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
             }
           ]
         }
@@ -2328,10 +3003,17 @@
               "name": "slices",
               "type": {
                 "kind": "arrayTypeNode",
-                "item": { "kind": "definedTypeLinkNode", "name": "remainingAccountsSlice" },
+                "item": {
+                  "kind": "definedTypeLinkNode",
+                  "name": "remainingAccountsSlice"
+                },
                 "count": {
                   "kind": "prefixedCountNode",
-                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+                  "prefix": {
+                    "kind": "numberTypeNode",
+                    "format": "u32",
+                    "endian": "le"
+                  }
                 }
               }
             }
@@ -2347,12 +3029,19 @@
             {
               "kind": "structFieldTypeNode",
               "name": "accountsType",
-              "type": { "kind": "definedTypeLinkNode", "name": "accountsType" }
+              "type": {
+                "kind": "definedTypeLinkNode",
+                "name": "accountsType"
+              }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "length",
-              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              "type": {
+                "kind": "numberTypeNode",
+                "format": "u8",
+                "endian": "le"
+              }
             }
           ]
         }
@@ -2365,7 +3054,9 @@
         "seeds": [
           {
             "kind": "constantPdaSeedNode",
-            "type": { "kind": "bytesTypeNode" },
+            "type": {
+              "kind": "bytesTypeNode"
+            },
             "value": {
               "kind": "bytesValueNode",
               "data": "tyvCZETMWX6hYsUwTchxRWG",
@@ -2380,7 +3071,9 @@
         "seeds": [
           {
             "kind": "constantPdaSeedNode",
-            "type": { "kind": "bytesTypeNode" },
+            "type": {
+              "kind": "bytesTypeNode"
+            },
             "value": {
               "kind": "bytesValueNode",
               "data": "3qcxzMWckEZm7vAnRG97n",
@@ -2390,7 +3083,9 @@
           {
             "kind": "variablePdaSeedNode",
             "name": "escrow",
-            "type": { "kind": "publicKeyTypeNode" }
+            "type": {
+              "kind": "publicKeyTypeNode"
+            }
           }
         ]
       },
@@ -2400,10 +3095,22 @@
         "seeds": [
           {
             "kind": "constantPdaSeedNode",
-            "type": { "kind": "bytesTypeNode" },
-            "value": { "kind": "bytesValueNode", "data": "sX8cPM1g", "encoding": "base58" }
+            "type": {
+              "kind": "bytesTypeNode"
+            },
+            "value": {
+              "kind": "bytesValueNode",
+              "data": "sX8cPM1g",
+              "encoding": "base58"
+            }
           },
-          { "kind": "variablePdaSeedNode", "name": "base", "type": { "kind": "publicKeyTypeNode" } }
+          {
+            "kind": "variablePdaSeedNode",
+            "name": "base",
+            "type": {
+              "kind": "publicKeyTypeNode"
+            }
+          }
         ]
       },
       {
@@ -2412,18 +3119,28 @@
         "seeds": [
           {
             "kind": "constantPdaSeedNode",
-            "type": { "kind": "bytesTypeNode" },
-            "value": { "kind": "bytesValueNode", "data": "3WrX7S", "encoding": "base58" }
+            "type": {
+              "kind": "bytesTypeNode"
+            },
+            "value": {
+              "kind": "bytesValueNode",
+              "data": "3WrX7S",
+              "encoding": "base58"
+            }
           },
           {
             "kind": "variablePdaSeedNode",
             "name": "rootEscrow",
-            "type": { "kind": "publicKeyTypeNode" }
+            "type": {
+              "kind": "publicKeyTypeNode"
+            }
           },
           {
             "kind": "variablePdaSeedNode",
             "name": "recipient",
-            "type": { "kind": "publicKeyTypeNode" }
+            "type": {
+              "kind": "publicKeyTypeNode"
+            }
           }
         ]
       }
@@ -2440,27 +3157,43 @@
               {
                 "kind": "structFieldTypeNode",
                 "name": "escrow",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "signer",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "claimableAmount",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "remainingAmount",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "cancelledAt",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               }
             ]
           },
@@ -2470,7 +3203,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -2489,7 +3224,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -2511,22 +3248,34 @@
               {
                 "kind": "structFieldTypeNode",
                 "name": "escrow",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "signer",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "remainingAmount",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "cancelledAt",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               }
             ]
           },
@@ -2536,7 +3285,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -2555,7 +3306,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -2577,17 +3330,27 @@
               {
                 "kind": "structFieldTypeNode",
                 "name": "amount",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "currentTs",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "escrow",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               }
             ]
           },
@@ -2597,7 +3360,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -2616,7 +3381,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -2638,52 +3405,88 @@
               {
                 "kind": "structFieldTypeNode",
                 "name": "amount",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "currentTs",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "escrow",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "vestingStartTime",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "cliffTime",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "frequency",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "cliffUnlockAmount",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "amountPerPeriod",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "numberOfPeriod",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "recipient",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               }
             ]
           },
@@ -2693,7 +3496,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -2712,7 +3517,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -2734,17 +3541,23 @@
               {
                 "kind": "structFieldTypeNode",
                 "name": "escrow",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "recipient",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "rentReceiver",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               }
             ]
           },
@@ -2754,7 +3567,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -2773,7 +3588,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -2795,7 +3612,9 @@
               {
                 "kind": "structFieldTypeNode",
                 "name": "escrow",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               }
             ]
           },
@@ -2805,7 +3624,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -2824,7 +3645,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -2846,22 +3669,36 @@
               {
                 "kind": "structFieldTypeNode",
                 "name": "rootEscrow",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "maxClaimAmount",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "maxEscrow",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "version",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
@@ -2869,7 +3706,9 @@
                 "type": {
                   "kind": "fixedSizeTypeNode",
                   "size": 32,
-                  "type": { "kind": "bytesTypeNode" }
+                  "type": {
+                    "kind": "bytesTypeNode"
+                  }
                 }
               }
             ]
@@ -2880,7 +3719,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -2899,7 +3740,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -2921,52 +3764,88 @@
               {
                 "kind": "structFieldTypeNode",
                 "name": "vestingStartTime",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "cliffTime",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "frequency",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "cliffUnlockAmount",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "amountPerPeriod",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "numberOfPeriod",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "updateRecipientMode",
-                "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u8",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "cancelMode",
-                "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u8",
+                  "endian": "le"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "recipient",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "escrow",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               }
             ]
           },
@@ -2976,7 +3855,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -2995,7 +3876,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3017,12 +3900,18 @@
               {
                 "kind": "structFieldTypeNode",
                 "name": "rootEscrow",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "fundedAmount",
-                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+                "type": {
+                  "kind": "numberTypeNode",
+                  "format": "u64",
+                  "endian": "le"
+                }
               }
             ]
           },
@@ -3032,7 +3921,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3051,7 +3942,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3073,22 +3966,30 @@
               {
                 "kind": "structFieldTypeNode",
                 "name": "escrow",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "oldRecipient",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "newRecipient",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "signer",
-                "type": { "kind": "publicKeyTypeNode" }
+                "type": {
+                  "kind": "publicKeyTypeNode"
+                }
               }
             ]
           },
@@ -3098,7 +3999,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3117,7 +4020,9 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": { "kind": "bytesTypeNode" }
+                "type": {
+                  "kind": "bytesTypeNode"
+                }
               },
               "value": {
                 "kind": "bytesValueNode",

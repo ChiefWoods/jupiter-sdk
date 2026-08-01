@@ -1,7 +1,7 @@
 {
   "address": "jupZ4m2GqUCJ5iueMfzQf8khFfH31d4XAQt3RzCT9Vd",
   "metadata": {
-    "name": "dex",
+    "name": "lend_dex",
     "version": "0.1.5",
     "spec": "0.1.0",
     "description": "Created with Anchor"

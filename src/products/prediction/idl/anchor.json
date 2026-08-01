@@ -1,7 +1,7 @@
 {
   "address": "3ZZuTbwC6aJbvteyVxXUS7gtFYdf7AuXeitx6VyvjvUp",
   "metadata": {
-    "name": "prediction_market",
+    "name": "prediction",
     "version": "0.10.0",
     "spec": "0.1.0",
     "description": "Jupiter Prediction Market"

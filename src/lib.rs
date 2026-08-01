@@ -1,4 +1,4 @@
-//! Jupiter on-chain product SDKs.
+//! Jupiter on-chain program SDKs.
 
 #[cfg(feature = "aggregator-v6")]
 pub use jupiter_aggregator_v6_sdk as aggregator_v6;

@@ -51,7 +51,7 @@ jupiter-stablecoin-sdk = { path = "src/products/stablecoin/rust", version = "0.1
 [package]
 name = "jupiter-program-sdk"
 version.workspace = true
-description = "Jupiter on-chain product SDKs"
+description = "Jupiter on-chain program SDKs"
 edition.workspace = true
 license.workspace = true
 authors.workspace = true

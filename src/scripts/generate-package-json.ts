@@ -24,10 +24,12 @@ const packageJson = {
     "./web3js": "./dist/web3js/index.js",
   },
   peerDependencies: {
+    "@solana/codecs": "^6.10.0",
     "@solana/kit": "^6.10.0",
     "@solana/web3.js": "3.0.0-rc.2",
   },
   peerDependenciesMeta: {
+    "@solana/codecs": { optional: true },
     "@solana/kit": { optional: true },
     "@solana/web3.js": { optional: true },
   },

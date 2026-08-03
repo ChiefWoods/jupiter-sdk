@@ -26,10 +26,12 @@
       "name": "jupiter-aggregator-v6-sdk",
       "version": "0.0.0",
       "peerDependencies": {
+        "@solana/codecs": "^6.10.0",
         "@solana/kit": "^6.10.0",
         "@solana/web3.js": "3.0.0-rc.2",
       },
       "optionalPeers": [
+        "@solana/codecs",
         "@solana/kit",
         "@solana/web3.js",
       ],
@@ -38,10 +40,12 @@
       "name": "jupiter-governance-sdk",
       "version": "0.0.0",
       "peerDependencies": {
+        "@solana/codecs": "^6.10.0",
         "@solana/kit": "^6.10.0",
         "@solana/web3.js": "3.0.0-rc.2",
       },
       "optionalPeers": [
+        "@solana/codecs",
         "@solana/kit",
         "@solana/web3.js",
       ],
@@ -50,10 +54,12 @@
       "name": "jupiter-lend-borrow-sdk",
       "version": "0.0.0",
       "peerDependencies": {
+        "@solana/codecs": "^6.10.0",
         "@solana/kit": "^6.10.0",
         "@solana/web3.js": "3.0.0-rc.2",
       },
       "optionalPeers": [
+        "@solana/codecs",
         "@solana/kit",
         "@solana/web3.js",
       ],
@@ -62,10 +68,12 @@
       "name": "jupiter-lend-dex-sdk",
       "version": "0.0.0",
       "peerDependencies": {
+        "@solana/codecs": "^6.10.0",
         "@solana/kit": "^6.10.0",
         "@solana/web3.js": "3.0.0-rc.2",
       },
       "optionalPeers": [
+        "@solana/codecs",
         "@solana/kit",
         "@solana/web3.js",
       ],
@@ -74,10 +82,12 @@
       "name": "jupiter-lend-earn-sdk",
       "version": "0.0.0",
       "peerDependencies": {
+        "@solana/codecs": "^6.10.0",
         "@solana/kit": "^6.10.0",
         "@solana/web3.js": "3.0.0-rc.2",
       },
       "optionalPeers": [
+        "@solana/codecs",
         "@solana/kit",
         "@solana/web3.js",
       ],
@@ -86,10 +96,12 @@
       "name": "jupiter-lend-flash-loan-sdk",
       "version": "0.0.0",
       "peerDependencies": {
+        "@solana/codecs": "^6.10.0",
         "@solana/kit": "^6.10.0",
         "@solana/web3.js": "3.0.0-rc.2",
       },
       "optionalPeers": [
+        "@solana/codecs",
         "@solana/kit",
         "@solana/web3.js",
       ],
@@ -98,10 +110,12 @@
       "name": "jupiter-lend-lending-reward-rate-model-sdk",
       "version": "0.0.0",
       "peerDependencies": {
+        "@solana/codecs": "^6.10.0",
         "@solana/kit": "^6.10.0",
         "@solana/web3.js": "3.0.0-rc.2",
       },
       "optionalPeers": [
+        "@solana/codecs",
         "@solana/kit",
         "@solana/web3.js",
       ],
@@ -110,10 +124,12 @@
       "name": "jupiter-lend-liquidity-sdk",
       "version": "0.0.0",
       "peerDependencies": {
+        "@solana/codecs": "^6.10.0",
         "@solana/kit": "^6.10.0",
         "@solana/web3.js": "3.0.0-rc.2",
       },
       "optionalPeers": [
+        "@solana/codecs",
         "@solana/kit",
         "@solana/web3.js",
       ],
@@ -122,10 +138,12 @@
       "name": "jupiter-lend-oracle-sdk",
       "version": "0.0.0",
       "peerDependencies": {
+        "@solana/codecs": "^6.10.0",
         "@solana/kit": "^6.10.0",
         "@solana/web3.js": "3.0.0-rc.2",
       },
       "optionalPeers": [
+        "@solana/codecs",
         "@solana/kit",
         "@solana/web3.js",
       ],
@@ -134,10 +152,12 @@
       "name": "jupiter-lock-sdk",
       "version": "0.0.0",
       "peerDependencies": {
+        "@solana/codecs": "^6.10.0",
         "@solana/kit": "^6.10.0",
         "@solana/web3.js": "3.0.0-rc.2",
       },
       "optionalPeers": [
+        "@solana/codecs",
         "@solana/kit",
         "@solana/web3.js",
       ],
@@ -146,10 +166,12 @@
       "name": "jupiter-offerbook-sdk",
       "version": "0.0.0",
       "peerDependencies": {
+        "@solana/codecs": "^6.10.0",
         "@solana/kit": "^6.10.0",
         "@solana/web3.js": "3.0.0-rc.2",
       },
       "optionalPeers": [
+        "@solana/codecs",
         "@solana/kit",
         "@solana/web3.js",
       ],
@@ -158,10 +180,12 @@
       "name": "jupiter-perps-sdk",
       "version": "0.0.0",
       "peerDependencies": {
+        "@solana/codecs": "^6.10.0",
         "@solana/kit": "^6.10.0",
         "@solana/web3.js": "3.0.0-rc.2",
       },
       "optionalPeers": [
+        "@solana/codecs",
         "@solana/kit",
         "@solana/web3.js",
       ],
@@ -170,10 +194,12 @@
       "name": "jupiter-prediction-sdk",
       "version": "0.0.0",
       "peerDependencies": {
+        "@solana/codecs": "^6.10.0",
         "@solana/kit": "^6.10.0",
         "@solana/web3.js": "3.0.0-rc.2",
       },
       "optionalPeers": [
+        "@solana/codecs",
         "@solana/kit",
         "@solana/web3.js",
       ],
@@ -182,10 +208,12 @@
       "name": "jupiter-rewards-hub-sdk",
       "version": "0.0.0",
       "peerDependencies": {
+        "@solana/codecs": "^6.10.0",
         "@solana/kit": "^6.10.0",
         "@solana/web3.js": "3.0.0-rc.2",
       },
       "optionalPeers": [
+        "@solana/codecs",
         "@solana/kit",
         "@solana/web3.js",
       ],
@@ -194,10 +222,12 @@
       "name": "jupiter-stablecoin-sdk",
       "version": "0.0.0",
       "peerDependencies": {
+        "@solana/codecs": "^6.10.0",
         "@solana/kit": "^6.10.0",
         "@solana/web3.js": "3.0.0-rc.2",
       },
       "optionalPeers": [
+        "@solana/codecs",
         "@solana/kit",
         "@solana/web3.js",
       ],

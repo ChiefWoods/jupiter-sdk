@@ -15,10 +15,14 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
+    "@solana/codecs": "^6.10.0",
     "@solana/kit": "^6.10.0",
     "@solana/web3.js": "3.0.0-rc.2"
   },
   "peerDependenciesMeta": {
+    "@solana/codecs": {
+      "optional": true
+    },
     "@solana/kit": {
       "optional": true
     },

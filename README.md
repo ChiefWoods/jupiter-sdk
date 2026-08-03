@@ -102,4 +102,7 @@ bun run build
 
 ## Adding a New Product
 
+> [!NOTE]
+> Only the root packages (`jupiter-sdk` / `jupiter-program-sdk`) are published. Individual product SDKs under `src/products/` are not published separately.
+
 See [.agents/skills/add-new-product/SKILL.md](./.agents/skills/add-new-product/SKILL.md)

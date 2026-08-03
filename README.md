@@ -32,13 +32,6 @@ Codama-generated SDKs for on-chain Jupiter programs. Each product ships three cl
 - `rewards-hub`
 - `stablecoin`
 
-## Setup
-
-```bash
-bun install
-bun run build
-```
-
 ## Usage
 
 Examples below use **offerbook**. Swap the product name for any other generated product (e.g. `prediction`).
@@ -85,9 +78,8 @@ console.log(OFFERBOOK_PROGRAM_ID, instruction);
 
 ### Rust
 
-```toml
-[dependencies]
-jupiter-program-sdk = { version = "0.0.0", features = ["offerbook"] }
+```bash
+cargo add jupiter-program-sdk -F offerbook
 ```
 
 ```rust
@@ -101,13 +93,11 @@ let instruction = CreateUserBuilder::new()
     .instruction();
 ```
 
-Enable a product with its Cargo feature (`offerbook`, `prediction`, …). The umbrella crate re-exports each client as `jupiter_program_sdk::<product>`.
-
-## Development
+## Setup
 
 ```bash
-bun run generate <product_name>   # regenerate clients from IDL
-bun run build                     # turbo build (TS + product packages)
+bun install
+bun run build
 ```
 
 ## Adding a New Product

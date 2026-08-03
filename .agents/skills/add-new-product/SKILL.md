@@ -8,12 +8,13 @@ description: >-
 
 # Add a New Product
 
-1. Create `anchor.json` or `codama.json` under `src/products/<product_name>/idl/`.
+1. Create the product directory: `src/products/<product_name>/idl/`.
+2. Add `anchor.json` or `codama.json` under that `idl/` directory.
    - Prefer `anchor.json` when you have an Anchor IDL; `bun run generate` will create `codama.json` if it is missing.
    - If the Anchor IDL is pre-v0.30, convert it into post-v0.30 spec using `anchor idl convert` before generating SDK.
    - If `codama.json` already exists, generation skips the Codama IDL step and renders clients from it.
-2. Run `bun run generate <product_name>`.
-3. Update root wiring to include the new product:
+3. Run `bun run generate <product_name>`.
+4. Update root wiring to include the new product:
    - **package.json** — add exports for `./<product_name>/kit` and `./<product_name>/web3js` (mirror existing products).
    - **Cargo.toml** — add:
      - the Rust crate path to `[workspace].members`
@@ -23,8 +24,8 @@ description: >-
    - **src/lib.rs** — re-export the crate behind the matching feature flag.
    - **justfile** — add `cargo publish -p jupiter-<product_name>-sdk --allow-dirty` before the umbrella crate publish.
    - **README.md** — add `` `<product_name>` `` to the Products list under Flavors (keep alphabetical order).
-4. Make sure `bun run build` and `bun run typecheck` are green.
+5. Make sure `bun run build` and `bun run typecheck` are green.
    - If typecheck fails for the product SDK (e.g. incorrect PDA seeds or account defaults from the Anchor IDL), add an optional `src/products/<product_name>/generate-codama-idl.ts` that builds from `idl/anchor.json` and applies Codama-tree overrides. Remove `idl/codama.json` (or run `bun run generate:codama-idl <product_name>`), then re-run `bun run generate <product_name>` so the product script is used. See `src/products/offerbook/` for the pattern.
    - If Rust client generation needs product-specific renderer options (e.g. `traitOptions`), add an optional `src/products/<product_name>/generate-clients.ts`. `bun run generate` / `generate:clients` prefer it over the shared script. See `src/products/perps/` for the pattern.
-5. If the product has any custom SDK generation scripts (`generate-codama-idl.ts`, `generate-clients.ts`, etc.), add `src/products/<product_name>/README.md` documenting what each script overrides and how to run it (direct path and shared entrypoint). Follow the style in `src/products/offerbook/README.md`.
-6. Commit using message `feat: add <product_name>`.
+6. If the product has any custom SDK generation scripts (`generate-codama-idl.ts`, `generate-clients.ts`, etc.), add `src/products/<product_name>/README.md` documenting what each script overrides and how to run it (direct path and shared entrypoint). Follow the style in `src/products/offerbook/README.md`.
+7. Commit using message `feat: add <product_name>`.

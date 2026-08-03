@@ -151,7 +151,6 @@
   },
   "scripts": {
     "build": "turbo build",
-    "test": "turbo test",
     "lint": "oxlint --fix .",
     "lint:check": "oxlint .",
     "format": "oxfmt .",

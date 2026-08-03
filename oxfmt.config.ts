@@ -7,5 +7,5 @@ export default defineConfig({
   tabWidth: 2,
   trailingComma: "all",
   useTabs: false,
-  ignorePatterns: ["generated"],
+  ignorePatterns: ["generated", "Cargo.toml", "Cargo.lock"],
 });

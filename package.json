@@ -152,8 +152,10 @@
   "scripts": {
     "build": "turbo build",
     "test": "turbo test",
-    "lint": "turbo lint",
-    "format": "turbo format",
+    "lint": "oxlint --fix .",
+    "lint:check": "oxlint .",
+    "format": "oxfmt .",
+    "format:check": "oxfmt --check .",
     "typecheck": "turbo typecheck",
     "generate": "bun src/scripts/generate.ts",
     "generate:codama-idl": "bun src/scripts/generate-codama-idl.ts",

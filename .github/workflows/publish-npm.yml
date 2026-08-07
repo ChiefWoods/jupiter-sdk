@@ -1,17 +1,18 @@
-name: Publish Package
+name: Publish npm
+run-name: Publish ${{ github.ref_name }}
 
 on:
   push:
     tags:
       - "jupiter-sdk@v*"
-      - "jupiter-program-sdk@v*"
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
-  id-token: write # Required for OIDC
+  id-token: write # Required for npm OIDC trusted publishing
   contents: read
 
 jobs:
@@ -50,7 +51,6 @@ jobs:
         run: bun run format:check
 
       - name: Publish
-        if: startsWith(github.ref, 'refs/tags/jupiter-sdk@v') || startsWith(github.ref, 'refs/tags/jupiter-program-sdk@v')
         run: npm publish
 
   release:

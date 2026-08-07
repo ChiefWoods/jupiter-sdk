@@ -7,13 +7,22 @@
 
 use borsh::BorshDeserialize;
 use borsh::BorshSerialize;
-use solana_address::Address;
+use num_derive::FromPrimitive;
 
-#[derive(BorshSerialize, BorshDeserialize, Clone, Debug, Eq, PartialEq)]
-pub struct SwapEventV2 {
-    pub input_mint: Address,
-    pub input_amount: u64,
-    pub output_mint: Address,
-    pub output_amount: u64,
-    pub amm: Address,
+#[derive(
+    BorshSerialize,
+    BorshDeserialize,
+    Clone,
+    Debug,
+    Eq,
+    PartialEq,
+    Copy,
+    PartialOrd,
+    Hash,
+    FromPrimitive,
+)]
+pub enum SanctumSolsSwapType {
+    Mint,
+    Claim,
+    ClaimHolding,
 }

@@ -25,6 +25,7 @@ export type SwapEventV2 = {
   inputAmount: bigint;
   outputMint: Address;
   outputAmount: bigint;
+  amm: Address;
 };
 
 export type SwapEventV2Args = {
@@ -32,6 +33,7 @@ export type SwapEventV2Args = {
   inputAmount: number | bigint;
   outputMint: Address;
   outputAmount: number | bigint;
+  amm: Address;
 };
 
 export function getSwapEventV2Encoder(): FixedSizeEncoder<SwapEventV2Args> {
@@ -40,6 +42,7 @@ export function getSwapEventV2Encoder(): FixedSizeEncoder<SwapEventV2Args> {
     ["inputAmount", getU64Encoder()],
     ["outputMint", getAddressEncoder()],
     ["outputAmount", getU64Encoder()],
+    ["amm", getAddressEncoder()],
   ]);
 }
 
@@ -49,6 +52,7 @@ export function getSwapEventV2Decoder(): FixedSizeDecoder<SwapEventV2> {
     ["inputAmount", getU64Decoder()],
     ["outputMint", getAddressDecoder()],
     ["outputAmount", getU64Decoder()],
+    ["amm", getAddressDecoder()],
   ]);
 }
 

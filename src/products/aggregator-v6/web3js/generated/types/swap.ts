@@ -63,6 +63,12 @@ import {
     type RemainingAccountsInfo,
     type RemainingAccountsInfoArgs,
 } from '../types/remainingAccountsInfo';
+import {
+    getSanctumSolsSwapTypeDecoder,
+    getSanctumSolsSwapTypeEncoder,
+    type SanctumSolsSwapType,
+    type SanctumSolsSwapTypeArgs,
+} from '../types/sanctumSolsSwapType';
 import { getSideDecoder, getSideEncoder, type Side, type SideArgs } from '../types/side';
 
 export type Swap =
@@ -247,7 +253,14 @@ export type Swap =
     | { __kind: 'Deriverse'; side: Side; instrId: number }
     | { __kind: 'Hadron'; isX: boolean }
     | { __kind: 'BinaryFi' }
-    | { __kind: 'Metric'; zeroForOne: boolean };
+    | { __kind: 'Metric'; zeroForOne: boolean }
+    | { __kind: 'JupiterLendDexSwap'; swap0to1: boolean }
+    | { __kind: 'Gatorswap'; baseToQuote: boolean }
+    | { __kind: 'Flint'; isGlobal: boolean; takerBuy: boolean }
+    | { __kind: 'Denali'; baseToQuote: boolean }
+    | { __kind: 'PerenaStarV2Deposit' }
+    | { __kind: 'PerenaStarV2WithdrawFromExternal'; externalLiquiditySource: number }
+    | { __kind: 'SanctumSols'; swapType: SanctumSolsSwapType };
 
 export type SwapArgs =
     | { __kind: 'Saber' }
@@ -431,7 +444,14 @@ export type SwapArgs =
     | { __kind: 'Deriverse'; side: SideArgs; instrId: number }
     | { __kind: 'Hadron'; isX: boolean }
     | { __kind: 'BinaryFi' }
-    | { __kind: 'Metric'; zeroForOne: boolean };
+    | { __kind: 'Metric'; zeroForOne: boolean }
+    | { __kind: 'JupiterLendDexSwap'; swap0to1: boolean }
+    | { __kind: 'Gatorswap'; baseToQuote: boolean }
+    | { __kind: 'Flint'; isGlobal: boolean; takerBuy: boolean }
+    | { __kind: 'Denali'; baseToQuote: boolean }
+    | { __kind: 'PerenaStarV2Deposit' }
+    | { __kind: 'PerenaStarV2WithdrawFromExternal'; externalLiquiditySource: number }
+    | { __kind: 'SanctumSols'; swapType: SanctumSolsSwapTypeArgs };
 
 export function getSwapEncoder(): Encoder<SwapArgs> {
     return getDiscriminatedUnionEncoder([
@@ -727,6 +747,19 @@ export function getSwapEncoder(): Encoder<SwapArgs> {
         ['Hadron', getStructEncoder([['isX', getBooleanEncoder()]])],
         ['BinaryFi', getUnitEncoder()],
         ['Metric', getStructEncoder([['zeroForOne', getBooleanEncoder()]])],
+        ['JupiterLendDexSwap', getStructEncoder([['swap0to1', getBooleanEncoder()]])],
+        ['Gatorswap', getStructEncoder([['baseToQuote', getBooleanEncoder()]])],
+        [
+            'Flint',
+            getStructEncoder([
+                ['isGlobal', getBooleanEncoder()],
+                ['takerBuy', getBooleanEncoder()],
+            ]),
+        ],
+        ['Denali', getStructEncoder([['baseToQuote', getBooleanEncoder()]])],
+        ['PerenaStarV2Deposit', getUnitEncoder()],
+        ['PerenaStarV2WithdrawFromExternal', getStructEncoder([['externalLiquiditySource', getU8Encoder()]])],
+        ['SanctumSols', getStructEncoder([['swapType', getSanctumSolsSwapTypeEncoder()]])],
     ]);
 }
 
@@ -1024,6 +1057,19 @@ export function getSwapDecoder(): Decoder<Swap> {
         ['Hadron', getStructDecoder([['isX', getBooleanDecoder()]])],
         ['BinaryFi', getUnitDecoder()],
         ['Metric', getStructDecoder([['zeroForOne', getBooleanDecoder()]])],
+        ['JupiterLendDexSwap', getStructDecoder([['swap0to1', getBooleanDecoder()]])],
+        ['Gatorswap', getStructDecoder([['baseToQuote', getBooleanDecoder()]])],
+        [
+            'Flint',
+            getStructDecoder([
+                ['isGlobal', getBooleanDecoder()],
+                ['takerBuy', getBooleanDecoder()],
+            ]),
+        ],
+        ['Denali', getStructDecoder([['baseToQuote', getBooleanDecoder()]])],
+        ['PerenaStarV2Deposit', getUnitDecoder()],
+        ['PerenaStarV2WithdrawFromExternal', getStructDecoder([['externalLiquiditySource', getU8Decoder()]])],
+        ['SanctumSols', getStructDecoder([['swapType', getSanctumSolsSwapTypeDecoder()]])],
     ]);
 }
 
@@ -1457,6 +1503,33 @@ export function swap(
     kind: 'Metric',
     data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Metric'>,
 ): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Metric'>;
+export function swap(
+    kind: 'JupiterLendDexSwap',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'JupiterLendDexSwap'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'JupiterLendDexSwap'>;
+export function swap(
+    kind: 'Gatorswap',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Gatorswap'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Gatorswap'>;
+export function swap(
+    kind: 'Flint',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Flint'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Flint'>;
+export function swap(
+    kind: 'Denali',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Denali'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Denali'>;
+export function swap(
+    kind: 'PerenaStarV2Deposit',
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PerenaStarV2Deposit'>;
+export function swap(
+    kind: 'PerenaStarV2WithdrawFromExternal',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'PerenaStarV2WithdrawFromExternal'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PerenaStarV2WithdrawFromExternal'>;
+export function swap(
+    kind: 'SanctumSols',
+    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'SanctumSols'>,
+): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SanctumSols'>;
 export function swap<K extends SwapArgs['__kind'], Data>(kind: K, data?: Data) {
     return Array.isArray(data) ? { __kind: kind, fields: data } : { __kind: kind, ...(data ?? {}) };
 }

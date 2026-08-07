@@ -17,6 +17,7 @@ export * from "./remainingAccountsInfo";
 export * from "./remainingAccountsSlice";
 export * from "./routePlanStep";
 export * from "./routePlanStepV2";
+export * from "./sanctumSolsSwapType";
 export * from "./side";
 export * from "./swap";
 export * from "./swapEventV2";

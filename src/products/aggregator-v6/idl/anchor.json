@@ -2528,6 +2528,71 @@
                 "type": "bool"
               }
             ]
+          },
+          {
+            "name": "JupiterLendDexSwap",
+            "fields": [
+              {
+                "name": "swap0to1",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "Gatorswap",
+            "fields": [
+              {
+                "name": "base_to_quote",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "Flint",
+            "fields": [
+              {
+                "name": "is_global",
+                "type": "bool"
+              },
+              {
+                "name": "taker_buy",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "Denali",
+            "fields": [
+              {
+                "name": "base_to_quote",
+                "type": "bool"
+              }
+            ]
+          },
+          {
+            "name": "PerenaStarV2Deposit"
+          },
+          {
+            "name": "PerenaStarV2WithdrawFromExternal",
+            "fields": [
+              {
+                "name": "external_liquidity_source",
+                "type": "u8"
+              }
+            ]
+          },
+          {
+            "name": "SanctumSols",
+            "fields": [
+              {
+                "name": "swap_type",
+                "type": {
+                  "defined": {
+                    "name": "SanctumSolsSwapType"
+                  }
+                }
+              }
+            ]
           }
         ]
       }
@@ -2667,6 +2732,23 @@
       }
     },
     {
+      "name": "SanctumSolsSwapType",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Mint"
+          },
+          {
+            "name": "Claim"
+          },
+          {
+            "name": "ClaimHolding"
+          }
+        ]
+      }
+    },
+    {
       "name": "HyloSwapType",
       "type": {
         "kind": "enum",
@@ -2746,6 +2828,10 @@
           {
             "name": "output_amount",
             "type": "u64"
+          },
+          {
+            "name": "amm",
+            "type": "pubkey"
           }
         ]
       }

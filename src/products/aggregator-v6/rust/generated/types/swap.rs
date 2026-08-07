@@ -10,6 +10,7 @@ use crate::generated::types::CandidateSwap;
 use crate::generated::types::CandidateSwapWithBps;
 use crate::generated::types::HyloSwapType;
 use crate::generated::types::RemainingAccountsInfo;
+use crate::generated::types::SanctumSolsSwapType;
 use crate::generated::types::Side;
 use borsh::BorshDeserialize;
 use borsh::BorshSerialize;
@@ -343,5 +344,25 @@ pub enum Swap {
     BinaryFi,
     Metric {
         zero_for_one: bool,
+    },
+    JupiterLendDexSwap {
+        swap0to1: bool,
+    },
+    Gatorswap {
+        base_to_quote: bool,
+    },
+    Flint {
+        is_global: bool,
+        taker_buy: bool,
+    },
+    Denali {
+        base_to_quote: bool,
+    },
+    PerenaStarV2Deposit,
+    PerenaStarV2WithdrawFromExternal {
+        external_liquidity_source: u8,
+    },
+    SanctumSols {
+        swap_type: SanctumSolsSwapType,
     },
 }

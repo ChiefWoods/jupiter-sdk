@@ -9,6 +9,7 @@ export * from './bisonFiPredictSide';
 export * from './swap';
 export * from './candidateSwapWithBps';
 export * from './candidateSwap';
+export * from './sanctumSolsSwapType';
 export * from './hyloSwapType';
 export * from './swapEventV2';
 export * from './candidateSwapResult';

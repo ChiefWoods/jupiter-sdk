@@ -16,13 +16,20 @@ import {
     type Encoder,
 } from '@solana/codecs';
 
-export type SwapEventV2 = { inputMint: Address; inputAmount: bigint; outputMint: Address; outputAmount: bigint };
+export type SwapEventV2 = {
+    inputMint: Address;
+    inputAmount: bigint;
+    outputMint: Address;
+    outputAmount: bigint;
+    amm: Address;
+};
 
 export type SwapEventV2Args = {
     inputMint: Address;
     inputAmount: number | bigint;
     outputMint: Address;
     outputAmount: number | bigint;
+    amm: Address;
 };
 
 export function getSwapEventV2Encoder(): Encoder<SwapEventV2Args> {
@@ -31,6 +38,7 @@ export function getSwapEventV2Encoder(): Encoder<SwapEventV2Args> {
         ['inputAmount', getU64Encoder()],
         ['outputMint', transformEncoder(fixEncoderSize(getBytesEncoder(), 32), (value: Address) => value.toBytes())],
         ['outputAmount', getU64Encoder()],
+        ['amm', transformEncoder(fixEncoderSize(getBytesEncoder(), 32), (value: Address) => value.toBytes())],
     ]);
 }
 
@@ -40,6 +48,7 @@ export function getSwapEventV2Decoder(): Decoder<SwapEventV2> {
         ['inputAmount', getU64Decoder()],
         ['outputMint', transformDecoder(fixDecoderSize(getBytesDecoder(), 32), value => new Address(value))],
         ['outputAmount', getU64Decoder()],
+        ['amm', transformDecoder(fixDecoderSize(getBytesDecoder(), 32), value => new Address(value))],
     ]);
 }
 

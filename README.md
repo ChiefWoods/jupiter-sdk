@@ -1,18 +1,15 @@
 # Jupiter SDK
 
-[![npm](https://img.shields.io/npm/v/jupiter-sdk.svg)](https://www.npmjs.com/package/jupiter-sdk)
-[![Crates.io](https://img.shields.io/crates/v/jupiter-program-sdk.svg)](https://crates.io/crates/jupiter-program-sdk)
-
 > [!WARNING]
 > This is **not** an official package by the Jupiter team. It is an independent, community-maintained project.
 
 Codama-generated SDKs for on-chain Jupiter programs. Each product ships three client flavors:
 
-| Flavor     | Import / crate                                 | Stack                                                                                |
-| ---------- | ---------------------------------------------- | ------------------------------------------------------------------------------------ |
-| **kit**    | `jupiter-sdk/<product>/kit`                    | [`@solana/kit`](https://www.npmjs.com/package/@solana/kit)                           |
-| **web3js** | `jupiter-sdk/<product>/web3js`                 | [`@solana/web3.js`](https://www.npmjs.com/package/@solana/web3.js) v3 (`3.0.0-rc.x`) |
-| **rust**   | `jupiter-program-sdk` with feature `<product>` | Solana program / CPI client                                                          |
+| Flavor     | Import / crate                                 | Stack                                                                                | Registry                                                                                                              |
+| ---------- | ---------------------------------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------- |
+| **kit**    | `jupiter-sdk/<product>/kit`                    | [`@solana/kit`](https://www.npmjs.com/package/@solana/kit)                           | [![npm](https://img.shields.io/npm/v/jupiter-sdk.svg)](https://www.npmjs.com/package/jupiter-sdk)                     |
+| **web3js** | `jupiter-sdk/<product>/web3js`                 | [`@solana/web3.js`](https://www.npmjs.com/package/@solana/web3.js) v3 (`3.0.0-rc.x`) | [![npm](https://img.shields.io/npm/v/jupiter-sdk.svg)](https://www.npmjs.com/package/jupiter-sdk)                     |
+| **rust**   | `jupiter-program-sdk` with feature `<product>` | Solana program / CPI client                                                          | [![Crates.io](https://img.shields.io/crates/v/jupiter-program-sdk.svg)](https://crates.io/crates/jupiter-program-sdk) |
 
 ### Products
 

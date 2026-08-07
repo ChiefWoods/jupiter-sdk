@@ -71,7 +71,7 @@ import {
 } from '../types/sanctumSolsSwapType';
 import { getSideDecoder, getSideEncoder, type Side, type SideArgs } from '../types/side';
 
-export type Swap =
+export type SwapType =
     | { __kind: 'Saber' }
     | { __kind: 'SaberAddDecimalsDeposit' }
     | { __kind: 'SaberAddDecimalsWithdraw' }
@@ -262,7 +262,7 @@ export type Swap =
     | { __kind: 'PerenaStarV2WithdrawFromExternal'; externalLiquiditySource: number }
     | { __kind: 'SanctumSols'; swapType: SanctumSolsSwapType };
 
-export type SwapArgs =
+export type SwapTypeArgs =
     | { __kind: 'Saber' }
     | { __kind: 'SaberAddDecimalsDeposit' }
     | { __kind: 'SaberAddDecimalsWithdraw' }
@@ -453,7 +453,7 @@ export type SwapArgs =
     | { __kind: 'PerenaStarV2WithdrawFromExternal'; externalLiquiditySource: number }
     | { __kind: 'SanctumSols'; swapType: SanctumSolsSwapTypeArgs };
 
-export function getSwapEncoder(): Encoder<SwapArgs> {
+export function getSwapTypeEncoder(): Encoder<SwapTypeArgs> {
     return getDiscriminatedUnionEncoder([
         ['Saber', getUnitEncoder()],
         ['SaberAddDecimalsDeposit', getUnitEncoder()],
@@ -763,7 +763,7 @@ export function getSwapEncoder(): Encoder<SwapArgs> {
     ]);
 }
 
-export function getSwapDecoder(): Decoder<Swap> {
+export function getSwapTypeDecoder(): Decoder<SwapType> {
     return getDiscriminatedUnionDecoder([
         ['Saber', getUnitDecoder()],
         ['SaberAddDecimalsDeposit', getUnitDecoder()],
@@ -1073,467 +1073,499 @@ export function getSwapDecoder(): Decoder<Swap> {
     ]);
 }
 
-export function getSwapCodec(): Codec<SwapArgs, Swap> {
-    return combineCodec(getSwapEncoder(), getSwapDecoder());
+export function getSwapTypeCodec(): Codec<SwapTypeArgs, SwapType> {
+    return combineCodec(getSwapTypeEncoder(), getSwapTypeDecoder());
 }
 
 // Data Enum Helpers.
-export function swap(kind: 'Saber'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Saber'>;
-export function swap(
+export function swapType(kind: 'Saber'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Saber'>;
+export function swapType(
     kind: 'SaberAddDecimalsDeposit',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SaberAddDecimalsDeposit'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'SaberAddDecimalsDeposit'>;
+export function swapType(
     kind: 'SaberAddDecimalsWithdraw',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SaberAddDecimalsWithdraw'>;
-export function swap(kind: 'TokenSwap'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'TokenSwap'>;
-export function swap(kind: 'Sencha'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Sencha'>;
-export function swap(kind: 'Step'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Step'>;
-export function swap(kind: 'Cropper'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Cropper'>;
-export function swap(kind: 'Raydium'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Raydium'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'SaberAddDecimalsWithdraw'>;
+export function swapType(kind: 'TokenSwap'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'TokenSwap'>;
+export function swapType(kind: 'Sencha'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Sencha'>;
+export function swapType(kind: 'Step'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Step'>;
+export function swapType(kind: 'Cropper'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Cropper'>;
+export function swapType(kind: 'Raydium'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Raydium'>;
+export function swapType(
     kind: 'Crema',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Crema'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Crema'>;
-export function swap(kind: 'Lifinity'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Lifinity'>;
-export function swap(kind: 'Mercurial'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Mercurial'>;
-export function swap(kind: 'Cykura'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Cykura'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Crema'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Crema'>;
+export function swapType(kind: 'Lifinity'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Lifinity'>;
+export function swapType(kind: 'Mercurial'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Mercurial'>;
+export function swapType(kind: 'Cykura'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Cykura'>;
+export function swapType(
     kind: 'Serum',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Serum'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Serum'>;
-export function swap(kind: 'MarinadeDeposit'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MarinadeDeposit'>;
-export function swap(kind: 'MarinadeUnstake'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MarinadeUnstake'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Serum'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Serum'>;
+export function swapType(
+    kind: 'MarinadeDeposit',
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'MarinadeDeposit'>;
+export function swapType(
+    kind: 'MarinadeUnstake',
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'MarinadeUnstake'>;
+export function swapType(
     kind: 'Aldrin',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Aldrin'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Aldrin'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Aldrin'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Aldrin'>;
+export function swapType(
     kind: 'AldrinV2',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'AldrinV2'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'AldrinV2'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'AldrinV2'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'AldrinV2'>;
+export function swapType(
     kind: 'Whirlpool',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Whirlpool'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Whirlpool'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Whirlpool'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Whirlpool'>;
+export function swapType(
     kind: 'Invariant',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Invariant'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Invariant'>;
-export function swap(kind: 'Meteora'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Meteora'>;
-export function swap(kind: 'GooseFX'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'GooseFX'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Invariant'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Invariant'>;
+export function swapType(kind: 'Meteora'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Meteora'>;
+export function swapType(kind: 'GooseFX'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'GooseFX'>;
+export function swapType(
     kind: 'DeltaFi',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'DeltaFi'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'DeltaFi'>;
-export function swap(kind: 'Balansol'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Balansol'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'DeltaFi'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'DeltaFi'>;
+export function swapType(kind: 'Balansol'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Balansol'>;
+export function swapType(
     kind: 'MarcoPolo',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'MarcoPolo'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MarcoPolo'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'MarcoPolo'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'MarcoPolo'>;
+export function swapType(
     kind: 'Dradex',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Dradex'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Dradex'>;
-export function swap(kind: 'LifinityV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'LifinityV2'>;
-export function swap(kind: 'RaydiumClmm'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'RaydiumClmm'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Dradex'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Dradex'>;
+export function swapType(kind: 'LifinityV2'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'LifinityV2'>;
+export function swapType(kind: 'RaydiumClmm'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'RaydiumClmm'>;
+export function swapType(
     kind: 'Openbook',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Openbook'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Openbook'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Openbook'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Openbook'>;
+export function swapType(
     kind: 'Phoenix',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Phoenix'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Phoenix'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Phoenix'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Phoenix'>;
+export function swapType(
     kind: 'Symmetry',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Symmetry'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Symmetry'>;
-export function swap(kind: 'TokenSwapV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'TokenSwapV2'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Symmetry'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Symmetry'>;
+export function swapType(kind: 'TokenSwapV2'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'TokenSwapV2'>;
+export function swapType(
     kind: 'HeliumTreasuryManagementRedeemV0',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'HeliumTreasuryManagementRedeemV0'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'HeliumTreasuryManagementRedeemV0'>;
+export function swapType(
     kind: 'StakeDexStakeWrappedSol',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'StakeDexStakeWrappedSol'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'StakeDexStakeWrappedSol'>;
+export function swapType(
     kind: 'StakeDexSwapViaStake',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'StakeDexSwapViaStake'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'StakeDexSwapViaStake'>;
-export function swap(kind: 'GooseFXV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'GooseFXV2'>;
-export function swap(kind: 'Perps'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Perps'>;
-export function swap(kind: 'PerpsAddLiquidity'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PerpsAddLiquidity'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'StakeDexSwapViaStake'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'StakeDexSwapViaStake'>;
+export function swapType(kind: 'GooseFXV2'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'GooseFXV2'>;
+export function swapType(kind: 'Perps'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Perps'>;
+export function swapType(
+    kind: 'PerpsAddLiquidity',
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PerpsAddLiquidity'>;
+export function swapType(
     kind: 'PerpsRemoveLiquidity',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PerpsRemoveLiquidity'>;
-export function swap(kind: 'MeteoraDlmm'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MeteoraDlmm'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PerpsRemoveLiquidity'>;
+export function swapType(kind: 'MeteoraDlmm'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'MeteoraDlmm'>;
+export function swapType(
     kind: 'OpenBookV2',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'OpenBookV2'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'OpenBookV2'>;
-export function swap(kind: 'RaydiumClmmV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'RaydiumClmmV2'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'OpenBookV2'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'OpenBookV2'>;
+export function swapType(kind: 'RaydiumClmmV2'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'RaydiumClmmV2'>;
+export function swapType(
     kind: 'StakeDexPrefundWithdrawStakeAndDepositStake',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'StakeDexPrefundWithdrawStakeAndDepositStake'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'StakeDexPrefundWithdrawStakeAndDepositStake'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'StakeDexPrefundWithdrawStakeAndDepositStake'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'StakeDexPrefundWithdrawStakeAndDepositStake'>;
+export function swapType(
     kind: 'Clone',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Clone'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Clone'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Clone'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Clone'>;
+export function swapType(
     kind: 'SanctumS',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'SanctumS'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SanctumS'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'SanctumS'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'SanctumS'>;
+export function swapType(
     kind: 'SanctumSAddLiquidity',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'SanctumSAddLiquidity'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SanctumSAddLiquidity'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'SanctumSAddLiquidity'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'SanctumSAddLiquidity'>;
+export function swapType(
     kind: 'SanctumSRemoveLiquidity',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'SanctumSRemoveLiquidity'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SanctumSRemoveLiquidity'>;
-export function swap(kind: 'RaydiumCP'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'RaydiumCP'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'SanctumSRemoveLiquidity'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'SanctumSRemoveLiquidity'>;
+export function swapType(kind: 'RaydiumCP'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'RaydiumCP'>;
+export function swapType(
     kind: 'WhirlpoolSwapV2',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'WhirlpoolSwapV2'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'WhirlpoolSwapV2'>;
-export function swap(kind: 'OneIntro'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'OneIntro'>;
-export function swap(kind: 'PumpWrappedBuy'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedBuy'>;
-export function swap(kind: 'PumpWrappedSell'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedSell'>;
-export function swap(kind: 'PerpsV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PerpsV2'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'WhirlpoolSwapV2'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'WhirlpoolSwapV2'>;
+export function swapType(kind: 'OneIntro'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'OneIntro'>;
+export function swapType(
+    kind: 'PumpWrappedBuy',
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpWrappedBuy'>;
+export function swapType(
+    kind: 'PumpWrappedSell',
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpWrappedSell'>;
+export function swapType(kind: 'PerpsV2'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PerpsV2'>;
+export function swapType(
     kind: 'PerpsV2AddLiquidity',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PerpsV2AddLiquidity'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PerpsV2AddLiquidity'>;
+export function swapType(
     kind: 'PerpsV2RemoveLiquidity',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PerpsV2RemoveLiquidity'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PerpsV2RemoveLiquidity'>;
+export function swapType(
     kind: 'MoonshotWrappedBuy',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MoonshotWrappedBuy'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'MoonshotWrappedBuy'>;
+export function swapType(
     kind: 'MoonshotWrappedSell',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MoonshotWrappedSell'>;
-export function swap(kind: 'StabbleStableSwap'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'StabbleStableSwap'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'MoonshotWrappedSell'>;
+export function swapType(
+    kind: 'StabbleStableSwap',
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'StabbleStableSwap'>;
+export function swapType(
     kind: 'StabbleWeightedSwap',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'StabbleWeightedSwap'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'StabbleWeightedSwap'>;
+export function swapType(
     kind: 'Obric',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Obric'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Obric'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Obric'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Obric'>;
+export function swapType(
     kind: 'FoxBuyFromEstimatedCost',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'FoxBuyFromEstimatedCost'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'FoxBuyFromEstimatedCost'>;
+export function swapType(
     kind: 'FoxClaimPartial',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'FoxClaimPartial'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'FoxClaimPartial'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'FoxClaimPartial'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'FoxClaimPartial'>;
+export function swapType(
     kind: 'SolFi',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'SolFi'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SolFi'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'SolFi'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'SolFi'>;
+export function swapType(
     kind: 'SolayerDelegateNoInit',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SolayerDelegateNoInit'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'SolayerDelegateNoInit'>;
+export function swapType(
     kind: 'SolayerUndelegateNoInit',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SolayerUndelegateNoInit'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'SolayerUndelegateNoInit'>;
+export function swapType(
     kind: 'TokenMill',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'TokenMill'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'TokenMill'>;
-export function swap(kind: 'DaosFunBuy'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'DaosFunBuy'>;
-export function swap(kind: 'DaosFunSell'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'DaosFunSell'>;
-export function swap(kind: 'ZeroFi'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'ZeroFi'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'TokenMill'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'TokenMill'>;
+export function swapType(kind: 'DaosFunBuy'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'DaosFunBuy'>;
+export function swapType(kind: 'DaosFunSell'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'DaosFunSell'>;
+export function swapType(kind: 'ZeroFi'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'ZeroFi'>;
+export function swapType(
     kind: 'StakeDexWithdrawWrappedSol',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'StakeDexWithdrawWrappedSol'>;
-export function swap(kind: 'VirtualsBuy'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'VirtualsBuy'>;
-export function swap(kind: 'VirtualsSell'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'VirtualsSell'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'StakeDexWithdrawWrappedSol'>;
+export function swapType(kind: 'VirtualsBuy'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'VirtualsBuy'>;
+export function swapType(kind: 'VirtualsSell'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'VirtualsSell'>;
+export function swapType(
     kind: 'Perena',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Perena'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Perena'>;
-export function swap(kind: 'PumpSwapBuy'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpSwapBuy'>;
-export function swap(kind: 'PumpSwapSell'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpSwapSell'>;
-export function swap(kind: 'Gamma'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Gamma'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Perena'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Perena'>;
+export function swapType(kind: 'PumpSwapBuy'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpSwapBuy'>;
+export function swapType(kind: 'PumpSwapSell'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpSwapSell'>;
+export function swapType(kind: 'Gamma'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Gamma'>;
+export function swapType(
     kind: 'MeteoraDlmmSwapV2',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'MeteoraDlmmSwapV2'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MeteoraDlmmSwapV2'>;
-export function swap(kind: 'Woofi'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Woofi'>;
-export function swap(kind: 'MeteoraDammV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MeteoraDammV2'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'MeteoraDlmmSwapV2'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'MeteoraDlmmSwapV2'>;
+export function swapType(kind: 'Woofi'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Woofi'>;
+export function swapType(kind: 'MeteoraDammV2'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'MeteoraDammV2'>;
+export function swapType(
     kind: 'MeteoraDynamicBondingCurveSwap',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MeteoraDynamicBondingCurveSwap'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'MeteoraDynamicBondingCurveSwap'>;
+export function swapType(
     kind: 'StabbleStableSwapV2',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'StabbleStableSwapV2'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'StabbleStableSwapV2'>;
+export function swapType(
     kind: 'StabbleWeightedSwapV2',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'StabbleWeightedSwapV2'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'StabbleWeightedSwapV2'>;
+export function swapType(
     kind: 'RaydiumLaunchlabBuy',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'RaydiumLaunchlabBuy'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'RaydiumLaunchlabBuy'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'RaydiumLaunchlabBuy'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'RaydiumLaunchlabBuy'>;
+export function swapType(
     kind: 'RaydiumLaunchlabSell',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'RaydiumLaunchlabSell'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'RaydiumLaunchlabSell'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'RaydiumLaunchlabSell'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'RaydiumLaunchlabSell'>;
+export function swapType(
     kind: 'BoopdotfunWrappedBuy',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'BoopdotfunWrappedBuy'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'BoopdotfunWrappedBuy'>;
+export function swapType(
     kind: 'BoopdotfunWrappedSell',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'BoopdotfunWrappedSell'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'BoopdotfunWrappedSell'>;
+export function swapType(
     kind: 'Plasma',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Plasma'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Plasma'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Plasma'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Plasma'>;
+export function swapType(
     kind: 'GoonFi',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'GoonFi'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'GoonFi'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'GoonFi'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'GoonFi'>;
+export function swapType(
     kind: 'HumidiFi',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'HumidiFi'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'HumidiFi'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'HumidiFi'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'HumidiFi'>;
+export function swapType(
     kind: 'MeteoraDynamicBondingCurveSwapWithRemainingAccounts',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MeteoraDynamicBondingCurveSwapWithRemainingAccounts'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'MeteoraDynamicBondingCurveSwapWithRemainingAccounts'>;
+export function swapType(
     kind: 'TesseraV',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'TesseraV'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'TesseraV'>;
-export function swap(kind: 'PumpWrappedBuyV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedBuyV2'>;
-export function swap(kind: 'PumpWrappedSellV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedSellV2'>;
-export function swap(kind: 'PumpSwapBuyV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpSwapBuyV2'>;
-export function swap(kind: 'PumpSwapSellV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpSwapSellV2'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'TesseraV'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'TesseraV'>;
+export function swapType(
+    kind: 'PumpWrappedBuyV2',
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpWrappedBuyV2'>;
+export function swapType(
+    kind: 'PumpWrappedSellV2',
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpWrappedSellV2'>;
+export function swapType(kind: 'PumpSwapBuyV2'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpSwapBuyV2'>;
+export function swapType(
+    kind: 'PumpSwapSellV2',
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpSwapSellV2'>;
+export function swapType(
     kind: 'Heaven',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Heaven'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Heaven'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Heaven'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Heaven'>;
+export function swapType(
     kind: 'SolFiV2',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'SolFiV2'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SolFiV2'>;
-export function swap(kind: 'Aquifer'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Aquifer'>;
-export function swap(kind: 'PumpWrappedBuyV3'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedBuyV3'>;
-export function swap(kind: 'PumpWrappedSellV3'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedSellV3'>;
-export function swap(kind: 'PumpSwapBuyV3'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpSwapBuyV3'>;
-export function swap(kind: 'PumpSwapSellV3'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpSwapSellV3'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'SolFiV2'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'SolFiV2'>;
+export function swapType(kind: 'Aquifer'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Aquifer'>;
+export function swapType(
+    kind: 'PumpWrappedBuyV3',
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpWrappedBuyV3'>;
+export function swapType(
+    kind: 'PumpWrappedSellV3',
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpWrappedSellV3'>;
+export function swapType(kind: 'PumpSwapBuyV3'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpSwapBuyV3'>;
+export function swapType(
+    kind: 'PumpSwapSellV3',
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpSwapSellV3'>;
+export function swapType(
     kind: 'JupiterLendDeposit',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'JupiterLendDeposit'>;
-export function swap(kind: 'JupiterLendRedeem'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'JupiterLendRedeem'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'JupiterLendDeposit'>;
+export function swapType(
+    kind: 'JupiterLendRedeem',
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'JupiterLendRedeem'>;
+export function swapType(
     kind: 'DefiTuna',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'DefiTuna'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'DefiTuna'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'DefiTuna'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'DefiTuna'>;
+export function swapType(
     kind: 'AlphaQ',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'AlphaQ'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'AlphaQ'>;
-export function swap(kind: 'RaydiumV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'RaydiumV2'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'AlphaQ'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'AlphaQ'>;
+export function swapType(kind: 'RaydiumV2'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'RaydiumV2'>;
+export function swapType(
     kind: 'SarosDlmm',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'SarosDlmm'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SarosDlmm'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'SarosDlmm'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'SarosDlmm'>;
+export function swapType(
     kind: 'Futarchy',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Futarchy'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Futarchy'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Futarchy'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Futarchy'>;
+export function swapType(
     kind: 'MeteoraDammV2WithRemainingAccounts',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MeteoraDammV2WithRemainingAccounts'>;
-export function swap(kind: 'Obsidian'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Obsidian'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'MeteoraDammV2WithRemainingAccounts'>;
+export function swapType(kind: 'Obsidian'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Obsidian'>;
+export function swapType(
     kind: 'WhaleStreet',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'WhaleStreet'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'WhaleStreet'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'WhaleStreet'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'WhaleStreet'>;
+export function swapType(
     kind: 'DynamicV1',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'DynamicV1'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'DynamicV1'>;
-export function swap(kind: 'PumpWrappedBuyV4'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedBuyV4'>;
-export function swap(kind: 'PumpWrappedSellV4'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedSellV4'>;
-export function swap(kind: 'CarrotIssue'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'CarrotIssue'>;
-export function swap(kind: 'CarrotRedeem'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'CarrotRedeem'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'DynamicV1'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'DynamicV1'>;
+export function swapType(
+    kind: 'PumpWrappedBuyV4',
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpWrappedBuyV4'>;
+export function swapType(
+    kind: 'PumpWrappedSellV4',
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpWrappedSellV4'>;
+export function swapType(kind: 'CarrotIssue'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'CarrotIssue'>;
+export function swapType(kind: 'CarrotRedeem'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'CarrotRedeem'>;
+export function swapType(
     kind: 'Manifest',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Manifest'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Manifest'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Manifest'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Manifest'>;
+export function swapType(
     kind: 'BisonFi',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'BisonFi'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'BisonFi'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'BisonFi'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'BisonFi'>;
+export function swapType(
     kind: 'HumidiFiV2',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'HumidiFiV2'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'HumidiFiV2'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'HumidiFiV2'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'HumidiFiV2'>;
+export function swapType(
     kind: 'PerenaStar',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'PerenaStar'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PerenaStar'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'PerenaStar'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PerenaStar'>;
+export function swapType(
     kind: 'JupiterRfqV2',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'JupiterRfqV2'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'JupiterRfqV2'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'JupiterRfqV2'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'JupiterRfqV2'>;
+export function swapType(
     kind: 'GoonFiV2',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'GoonFiV2'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'GoonFiV2'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'GoonFiV2'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'GoonFiV2'>;
+export function swapType(
     kind: 'Scorch',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Scorch'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Scorch'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Scorch'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Scorch'>;
+export function swapType(
     kind: 'VaultLiquidUnstake',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'VaultLiquidUnstake'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'VaultLiquidUnstake'>;
-export function swap(kind: 'XOrca'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'XOrca'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'VaultLiquidUnstake'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'VaultLiquidUnstake'>;
+export function swapType(kind: 'XOrca'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'XOrca'>;
+export function swapType(
     kind: 'Quantum',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Quantum'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Quantum'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Quantum'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Quantum'>;
+export function swapType(
     kind: 'WhaleStreetV2',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'WhaleStreetV2'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'WhaleStreetV2'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'WhaleStreetV2'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'WhaleStreetV2'>;
+export function swapType(
     kind: 'Riptide',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Riptide'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Riptide'>;
-export function swap(kind: 'RunnerRodeo'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'RunnerRodeo'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Riptide'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Riptide'>;
+export function swapType(kind: 'RunnerRodeo'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'RunnerRodeo'>;
+export function swapType(
     kind: 'TaurusFi',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'TaurusFi'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'TaurusFi'>;
-export function swap(kind: 'Omnipair'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Omnipair'>;
-export function swap(kind: 'MSwap'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'MSwap'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'TaurusFi'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'TaurusFi'>;
+export function swapType(kind: 'Omnipair'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Omnipair'>;
+export function swapType(kind: 'MSwap'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'MSwap'>;
+export function swapType(
     kind: 'Hylo',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Hylo'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Hylo'>;
-export function swap(kind: 'VoltrDeposit'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'VoltrDeposit'>;
-export function swap(kind: 'VoltrWithdraw'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'VoltrWithdraw'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Hylo'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Hylo'>;
+export function swapType(kind: 'VoltrDeposit'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'VoltrDeposit'>;
+export function swapType(kind: 'VoltrWithdraw'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'VoltrWithdraw'>;
+export function swapType(
     kind: 'SanctumSV2',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'SanctumSV2'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SanctumSV2'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'SanctumSV2'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'SanctumSV2'>;
+export function swapType(
     kind: 'LemmingsFi',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'LemmingsFi'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'LemmingsFi'>;
-export function swap(kind: 'ScaleVmmBuy'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'ScaleVmmBuy'>;
-export function swap(kind: 'ScaleVmmSell'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'ScaleVmmSell'>;
-export function swap(kind: 'ScaleAmmBuy'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'ScaleAmmBuy'>;
-export function swap(kind: 'ScaleAmmSell'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'ScaleAmmSell'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'LemmingsFi'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'LemmingsFi'>;
+export function swapType(kind: 'ScaleVmmBuy'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'ScaleVmmBuy'>;
+export function swapType(kind: 'ScaleVmmSell'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'ScaleVmmSell'>;
+export function swapType(kind: 'ScaleAmmBuy'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'ScaleAmmBuy'>;
+export function swapType(kind: 'ScaleAmmSell'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'ScaleAmmSell'>;
+export function swapType(
     kind: 'BisonFiV2',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'BisonFiV2'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'BisonFiV2'>;
-export function swap(kind: 'Trends'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Trends'>;
-export function swap(kind: 'HumaDeposit'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'HumaDeposit'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'BisonFiV2'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'BisonFiV2'>;
+export function swapType(kind: 'Trends'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Trends'>;
+export function swapType(kind: 'HumaDeposit'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'HumaDeposit'>;
+export function swapType(
     kind: 'HumaInstantWithdraw',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'HumaInstantWithdraw'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'HumaInstantWithdraw'>;
+export function swapType(
     kind: 'Kipseli',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Kipseli'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Kipseli'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Kipseli'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Kipseli'>;
+export function swapType(
     kind: 'DynamicV2',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'DynamicV2'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'DynamicV2'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'DynamicV2'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'DynamicV2'>;
+export function swapType(
     kind: 'PumpSwapBuyV3WithCashbackClaim',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpSwapBuyV3WithCashbackClaim'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpSwapBuyV3WithCashbackClaim'>;
+export function swapType(
     kind: 'PumpSwapSellV3WithCashbackClaim',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpSwapSellV3WithCashbackClaim'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpSwapSellV3WithCashbackClaim'>;
+export function swapType(
     kind: 'PumpWrappedBuyV4WithCashbackClaim',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedBuyV4WithCashbackClaim'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpWrappedBuyV4WithCashbackClaim'>;
+export function swapType(
     kind: 'PumpWrappedSellV4WithCashbackClaim',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedSellV4WithCashbackClaim'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpWrappedSellV4WithCashbackClaim'>;
+export function swapType(
     kind: 'GoonFiV3',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'GoonFiV3'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'GoonFiV3'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'GoonFiV3'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'GoonFiV3'>;
+export function swapType(
     kind: 'PumpWrappedBuyV5',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'PumpWrappedBuyV5'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedBuyV5'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'PumpWrappedBuyV5'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpWrappedBuyV5'>;
+export function swapType(
     kind: 'PumpWrappedSellV5',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'PumpWrappedSellV5'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PumpWrappedSellV5'>;
-export function swap(kind: 'ZeroFiSwapV2'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'ZeroFiSwapV2'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'PumpWrappedSellV5'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PumpWrappedSellV5'>;
+export function swapType(kind: 'ZeroFiSwapV2'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'ZeroFiSwapV2'>;
+export function swapType(
     kind: 'BisonFiPredict',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'BisonFiPredict'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'BisonFiPredict'>;
-export function swap(kind: 'ByrealDynamicV3'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'ByrealDynamicV3'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'BisonFiPredict'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'BisonFiPredict'>;
+export function swapType(
+    kind: 'ByrealDynamicV3',
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'ByrealDynamicV3'>;
+export function swapType(
     kind: 'Flux',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Flux'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Flux'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Flux'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Flux'>;
+export function swapType(
     kind: 'VaultLiquidSellLst',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'VaultLiquidSellLst'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'VaultLiquidSellLst'>;
+export function swapType(
     kind: 'VaultLiquidBuyLst',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'VaultLiquidBuyLst'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'VaultLiquidBuyLst'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'VaultLiquidBuyLst'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'VaultLiquidBuyLst'>;
+export function swapType(
     kind: 'KipseliV2',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'KipseliV2'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'KipseliV2'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'KipseliV2'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'KipseliV2'>;
+export function swapType(
     kind: 'Deriverse',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Deriverse'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Deriverse'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Deriverse'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Deriverse'>;
+export function swapType(
     kind: 'Hadron',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Hadron'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Hadron'>;
-export function swap(kind: 'BinaryFi'): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'BinaryFi'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Hadron'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Hadron'>;
+export function swapType(kind: 'BinaryFi'): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'BinaryFi'>;
+export function swapType(
     kind: 'Metric',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Metric'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Metric'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Metric'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Metric'>;
+export function swapType(
     kind: 'JupiterLendDexSwap',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'JupiterLendDexSwap'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'JupiterLendDexSwap'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'JupiterLendDexSwap'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'JupiterLendDexSwap'>;
+export function swapType(
     kind: 'Gatorswap',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Gatorswap'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Gatorswap'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Gatorswap'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Gatorswap'>;
+export function swapType(
     kind: 'Flint',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Flint'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Flint'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Flint'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Flint'>;
+export function swapType(
     kind: 'Denali',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'Denali'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'Denali'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'Denali'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'Denali'>;
+export function swapType(
     kind: 'PerenaStarV2Deposit',
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PerenaStarV2Deposit'>;
-export function swap(
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PerenaStarV2Deposit'>;
+export function swapType(
     kind: 'PerenaStarV2WithdrawFromExternal',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'PerenaStarV2WithdrawFromExternal'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'PerenaStarV2WithdrawFromExternal'>;
-export function swap(
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'PerenaStarV2WithdrawFromExternal'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'PerenaStarV2WithdrawFromExternal'>;
+export function swapType(
     kind: 'SanctumSols',
-    data: GetDiscriminatedUnionVariantContent<SwapArgs, '__kind', 'SanctumSols'>,
-): GetDiscriminatedUnionVariant<SwapArgs, '__kind', 'SanctumSols'>;
-export function swap<K extends SwapArgs['__kind'], Data>(kind: K, data?: Data) {
+    data: GetDiscriminatedUnionVariantContent<SwapTypeArgs, '__kind', 'SanctumSols'>,
+): GetDiscriminatedUnionVariant<SwapTypeArgs, '__kind', 'SanctumSols'>;
+export function swapType<K extends SwapTypeArgs['__kind'], Data>(kind: K, data?: Data) {
     return Array.isArray(data) ? { __kind: kind, fields: data } : { __kind: kind, ...(data ?? {}) };
 }
 
-export function isSwap<K extends Swap['__kind']>(kind: K, value: Swap): value is Swap & { __kind: K } {
+export function isSwapType<K extends SwapType['__kind']>(kind: K, value: SwapType): value is SwapType & { __kind: K } {
     return value.__kind === kind;
 }

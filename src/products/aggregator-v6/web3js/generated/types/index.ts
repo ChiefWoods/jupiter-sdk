@@ -6,7 +6,7 @@ export * from './routePlanStep';
 export * from './routePlanStepV2';
 export * from './side';
 export * from './bisonFiPredictSide';
-export * from './swap';
+export * from './swapType';
 export * from './candidateSwapWithBps';
 export * from './candidateSwap';
 export * from './sanctumSolsSwapType';

@@ -5,13 +5,13 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-use crate::generated::types::Swap;
+use crate::generated::types::SwapType;
 use borsh::BorshDeserialize;
 use borsh::BorshSerialize;
 
 #[derive(BorshSerialize, BorshDeserialize, Clone, Debug, Eq, PartialEq)]
 pub struct RoutePlanStepV2 {
-    pub swap: Swap,
+    pub swap: SwapType,
     pub bps: u16,
     pub input_index: u8,
     pub output_index: u8,

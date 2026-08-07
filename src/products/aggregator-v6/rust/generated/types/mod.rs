@@ -18,8 +18,8 @@ pub(crate) mod r#route_plan_step;
 pub(crate) mod r#route_plan_step_v2;
 pub(crate) mod r#sanctum_sols_swap_type;
 pub(crate) mod r#side;
-pub(crate) mod r#swap;
 pub(crate) mod r#swap_event_v2;
+pub(crate) mod r#swap_type;
 
 pub use self::r#accounts_type::*;
 pub use self::r#bison_fi_predict_side::*;
@@ -34,5 +34,5 @@ pub use self::r#route_plan_step::*;
 pub use self::r#route_plan_step_v2::*;
 pub use self::r#sanctum_sols_swap_type::*;
 pub use self::r#side::*;
-pub use self::r#swap::*;
 pub use self::r#swap_event_v2::*;
+pub use self::r#swap_type::*;

@@ -16,7 +16,7 @@ use borsh::BorshDeserialize;
 use borsh::BorshSerialize;
 
 #[derive(BorshSerialize, BorshDeserialize, Clone, Debug, Eq, PartialEq)]
-pub enum Swap {
+pub enum SwapType {
     Saber,
     SaberAddDecimalsDeposit,
     SaberAddDecimalsWithdraw,

@@ -2127,7 +2127,7 @@
             {
               "kind": "structFieldTypeNode",
               "name": "swap",
-              "type": { "kind": "definedTypeLinkNode", "name": "swap" }
+              "type": { "kind": "definedTypeLinkNode", "name": "swapType" }
             },
             {
               "kind": "structFieldTypeNode",
@@ -2156,7 +2156,7 @@
             {
               "kind": "structFieldTypeNode",
               "name": "swap",
-              "type": { "kind": "definedTypeLinkNode", "name": "swap" }
+              "type": { "kind": "definedTypeLinkNode", "name": "swapType" }
             },
             {
               "kind": "structFieldTypeNode",
@@ -2202,7 +2202,7 @@
       },
       {
         "kind": "definedTypeNode",
-        "name": "swap",
+        "name": "swapType",
         "type": {
           "kind": "enumTypeNode",
           "variants": [

@@ -16,17 +16,22 @@ import {
   type Decoder,
   type Encoder,
 } from "@solana/kit";
-import { getSwapDecoder, getSwapEncoder, type Swap, type SwapArgs } from ".";
+import {
+  getSwapTypeDecoder,
+  getSwapTypeEncoder,
+  type SwapType,
+  type SwapTypeArgs,
+} from ".";
 
 export type RoutePlanStep = {
-  swap: Swap;
+  swap: SwapType;
   percent: number;
   inputIndex: number;
   outputIndex: number;
 };
 
 export type RoutePlanStepArgs = {
-  swap: SwapArgs;
+  swap: SwapTypeArgs;
   percent: number;
   inputIndex: number;
   outputIndex: number;
@@ -34,7 +39,7 @@ export type RoutePlanStepArgs = {
 
 export function getRoutePlanStepEncoder(): Encoder<RoutePlanStepArgs> {
   return getStructEncoder([
-    ["swap", getSwapEncoder()],
+    ["swap", getSwapTypeEncoder()],
     ["percent", getU8Encoder()],
     ["inputIndex", getU8Encoder()],
     ["outputIndex", getU8Encoder()],
@@ -43,7 +48,7 @@ export function getRoutePlanStepEncoder(): Encoder<RoutePlanStepArgs> {
 
 export function getRoutePlanStepDecoder(): Decoder<RoutePlanStep> {
   return getStructDecoder([
-    ["swap", getSwapDecoder()],
+    ["swap", getSwapTypeDecoder()],
     ["percent", getU8Decoder()],
     ["inputIndex", getU8Decoder()],
     ["outputIndex", getU8Decoder()],

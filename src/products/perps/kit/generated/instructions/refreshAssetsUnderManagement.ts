@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const REFRESH_ASSETS_UNDER_MANAGEMENT_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([162, 0, 215, 55, 225, 15, 185, 0]);
@@ -48,7 +48,7 @@ export function getRefreshAssetsUnderManagementDiscriminatorBytes(): ReadonlyUin
 }
 
 export type RefreshAssetsUnderManagementInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountKeeper extends string | AccountMeta<string> = string,
   TAccountPerpetuals extends string | AccountMeta<string> = string,
   TAccountPool extends string | AccountMeta<string> = string,
@@ -124,7 +124,7 @@ export function getRefreshAssetsUnderManagementInstruction<
   TAccountPerpetuals extends string,
   TAccountPool extends string,
   TAccountLpTokenMint extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: RefreshAssetsUnderManagementInput<
     TAccountKeeper,
@@ -141,7 +141,7 @@ export function getRefreshAssetsUnderManagementInstruction<
   TAccountLpTokenMint
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -175,7 +175,7 @@ export function getRefreshAssetsUnderManagementInstruction<
 }
 
 export type ParsedRefreshAssetsUnderManagementInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

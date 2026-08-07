@@ -12,6 +12,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const OPTION_PROPOSAL_META_ACCOUNT_DISCRIMINATOR = new Uint8Array([200, 56, 229, 124, 113, 154, 32, 26]);
+
 export type OptionProposalMetaAccountData = {
     /** The [Proposal]. */
     proposal: Address;
@@ -39,6 +41,9 @@ function getOptionProposalMetaAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeOptionProposalMetaAccount(data: Uint8Array): OptionProposalMetaAccountData {
+    if (!OPTION_PROPOSAL_META_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('OPTIONPROPOSALMETAACCOUNT discriminator mismatch');
+    }
     const deserialized = getOptionProposalMetaAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as OptionProposalMetaAccountData;

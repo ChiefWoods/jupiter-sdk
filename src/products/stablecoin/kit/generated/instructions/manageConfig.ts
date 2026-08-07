@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { JUP_STABLE_PROGRAM_ADDRESS } from "../programs";
+import { STABLECOIN_PROGRAM_ADDRESS } from "../programs";
 import {
   getConfigManagementActionDecoder,
   getConfigManagementActionEncoder,
@@ -55,7 +55,7 @@ export function getManageConfigDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type ManageConfigInstruction<
-  TProgram extends string = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof STABLECOIN_PROGRAM_ADDRESS,
   TAccountOperatorAuthority extends string | AccountMeta<string> = string,
   TAccountOperator extends string | AccountMeta<string> = string,
   TAccountConfig extends string | AccountMeta<string> = string,
@@ -129,7 +129,7 @@ export function getManageConfigInstruction<
   TAccountOperatorAuthority extends string,
   TAccountOperator extends string,
   TAccountConfig extends string,
-  TProgramAddress extends Address = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof STABLECOIN_PROGRAM_ADDRESS,
 >(
   input: ManageConfigInput<
     TAccountOperatorAuthority,
@@ -144,7 +144,7 @@ export function getManageConfigInstruction<
   TAccountConfig
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? JUP_STABLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? STABLECOIN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -183,7 +183,7 @@ export function getManageConfigInstruction<
 }
 
 export type ParsedManageConfigInstruction<
-  TProgram extends string = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof STABLECOIN_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

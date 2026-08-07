@@ -41,7 +41,7 @@ impl ActivateProtocol {
         let data = ActivateProtocolInstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::FLASHLOAN_ID,
+            program_id: crate::LEND_FLASH_LOAN_ID,
             accounts,
             data,
         }
@@ -194,7 +194,7 @@ impl<'a, 'b> ActivateProtocolCpi<'a, 'b> {
         let data = ActivateProtocolInstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::FLASHLOAN_ID,
+            program_id: crate::LEND_FLASH_LOAN_ID,
             accounts,
             data,
         };

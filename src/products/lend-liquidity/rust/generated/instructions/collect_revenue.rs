@@ -88,7 +88,7 @@ impl CollectRevenue {
         let data = CollectRevenueInstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::LIQUIDITY_ID,
+            program_id: crate::LEND_LIQUIDITY_ID,
             accounts,
             data,
         }
@@ -410,7 +410,7 @@ impl<'a, 'b> CollectRevenueCpi<'a, 'b> {
         let data = CollectRevenueInstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::LIQUIDITY_ID,
+            program_id: crate::LEND_LIQUIDITY_ID,
             accounts,
             data,
         };

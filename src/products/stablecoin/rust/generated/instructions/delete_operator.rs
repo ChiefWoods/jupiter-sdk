@@ -50,7 +50,7 @@ impl DeleteOperator {
         let data = DeleteOperatorInstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::JUP_STABLE_ID,
+            program_id: crate::STABLECOIN_ID,
             accounts,
             data,
         }
@@ -236,7 +236,7 @@ impl<'a, 'b> DeleteOperatorCpi<'a, 'b> {
         let data = DeleteOperatorInstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::JUP_STABLE_ID,
+            program_id: crate::STABLECOIN_ID,
             accounts,
             data,
         };

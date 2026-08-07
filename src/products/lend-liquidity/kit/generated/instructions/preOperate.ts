@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
+import { LEND_LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
 
 export const PRE_OPERATE_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   129, 205, 158, 155, 198, 155, 72, 133,
@@ -49,7 +49,7 @@ export function getPreOperateDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type PreOperateInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountProtocol extends string | AccountMeta<string> = string,
   TAccountLiquidity extends string | AccountMeta<string> = string,
   TAccountUserSupplyPosition extends string | AccountMeta<string> = string,
@@ -150,7 +150,7 @@ export function getPreOperateInstruction<
   TAccountVault extends string,
   TAccountTokenReserve extends string,
   TAccountTokenProgram extends string,
-  TProgramAddress extends Address = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
 >(
   input: PreOperateInput<
     TAccountProtocol,
@@ -173,7 +173,8 @@ export function getPreOperateInstruction<
   TAccountTokenProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LIQUIDITY_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? LEND_LIQUIDITY_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -233,7 +234,7 @@ export function getPreOperateInstruction<
 }
 
 export type ParsedPreOperateInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -274,7 +275,7 @@ export function parsePreOperateInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === LIQUIDITY_PROGRAM_ADDRESS
+    return accountMeta.address === LEND_LIQUIDITY_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

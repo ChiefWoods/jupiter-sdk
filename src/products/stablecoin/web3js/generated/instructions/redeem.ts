@@ -1,7 +1,16 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { JUPSTABLE_PROGRAM_ID } from '..';
+import { STABLECOIN_PROGRAM_ID } from '../programs/stablecoin';
 import { findEventAuthorityPda } from '../pdas/eventAuthority';
-import { getStructEncoder, getU64Encoder, type Encoder } from '@solana/codecs';
+import {
+    getStructDecoder,
+    getStructEncoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+export const REDEEM_INSTRUCTION_DISCRIMINATOR = new Uint8Array([184, 12, 86, 149, 70, 196, 97, 225]);
 
 export interface RedeemInstructionAccounts {
     user: Address;
@@ -33,10 +42,70 @@ function getRedeemInstructionDataEncoder(): Encoder<RedeemInstructionArgs> {
     ]);
 }
 
+function getRedeemInstructionDataDecoder(): Decoder<RedeemInstructionArgs> {
+    return getStructDecoder([
+        ['amount', getU64Decoder()],
+        ['minAmountOut', getU64Decoder()],
+    ]);
+}
+
+export interface ParsedRedeemInstruction {
+    programId: Address;
+    accounts: {
+        user: AccountMeta;
+        userLpTokenAccount: AccountMeta;
+        userCollateralTokenAccount: AccountMeta;
+        config: AccountMeta;
+        authority: AccountMeta;
+        lpMint: AccountMeta;
+        vault: AccountMeta;
+        vaultTokenAccount: AccountMeta;
+        vaultMint: AccountMeta;
+        benefactor: AccountMeta;
+        lpTokenProgram: AccountMeta;
+        vaultTokenProgram: AccountMeta;
+        systemProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: RedeemInstructionArgs;
+}
+
+export function parseRedeemInstruction(instruction: TransactionInstruction): ParsedRedeemInstruction {
+    if (instruction.keys.length < 15) {
+        throw new Error('Expected 15 account metas for Redeem instruction');
+    }
+    if (!REDEEM_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('Redeem instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            user: instruction.keys[0]!,
+            userLpTokenAccount: instruction.keys[1]!,
+            userCollateralTokenAccount: instruction.keys[2]!,
+            config: instruction.keys[3]!,
+            authority: instruction.keys[4]!,
+            lpMint: instruction.keys[5]!,
+            vault: instruction.keys[6]!,
+            vaultTokenAccount: instruction.keys[7]!,
+            vaultMint: instruction.keys[8]!,
+            benefactor: instruction.keys[9]!,
+            lpTokenProgram: instruction.keys[10]!,
+            vaultTokenProgram: instruction.keys[11]!,
+            systemProgram: instruction.keys[12]!,
+            eventAuthority: instruction.keys[13]!,
+            program: instruction.keys[14]!,
+        },
+        data: getRedeemInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export async function createRedeemInstruction(
     accounts: RedeemInstructionAccounts,
     args: RedeemInstructionArgs,
-    programId: Address = JUPSTABLE_PROGRAM_ID,
+    programId: Address = STABLECOIN_PROGRAM_ID,
 ): Promise<TransactionInstruction> {
     let eventAuthority = accounts.eventAuthority;
     if (!eventAuthority) {
@@ -60,9 +129,13 @@ export async function createRedeemInstruction(
         { pubkey: eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getRedeemInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('b80c569546c461e1', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getRedeemInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(REDEEM_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

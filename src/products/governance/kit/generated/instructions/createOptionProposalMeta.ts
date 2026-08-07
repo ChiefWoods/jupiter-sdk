@@ -47,7 +47,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { GOVERN_PROGRAM_ADDRESS } from "../programs";
+import { GOVERNANCE_PROGRAM_ADDRESS } from "../programs";
 
 export const CREATE_OPTION_PROPOSAL_META_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([152, 144, 104, 228, 245, 234, 164, 224]);
@@ -59,7 +59,7 @@ export function getCreateOptionProposalMetaDiscriminatorBytes(): ReadonlyUint8Ar
 }
 
 export type CreateOptionProposalMetaInstruction<
-  TProgram extends string = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof GOVERNANCE_PROGRAM_ADDRESS,
   TAccountProposal extends string | AccountMeta<string> = string,
   TAccountProposer extends string | AccountMeta<string> = string,
   TAccountOptionProposalMeta extends string | AccountMeta<string> = string,
@@ -184,7 +184,7 @@ export function getCreateOptionProposalMetaInstruction<
   TAccountSystemProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof GOVERNANCE_PROGRAM_ADDRESS,
 >(
   input: CreateOptionProposalMetaInput<
     TAccountProposal,
@@ -207,7 +207,7 @@ export function getCreateOptionProposalMetaInstruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? GOVERN_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? GOVERNANCE_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -264,7 +264,7 @@ export function getCreateOptionProposalMetaInstruction<
 }
 
 export type ParsedCreateOptionProposalMetaInstruction<
-  TProgram extends string = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof GOVERNANCE_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

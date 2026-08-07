@@ -44,7 +44,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const CREATE_DECREASE_POSITION_MARKET_REQUEST_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([74, 198, 195, 86, 193, 99, 1, 79]);
@@ -56,7 +56,7 @@ export function getCreateDecreasePositionMarketRequestDiscriminatorBytes(): Read
 }
 
 export type CreateDecreasePositionMarketRequestInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountOwner extends string | AccountMeta<string> = string,
   TAccountReceivingAccount extends string | AccountMeta<string> = string,
   TAccountPerpetuals extends string | AccountMeta<string> = string,
@@ -251,7 +251,7 @@ export function getCreateDecreasePositionMarketRequestInstruction<
   TAccountSystemProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: CreateDecreasePositionMarketRequestInput<
     TAccountOwner,
@@ -292,7 +292,7 @@ export function getCreateDecreasePositionMarketRequestInstruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -389,7 +389,7 @@ export function getCreateDecreasePositionMarketRequestInstruction<
 }
 
 export type ParsedCreateDecreasePositionMarketRequestInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -442,7 +442,7 @@ export function parseCreateDecreasePositionMarketRequestInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === PERPETUALS_PROGRAM_ADDRESS
+    return accountMeta.address === PERPS_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

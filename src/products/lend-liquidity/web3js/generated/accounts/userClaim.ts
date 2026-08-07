@@ -9,6 +9,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const USER_CLAIM_ACCOUNT_DISCRIMINATOR = new Uint8Array([228, 142, 195, 181, 228, 147, 32, 209]);
+
 export type UserClaimAccountData = { user: Address; amount: bigint; mint: Address };
 
 export interface UserClaimAccount {
@@ -31,6 +33,9 @@ function getUserClaimAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeUserClaimAccount(data: Uint8Array): UserClaimAccountData {
+    if (!USER_CLAIM_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('USERCLAIMACCOUNT discriminator mismatch');
+    }
     const deserialized = getUserClaimAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as UserClaimAccountData;

@@ -156,7 +156,7 @@ impl RebalanceWithAmounts {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -168,7 +168,7 @@ impl RebalanceWithAmounts {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::VAULTS_ID,
+            program_id: crate::LEND_BORROW_ID,
             accounts,
             data,
         }
@@ -739,7 +739,7 @@ impl<'a, 'b> RebalanceWithAmountsCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -757,7 +757,7 @@ impl<'a, 'b> RebalanceWithAmountsCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::VAULTS_ID,
+            program_id: crate::LEND_BORROW_ID,
             accounts,
             data,
         };

@@ -40,7 +40,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { VAULTS_PROGRAM_ADDRESS } from "../programs";
+import { LEND_BORROW_PROGRAM_ADDRESS } from "../programs";
 
 export const UPDATE_SUPPLY_RATE_MAGNIFIER_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([175, 59, 117, 196, 211, 170, 22, 12]);
@@ -52,7 +52,7 @@ export function getUpdateSupplyRateMagnifierDiscriminatorBytes(): ReadonlyUint8A
 }
 
 export type UpdateSupplyRateMagnifierInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountVaultAdmin extends string | AccountMeta<string> = string,
   TAccountVaultState extends string | AccountMeta<string> = string,
@@ -161,7 +161,7 @@ export function getUpdateSupplyRateMagnifierInstruction<
   TAccountVaultConfig extends string,
   TAccountSupplyTokenReservesLiquidity extends string,
   TAccountBorrowTokenReservesLiquidity extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: UpdateSupplyRateMagnifierInput<
     TAccountAuthority,
@@ -182,7 +182,7 @@ export function getUpdateSupplyRateMagnifierInstruction<
   TAccountBorrowTokenReservesLiquidity
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -239,7 +239,7 @@ export function getUpdateSupplyRateMagnifierInstruction<
 }
 
 export type ParsedUpdateSupplyRateMagnifierInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

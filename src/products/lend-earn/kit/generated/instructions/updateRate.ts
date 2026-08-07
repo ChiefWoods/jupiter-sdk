@@ -33,7 +33,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { LENDING_PROGRAM_ADDRESS } from "../programs";
+import { LEND_EARN_PROGRAM_ADDRESS } from "../programs";
 
 export const UPDATE_RATE_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   24, 225, 53, 189, 72, 212, 225, 178,
@@ -44,7 +44,7 @@ export function getUpdateRateDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type UpdateRateInstruction<
-  TProgram extends string = typeof LENDING_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_EARN_PROGRAM_ADDRESS,
   TAccountLending extends string | AccountMeta<string> = string,
   TAccountMint extends string | AccountMeta<string> = string,
   TAccountFTokenMint extends string | AccountMeta<string> = string,
@@ -122,7 +122,7 @@ export function getUpdateRateInstruction<
   TAccountFTokenMint extends string,
   TAccountSupplyTokenReservesLiquidity extends string,
   TAccountRewardsRateModel extends string,
-  TProgramAddress extends Address = typeof LENDING_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_EARN_PROGRAM_ADDRESS,
 >(
   input: UpdateRateInput<
     TAccountLending,
@@ -141,7 +141,7 @@ export function getUpdateRateInstruction<
   TAccountRewardsRateModel
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LENDING_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_EARN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -187,7 +187,7 @@ export function getUpdateRateInstruction<
 }
 
 export type ParsedUpdateRateInstruction<
-  TProgram extends string = typeof LENDING_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_EARN_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

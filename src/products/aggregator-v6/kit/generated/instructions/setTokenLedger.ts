@@ -33,7 +33,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { JUPITER_PROGRAM_ADDRESS } from "../programs";
+import { AGGREGATOR_V6_PROGRAM_ADDRESS } from "../programs";
 
 export const SET_TOKEN_LEDGER_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([228, 85, 185, 112, 78, 79, 77, 2]);
@@ -45,7 +45,7 @@ export function getSetTokenLedgerDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type SetTokenLedgerInstruction<
-  TProgram extends string = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
   TAccountTokenLedger extends string | AccountMeta<string> = string,
   TAccountTokenAccount extends string | AccountMeta<string> = string,
   TRemainingAccounts extends readonly AccountMeta<string>[] = [],
@@ -103,7 +103,7 @@ export type SetTokenLedgerInput<
 export function getSetTokenLedgerInstruction<
   TAccountTokenLedger extends string,
   TAccountTokenAccount extends string,
-  TProgramAddress extends Address = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
 >(
   input: SetTokenLedgerInput<TAccountTokenLedger, TAccountTokenAccount>,
   config?: { programAddress?: TProgramAddress },
@@ -113,7 +113,8 @@ export function getSetTokenLedgerInstruction<
   TAccountTokenAccount
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? JUPITER_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? AGGREGATOR_V6_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -141,7 +142,7 @@ export function getSetTokenLedgerInstruction<
 }
 
 export type ParsedSetTokenLedgerInstruction<
-  TProgram extends string = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

@@ -1,6 +1,19 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { PERPETUALS_PROGRAM_ID } from '..';
-import { getI64Encoder, getStructEncoder, getU64Encoder, type Encoder } from '@solana/codecs';
+import { PERPS_PROGRAM_ID } from '../programs/perps';
+import {
+    getI64Decoder,
+    getI64Encoder,
+    getStructDecoder,
+    getStructEncoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+export const INSTANT_UPDATE_LIMIT_ORDER_INSTRUCTION_DISCRIMINATOR = new Uint8Array([
+    136, 245, 229, 58, 121, 141, 12, 207,
+]);
 
 export interface InstantUpdateLimitOrderInstructionAccounts {
     keeper: Address;
@@ -29,10 +42,67 @@ function getInstantUpdateLimitOrderInstructionDataEncoder(): Encoder<InstantUpda
     ]);
 }
 
+function getInstantUpdateLimitOrderInstructionDataDecoder(): Decoder<InstantUpdateLimitOrderInstructionArgs> {
+    return getStructDecoder([
+        ['sizeUsdDelta', getU64Decoder()],
+        ['triggerPrice', getU64Decoder()],
+        ['requestTime', getI64Decoder()],
+    ]);
+}
+
+export interface ParsedInstantUpdateLimitOrderInstruction {
+    programId: Address;
+    accounts: {
+        keeper: AccountMeta;
+        apiKeeper: AccountMeta;
+        owner: AccountMeta;
+        perpetuals: AccountMeta;
+        pool: AccountMeta;
+        position: AccountMeta;
+        positionRequest: AccountMeta;
+        custody: AccountMeta;
+        custodyDovesPriceAccount: AccountMeta;
+        custodyPythnetPriceAccount: AccountMeta;
+    };
+    data: InstantUpdateLimitOrderInstructionArgs;
+}
+
+export function parseInstantUpdateLimitOrderInstruction(
+    instruction: TransactionInstruction,
+): ParsedInstantUpdateLimitOrderInstruction {
+    if (instruction.keys.length < 10) {
+        throw new Error('Expected 10 account metas for InstantUpdateLimitOrder instruction');
+    }
+    if (
+        !INSTANT_UPDATE_LIMIT_ORDER_INSTRUCTION_DISCRIMINATOR.every(
+            (byte, index) => instruction.data[0 + index] === byte,
+        )
+    ) {
+        throw new Error('InstantUpdateLimitOrder instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            keeper: instruction.keys[0]!,
+            apiKeeper: instruction.keys[1]!,
+            owner: instruction.keys[2]!,
+            perpetuals: instruction.keys[3]!,
+            pool: instruction.keys[4]!,
+            position: instruction.keys[5]!,
+            positionRequest: instruction.keys[6]!,
+            custody: instruction.keys[7]!,
+            custodyDovesPriceAccount: instruction.keys[8]!,
+            custodyPythnetPriceAccount: instruction.keys[9]!,
+        },
+        data: getInstantUpdateLimitOrderInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createInstantUpdateLimitOrderInstruction(
     accounts: InstantUpdateLimitOrderInstructionAccounts,
     args: InstantUpdateLimitOrderInstructionArgs,
-    programId: Address = PERPETUALS_PROGRAM_ID,
+    programId: Address = PERPS_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.keeper, isSigner: true, isWritable: false },
@@ -46,9 +116,13 @@ export function createInstantUpdateLimitOrderInstruction(
         { pubkey: accounts.custodyDovesPriceAccount, isSigner: false, isWritable: false },
         { pubkey: accounts.custodyPythnetPriceAccount, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getInstantUpdateLimitOrderInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('88f5e53a798d0ccf', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getInstantUpdateLimitOrderInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(INSTANT_UPDATE_LIMIT_ORDER_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

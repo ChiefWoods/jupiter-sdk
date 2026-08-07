@@ -12,6 +12,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const BRANCH_ACCOUNT_DISCRIMINATOR = new Uint8Array([14, 63, 100, 50, 25, 8, 29, 5]);
+
 export type BranchAccountData = {
     vaultId: number;
     branchId: number;
@@ -56,6 +58,9 @@ function getBranchAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeBranchAccount(data: Uint8Array): BranchAccountData {
+    if (!BRANCH_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('BRANCHACCOUNT discriminator mismatch');
+    }
     const deserialized = getBranchAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as BranchAccountData;

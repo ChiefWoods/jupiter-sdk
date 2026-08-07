@@ -1,5 +1,5 @@
 import { Address } from '@solana/web3.js';
-import { LIQUIDITY_PROGRAM_ID } from '..';
+import { LENDLIQUIDITY_PROGRAM_ID } from '../programs/lendLiquidity';
 
 export interface UserBorrowPositionPdaSeeds {
     borrowMint: Address;
@@ -8,7 +8,7 @@ export interface UserBorrowPositionPdaSeeds {
 
 export async function findUserBorrowPositionPda(
     seeds: UserBorrowPositionPdaSeeds,
-    programId: Address = LIQUIDITY_PROGRAM_ID,
+    programId: Address = LENDLIQUIDITY_PROGRAM_ID,
 ): Promise<[Address, number]> {
     const seedsBuffer: Uint8Array[] = [
         Buffer.from('user_borrow_position', 'utf8'),

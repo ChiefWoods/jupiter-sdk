@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const REPAY_TO_CUSTODY_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([211, 219, 183, 222, 248, 74, 5, 26]);
@@ -50,7 +50,7 @@ export function getRepayToCustodyDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type RepayToCustodyInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountOwner extends string | AccountMeta<string> = string,
   TAccountPerpetuals extends string | AccountMeta<string> = string,
   TAccountPool extends string | AccountMeta<string> = string,
@@ -172,7 +172,7 @@ export function getRepayToCustodyInstruction<
   TAccountTokenProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: RepayToCustodyInput<
     TAccountOwner,
@@ -201,7 +201,7 @@ export function getRepayToCustodyInstruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -270,7 +270,7 @@ export function getRepayToCustodyInstruction<
 }
 
 export type ParsedRepayToCustodyInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

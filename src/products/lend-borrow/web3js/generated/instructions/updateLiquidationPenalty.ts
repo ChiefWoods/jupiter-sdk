@@ -1,6 +1,17 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { VAULTS_PROGRAM_ID } from '..';
-import { getStructEncoder, getU16Encoder, type Encoder } from '@solana/codecs';
+import { LENDBORROW_PROGRAM_ID } from '../programs/lendBorrow';
+import {
+    getStructDecoder,
+    getStructEncoder,
+    getU16Decoder,
+    getU16Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+export const UPDATE_LIQUIDATION_PENALTY_INSTRUCTION_DISCRIMINATOR = new Uint8Array([
+    21, 168, 167, 206, 98, 206, 69, 32,
+]);
 
 export interface UpdateLiquidationPenaltyInstructionAccounts {
     authority: Address;
@@ -23,10 +34,58 @@ function getUpdateLiquidationPenaltyInstructionDataEncoder(): Encoder<UpdateLiqu
     ]);
 }
 
+function getUpdateLiquidationPenaltyInstructionDataDecoder(): Decoder<UpdateLiquidationPenaltyInstructionArgs> {
+    return getStructDecoder([
+        ['vaultId', getU16Decoder()],
+        ['liquidationPenalty', getU16Decoder()],
+    ]);
+}
+
+export interface ParsedUpdateLiquidationPenaltyInstruction {
+    programId: Address;
+    accounts: {
+        authority: AccountMeta;
+        vaultAdmin: AccountMeta;
+        vaultState: AccountMeta;
+        vaultConfig: AccountMeta;
+        supplyTokenReservesLiquidity: AccountMeta;
+        borrowTokenReservesLiquidity: AccountMeta;
+    };
+    data: UpdateLiquidationPenaltyInstructionArgs;
+}
+
+export function parseUpdateLiquidationPenaltyInstruction(
+    instruction: TransactionInstruction,
+): ParsedUpdateLiquidationPenaltyInstruction {
+    if (instruction.keys.length < 6) {
+        throw new Error('Expected 6 account metas for UpdateLiquidationPenalty instruction');
+    }
+    if (
+        !UPDATE_LIQUIDATION_PENALTY_INSTRUCTION_DISCRIMINATOR.every(
+            (byte, index) => instruction.data[0 + index] === byte,
+        )
+    ) {
+        throw new Error('UpdateLiquidationPenalty instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            authority: instruction.keys[0]!,
+            vaultAdmin: instruction.keys[1]!,
+            vaultState: instruction.keys[2]!,
+            vaultConfig: instruction.keys[3]!,
+            supplyTokenReservesLiquidity: instruction.keys[4]!,
+            borrowTokenReservesLiquidity: instruction.keys[5]!,
+        },
+        data: getUpdateLiquidationPenaltyInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createUpdateLiquidationPenaltyInstruction(
     accounts: UpdateLiquidationPenaltyInstructionAccounts,
     args: UpdateLiquidationPenaltyInstructionArgs,
-    programId: Address = VAULTS_PROGRAM_ID,
+    programId: Address = LENDBORROW_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.authority, isSigner: true, isWritable: false },
@@ -36,9 +95,13 @@ export function createUpdateLiquidationPenaltyInstruction(
         { pubkey: accounts.supplyTokenReservesLiquidity, isSigner: false, isWritable: false },
         { pubkey: accounts.borrowTokenReservesLiquidity, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getUpdateLiquidationPenaltyInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('15a8a7ce62ce4520', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getUpdateLiquidationPenaltyInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(UPDATE_LIQUIDATION_PENALTY_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

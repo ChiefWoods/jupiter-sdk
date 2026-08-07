@@ -41,7 +41,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findVaultPda } from "../pdas";
-import { PREDICTION_MARKET_PROGRAM_ADDRESS } from "../programs";
+import { PREDICTION_PROGRAM_ADDRESS } from "../programs";
 
 export const CANCEL_ORDER_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   95, 129, 237, 240, 8, 49, 223, 132,
@@ -54,7 +54,7 @@ export function getCancelOrderDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type CancelOrderInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountOwner extends string | AccountMeta<string> = string,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountVault extends string | AccountMeta<string> = string,
@@ -185,7 +185,7 @@ export async function getCancelOrderInstructionAsync<
   TAccountTokenProgram extends string,
   TAccountSystemProgram extends string,
   TAccountAssociatedTokenProgram extends string,
-  TProgramAddress extends Address = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PREDICTION_PROGRAM_ADDRESS,
 >(
   input: CancelOrderAsyncInput<
     TAccountOwner,
@@ -220,8 +220,7 @@ export async function getCancelOrderInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? PREDICTION_MARKET_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PREDICTION_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -374,7 +373,7 @@ export function getCancelOrderInstruction<
   TAccountTokenProgram extends string,
   TAccountSystemProgram extends string,
   TAccountAssociatedTokenProgram extends string,
-  TProgramAddress extends Address = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PREDICTION_PROGRAM_ADDRESS,
 >(
   input: CancelOrderInput<
     TAccountOwner,
@@ -407,8 +406,7 @@ export function getCancelOrderInstruction<
   TAccountAssociatedTokenProgram
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? PREDICTION_MARKET_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PREDICTION_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -486,7 +484,7 @@ export function getCancelOrderInstruction<
 }
 
 export type ParsedCancelOrderInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

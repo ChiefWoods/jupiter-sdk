@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const DECREASE_POSITION_WITH_TPSL_AND_INTERNAL_SWAP_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([2, 111, 200, 231, 35, 65, 123, 235]);
@@ -48,7 +48,7 @@ export function getDecreasePositionWithTpslAndInternalSwapDiscriminatorBytes(): 
 }
 
 export type DecreasePositionWithTpslAndInternalSwapInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountKeeper extends string | AccountMeta<string> = string,
   TAccountOwner extends string | AccountMeta<string> = string,
   TAccountTransferAuthority extends string | AccountMeta<string> = string,
@@ -236,7 +236,7 @@ export function getDecreasePositionWithTpslAndInternalSwapInstruction<
   TAccountTokenProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: DecreasePositionWithTpslAndInternalSwapInput<
     TAccountKeeper,
@@ -283,7 +283,7 @@ export function getDecreasePositionWithTpslAndInternalSwapInstruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -412,7 +412,7 @@ export function getDecreasePositionWithTpslAndInternalSwapInstruction<
 }
 
 export type ParsedDecreasePositionWithTpslAndInternalSwapInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

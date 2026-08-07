@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const UPDATE_DECREASE_POSITION_REQUEST2_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([144, 200, 249, 255, 108, 217, 249, 116]);
@@ -50,7 +50,7 @@ export function getUpdateDecreasePositionRequest2DiscriminatorBytes(): ReadonlyU
 }
 
 export type UpdateDecreasePositionRequest2Instruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountOwner extends string | AccountMeta<string> = string,
   TAccountPerpetuals extends string | AccountMeta<string> = string,
   TAccountPool extends string | AccountMeta<string> = string,
@@ -169,7 +169,7 @@ export function getUpdateDecreasePositionRequest2Instruction<
   TAccountCustody extends string,
   TAccountCustodyDovesPriceAccount extends string,
   TAccountCustodyPythnetPriceAccount extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: UpdateDecreasePositionRequest2Input<
     TAccountOwner,
@@ -194,7 +194,7 @@ export function getUpdateDecreasePositionRequest2Instruction<
   TAccountCustodyPythnetPriceAccount
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -257,7 +257,7 @@ export function getUpdateDecreasePositionRequest2Instruction<
 }
 
 export type ParsedUpdateDecreasePositionRequest2Instruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

@@ -1,5 +1,5 @@
 import { Address } from '@solana/web3.js';
-import { GENIEDISTRIBUTOR_PROGRAM_ID } from '..';
+import { REWARDSHUB_PROGRAM_ID } from '../programs/rewardsHub';
 
 export interface ClaimStatusPdaSeeds {
     claimant: Address;
@@ -8,7 +8,7 @@ export interface ClaimStatusPdaSeeds {
 
 export async function findClaimStatusPda(
     seeds: ClaimStatusPdaSeeds,
-    programId: Address = GENIEDISTRIBUTOR_PROGRAM_ID,
+    programId: Address = REWARDSHUB_PROGRAM_ID,
 ): Promise<[Address, number]> {
     const seedsBuffer: Uint8Array[] = [
         Buffer.from('ClaimStatus', 'utf8'),

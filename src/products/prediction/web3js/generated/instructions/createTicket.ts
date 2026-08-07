@@ -1,18 +1,28 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { PREDICTIONMARKET_PROGRAM_ID } from '..';
+import { PREDICTION_PROGRAM_ID } from '../programs/prediction';
 import {
+    addDecoderSizePrefix,
     addEncoderSizePrefix,
+    fixDecoderSize,
     fixEncoderSize,
+    getBytesDecoder,
     getBytesEncoder,
+    getStructDecoder,
     getStructEncoder,
+    getU32Decoder,
     getU32Encoder,
+    getU64Decoder,
     getU64Encoder,
+    getUtf8Decoder,
     getUtf8Encoder,
+    type Decoder,
     type Encoder,
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 import { findTicketAtaPda } from '../pdas/ticketAta';
 import { findVaultPda } from '../pdas/vault';
+
+export const CREATE_TICKET_INSTRUCTION_DISCRIMINATOR = new Uint8Array([16, 178, 122, 25, 213, 85, 96, 129]);
 
 export interface CreateTicketInstructionAccounts {
     payer: Address;
@@ -44,10 +54,64 @@ function getCreateTicketInstructionDataEncoder(): Encoder<CreateTicketInstructio
     ]);
 }
 
+function getCreateTicketInstructionDataDecoder(): Decoder<CreateTicketInstructionArgs> {
+    return getStructDecoder([
+        ['ticketId', addDecoderSizePrefix(getUtf8Decoder(), getU32Decoder())],
+        ['ticketIdHash', fixDecoderSize(getBytesDecoder(), 32)],
+        ['marketId', addDecoderSizePrefix(getUtf8Decoder(), getU32Decoder())],
+        ['stakeUsd', getU64Decoder()],
+    ]);
+}
+
+export interface ParsedCreateTicketInstruction {
+    programId: Address;
+    accounts: {
+        payer: AccountMeta;
+        owner: AccountMeta;
+        authority: AccountMeta;
+        vault: AccountMeta;
+        ticket: AccountMeta;
+        ownerTokenAccount: AccountMeta;
+        settlementMint: AccountMeta;
+        ticketAta: AccountMeta;
+        tokenProgram: AccountMeta;
+        associatedTokenProgram: AccountMeta;
+        systemProgram: AccountMeta;
+    };
+    data: CreateTicketInstructionArgs;
+}
+
+export function parseCreateTicketInstruction(instruction: TransactionInstruction): ParsedCreateTicketInstruction {
+    if (instruction.keys.length < 11) {
+        throw new Error('Expected 11 account metas for CreateTicket instruction');
+    }
+    if (!CREATE_TICKET_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('CreateTicket instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            payer: instruction.keys[0]!,
+            owner: instruction.keys[1]!,
+            authority: instruction.keys[2]!,
+            vault: instruction.keys[3]!,
+            ticket: instruction.keys[4]!,
+            ownerTokenAccount: instruction.keys[5]!,
+            settlementMint: instruction.keys[6]!,
+            ticketAta: instruction.keys[7]!,
+            tokenProgram: instruction.keys[8]!,
+            associatedTokenProgram: instruction.keys[9]!,
+            systemProgram: instruction.keys[10]!,
+        },
+        data: getCreateTicketInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export async function createCreateTicketInstruction(
     accounts: CreateTicketInstructionAccounts,
     args: CreateTicketInstructionArgs,
-    programId: Address = PREDICTIONMARKET_PROGRAM_ID,
+    programId: Address = PREDICTION_PROGRAM_ID,
 ): Promise<TransactionInstruction> {
     let vault = accounts.vault;
     if (!vault) {
@@ -61,13 +125,10 @@ export async function createCreateTicketInstruction(
     }
     let ticketAta = accounts.ticketAta;
     if (!ticketAta) {
-        const [derived] = await findTicketAtaPda(
-            {
-                ticket: accounts.ticket,
-                settlementMint: accounts.settlementMint,
-            },
-            programId,
-        );
+        const [derived] = await findTicketAtaPda({
+            ticket: accounts.ticket,
+            settlementMint: accounts.settlementMint,
+        });
         ticketAta = derived;
     }
     const keys: AccountMeta[] = [
@@ -83,9 +144,13 @@ export async function createCreateTicketInstruction(
         { pubkey: accounts.associatedTokenProgram, isSigner: false, isWritable: false },
         { pubkey: accounts.systemProgram, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getCreateTicketInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('10b27a19d5556081', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getCreateTicketInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(CREATE_TICKET_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

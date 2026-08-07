@@ -78,7 +78,7 @@ impl CancelQueuedRewards {
             .unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::LENDING_REWARD_RATE_MODEL_ID,
+            program_id: crate::LEND_LENDING_REWARD_RATE_MODEL_ID,
             accounts,
             data,
         }
@@ -350,7 +350,7 @@ impl<'a, 'b> CancelQueuedRewardsCpi<'a, 'b> {
             .unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::LENDING_REWARD_RATE_MODEL_ID,
+            program_id: crate::LEND_LENDING_REWARD_RATE_MODEL_ID,
             accounts,
             data,
         };

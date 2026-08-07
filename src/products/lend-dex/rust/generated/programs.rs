@@ -7,5 +7,5 @@
 
 use solana_address::{address, Address};
 
-/// `dex` program ID.
-pub const DEX_ID: Address = address!("jupZ4m2GqUCJ5iueMfzQf8khFfH31d4XAQt3RzCT9Vd");
+/// `lend_dex` program ID.
+pub const LEND_DEX_ID: Address = address!("jupZ4m2GqUCJ5iueMfzQf8khFfH31d4XAQt3RzCT9Vd");

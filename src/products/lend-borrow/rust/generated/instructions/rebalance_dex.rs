@@ -165,7 +165,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -176,7 +176,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -203,7 +203,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -214,7 +214,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -225,7 +225,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -236,7 +236,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -247,7 +247,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -258,7 +258,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -277,7 +277,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -288,7 +288,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -311,7 +311,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -326,7 +326,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -334,7 +334,7 @@ impl RebalanceDex {
             accounts.push(solana_instruction::AccountMeta::new(supply_dex_dex, false));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -345,7 +345,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -356,7 +356,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -367,7 +367,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -378,7 +378,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -389,7 +389,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -400,7 +400,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -411,7 +411,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -422,7 +422,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -433,7 +433,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -444,7 +444,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -455,7 +455,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -466,7 +466,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -477,7 +477,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -488,7 +488,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -499,7 +499,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -510,7 +510,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -521,7 +521,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -534,7 +534,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -547,7 +547,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -555,7 +555,7 @@ impl RebalanceDex {
             accounts.push(solana_instruction::AccountMeta::new(borrow_dex_dex, false));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -566,7 +566,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -577,7 +577,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -588,7 +588,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -599,7 +599,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -610,7 +610,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -621,7 +621,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -632,7 +632,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -643,7 +643,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -654,7 +654,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -665,7 +665,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -676,7 +676,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -687,7 +687,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -698,7 +698,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -709,7 +709,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -720,7 +720,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -731,7 +731,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -742,7 +742,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -755,7 +755,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -768,7 +768,7 @@ impl RebalanceDex {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -778,7 +778,7 @@ impl RebalanceDex {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::VAULTS_ID,
+            program_id: crate::LEND_BORROW_ID,
             accounts,
             data,
         }
@@ -2032,7 +2032,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2043,7 +2043,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2070,7 +2070,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2081,7 +2081,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2092,7 +2092,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2103,7 +2103,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2114,7 +2114,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2125,7 +2125,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2144,7 +2144,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2155,7 +2155,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2178,7 +2178,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2193,7 +2193,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2204,7 +2204,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2215,7 +2215,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2226,7 +2226,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2237,7 +2237,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2248,7 +2248,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2259,7 +2259,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2270,7 +2270,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2281,7 +2281,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2292,7 +2292,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2303,7 +2303,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2314,7 +2314,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2325,7 +2325,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2336,7 +2336,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2347,7 +2347,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2358,7 +2358,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2369,7 +2369,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2380,7 +2380,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2391,7 +2391,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2404,7 +2404,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2417,7 +2417,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2428,7 +2428,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2439,7 +2439,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2450,7 +2450,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2461,7 +2461,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2472,7 +2472,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2483,7 +2483,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2494,7 +2494,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2505,7 +2505,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2516,7 +2516,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2527,7 +2527,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2538,7 +2538,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2549,7 +2549,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2560,7 +2560,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2571,7 +2571,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2582,7 +2582,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2593,7 +2593,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2604,7 +2604,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2615,7 +2615,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2628,7 +2628,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2641,7 +2641,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -2657,7 +2657,7 @@ impl<'a, 'b> RebalanceDexCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::VAULTS_ID,
+            program_id: crate::LEND_BORROW_ID,
             accounts,
             data,
         };

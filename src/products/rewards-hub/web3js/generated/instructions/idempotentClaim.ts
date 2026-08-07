@@ -1,6 +1,17 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { GENIEDISTRIBUTOR_PROGRAM_ID } from '..';
-import { getArrayEncoder, getStructEncoder, getU64Encoder, type Encoder } from '@solana/codecs';
+import { REWARDSHUB_PROGRAM_ID } from '../programs/rewardsHub';
+import {
+    getArrayDecoder,
+    getArrayEncoder,
+    getStructDecoder,
+    getStructEncoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+export const IDEMPOTENT_CLAIM_INSTRUCTION_DISCRIMINATOR = new Uint8Array([229, 117, 181, 84, 217, 200, 61, 150]);
 
 export interface IdempotentClaimInstructionAccounts {
     campaign: Address;
@@ -28,10 +39,62 @@ function getIdempotentClaimInstructionDataEncoder(): Encoder<IdempotentClaimInst
     ]);
 }
 
+function getIdempotentClaimInstructionDataDecoder(): Decoder<IdempotentClaimInstructionArgs> {
+    return getStructDecoder([
+        ['amount', getArrayDecoder(getU64Decoder(), { size: 5 })],
+        ['lootboxInfo', getArrayDecoder(getU64Decoder(), { size: 5 })],
+    ]);
+}
+
+export interface ParsedIdempotentClaimInstruction {
+    programId: Address;
+    accounts: {
+        campaign: AccountMeta;
+        claimStatus: AccountMeta;
+        from: AccountMeta;
+        to: AccountMeta;
+        claimant: AccountMeta;
+        claimsPubkey: AccountMeta;
+        tokenProgram: AccountMeta;
+        systemProgram: AccountMeta;
+        associatedTokenProgram: AccountMeta;
+        program: AccountMeta;
+        mint: AccountMeta;
+    };
+    data: IdempotentClaimInstructionArgs;
+}
+
+export function parseIdempotentClaimInstruction(instruction: TransactionInstruction): ParsedIdempotentClaimInstruction {
+    if (instruction.keys.length < 11) {
+        throw new Error('Expected 11 account metas for IdempotentClaim instruction');
+    }
+    if (!IDEMPOTENT_CLAIM_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('IdempotentClaim instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            campaign: instruction.keys[0]!,
+            claimStatus: instruction.keys[1]!,
+            from: instruction.keys[2]!,
+            to: instruction.keys[3]!,
+            claimant: instruction.keys[4]!,
+            claimsPubkey: instruction.keys[5]!,
+            tokenProgram: instruction.keys[6]!,
+            systemProgram: instruction.keys[7]!,
+            associatedTokenProgram: instruction.keys[8]!,
+            program: instruction.keys[9]!,
+            mint: instruction.keys[10]!,
+        },
+        data: getIdempotentClaimInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createIdempotentClaimInstruction(
     accounts: IdempotentClaimInstructionAccounts,
     args: IdempotentClaimInstructionArgs,
-    programId: Address = GENIEDISTRIBUTOR_PROGRAM_ID,
+    programId: Address = REWARDSHUB_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.campaign, isSigner: false, isWritable: true },
@@ -46,9 +109,13 @@ export function createIdempotentClaimInstruction(
         { pubkey: accounts.program, isSigner: false, isWritable: false },
         { pubkey: accounts.mint, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getIdempotentClaimInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('e575b554d9c83d96', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getIdempotentClaimInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(IDEMPOTENT_CLAIM_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

@@ -1,14 +1,23 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { PERPETUALS_PROGRAM_ID } from '..';
+import { PERPS_PROGRAM_ID } from '../programs/perps';
 import {
+    getBooleanDecoder,
     getBooleanEncoder,
+    getOptionDecoder,
     getOptionEncoder,
+    getStructDecoder,
     getStructEncoder,
+    getU64Decoder,
     getU64Encoder,
+    type Decoder,
     type Encoder,
     type OptionOrNullable,
 } from '@solana/codecs';
-import { getRequestTypeEncoder, type RequestTypeArgs } from '../types/requestType';
+import { getRequestTypeDecoder, getRequestTypeEncoder, type RequestTypeArgs } from '../types/requestType';
+
+export const CREATE_DECREASE_POSITION_REQUEST2_INSTRUCTION_DISCRIMINATOR = new Uint8Array([
+    105, 64, 201, 82, 250, 14, 109, 77,
+]);
 
 export interface CreateDecreasePositionRequest2InstructionAccounts {
     owner: Address;
@@ -57,10 +66,89 @@ function getCreateDecreasePositionRequest2InstructionDataEncoder(): Encoder<Crea
     ]);
 }
 
+function getCreateDecreasePositionRequest2InstructionDataDecoder(): Decoder<CreateDecreasePositionRequest2InstructionArgs> {
+    return getStructDecoder([
+        ['collateralUsdDelta', getU64Decoder()],
+        ['sizeUsdDelta', getU64Decoder()],
+        ['requestType', getRequestTypeDecoder()],
+        ['priceSlippage', getOptionDecoder(getU64Decoder())],
+        ['jupiterMinimumOut', getOptionDecoder(getU64Decoder())],
+        ['triggerPrice', getOptionDecoder(getU64Decoder())],
+        ['triggerAboveThreshold', getOptionDecoder(getBooleanDecoder())],
+        ['entirePosition', getOptionDecoder(getBooleanDecoder())],
+        ['counter', getU64Decoder()],
+    ]);
+}
+
+export interface ParsedCreateDecreasePositionRequest2Instruction {
+    programId: Address;
+    accounts: {
+        owner: AccountMeta;
+        receivingAccount: AccountMeta;
+        perpetuals: AccountMeta;
+        pool: AccountMeta;
+        position: AccountMeta;
+        positionRequest: AccountMeta;
+        positionRequestAta: AccountMeta;
+        custody: AccountMeta;
+        custodyDovesPriceAccount: AccountMeta;
+        custodyPythnetPriceAccount: AccountMeta;
+        collateralCustody: AccountMeta;
+        desiredMint: AccountMeta;
+        referral: AccountMeta;
+        tokenProgram: AccountMeta;
+        associatedTokenProgram: AccountMeta;
+        systemProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: CreateDecreasePositionRequest2InstructionArgs;
+}
+
+export function parseCreateDecreasePositionRequest2Instruction(
+    instruction: TransactionInstruction,
+): ParsedCreateDecreasePositionRequest2Instruction {
+    if (instruction.keys.length < 18) {
+        throw new Error('Expected 18 account metas for CreateDecreasePositionRequest2 instruction');
+    }
+    if (
+        !CREATE_DECREASE_POSITION_REQUEST2_INSTRUCTION_DISCRIMINATOR.every(
+            (byte, index) => instruction.data[0 + index] === byte,
+        )
+    ) {
+        throw new Error('CreateDecreasePositionRequest2 instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            owner: instruction.keys[0]!,
+            receivingAccount: instruction.keys[1]!,
+            perpetuals: instruction.keys[2]!,
+            pool: instruction.keys[3]!,
+            position: instruction.keys[4]!,
+            positionRequest: instruction.keys[5]!,
+            positionRequestAta: instruction.keys[6]!,
+            custody: instruction.keys[7]!,
+            custodyDovesPriceAccount: instruction.keys[8]!,
+            custodyPythnetPriceAccount: instruction.keys[9]!,
+            collateralCustody: instruction.keys[10]!,
+            desiredMint: instruction.keys[11]!,
+            referral: instruction.keys[12]!,
+            tokenProgram: instruction.keys[13]!,
+            associatedTokenProgram: instruction.keys[14]!,
+            systemProgram: instruction.keys[15]!,
+            eventAuthority: instruction.keys[16]!,
+            program: instruction.keys[17]!,
+        },
+        data: getCreateDecreasePositionRequest2InstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createCreateDecreasePositionRequest2Instruction(
     accounts: CreateDecreasePositionRequest2InstructionAccounts,
     args: CreateDecreasePositionRequest2InstructionArgs,
-    programId: Address = PERPETUALS_PROGRAM_ID,
+    programId: Address = PERPS_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.owner, isSigner: true, isWritable: true },
@@ -84,9 +172,13 @@ export function createCreateDecreasePositionRequest2Instruction(
         { pubkey: accounts.eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getCreateDecreasePositionRequest2InstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('6940c952fa0e6d4d', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getCreateDecreasePositionRequest2InstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(CREATE_DECREASE_POSITION_REQUEST2_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

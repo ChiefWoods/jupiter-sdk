@@ -5,6 +5,6 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-pub(crate) mod oracle;
+pub(crate) mod lend_oracle;
 
-pub use self::oracle::OracleError;
+pub use self::lend_oracle::LendOracleError;

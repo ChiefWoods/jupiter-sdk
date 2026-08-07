@@ -12,6 +12,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const ROOT_ESCROW_ACCOUNT_DISCRIMINATOR = new Uint8Array([253, 209, 220, 107, 206, 191, 71, 158]);
+
 export type RootEscrowAccountData = {
     /** token mint */
     tokenMint: Address;
@@ -104,6 +106,9 @@ function getRootEscrowAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeRootEscrowAccount(data: Uint8Array): RootEscrowAccountData {
+    if (!ROOT_ESCROW_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('ROOTESCROWACCOUNT discriminator mismatch');
+    }
     const deserialized = getRootEscrowAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as RootEscrowAccountData;

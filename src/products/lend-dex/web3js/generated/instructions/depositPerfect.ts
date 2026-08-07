@@ -1,6 +1,15 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { DEX_PROGRAM_ID } from '..';
-import { getStructEncoder, getU64Encoder, type Encoder } from '@solana/codecs';
+import { LENDDEX_PROGRAM_ID } from '../programs/lendDex';
+import {
+    getStructDecoder,
+    getStructEncoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+export const DEPOSIT_PERFECT_INSTRUCTION_DISCRIMINATOR = new Uint8Array([4, 98, 66, 216, 110, 126, 154, 8]);
 
 export interface DepositPerfectInstructionAccounts {
     signer: Address;
@@ -45,10 +54,93 @@ function getDepositPerfectInstructionDataEncoder(): Encoder<DepositPerfectInstru
     ]);
 }
 
+function getDepositPerfectInstructionDataDecoder(): Decoder<DepositPerfectInstructionArgs> {
+    return getStructDecoder([
+        ['shares', getU64Decoder()],
+        ['maxToken0', getU64Decoder()],
+        ['maxToken1', getU64Decoder()],
+    ]);
+}
+
+export interface ParsedDepositPerfectInstruction {
+    programId: Address;
+    accounts: {
+        signer: AccountMeta;
+        dex: AccountMeta;
+        user: AccountMeta;
+        position: AccountMeta;
+        userToken0Account: AccountMeta;
+        userToken1Account: AccountMeta;
+        token0: AccountMeta;
+        token1: AccountMeta;
+        token0Reserve: AccountMeta;
+        token1Reserve: AccountMeta;
+        token0RateModel: AccountMeta;
+        token1RateModel: AccountMeta;
+        token0Vault: AccountMeta;
+        token1Vault: AccountMeta;
+        dexSupplyPositionToken0: AccountMeta;
+        dexSupplyPositionToken1: AccountMeta;
+        dexBorrowPositionToken0: AccountMeta;
+        dexBorrowPositionToken1: AccountMeta;
+        liquidity: AccountMeta;
+        liquidityProgram: AccountMeta;
+        oracleProgram: AccountMeta;
+        token0Program: AccountMeta;
+        token1Program: AccountMeta;
+        recipient: AccountMeta;
+        recipientToken0Account: AccountMeta;
+        recipientToken1Account: AccountMeta;
+    };
+    data: DepositPerfectInstructionArgs;
+}
+
+export function parseDepositPerfectInstruction(instruction: TransactionInstruction): ParsedDepositPerfectInstruction {
+    if (instruction.keys.length < 26) {
+        throw new Error('Expected 26 account metas for DepositPerfect instruction');
+    }
+    if (!DEPOSIT_PERFECT_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('DepositPerfect instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            signer: instruction.keys[0]!,
+            dex: instruction.keys[1]!,
+            user: instruction.keys[2]!,
+            position: instruction.keys[3]!,
+            userToken0Account: instruction.keys[4]!,
+            userToken1Account: instruction.keys[5]!,
+            token0: instruction.keys[6]!,
+            token1: instruction.keys[7]!,
+            token0Reserve: instruction.keys[8]!,
+            token1Reserve: instruction.keys[9]!,
+            token0RateModel: instruction.keys[10]!,
+            token1RateModel: instruction.keys[11]!,
+            token0Vault: instruction.keys[12]!,
+            token1Vault: instruction.keys[13]!,
+            dexSupplyPositionToken0: instruction.keys[14]!,
+            dexSupplyPositionToken1: instruction.keys[15]!,
+            dexBorrowPositionToken0: instruction.keys[16]!,
+            dexBorrowPositionToken1: instruction.keys[17]!,
+            liquidity: instruction.keys[18]!,
+            liquidityProgram: instruction.keys[19]!,
+            oracleProgram: instruction.keys[20]!,
+            token0Program: instruction.keys[21]!,
+            token1Program: instruction.keys[22]!,
+            recipient: instruction.keys[23]!,
+            recipientToken0Account: instruction.keys[24]!,
+            recipientToken1Account: instruction.keys[25]!,
+        },
+        data: getDepositPerfectInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createDepositPerfectInstruction(
     accounts: DepositPerfectInstructionAccounts,
     args: DepositPerfectInstructionArgs,
-    programId: Address = DEX_PROGRAM_ID,
+    programId: Address = LENDDEX_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.signer, isSigner: true, isWritable: true },
@@ -92,9 +184,13 @@ export function createDepositPerfectInstruction(
             ? { pubkey: accounts.recipientToken1Account, isSigner: false, isWritable: true }
             : { pubkey: programId, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getDepositPerfectInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('046242d86e7e9a08', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getDepositPerfectInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(DEPOSIT_PERFECT_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

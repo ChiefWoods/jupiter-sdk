@@ -70,7 +70,7 @@ impl FillBuyOrder {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::PREDICTION_MARKET_ID,
+                crate::PREDICTION_ID,
                 false,
             ));
         }
@@ -84,7 +84,7 @@ impl FillBuyOrder {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::PREDICTION_MARKET_ID,
+            program_id: crate::PREDICTION_ID,
             accounts,
             data,
         }
@@ -428,7 +428,7 @@ impl<'a, 'b> FillBuyOrderCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::PREDICTION_MARKET_ID,
+                crate::PREDICTION_ID,
                 false,
             ));
         }
@@ -448,7 +448,7 @@ impl<'a, 'b> FillBuyOrderCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::PREDICTION_MARKET_ID,
+            program_id: crate::PREDICTION_ID,
             accounts,
             data,
         };

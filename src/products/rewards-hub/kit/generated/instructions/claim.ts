@@ -43,7 +43,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findClaimStatusPda } from "../pdas";
-import { GENIE_DISTRIBUTOR_PROGRAM_ADDRESS } from "../programs";
+import { REWARDS_HUB_PROGRAM_ADDRESS } from "../programs";
 
 export const CLAIM_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   62, 198, 214, 193, 213, 159, 108, 210,
@@ -54,7 +54,7 @@ export function getClaimDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type ClaimInstruction<
-  TProgram extends string = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgram extends string = typeof REWARDS_HUB_PROGRAM_ADDRESS,
   TAccountCampaign extends string | AccountMeta<string> = string,
   TAccountClaimStatus extends string | AccountMeta<string> = string,
   TAccountFrom extends string | AccountMeta<string> = string,
@@ -168,7 +168,7 @@ export async function getClaimInstructionAsync<
   TAccountClaimant extends string,
   TAccountClaimsPubkey extends string,
   TAccountTokenProgram extends string,
-  TProgramAddress extends Address = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof REWARDS_HUB_PROGRAM_ADDRESS,
 >(
   input: ClaimAsyncInput<
     TAccountCampaign,
@@ -193,8 +193,7 @@ export async function getClaimInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? GENIE_DISTRIBUTOR_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? REWARDS_HUB_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -294,7 +293,7 @@ export function getClaimInstruction<
   TAccountClaimant extends string,
   TAccountClaimsPubkey extends string,
   TAccountTokenProgram extends string,
-  TProgramAddress extends Address = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof REWARDS_HUB_PROGRAM_ADDRESS,
 >(
   input: ClaimInput<
     TAccountCampaign,
@@ -317,8 +316,7 @@ export function getClaimInstruction<
   TAccountTokenProgram
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? GENIE_DISTRIBUTOR_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? REWARDS_HUB_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -372,7 +370,7 @@ export function getClaimInstruction<
 }
 
 export type ParsedClaimInstruction<
-  TProgram extends string = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgram extends string = typeof REWARDS_HUB_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

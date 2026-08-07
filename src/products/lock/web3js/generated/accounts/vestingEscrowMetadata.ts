@@ -11,6 +11,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const VESTING_ESCROW_METADATA_ACCOUNT_DISCRIMINATOR = new Uint8Array([24, 204, 166, 104, 87, 158, 76, 13]);
+
 export type VestingEscrowMetadataAccountData = {
     /** The [Escrow]. */
     escrow: Address;
@@ -53,6 +55,9 @@ function getVestingEscrowMetadataAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeVestingEscrowMetadataAccount(data: Uint8Array): VestingEscrowMetadataAccountData {
+    if (!VESTING_ESCROW_METADATA_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('VESTINGESCROWMETADATAACCOUNT discriminator mismatch');
+    }
     const deserialized = getVestingEscrowMetadataAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as VestingEscrowMetadataAccountData;

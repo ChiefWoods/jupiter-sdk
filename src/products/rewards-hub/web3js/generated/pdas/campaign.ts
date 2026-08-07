@@ -1,5 +1,5 @@
 import { Address } from '@solana/web3.js';
-import { GENIEDISTRIBUTOR_PROGRAM_ID } from '..';
+import { REWARDSHUB_PROGRAM_ID } from '../programs/rewardsHub';
 
 export interface CampaignPdaSeeds {
     admin: Address;
@@ -9,7 +9,7 @@ export interface CampaignPdaSeeds {
 
 export async function findCampaignPda(
     seeds: CampaignPdaSeeds,
-    programId: Address = GENIEDISTRIBUTOR_PROGRAM_ID,
+    programId: Address = REWARDSHUB_PROGRAM_ID,
 ): Promise<[Address, number]> {
     const seedsBuffer: Uint8Array[] = [
         Buffer.from('Campaign', 'utf8'),

@@ -1,9 +1,28 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { PERPETUALS_PROGRAM_ID } from '..';
-import { getBooleanEncoder, getF32Encoder, getStructEncoder, getU64Encoder, type Encoder } from '@solana/codecs';
-import { getBorrowLendParamsEncoder, type BorrowLendParamsArgs } from '../types/borrowLendParams';
-import { getJumpRateStateEncoder, type JumpRateStateArgs } from '../types/jumpRateState';
-import { getPricingParamsEncoder, type PricingParamsArgs } from '../types/pricingParams';
+import { PERPS_PROGRAM_ID } from '../programs/perps';
+import {
+    getBooleanDecoder,
+    getBooleanEncoder,
+    getF32Decoder,
+    getF32Encoder,
+    getStructDecoder,
+    getStructEncoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+import {
+    getBorrowLendParamsDecoder,
+    getBorrowLendParamsEncoder,
+    type BorrowLendParamsArgs,
+} from '../types/borrowLendParams';
+import { getJumpRateStateDecoder, getJumpRateStateEncoder, type JumpRateStateArgs } from '../types/jumpRateState';
+import { getPricingParamsDecoder, getPricingParamsEncoder, type PricingParamsArgs } from '../types/pricingParams';
+
+export const OPERATOR_SET_CUSTODY_CONFIG_INSTRUCTION_DISCRIMINATOR = new Uint8Array([
+    166, 137, 92, 204, 145, 224, 24, 218,
+]);
 
 export interface OperatorSetCustodyConfigInstructionAccounts {
     operator: Address;
@@ -60,18 +79,81 @@ function getOperatorSetCustodyConfigInstructionDataEncoder(): Encoder<OperatorSe
     ]);
 }
 
+function getOperatorSetCustodyConfigInstructionDataDecoder(): Decoder<OperatorSetCustodyConfigInstructionArgs> {
+    return getStructDecoder([
+        ['pricing', getPricingParamsDecoder()],
+        ['hourlyFundingDbps', getU64Decoder()],
+        ['targetRatioBps', getU64Decoder()],
+        ['increasePositionBps', getU64Decoder()],
+        ['decreasePositionBps', getU64Decoder()],
+        ['maxPositionSizeUsd', getU64Decoder()],
+        ['jumpRate', getJumpRateStateDecoder()],
+        ['priceImpactFeeFactor', getU64Decoder()],
+        ['priceImpactExponent', getF32Decoder()],
+        ['deltaImbalanceThresholdDecimal', getU64Decoder()],
+        ['maxFeeBps', getU64Decoder()],
+        ['borrowLendParameters', getBorrowLendParamsDecoder()],
+        ['borrowHourlyFundingDbps', getU64Decoder()],
+        ['borrowLimitInTokenAmount', getU64Decoder()],
+        ['minInterestFeeBps', getU64Decoder()],
+        ['minInterestFeeGracePeriodSeconds', getU64Decoder()],
+        ['maxTotalStakedAmountLamports', getU64Decoder()],
+        ['externalSwapFeeMultiplierBps', getU64Decoder()],
+        ['disableClosePositionRequest', getBooleanDecoder()],
+        ['withdrawalLimitTokenAmount', getU64Decoder()],
+        ['withdrawalLimitIntervalSeconds', getU64Decoder()],
+    ]);
+}
+
+export interface ParsedOperatorSetCustodyConfigInstruction {
+    programId: Address;
+    accounts: {
+        operator: AccountMeta;
+        custody: AccountMeta;
+    };
+    data: OperatorSetCustodyConfigInstructionArgs;
+}
+
+export function parseOperatorSetCustodyConfigInstruction(
+    instruction: TransactionInstruction,
+): ParsedOperatorSetCustodyConfigInstruction {
+    if (instruction.keys.length < 2) {
+        throw new Error('Expected 2 account metas for OperatorSetCustodyConfig instruction');
+    }
+    if (
+        !OPERATOR_SET_CUSTODY_CONFIG_INSTRUCTION_DISCRIMINATOR.every(
+            (byte, index) => instruction.data[0 + index] === byte,
+        )
+    ) {
+        throw new Error('OperatorSetCustodyConfig instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            operator: instruction.keys[0]!,
+            custody: instruction.keys[1]!,
+        },
+        data: getOperatorSetCustodyConfigInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createOperatorSetCustodyConfigInstruction(
     accounts: OperatorSetCustodyConfigInstructionAccounts,
     args: OperatorSetCustodyConfigInstructionArgs,
-    programId: Address = PERPETUALS_PROGRAM_ID,
+    programId: Address = PERPS_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.operator, isSigner: true, isWritable: false },
         { pubkey: accounts.custody, isSigner: false, isWritable: true },
     ];
-    const instructionData = Buffer.from(getOperatorSetCustodyConfigInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('a6895ccc91e018da', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getOperatorSetCustodyConfigInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(OPERATOR_SET_CUSTODY_CONFIG_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

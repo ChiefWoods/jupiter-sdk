@@ -5,6 +5,6 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-pub(crate) mod lending;
+pub(crate) mod lend_earn;
 
-pub use self::lending::LendingError;
+pub use self::lend_earn::LendEarnError;

@@ -49,7 +49,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findEventAuthorityPda } from "../pdas";
-import { LOCKER_PROGRAM_ADDRESS } from "../programs";
+import { LOCK_PROGRAM_ADDRESS } from "../programs";
 
 export const UPDATE_VESTING_ESCROW_RECIPIENT_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([26, 242, 127, 255, 237, 109, 47, 206]);
@@ -61,7 +61,7 @@ export function getUpdateVestingEscrowRecipientDiscriminatorBytes(): ReadonlyUin
 }
 
 export type UpdateVestingEscrowRecipientInstruction<
-  TProgram extends string = typeof LOCKER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LOCK_PROGRAM_ADDRESS,
   TAccountEscrow extends string | AccountMeta<string> = string,
   TAccountEscrowMetadata extends string | AccountMeta<string> = string,
   TAccountSigner extends string | AccountMeta<string> = string,
@@ -177,7 +177,7 @@ export async function getUpdateVestingEscrowRecipientInstructionAsync<
   TAccountSystemProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof LOCKER_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LOCK_PROGRAM_ADDRESS,
 >(
   input: UpdateVestingEscrowRecipientAsyncInput<
     TAccountEscrow,
@@ -200,7 +200,7 @@ export async function getUpdateVestingEscrowRecipientInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LOCKER_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LOCK_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -282,7 +282,7 @@ export function getUpdateVestingEscrowRecipientInstruction<
   TAccountSystemProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof LOCKER_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LOCK_PROGRAM_ADDRESS,
 >(
   input: UpdateVestingEscrowRecipientInput<
     TAccountEscrow,
@@ -303,7 +303,7 @@ export function getUpdateVestingEscrowRecipientInstruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LOCKER_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LOCK_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -354,7 +354,7 @@ export function getUpdateVestingEscrowRecipientInstruction<
 }
 
 export type ParsedUpdateVestingEscrowRecipientInstruction<
-  TProgram extends string = typeof LOCKER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LOCK_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -398,7 +398,7 @@ export function parseUpdateVestingEscrowRecipientInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === LOCKER_PROGRAM_ADDRESS
+    return accountMeta.address === LOCK_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

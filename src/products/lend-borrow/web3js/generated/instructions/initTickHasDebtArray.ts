@@ -1,7 +1,18 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { VAULTS_PROGRAM_ID } from '..';
+import { LENDBORROW_PROGRAM_ID } from '../programs/lendBorrow';
 import { findTickHasDebtArrayPda } from '../pdas/tickHasDebtArray';
-import { getStructEncoder, getU16Encoder, getU8Encoder, type Encoder } from '@solana/codecs';
+import {
+    getStructDecoder,
+    getStructEncoder,
+    getU16Decoder,
+    getU16Encoder,
+    getU8Decoder,
+    getU8Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+export const INIT_TICK_HAS_DEBT_ARRAY_INSTRUCTION_DISCRIMINATOR = new Uint8Array([206, 108, 146, 245, 20, 0, 141, 208]);
 
 export interface InitTickHasDebtArrayInstructionAccounts {
     signer: Address;
@@ -22,10 +33,52 @@ function getInitTickHasDebtArrayInstructionDataEncoder(): Encoder<InitTickHasDeb
     ]);
 }
 
+function getInitTickHasDebtArrayInstructionDataDecoder(): Decoder<InitTickHasDebtArrayInstructionArgs> {
+    return getStructDecoder([
+        ['vaultId', getU16Decoder()],
+        ['index', getU8Decoder()],
+    ]);
+}
+
+export interface ParsedInitTickHasDebtArrayInstruction {
+    programId: Address;
+    accounts: {
+        signer: AccountMeta;
+        vaultConfig: AccountMeta;
+        tickHasDebtArray: AccountMeta;
+        systemProgram: AccountMeta;
+    };
+    data: InitTickHasDebtArrayInstructionArgs;
+}
+
+export function parseInitTickHasDebtArrayInstruction(
+    instruction: TransactionInstruction,
+): ParsedInitTickHasDebtArrayInstruction {
+    if (instruction.keys.length < 4) {
+        throw new Error('Expected 4 account metas for InitTickHasDebtArray instruction');
+    }
+    if (
+        !INIT_TICK_HAS_DEBT_ARRAY_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)
+    ) {
+        throw new Error('InitTickHasDebtArray instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            signer: instruction.keys[0]!,
+            vaultConfig: instruction.keys[1]!,
+            tickHasDebtArray: instruction.keys[2]!,
+            systemProgram: instruction.keys[3]!,
+        },
+        data: getInitTickHasDebtArrayInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export async function createInitTickHasDebtArrayInstruction(
     accounts: InitTickHasDebtArrayInstructionAccounts,
     args: InitTickHasDebtArrayInstructionArgs,
-    programId: Address = VAULTS_PROGRAM_ID,
+    programId: Address = LENDBORROW_PROGRAM_ID,
 ): Promise<TransactionInstruction> {
     let tickHasDebtArray = accounts.tickHasDebtArray;
     if (!tickHasDebtArray) {
@@ -44,9 +97,13 @@ export async function createInitTickHasDebtArrayInstruction(
         { pubkey: tickHasDebtArray, isSigner: false, isWritable: true },
         { pubkey: accounts.systemProgram, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getInitTickHasDebtArrayInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('ce6c92f514008dd0', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getInitTickHasDebtArrayInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(INIT_TICK_HAS_DEBT_ARRAY_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

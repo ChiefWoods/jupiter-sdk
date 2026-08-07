@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const REALLOC_CUSTODY_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array(
   [123, 58, 109, 139, 133, 7, 225, 200],
@@ -49,7 +49,7 @@ export function getReallocCustodyDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type ReallocCustodyInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountKeeper extends string | AccountMeta<string> = string,
   TAccountCustody extends string | AccountMeta<string> = string,
   TAccountSystemProgram extends string | AccountMeta<string> =
@@ -124,7 +124,7 @@ export function getReallocCustodyInstruction<
   TAccountCustody extends string,
   TAccountSystemProgram extends string,
   TAccountRent extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: ReallocCustodyInput<
     TAccountKeeper,
@@ -141,7 +141,7 @@ export function getReallocCustodyInstruction<
   TAccountRent
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -185,7 +185,7 @@ export function getReallocCustodyInstruction<
 }
 
 export type ParsedReallocCustodyInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

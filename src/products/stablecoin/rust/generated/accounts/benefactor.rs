@@ -131,7 +131,7 @@ impl anchor_lang::AccountSerialize for Benefactor {}
 #[cfg(feature = "anchor")]
 impl anchor_lang::Owner for Benefactor {
     fn owner() -> anchor_lang::solana_program::pubkey::Pubkey {
-        anchor_lang::solana_program::pubkey::Pubkey::from(crate::JUP_STABLE_ID.to_bytes())
+        anchor_lang::solana_program::pubkey::Pubkey::from(crate::STABLECOIN_ID.to_bytes())
     }
 }
 

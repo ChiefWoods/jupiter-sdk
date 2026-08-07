@@ -47,7 +47,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const INSTANT_DECREASE_POSITION_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([46, 23, 240, 44, 30, 138, 94, 140]);
@@ -59,7 +59,7 @@ export function getInstantDecreasePositionDiscriminatorBytes(): ReadonlyUint8Arr
 }
 
 export type InstantDecreasePositionInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountKeeper extends string | AccountMeta<string> = string,
   TAccountApiKeeper extends string | AccountMeta<string> = string,
   TAccountOwner extends string | AccountMeta<string> = string,
@@ -298,7 +298,7 @@ export function getInstantDecreasePositionInstruction<
   TAccountSystemProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: InstantDecreasePositionInput<
     TAccountKeeper,
@@ -351,7 +351,7 @@ export function getInstantDecreasePositionInstruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -496,7 +496,7 @@ export function getInstantDecreasePositionInstruction<
 }
 
 export type ParsedInstantDecreasePositionInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -552,7 +552,7 @@ export function parseInstantDecreasePositionInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === PERPETUALS_PROGRAM_ADDRESS
+    return accountMeta.address === PERPS_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

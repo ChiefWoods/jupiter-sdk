@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { GENIE_DISTRIBUTOR_PROGRAM_ADDRESS } from "../programs";
+import { REWARDS_HUB_PROGRAM_ADDRESS } from "../programs";
 
 export const CLOSE_CLAIM_STATUS_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([163, 214, 191, 165, 245, 188, 17, 185]);
@@ -48,7 +48,7 @@ export function getCloseClaimStatusDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type CloseClaimStatusInstruction<
-  TProgram extends string = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgram extends string = typeof REWARDS_HUB_PROGRAM_ADDRESS,
   TAccountCampaign extends string | AccountMeta<string> = string,
   TAccountClaimStatus extends string | AccountMeta<string> = string,
   TAccountCloser extends string | AccountMeta<string> = string,
@@ -122,7 +122,7 @@ export function getCloseClaimStatusInstruction<
   TAccountClaimStatus extends string,
   TAccountCloser extends string,
   TAccountClaimant extends string,
-  TProgramAddress extends Address = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof REWARDS_HUB_PROGRAM_ADDRESS,
 >(
   input: CloseClaimStatusInput<
     TAccountCampaign,
@@ -139,8 +139,7 @@ export function getCloseClaimStatusInstruction<
   TAccountClaimant
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? GENIE_DISTRIBUTOR_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? REWARDS_HUB_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -174,7 +173,7 @@ export function getCloseClaimStatusInstruction<
 }
 
 export type ParsedCloseClaimStatusInstruction<
-  TProgram extends string = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgram extends string = typeof REWARDS_HUB_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

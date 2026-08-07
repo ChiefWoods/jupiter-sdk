@@ -7,5 +7,5 @@
 
 use solana_address::{address, Address};
 
-/// `vaults` program ID.
-pub const VAULTS_ID: Address = address!("jupr81YtYssSyPt8jbnGuiWon5f6x9TcDEFxYe3Bdzi");
+/// `lend_borrow` program ID.
+pub const LEND_BORROW_ID: Address = address!("jupr81YtYssSyPt8jbnGuiWon5f6x9TcDEFxYe3Bdzi");

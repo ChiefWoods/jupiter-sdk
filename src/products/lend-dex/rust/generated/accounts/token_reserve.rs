@@ -134,7 +134,7 @@ impl anchor_lang::AccountSerialize for TokenReserve {}
 #[cfg(feature = "anchor")]
 impl anchor_lang::Owner for TokenReserve {
     fn owner() -> anchor_lang::solana_program::pubkey::Pubkey {
-        anchor_lang::solana_program::pubkey::Pubkey::from(crate::DEX_ID.to_bytes())
+        anchor_lang::solana_program::pubkey::Pubkey::from(crate::LEND_DEX_ID.to_bytes())
     }
 }
 

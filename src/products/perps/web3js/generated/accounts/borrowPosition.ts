@@ -12,6 +12,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const BORROW_POSITION_ACCOUNT_DISCRIMINATOR = new Uint8Array([243, 140, 20, 139, 32, 243, 114, 55]);
+
 export type BorrowPositionAccountData = {
     owner: Address;
     pool: Address;
@@ -59,6 +61,9 @@ function getBorrowPositionAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeBorrowPositionAccount(data: Uint8Array): BorrowPositionAccountData {
+    if (!BORROW_POSITION_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('BORROWPOSITIONACCOUNT discriminator mismatch');
+    }
     const deserialized = getBorrowPositionAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as BorrowPositionAccountData;

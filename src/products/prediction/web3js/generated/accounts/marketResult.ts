@@ -13,6 +13,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const MARKET_RESULT_ACCOUNT_DISCRIMINATOR = new Uint8Array([228, 116, 192, 234, 125, 54, 69, 142]);
+
 export type MarketResultAccountData = {
     marketId: string;
     /**
@@ -60,6 +62,9 @@ function getMarketResultAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeMarketResultAccount(data: Uint8Array): MarketResultAccountData {
+    if (!MARKET_RESULT_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('MARKETRESULTACCOUNT discriminator mismatch');
+    }
     const deserialized = getMarketResultAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as MarketResultAccountData;

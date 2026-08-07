@@ -40,7 +40,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const SET_MAX_GLOBAL_SIZES_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([89, 2, 210, 24, 167, 227, 13, 214]);
@@ -52,7 +52,7 @@ export function getSetMaxGlobalSizesDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type SetMaxGlobalSizesInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountKeeper extends string | AccountMeta<string> = string,
   TAccountCustody extends string | AccountMeta<string> = string,
   TAccountPool extends string | AccountMeta<string> = string,
@@ -154,7 +154,7 @@ export function getSetMaxGlobalSizesInstruction<
   TAccountKeeper extends string,
   TAccountCustody extends string,
   TAccountPool extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: SetMaxGlobalSizesInput<TAccountKeeper, TAccountCustody, TAccountPool>,
   config?: { programAddress?: TProgramAddress },
@@ -165,7 +165,7 @@ export function getSetMaxGlobalSizesInstruction<
   TAccountPool
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -201,7 +201,7 @@ export function getSetMaxGlobalSizesInstruction<
 }
 
 export type ParsedSetMaxGlobalSizesInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

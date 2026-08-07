@@ -5,6 +5,6 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-pub(crate) mod lending_reward_rate_model;
+pub(crate) mod lend_lending_reward_rate_model;
 
-pub use self::lending_reward_rate_model::LendingRewardRateModelError;
+pub use self::lend_lending_reward_rate_model::LendLendingRewardRateModelError;

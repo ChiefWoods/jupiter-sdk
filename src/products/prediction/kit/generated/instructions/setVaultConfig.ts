@@ -43,7 +43,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PREDICTION_MARKET_PROGRAM_ADDRESS } from "../programs";
+import { PREDICTION_PROGRAM_ADDRESS } from "../programs";
 
 export const SET_VAULT_CONFIG_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([65, 5, 248, 136, 48, 58, 235, 231]);
@@ -55,7 +55,7 @@ export function getSetVaultConfigDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type SetVaultConfigInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountAdmin extends string | AccountMeta<string> =
     "8rNYGp2wKnAGDm2SMaoJRFFGvfmt7iCTuu2GUvdMbZ1H",
   TAccountVault extends string | AccountMeta<string> = string,
@@ -158,14 +158,13 @@ export type SetVaultConfigInput<
 export function getSetVaultConfigInstruction<
   TAccountAdmin extends string,
   TAccountVault extends string,
-  TProgramAddress extends Address = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PREDICTION_PROGRAM_ADDRESS,
 >(
   input: SetVaultConfigInput<TAccountAdmin, TAccountVault>,
   config?: { programAddress?: TProgramAddress },
 ): SetVaultConfigInstruction<TProgramAddress, TAccountAdmin, TAccountVault> {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? PREDICTION_MARKET_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PREDICTION_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -204,7 +203,7 @@ export function getSetVaultConfigInstruction<
 }
 
 export type ParsedSetVaultConfigInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

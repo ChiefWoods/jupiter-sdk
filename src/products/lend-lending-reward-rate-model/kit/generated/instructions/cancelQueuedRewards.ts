@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS } from "../programs";
+import { LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS } from "../programs";
 
 export const CANCEL_QUEUED_REWARDS_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([253, 198, 122, 96, 234, 226, 53, 229]);
@@ -48,7 +48,8 @@ export function getCancelQueuedRewardsDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type CancelQueuedRewardsInstruction<
-  TProgram extends string = typeof LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
+  TProgram extends string =
+    typeof LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountLendingRewardsAdmin extends string | AccountMeta<string> = string,
   TAccountLendingAccount extends string | AccountMeta<string> = string,
@@ -154,7 +155,7 @@ export function getCancelQueuedRewardsInstruction<
   TAccountLendingRewardsRateModel extends string,
   TAccountLendingProgram extends string,
   TProgramAddress extends Address =
-    typeof LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
+    typeof LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
 >(
   input: CancelQueuedRewardsInput<
     TAccountAuthority,
@@ -180,7 +181,7 @@ export function getCancelQueuedRewardsInstruction<
 > {
   // Program address.
   const programAddress =
-    config?.programAddress ?? LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS;
+    config?.programAddress ?? LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -241,7 +242,8 @@ export function getCancelQueuedRewardsInstruction<
 }
 
 export type ParsedCancelQueuedRewardsInstruction<
-  TProgram extends string = typeof LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
+  TProgram extends string =
+    typeof LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const TRANSFER_ADMIN_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   42, 242, 66, 106, 228, 10, 111, 156,
@@ -49,7 +49,7 @@ export function getTransferAdminDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type TransferAdminInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountAdmin extends string | AccountMeta<string> = string,
   TAccountNewAdmin extends string | AccountMeta<string> = string,
   TAccountPerpetuals extends string | AccountMeta<string> = string,
@@ -115,7 +115,7 @@ export function getTransferAdminInstruction<
   TAccountAdmin extends string,
   TAccountNewAdmin extends string,
   TAccountPerpetuals extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: TransferAdminInput<
     TAccountAdmin,
@@ -130,7 +130,7 @@ export function getTransferAdminInstruction<
   TAccountPerpetuals
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -161,7 +161,7 @@ export function getTransferAdminInstruction<
 }
 
 export type ParsedTransferAdminInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

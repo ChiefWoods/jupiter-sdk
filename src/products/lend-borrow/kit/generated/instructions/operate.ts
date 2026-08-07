@@ -46,7 +46,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { VAULTS_PROGRAM_ADDRESS } from "../programs";
+import { LEND_BORROW_PROGRAM_ADDRESS } from "../programs";
 import {
   getTransferTypeDecoder,
   getTransferTypeEncoder,
@@ -63,7 +63,7 @@ export function getOperateDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type OperateInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountSignerSupplyTokenAccount extends string | AccountMeta<string> =
     string,
@@ -398,7 +398,7 @@ export function getOperateInstruction<
   TAccountBorrowTokenProgram extends string,
   TAccountAssociatedTokenProgram extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: OperateInput<
     TAccountSigner,
@@ -477,7 +477,7 @@ export function getOperateInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -724,7 +724,7 @@ export function getOperateInstruction<
 }
 
 export type ParsedOperateInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -799,7 +799,7 @@ export function parseOperateInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === VAULTS_PROGRAM_ADDRESS
+    return accountMeta.address === LEND_BORROW_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

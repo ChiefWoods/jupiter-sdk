@@ -1,8 +1,19 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { OFFERBOOK_PROGRAM_ID } from '..';
+import { OFFERBOOK_PROGRAM_ID } from '../programs/offerbook';
 import { findEventAuthorityPda } from '../pdas/eventAuthority';
 import { findLoanVaultPda } from '../pdas/loanVault';
-import { getStructEncoder, getU32Encoder, type Encoder } from '@solana/codecs';
+import {
+    getStructDecoder,
+    getStructEncoder,
+    getU32Decoder,
+    getU32Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+export const FILL_NON_FUNGIBLE_PRINCIPAL_OFFER_INSTRUCTION_DISCRIMINATOR = new Uint8Array([
+    99, 127, 177, 155, 175, 160, 24, 234,
+]);
 
 export interface FillNonFungiblePrincipalOfferInstructionAccounts {
     signer: Address;
@@ -35,6 +46,78 @@ function getFillNonFungiblePrincipalOfferInstructionDataEncoder(): Encoder<FillN
         ['duration', getU32Encoder()],
         ['apy', getU32Encoder()],
     ]);
+}
+
+function getFillNonFungiblePrincipalOfferInstructionDataDecoder(): Decoder<FillNonFungiblePrincipalOfferInstructionArgs> {
+    return getStructDecoder([
+        ['duration', getU32Decoder()],
+        ['apy', getU32Decoder()],
+    ]);
+}
+
+export interface ParsedFillNonFungiblePrincipalOfferInstruction {
+    programId: Address;
+    accounts: {
+        signer: AccountMeta;
+        signerUser: AccountMeta;
+        lender: AccountMeta;
+        lenderUser: AccountMeta;
+        offer: AccountMeta;
+        loan: AccountMeta;
+        loanVault: AccountMeta;
+        config: AccountMeta;
+        principalMint: AccountMeta;
+        collateralMint: AccountMeta;
+        lenderPrincipalEscrow: AccountMeta;
+        borrowerPrincipalTokenAccount: AccountMeta;
+        protocolFeeTokenAccount: AccountMeta;
+        principalTokenProgram: AccountMeta;
+        collateralTokenProgram: AccountMeta;
+        systemProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: FillNonFungiblePrincipalOfferInstructionArgs;
+}
+
+export function parseFillNonFungiblePrincipalOfferInstruction(
+    instruction: TransactionInstruction,
+): ParsedFillNonFungiblePrincipalOfferInstruction {
+    if (instruction.keys.length < 18) {
+        throw new Error('Expected 18 account metas for FillNonFungiblePrincipalOffer instruction');
+    }
+    if (
+        !FILL_NON_FUNGIBLE_PRINCIPAL_OFFER_INSTRUCTION_DISCRIMINATOR.every(
+            (byte, index) => instruction.data[0 + index] === byte,
+        )
+    ) {
+        throw new Error('FillNonFungiblePrincipalOffer instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            signer: instruction.keys[0]!,
+            signerUser: instruction.keys[1]!,
+            lender: instruction.keys[2]!,
+            lenderUser: instruction.keys[3]!,
+            offer: instruction.keys[4]!,
+            loan: instruction.keys[5]!,
+            loanVault: instruction.keys[6]!,
+            config: instruction.keys[7]!,
+            principalMint: instruction.keys[8]!,
+            collateralMint: instruction.keys[9]!,
+            lenderPrincipalEscrow: instruction.keys[10]!,
+            borrowerPrincipalTokenAccount: instruction.keys[11]!,
+            protocolFeeTokenAccount: instruction.keys[12]!,
+            principalTokenProgram: instruction.keys[13]!,
+            collateralTokenProgram: instruction.keys[14]!,
+            systemProgram: instruction.keys[15]!,
+            eventAuthority: instruction.keys[16]!,
+            program: instruction.keys[17]!,
+        },
+        data: getFillNonFungiblePrincipalOfferInstructionDataDecoder().decode(instructionData),
+    };
 }
 
 export async function createFillNonFungiblePrincipalOfferInstruction(
@@ -81,9 +164,13 @@ export async function createFillNonFungiblePrincipalOfferInstruction(
         { pubkey: eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getFillNonFungiblePrincipalOfferInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('637fb19bafa018ea', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getFillNonFungiblePrincipalOfferInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(FILL_NON_FUNGIBLE_PRINCIPAL_OFFER_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

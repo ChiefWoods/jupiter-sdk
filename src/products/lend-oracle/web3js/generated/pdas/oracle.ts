@@ -1,5 +1,5 @@
 import { Address } from '@solana/web3.js';
-import { ORACLE_PROGRAM_ID } from '..';
+import { LENDORACLE_PROGRAM_ID } from '../programs/lendOracle';
 
 export interface OraclePdaSeeds {
     nonce: number;
@@ -7,7 +7,7 @@ export interface OraclePdaSeeds {
 
 export async function findOraclePda(
     seeds: OraclePdaSeeds,
-    programId: Address = ORACLE_PROGRAM_ID,
+    programId: Address = LENDORACLE_PROGRAM_ID,
 ): Promise<[Address, number]> {
     const seedsBuffer: Uint8Array[] = [
         Buffer.from('oracle', 'utf8'),

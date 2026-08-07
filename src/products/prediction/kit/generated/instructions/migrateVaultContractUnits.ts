@@ -37,7 +37,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PREDICTION_MARKET_PROGRAM_ADDRESS } from "../programs";
+import { PREDICTION_PROGRAM_ADDRESS } from "../programs";
 
 export const MIGRATE_VAULT_CONTRACT_UNITS_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([241, 231, 0, 150, 218, 48, 154, 189]);
@@ -49,7 +49,7 @@ export function getMigrateVaultContractUnitsDiscriminatorBytes(): ReadonlyUint8A
 }
 
 export type MigrateVaultContractUnitsInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountAdmin extends string | AccountMeta<string> =
     "8rNYGp2wKnAGDm2SMaoJRFFGvfmt7iCTuu2GUvdMbZ1H",
   TAccountVault extends string | AccountMeta<string> = string,
@@ -130,7 +130,7 @@ export type MigrateVaultContractUnitsInput<
 export function getMigrateVaultContractUnitsInstruction<
   TAccountAdmin extends string,
   TAccountVault extends string,
-  TProgramAddress extends Address = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PREDICTION_PROGRAM_ADDRESS,
 >(
   input: MigrateVaultContractUnitsInput<TAccountAdmin, TAccountVault>,
   config?: { programAddress?: TProgramAddress },
@@ -140,8 +140,7 @@ export function getMigrateVaultContractUnitsInstruction<
   TAccountVault
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? PREDICTION_MARKET_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PREDICTION_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -180,7 +179,7 @@ export function getMigrateVaultContractUnitsInstruction<
 }
 
 export type ParsedMigrateVaultContractUnitsInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

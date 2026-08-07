@@ -52,7 +52,7 @@ impl NewVote {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::GOVERN_ID,
+            program_id: crate::GOVERNANCE_ID,
             accounts,
             data,
         }
@@ -267,7 +267,7 @@ impl<'a, 'b> NewVoteCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::GOVERN_ID,
+            program_id: crate::GOVERNANCE_ID,
             accounts,
             data,
         };

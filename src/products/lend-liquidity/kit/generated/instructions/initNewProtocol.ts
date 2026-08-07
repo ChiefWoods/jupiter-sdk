@@ -40,7 +40,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findUserBorrowPositionPda, findUserSupplyPositionPda } from "../pdas";
-import { LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
+import { LEND_LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
 
 export const INIT_NEW_PROTOCOL_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([193, 147, 5, 32, 138, 135, 213, 158]);
@@ -52,7 +52,7 @@ export function getInitNewProtocolDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type InitNewProtocolInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountAuthList extends string | AccountMeta<string> = string,
   TAccountUserSupplyPosition extends string | AccountMeta<string> = string,
@@ -151,7 +151,7 @@ export async function getInitNewProtocolInstructionAsync<
   TAccountUserSupplyPosition extends string,
   TAccountUserBorrowPosition extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
 >(
   input: InitNewProtocolAsyncInput<
     TAccountAuthority,
@@ -172,7 +172,8 @@ export async function getInitNewProtocolInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LIQUIDITY_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? LEND_LIQUIDITY_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -266,7 +267,7 @@ export function getInitNewProtocolInstruction<
   TAccountUserSupplyPosition extends string,
   TAccountUserBorrowPosition extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
 >(
   input: InitNewProtocolInput<
     TAccountAuthority,
@@ -285,7 +286,8 @@ export function getInitNewProtocolInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LIQUIDITY_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? LEND_LIQUIDITY_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -339,7 +341,7 @@ export function getInitNewProtocolInstruction<
 }
 
 export type ParsedInitNewProtocolInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

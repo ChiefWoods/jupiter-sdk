@@ -17,6 +17,8 @@ import {
 } from '../types/chainlinkDsCacheGenericData';
 import { getFeedEntryDecoder, type FeedEntry } from '../types/feedEntry';
 
+export const CHAINLINK_DATA_STREAMS_CACHE_ACCOUNT_DISCRIMINATOR = new Uint8Array([65, 102, 75, 47, 79, 156, 109, 193]);
+
 export type ChainlinkDataStreamsCacheAccountData = {
     nonce: number;
     feeds: Array<FeedEntry>;
@@ -61,6 +63,9 @@ function getChainlinkDataStreamsCacheAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeChainlinkDataStreamsCacheAccount(data: Uint8Array): ChainlinkDataStreamsCacheAccountData {
+    if (!CHAINLINK_DATA_STREAMS_CACHE_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('CHAINLINKDATASTREAMSCACHEACCOUNT discriminator mismatch');
+    }
     const deserialized = getChainlinkDataStreamsCacheAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as ChainlinkDataStreamsCacheAccountData;

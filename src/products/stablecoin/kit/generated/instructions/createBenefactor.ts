@@ -41,7 +41,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findBenefactorPda } from "../pdas";
-import { JUP_STABLE_PROGRAM_ADDRESS } from "../programs";
+import { STABLECOIN_PROGRAM_ADDRESS } from "../programs";
 
 export const CREATE_BENEFACTOR_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([184, 241, 45, 0, 53, 40, 201, 54]);
@@ -53,7 +53,7 @@ export function getCreateBenefactorDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type CreateBenefactorInstruction<
-  TProgram extends string = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof STABLECOIN_PROGRAM_ADDRESS,
   TAccountOperatorAuthority extends string | AccountMeta<string> = string,
   TAccountOperator extends string | AccountMeta<string> = string,
   TAccountPayer extends string | AccountMeta<string> = string,
@@ -155,7 +155,7 @@ export async function getCreateBenefactorInstructionAsync<
   TAccountBenefactorAuthority extends string,
   TAccountBenefactor extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof STABLECOIN_PROGRAM_ADDRESS,
 >(
   input: CreateBenefactorAsyncInput<
     TAccountOperatorAuthority,
@@ -178,7 +178,7 @@ export async function getCreateBenefactorInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? JUP_STABLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? STABLECOIN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -267,7 +267,7 @@ export function getCreateBenefactorInstruction<
   TAccountBenefactorAuthority extends string,
   TAccountBenefactor extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof STABLECOIN_PROGRAM_ADDRESS,
 >(
   input: CreateBenefactorInput<
     TAccountOperatorAuthority,
@@ -288,7 +288,7 @@ export function getCreateBenefactorInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? JUP_STABLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? STABLECOIN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -345,7 +345,7 @@ export function getCreateBenefactorInstruction<
 }
 
 export type ParsedCreateBenefactorInstruction<
-  TProgram extends string = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof STABLECOIN_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

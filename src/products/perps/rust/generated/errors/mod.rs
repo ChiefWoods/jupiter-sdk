@@ -5,6 +5,6 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-pub(crate) mod perpetuals;
+pub(crate) mod perps;
 
-pub use self::perpetuals::PerpetualsError;
+pub use self::perps::PerpsError;

@@ -104,7 +104,7 @@ impl WithdrawWithMaxSharesBurn {
             accounts.push(solana_instruction::AccountMeta::new(claim_account, false));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::LENDING_ID,
+                crate::LEND_EARN_ID,
                 false,
             ));
         }
@@ -128,7 +128,7 @@ impl WithdrawWithMaxSharesBurn {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::LENDING_ID,
+                crate::LEND_EARN_ID,
                 false,
             ));
         }
@@ -144,7 +144,7 @@ impl WithdrawWithMaxSharesBurn {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::LENDING_ID,
+            program_id: crate::LEND_EARN_ID,
             accounts,
             data,
         }
@@ -602,7 +602,7 @@ impl<'a, 'b> WithdrawWithMaxSharesBurnCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::LENDING_ID,
+                crate::LEND_EARN_ID,
                 false,
             ));
         }
@@ -629,7 +629,7 @@ impl<'a, 'b> WithdrawWithMaxSharesBurnCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::LENDING_ID,
+                crate::LEND_EARN_ID,
                 false,
             ));
         }
@@ -651,7 +651,7 @@ impl<'a, 'b> WithdrawWithMaxSharesBurnCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::LENDING_ID,
+            program_id: crate::LEND_EARN_ID,
             accounts,
             data,
         };

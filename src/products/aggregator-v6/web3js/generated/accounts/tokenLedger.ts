@@ -9,6 +9,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const TOKEN_LEDGER_ACCOUNT_DISCRIMINATOR = new Uint8Array([156, 247, 9, 188, 54, 108, 85, 77]);
+
 export type TokenLedgerAccountData = { tokenAccount: Address; amount: bigint };
 
 export interface TokenLedgerAccount {
@@ -29,6 +31,9 @@ function getTokenLedgerAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeTokenLedgerAccount(data: Uint8Array): TokenLedgerAccountData {
+    if (!TOKEN_LEDGER_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('TOKENLEDGERACCOUNT discriminator mismatch');
+    }
     const deserialized = getTokenLedgerAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as TokenLedgerAccountData;

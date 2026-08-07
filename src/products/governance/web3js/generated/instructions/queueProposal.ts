@@ -1,5 +1,7 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { GOVERN_PROGRAM_ID } from '..';
+import { GOVERNANCE_PROGRAM_ID } from '../programs/governance';
+
+export const QUEUE_PROPOSAL_INSTRUCTION_DISCRIMINATOR = new Uint8Array([168, 219, 139, 211, 205, 152, 125, 110]);
 
 export interface QueueProposalInstructionAccounts {
     governor: Address;
@@ -13,9 +15,50 @@ export interface QueueProposalInstructionAccounts {
     program: Address;
 }
 
+export interface ParsedQueueProposalInstruction {
+    programId: Address;
+    accounts: {
+        governor: AccountMeta;
+        proposal: AccountMeta;
+        transaction: AccountMeta;
+        smartWallet: AccountMeta;
+        payer: AccountMeta;
+        smartWalletProgram: AccountMeta;
+        systemProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: {};
+}
+
+export function parseQueueProposalInstruction(instruction: TransactionInstruction): ParsedQueueProposalInstruction {
+    if (instruction.keys.length < 9) {
+        throw new Error('Expected 9 account metas for QueueProposal instruction');
+    }
+    if (!QUEUE_PROPOSAL_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('QueueProposal instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            governor: instruction.keys[0]!,
+            proposal: instruction.keys[1]!,
+            transaction: instruction.keys[2]!,
+            smartWallet: instruction.keys[3]!,
+            payer: instruction.keys[4]!,
+            smartWalletProgram: instruction.keys[5]!,
+            systemProgram: instruction.keys[6]!,
+            eventAuthority: instruction.keys[7]!,
+            program: instruction.keys[8]!,
+        },
+        data: {},
+    };
+}
+
 export function createQueueProposalInstruction(
     accounts: QueueProposalInstructionAccounts,
-    programId: Address = GOVERN_PROGRAM_ID,
+    programId: Address = GOVERNANCE_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.governor, isSigner: false, isWritable: false },
@@ -28,7 +71,13 @@ export function createQueueProposalInstruction(
         { pubkey: accounts.eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const data = Buffer.from('a8db8bd3cd987d6e', 'hex');
+    let data = Buffer.alloc(0);
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(QUEUE_PROPOSAL_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

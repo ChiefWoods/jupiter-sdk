@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { VAULTS_PROGRAM_ADDRESS } from "../programs";
+import { LEND_BORROW_PROGRAM_ADDRESS } from "../programs";
 
 export const UPDATE_LIQUIDATION_PENALTY_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([21, 168, 167, 206, 98, 206, 69, 32]);
@@ -50,7 +50,7 @@ export function getUpdateLiquidationPenaltyDiscriminatorBytes(): ReadonlyUint8Ar
 }
 
 export type UpdateLiquidationPenaltyInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountVaultAdmin extends string | AccountMeta<string> = string,
   TAccountVaultState extends string | AccountMeta<string> = string,
@@ -159,7 +159,7 @@ export function getUpdateLiquidationPenaltyInstruction<
   TAccountVaultConfig extends string,
   TAccountSupplyTokenReservesLiquidity extends string,
   TAccountBorrowTokenReservesLiquidity extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: UpdateLiquidationPenaltyInput<
     TAccountAuthority,
@@ -180,7 +180,7 @@ export function getUpdateLiquidationPenaltyInstruction<
   TAccountBorrowTokenReservesLiquidity
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -237,7 +237,7 @@ export function getUpdateLiquidationPenaltyInstruction<
 }
 
 export type ParsedUpdateLiquidationPenaltyInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

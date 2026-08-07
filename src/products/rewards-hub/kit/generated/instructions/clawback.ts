@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { GENIE_DISTRIBUTOR_PROGRAM_ADDRESS } from "../programs";
+import { REWARDS_HUB_PROGRAM_ADDRESS } from "../programs";
 
 export const CLAWBACK_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   111, 92, 142, 79, 33, 234, 82, 27,
@@ -47,7 +47,7 @@ export function getClawbackDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type ClawbackInstruction<
-  TProgram extends string = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgram extends string = typeof REWARDS_HUB_PROGRAM_ADDRESS,
   TAccountCampaign extends string | AccountMeta<string> = string,
   TAccountFrom extends string | AccountMeta<string> = string,
   TAccountTo extends string | AccountMeta<string> = string,
@@ -138,7 +138,7 @@ export function getClawbackInstruction<
   TAccountAdmin extends string,
   TAccountSystemProgram extends string,
   TAccountTokenProgram extends string,
-  TProgramAddress extends Address = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof REWARDS_HUB_PROGRAM_ADDRESS,
 >(
   input: ClawbackInput<
     TAccountCampaign,
@@ -159,8 +159,7 @@ export function getClawbackInstruction<
   TAccountTokenProgram
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? GENIE_DISTRIBUTOR_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? REWARDS_HUB_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -210,7 +209,7 @@ export function getClawbackInstruction<
 }
 
 export type ParsedClawbackInstruction<
-  TProgram extends string = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgram extends string = typeof REWARDS_HUB_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

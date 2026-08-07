@@ -117,7 +117,7 @@ impl RebalanceWithAmounts {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::LENDING_ID,
+            program_id: crate::LEND_EARN_ID,
             accounts,
             data,
         }
@@ -562,7 +562,7 @@ impl<'a, 'b> RebalanceWithAmountsCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::LENDING_ID,
+            program_id: crate::LEND_EARN_ID,
             accounts,
             data,
         };

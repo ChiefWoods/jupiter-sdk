@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { FLASHLOAN_PROGRAM_ADDRESS } from "../programs";
+import { LEND_FLASH_LOAN_PROGRAM_ADDRESS } from "../programs";
 
 export const FLASHLOAN_PAYBACK_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([213, 47, 153, 137, 84, 243, 94, 232]);
@@ -50,7 +50,7 @@ export function getFlashloanPaybackDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type FlashloanPaybackInstruction<
-  TProgram extends string = typeof FLASHLOAN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_FLASH_LOAN_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountFlashloanAdmin extends string | AccountMeta<string> = string,
   TAccountSignerBorrowTokenAccount extends string | AccountMeta<string> =
@@ -206,7 +206,7 @@ export function getFlashloanPaybackInstruction<
   TAccountAssociatedTokenProgram extends string,
   TAccountSystemProgram extends string,
   TAccountInstructionSysvar extends string,
-  TProgramAddress extends Address = typeof FLASHLOAN_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_FLASH_LOAN_PROGRAM_ADDRESS,
 >(
   input: FlashloanPaybackInput<
     TAccountSigner,
@@ -243,7 +243,8 @@ export function getFlashloanPaybackInstruction<
   TAccountInstructionSysvar
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? FLASHLOAN_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? LEND_FLASH_LOAN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -357,7 +358,7 @@ export function getFlashloanPaybackInstruction<
 }
 
 export type ParsedFlashloanPaybackInstruction<
-  TProgram extends string = typeof FLASHLOAN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_FLASH_LOAN_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -405,7 +406,7 @@ export function parseFlashloanPaybackInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === FLASHLOAN_PROGRAM_ADDRESS
+    return accountMeta.address === LEND_FLASH_LOAN_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

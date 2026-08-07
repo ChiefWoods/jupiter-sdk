@@ -7,5 +7,5 @@
 
 use solana_address::{address, Address};
 
-/// `prediction_market` program ID.
-pub const PREDICTION_MARKET_ID: Address = address!("3ZZuTbwC6aJbvteyVxXUS7gtFYdf7AuXeitx6VyvjvUp");
+/// `prediction` program ID.
+pub const PREDICTION_ID: Address = address!("3ZZuTbwC6aJbvteyVxXUS7gtFYdf7AuXeitx6VyvjvUp");

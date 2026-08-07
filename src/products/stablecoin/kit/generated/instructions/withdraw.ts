@@ -41,7 +41,7 @@ import {
   getAddressFromResolvedInstructionAccount,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { JUP_STABLE_PROGRAM_ADDRESS } from "../programs";
+import { STABLECOIN_PROGRAM_ADDRESS } from "../programs";
 
 export const WITHDRAW_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   183, 18, 70, 156, 148, 109, 161, 34,
@@ -52,7 +52,7 @@ export function getWithdrawDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type WithdrawInstruction<
-  TProgram extends string = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof STABLECOIN_PROGRAM_ADDRESS,
   TAccountOperatorAuthority extends string | AccountMeta<string> = string,
   TAccountOperator extends string | AccountMeta<string> = string,
   TAccountCustodian extends string | AccountMeta<string> = string,
@@ -174,7 +174,7 @@ export async function getWithdrawInstructionAsync<
   TAccountVaultTokenAccount extends string,
   TAccountVaultMint extends string,
   TAccountTokenProgram extends string,
-  TProgramAddress extends Address = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof STABLECOIN_PROGRAM_ADDRESS,
 >(
   input: WithdrawAsyncInput<
     TAccountOperatorAuthority,
@@ -205,7 +205,7 @@ export async function getWithdrawInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? JUP_STABLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? STABLECOIN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -338,7 +338,7 @@ export function getWithdrawInstruction<
   TAccountVaultTokenAccount extends string,
   TAccountVaultMint extends string,
   TAccountTokenProgram extends string,
-  TProgramAddress extends Address = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof STABLECOIN_PROGRAM_ADDRESS,
 >(
   input: WithdrawInput<
     TAccountOperatorAuthority,
@@ -367,7 +367,7 @@ export function getWithdrawInstruction<
   TAccountTokenProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? JUP_STABLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? STABLECOIN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -439,7 +439,7 @@ export function getWithdrawInstruction<
 }
 
 export type ParsedWithdrawInstruction<
-  TProgram extends string = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof STABLECOIN_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

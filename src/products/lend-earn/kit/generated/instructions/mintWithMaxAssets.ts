@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { LENDING_PROGRAM_ADDRESS } from "../programs";
+import { LEND_EARN_PROGRAM_ADDRESS } from "../programs";
 
 export const MINT_WITH_MAX_ASSETS_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([6, 94, 69, 122, 30, 179, 146, 171]);
@@ -50,7 +50,7 @@ export function getMintWithMaxAssetsDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type MintWithMaxAssetsInstruction<
-  TProgram extends string = typeof LENDING_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_EARN_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountDepositorTokenAccount extends string | AccountMeta<string> = string,
   TAccountRecipientTokenAccount extends string | AccountMeta<string> = string,
@@ -235,7 +235,7 @@ export function getMintWithMaxAssetsInstruction<
   TAccountTokenProgram extends string,
   TAccountAssociatedTokenProgram extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof LENDING_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_EARN_PROGRAM_ADDRESS,
 >(
   input: MintWithMaxAssetsInput<
     TAccountSigner,
@@ -278,7 +278,7 @@ export function getMintWithMaxAssetsInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LENDING_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_EARN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -397,7 +397,7 @@ export function getMintWithMaxAssetsInstruction<
 }
 
 export type ParsedMintWithMaxAssetsInstruction<
-  TProgram extends string = typeof LENDING_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_EARN_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -448,7 +448,7 @@ export function parseMintWithMaxAssetsInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === LENDING_PROGRAM_ADDRESS
+    return accountMeta.address === LEND_EARN_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

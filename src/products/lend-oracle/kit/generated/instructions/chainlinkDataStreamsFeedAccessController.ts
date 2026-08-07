@@ -37,7 +37,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { ORACLE_PROGRAM_ADDRESS } from "../programs";
+import { LEND_ORACLE_PROGRAM_ADDRESS } from "../programs";
 
 export const CHAINLINK_DATA_STREAMS_FEED_ACCESS_CONTROLLER_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([181, 88, 179, 151, 225, 38, 9, 6]);
@@ -49,7 +49,7 @@ export function getChainlinkDataStreamsFeedAccessControllerDiscriminatorBytes():
 }
 
 export type ChainlinkDataStreamsFeedAccessControllerInstruction<
-  TProgram extends string = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_ORACLE_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountChainlinkDsCache extends string | AccountMeta<string> = string,
   TRemainingAccounts extends readonly AccountMeta<string>[] = [],
@@ -120,7 +120,7 @@ export type ChainlinkDataStreamsFeedAccessControllerInput<
 export function getChainlinkDataStreamsFeedAccessControllerInstruction<
   TAccountAuthority extends string,
   TAccountChainlinkDsCache extends string,
-  TProgramAddress extends Address = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_ORACLE_PROGRAM_ADDRESS,
 >(
   input: ChainlinkDataStreamsFeedAccessControllerInput<
     TAccountAuthority,
@@ -133,7 +133,7 @@ export function getChainlinkDataStreamsFeedAccessControllerInstruction<
   TAccountChainlinkDsCache
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? ORACLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_ORACLE_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -169,7 +169,7 @@ export function getChainlinkDataStreamsFeedAccessControllerInstruction<
 }
 
 export type ParsedChainlinkDataStreamsFeedAccessControllerInstruction<
-  TProgram extends string = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_ORACLE_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

@@ -39,7 +39,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findLendingRewardsAdminPda } from "../pdas";
-import { LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS } from "../programs";
+import { LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS } from "../programs";
 
 export const INIT_LENDING_REWARDS_ADMIN_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([202, 36, 47, 209, 3, 201, 173, 94]);
@@ -51,7 +51,8 @@ export function getInitLendingRewardsAdminDiscriminatorBytes(): ReadonlyUint8Arr
 }
 
 export type InitLendingRewardsAdminInstruction<
-  TProgram extends string = typeof LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
+  TProgram extends string =
+    typeof LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountLendingRewardsAdmin extends string | AccountMeta<string> = string,
   TAccountSystemProgram extends string | AccountMeta<string> =
@@ -135,7 +136,7 @@ export async function getInitLendingRewardsAdminInstructionAsync<
   TAccountLendingRewardsAdmin extends string,
   TAccountSystemProgram extends string,
   TProgramAddress extends Address =
-    typeof LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
+    typeof LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
 >(
   input: InitLendingRewardsAdminAsyncInput<
     TAccountSigner,
@@ -153,7 +154,7 @@ export async function getInitLendingRewardsAdminInstructionAsync<
 > {
   // Program address.
   const programAddress =
-    config?.programAddress ?? LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS;
+    config?.programAddress ?? LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -217,7 +218,7 @@ export function getInitLendingRewardsAdminInstruction<
   TAccountLendingRewardsAdmin extends string,
   TAccountSystemProgram extends string,
   TProgramAddress extends Address =
-    typeof LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
+    typeof LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
 >(
   input: InitLendingRewardsAdminInput<
     TAccountSigner,
@@ -233,7 +234,7 @@ export function getInitLendingRewardsAdminInstruction<
 > {
   // Program address.
   const programAddress =
-    config?.programAddress ?? LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS;
+    config?.programAddress ?? LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -278,7 +279,8 @@ export function getInitLendingRewardsAdminInstruction<
 }
 
 export type ParsedInitLendingRewardsAdminInstruction<
-  TProgram extends string = typeof LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
+  TProgram extends string =
+    typeof LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

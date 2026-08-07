@@ -85,7 +85,7 @@ impl ExactOutRouteV2 {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::JUPITER_ID,
+                crate::AGGREGATOR_V6_ID,
                 false,
             ));
         }
@@ -103,7 +103,7 @@ impl ExactOutRouteV2 {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::JUPITER_ID,
+            program_id: crate::AGGREGATOR_V6_ID,
             accounts,
             data,
         }
@@ -482,7 +482,7 @@ impl<'a, 'b> ExactOutRouteV2Cpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::JUPITER_ID,
+                crate::AGGREGATOR_V6_ID,
                 false,
             ));
         }
@@ -506,7 +506,7 @@ impl<'a, 'b> ExactOutRouteV2Cpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::JUPITER_ID,
+            program_id: crate::AGGREGATOR_V6_ID,
             accounts,
             data,
         };

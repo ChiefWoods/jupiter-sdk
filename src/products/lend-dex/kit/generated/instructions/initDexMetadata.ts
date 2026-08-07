@@ -42,7 +42,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findDexMetadataPda, findDexPda } from "../pdas";
-import { DEX_PROGRAM_ADDRESS } from "../programs";
+import { LEND_DEX_PROGRAM_ADDRESS } from "../programs";
 
 export const INIT_DEX_METADATA_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([114, 167, 144, 220, 143, 73, 224, 8]);
@@ -54,7 +54,7 @@ export function getInitDexMetadataDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type InitDexMetadataInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountDexAdmin extends string | AccountMeta<string> = string,
   TAccountDex extends string | AccountMeta<string> = string,
@@ -146,7 +146,7 @@ export async function getInitDexMetadataInstructionAsync<
   TAccountDex extends string,
   TAccountDexMetadata extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof DEX_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_DEX_PROGRAM_ADDRESS,
 >(
   input: InitDexMetadataAsyncInput<
     TAccountAuthority,
@@ -167,7 +167,7 @@ export async function getInitDexMetadataInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? DEX_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_DEX_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -246,7 +246,7 @@ export function getInitDexMetadataInstruction<
   TAccountDex extends string,
   TAccountDexMetadata extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof DEX_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_DEX_PROGRAM_ADDRESS,
 >(
   input: InitDexMetadataInput<
     TAccountAuthority,
@@ -265,7 +265,7 @@ export function getInitDexMetadataInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? DEX_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_DEX_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -313,7 +313,7 @@ export function getInitDexMetadataInstruction<
 }
 
 export type ParsedInitDexMetadataInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

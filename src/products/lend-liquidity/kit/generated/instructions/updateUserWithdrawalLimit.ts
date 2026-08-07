@@ -40,7 +40,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
+import { LEND_LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
 
 export const UPDATE_USER_WITHDRAWAL_LIMIT_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([162, 9, 186, 9, 213, 30, 173, 78]);
@@ -52,7 +52,7 @@ export function getUpdateUserWithdrawalLimitDiscriminatorBytes(): ReadonlyUint8A
 }
 
 export type UpdateUserWithdrawalLimitInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountAuthList extends string | AccountMeta<string> = string,
   TAccountUserSupplyPosition extends string | AccountMeta<string> = string,
@@ -139,7 +139,7 @@ export function getUpdateUserWithdrawalLimitInstruction<
   TAccountAuthority extends string,
   TAccountAuthList extends string,
   TAccountUserSupplyPosition extends string,
-  TProgramAddress extends Address = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
 >(
   input: UpdateUserWithdrawalLimitInput<
     TAccountAuthority,
@@ -154,7 +154,8 @@ export function getUpdateUserWithdrawalLimitInstruction<
   TAccountUserSupplyPosition
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LIQUIDITY_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? LEND_LIQUIDITY_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -193,7 +194,7 @@ export function getUpdateUserWithdrawalLimitInstruction<
 }
 
 export type ParsedUpdateUserWithdrawalLimitInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

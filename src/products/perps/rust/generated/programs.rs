@@ -7,5 +7,5 @@
 
 use solana_address::{address, Address};
 
-/// `perpetuals` program ID.
-pub const PERPETUALS_ID: Address = address!("PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu");
+/// `perps` program ID.
+pub const PERPS_ID: Address = address!("PERPHjGBqRHArX4DySjwM6UJHiR3sWAatqfdBS2qQJu");

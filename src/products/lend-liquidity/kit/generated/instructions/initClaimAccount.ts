@@ -40,7 +40,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findClaimAccountPda } from "../pdas";
-import { LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
+import { LEND_LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
 
 export const INIT_CLAIM_ACCOUNT_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([112, 141, 47, 170, 42, 99, 144, 145]);
@@ -52,7 +52,7 @@ export function getInitClaimAccountDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type InitClaimAccountInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountClaimAccount extends string | AccountMeta<string> = string,
   TAccountSystemProgram extends string | AccountMeta<string> =
@@ -132,7 +132,7 @@ export async function getInitClaimAccountInstructionAsync<
   TAccountSigner extends string,
   TAccountClaimAccount extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
 >(
   input: InitClaimAccountAsyncInput<
     TAccountSigner,
@@ -149,7 +149,8 @@ export async function getInitClaimAccountInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LIQUIDITY_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? LEND_LIQUIDITY_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -212,7 +213,7 @@ export function getInitClaimAccountInstruction<
   TAccountSigner extends string,
   TAccountClaimAccount extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
 >(
   input: InitClaimAccountInput<
     TAccountSigner,
@@ -227,7 +228,8 @@ export function getInitClaimAccountInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LIQUIDITY_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? LEND_LIQUIDITY_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -269,7 +271,7 @@ export function getInitClaimAccountInstruction<
 }
 
 export type ParsedInitClaimAccountInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

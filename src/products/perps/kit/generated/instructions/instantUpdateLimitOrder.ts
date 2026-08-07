@@ -40,7 +40,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const INSTANT_UPDATE_LIMIT_ORDER_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([136, 245, 229, 58, 121, 141, 12, 207]);
@@ -52,7 +52,7 @@ export function getInstantUpdateLimitOrderDiscriminatorBytes(): ReadonlyUint8Arr
 }
 
 export type InstantUpdateLimitOrderInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountKeeper extends string | AccountMeta<string> = string,
   TAccountApiKeeper extends string | AccountMeta<string> = string,
   TAccountOwner extends string | AccountMeta<string> = string,
@@ -192,7 +192,7 @@ export function getInstantUpdateLimitOrderInstruction<
   TAccountCustody extends string,
   TAccountCustodyDovesPriceAccount extends string,
   TAccountCustodyPythnetPriceAccount extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: InstantUpdateLimitOrderInput<
     TAccountKeeper,
@@ -221,7 +221,7 @@ export function getInstantUpdateLimitOrderInstruction<
   TAccountCustodyPythnetPriceAccount
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -290,7 +290,7 @@ export function getInstantUpdateLimitOrderInstruction<
 }
 
 export type ParsedInstantUpdateLimitOrderInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

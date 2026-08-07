@@ -118,7 +118,7 @@ impl IncreasePosition4 {
             .unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::PERPETUALS_ID,
+            program_id: crate::PERPS_ID,
             accounts,
             data,
         }
@@ -545,7 +545,7 @@ impl<'a, 'b> IncreasePosition4Cpi<'a, 'b> {
             .unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::PERPETUALS_ID,
+            program_id: crate::PERPS_ID,
             accounts,
             data,
         };

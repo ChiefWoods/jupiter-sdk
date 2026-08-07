@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS } from "../programs";
+import { LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS } from "../programs";
 
 export const START_REWARDS_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   62, 183, 108, 14, 161, 145, 121, 115,
@@ -51,7 +51,8 @@ export function getStartRewardsDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type StartRewardsInstruction<
-  TProgram extends string = typeof LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
+  TProgram extends string =
+    typeof LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountLendingRewardsAdmin extends string | AccountMeta<string> = string,
   TAccountLendingAccount extends string | AccountMeta<string> = string,
@@ -177,7 +178,7 @@ export function getStartRewardsInstruction<
   TAccountLendingRewardsRateModel extends string,
   TAccountLendingProgram extends string,
   TProgramAddress extends Address =
-    typeof LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
+    typeof LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
 >(
   input: StartRewardsInput<
     TAccountAuthority,
@@ -203,7 +204,7 @@ export function getStartRewardsInstruction<
 > {
   // Program address.
   const programAddress =
-    config?.programAddress ?? LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS;
+    config?.programAddress ?? LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -269,7 +270,8 @@ export function getStartRewardsInstruction<
 }
 
 export type ParsedStartRewardsInstruction<
-  TProgram extends string = typeof LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
+  TProgram extends string =
+    typeof LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

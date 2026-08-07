@@ -14,6 +14,8 @@ import {
 import { getDexPegOracleKindDecoder, type DexPegOracleKind } from '../types/dexPegOracleKind';
 import { getSourcesDecoder, type Sources } from '../types/sources';
 
+export const DEX_PEG_ORACLE_CONFIG_ACCOUNT_DISCRIMINATOR = new Uint8Array([59, 189, 99, 149, 128, 5, 255, 72]);
+
 export type DexPegOracleConfigAccountData = {
     nonce: number;
     dex: Address;
@@ -95,6 +97,9 @@ function getDexPegOracleConfigAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeDexPegOracleConfigAccount(data: Uint8Array): DexPegOracleConfigAccountData {
+    if (!DEX_PEG_ORACLE_CONFIG_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('DEXPEGORACLECONFIGACCOUNT discriminator mismatch');
+    }
     const deserialized = getDexPegOracleConfigAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as DexPegOracleConfigAccountData;

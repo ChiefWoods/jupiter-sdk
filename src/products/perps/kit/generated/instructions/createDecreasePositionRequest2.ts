@@ -44,7 +44,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 import {
   getRequestTypeDecoder,
   getRequestTypeEncoder,
@@ -62,7 +62,7 @@ export function getCreateDecreasePositionRequest2DiscriminatorBytes(): ReadonlyU
 }
 
 export type CreateDecreasePositionRequest2Instruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountOwner extends string | AccountMeta<string> = string,
   TAccountReceivingAccount extends string | AccountMeta<string> = string,
   TAccountPerpetuals extends string | AccountMeta<string> = string,
@@ -288,7 +288,7 @@ export function getCreateDecreasePositionRequest2Instruction<
   TAccountSystemProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: CreateDecreasePositionRequest2Input<
     TAccountOwner,
@@ -333,7 +333,7 @@ export function getCreateDecreasePositionRequest2Instruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -448,7 +448,7 @@ export function getCreateDecreasePositionRequest2Instruction<
 }
 
 export type ParsedCreateDecreasePositionRequest2Instruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -500,7 +500,7 @@ export function parseCreateDecreasePositionRequest2Instruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === PERPETUALS_PROGRAM_ADDRESS
+    return accountMeta.address === PERPS_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

@@ -39,7 +39,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findLendingAdminPda } from "../pdas";
-import { LENDING_PROGRAM_ADDRESS } from "../programs";
+import { LEND_EARN_PROGRAM_ADDRESS } from "../programs";
 
 export const INIT_LENDING_ADMIN_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([203, 185, 241, 165, 56, 254, 33, 9]);
@@ -51,7 +51,7 @@ export function getInitLendingAdminDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type InitLendingAdminInstruction<
-  TProgram extends string = typeof LENDING_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_EARN_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountLendingAdmin extends string | AccountMeta<string> = string,
   TAccountSystemProgram extends string | AccountMeta<string> =
@@ -136,7 +136,7 @@ export async function getInitLendingAdminInstructionAsync<
   TAccountAuthority extends string,
   TAccountLendingAdmin extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof LENDING_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_EARN_PROGRAM_ADDRESS,
 >(
   input: InitLendingAdminAsyncInput<
     TAccountAuthority,
@@ -153,7 +153,7 @@ export async function getInitLendingAdminInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LENDING_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_EARN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -214,7 +214,7 @@ export function getInitLendingAdminInstruction<
   TAccountAuthority extends string,
   TAccountLendingAdmin extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof LENDING_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_EARN_PROGRAM_ADDRESS,
 >(
   input: InitLendingAdminInput<
     TAccountAuthority,
@@ -229,7 +229,7 @@ export function getInitLendingAdminInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LENDING_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_EARN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -271,7 +271,7 @@ export function getInitLendingAdminInstruction<
 }
 
 export type ParsedInitLendingAdminInstruction<
-  TProgram extends string = typeof LENDING_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_EARN_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

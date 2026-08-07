@@ -49,7 +49,7 @@ impl UpdateVestingEscrowRecipient {
             accounts.push(solana_instruction::AccountMeta::new(escrow_metadata, false));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::LOCKER_ID,
+                crate::LOCK_ID,
                 false,
             ));
         }
@@ -74,7 +74,7 @@ impl UpdateVestingEscrowRecipient {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::LOCKER_ID,
+            program_id: crate::LOCK_ID,
             accounts,
             data,
         }
@@ -320,7 +320,7 @@ impl<'a, 'b> UpdateVestingEscrowRecipientCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::LOCKER_ID,
+                crate::LOCK_ID,
                 false,
             ));
         }
@@ -351,7 +351,7 @@ impl<'a, 'b> UpdateVestingEscrowRecipientCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::LOCKER_ID,
+            program_id: crate::LOCK_ID,
             accounts,
             data,
         };

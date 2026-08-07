@@ -117,7 +117,7 @@ impl anchor_lang::AccountSerialize for OracleAdmin {}
 #[cfg(feature = "anchor")]
 impl anchor_lang::Owner for OracleAdmin {
     fn owner() -> anchor_lang::solana_program::pubkey::Pubkey {
-        anchor_lang::solana_program::pubkey::Pubkey::from(crate::ORACLE_ID.to_bytes())
+        anchor_lang::solana_program::pubkey::Pubkey::from(crate::LEND_ORACLE_ID.to_bytes())
     }
 }
 

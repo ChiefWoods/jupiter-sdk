@@ -109,7 +109,7 @@ impl Rebalance {
         let data = RebalanceInstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::LENDING_ID,
+            program_id: crate::LEND_EARN_ID,
             accounts,
             data,
         }
@@ -525,7 +525,7 @@ impl<'a, 'b> RebalanceCpi<'a, 'b> {
         let data = RebalanceInstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::LENDING_ID,
+            program_id: crate::LEND_EARN_ID,
             accounts,
             data,
         };

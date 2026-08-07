@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const TEST_INIT_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   48, 51, 92, 122, 81, 19, 112, 41,
@@ -49,7 +49,7 @@ export function getTestInitDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type TestInitInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountUpgradeAuthority extends string | AccountMeta<string> = string,
   TAccountAdmin extends string | AccountMeta<string> = string,
   TAccountTransferAuthority extends string | AccountMeta<string> = string,
@@ -176,7 +176,7 @@ export function getTestInitInstruction<
   TAccountPerpetuals extends string,
   TAccountSystemProgram extends string,
   TAccountTokenProgram extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: TestInitInput<
     TAccountUpgradeAuthority,
@@ -197,7 +197,7 @@ export function getTestInitInstruction<
   TAccountTokenProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -258,7 +258,7 @@ export function getTestInitInstruction<
 }
 
 export type ParsedTestInitInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

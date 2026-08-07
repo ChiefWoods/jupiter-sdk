@@ -42,7 +42,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findEventAuthorityPda } from "../pdas";
-import { JUP_STABLE_PROGRAM_ADDRESS } from "../programs";
+import { STABLECOIN_PROGRAM_ADDRESS } from "../programs";
 
 export const MINT_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   51, 57, 225, 47, 182, 146, 137, 166,
@@ -53,7 +53,7 @@ export function getMintDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type MintInstruction<
-  TProgram extends string = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof STABLECOIN_PROGRAM_ADDRESS,
   TAccountUser extends string | AccountMeta<string> = string,
   TAccountUserCollateralTokenAccount extends string | AccountMeta<string> =
     string,
@@ -224,7 +224,7 @@ export async function getMintInstructionAsync<
   TAccountSystemProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof STABLECOIN_PROGRAM_ADDRESS,
 >(
   input: MintAsyncInput<
     TAccountUser,
@@ -267,7 +267,7 @@ export async function getMintInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? JUP_STABLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? STABLECOIN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -446,7 +446,7 @@ export function getMintInstruction<
   TAccountSystemProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof STABLECOIN_PROGRAM_ADDRESS,
 >(
   input: MintInput<
     TAccountUser,
@@ -487,7 +487,7 @@ export function getMintInstruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? JUP_STABLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? STABLECOIN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -583,7 +583,7 @@ export function getMintInstruction<
 }
 
 export type ParsedMintInstruction<
-  TProgram extends string = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof STABLECOIN_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

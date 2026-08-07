@@ -1,7 +1,16 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { OFFERBOOK_PROGRAM_ID } from '..';
+import { OFFERBOOK_PROGRAM_ID } from '../programs/offerbook';
 import { findEventAuthorityPda } from '../pdas/eventAuthority';
-import { getStructEncoder, getU64Encoder, type Encoder } from '@solana/codecs';
+import {
+    getStructDecoder,
+    getStructEncoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+export const ESCROW_TOKEN_WITHDRAW_INSTRUCTION_DISCRIMINATOR = new Uint8Array([183, 204, 14, 69, 17, 76, 223, 105]);
 
 export interface EscrowTokenWithdrawInstructionAccounts {
     signer: Address;
@@ -20,6 +29,51 @@ export interface EscrowTokenWithdrawInstructionArgs {
 
 function getEscrowTokenWithdrawInstructionDataEncoder(): Encoder<EscrowTokenWithdrawInstructionArgs> {
     return getStructEncoder([['amount', getU64Encoder()]]);
+}
+
+function getEscrowTokenWithdrawInstructionDataDecoder(): Decoder<EscrowTokenWithdrawInstructionArgs> {
+    return getStructDecoder([['amount', getU64Decoder()]]);
+}
+
+export interface ParsedEscrowTokenWithdrawInstruction {
+    programId: Address;
+    accounts: {
+        signer: AccountMeta;
+        signerTokenAccount: AccountMeta;
+        signerUser: AccountMeta;
+        userEscrowTokenAccount: AccountMeta;
+        mint: AccountMeta;
+        tokenProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: EscrowTokenWithdrawInstructionArgs;
+}
+
+export function parseEscrowTokenWithdrawInstruction(
+    instruction: TransactionInstruction,
+): ParsedEscrowTokenWithdrawInstruction {
+    if (instruction.keys.length < 8) {
+        throw new Error('Expected 8 account metas for EscrowTokenWithdraw instruction');
+    }
+    if (!ESCROW_TOKEN_WITHDRAW_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('EscrowTokenWithdraw instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            signer: instruction.keys[0]!,
+            signerTokenAccount: instruction.keys[1]!,
+            signerUser: instruction.keys[2]!,
+            userEscrowTokenAccount: instruction.keys[3]!,
+            mint: instruction.keys[4]!,
+            tokenProgram: instruction.keys[5]!,
+            eventAuthority: instruction.keys[6]!,
+            program: instruction.keys[7]!,
+        },
+        data: getEscrowTokenWithdrawInstructionDataDecoder().decode(instructionData),
+    };
 }
 
 export async function createEscrowTokenWithdrawInstruction(
@@ -42,9 +96,13 @@ export async function createEscrowTokenWithdrawInstruction(
         { pubkey: eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getEscrowTokenWithdrawInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('b7cc0e45114cdf69', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getEscrowTokenWithdrawInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(ESCROW_TOKEN_WITHDRAW_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

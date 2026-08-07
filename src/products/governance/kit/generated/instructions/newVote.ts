@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { GOVERN_PROGRAM_ADDRESS } from "../programs";
+import { GOVERNANCE_PROGRAM_ADDRESS } from "../programs";
 
 export const NEW_VOTE_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   163, 108, 157, 189, 140, 80, 13, 143,
@@ -49,7 +49,7 @@ export function getNewVoteDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type NewVoteInstruction<
-  TProgram extends string = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof GOVERNANCE_PROGRAM_ADDRESS,
   TAccountProposal extends string | AccountMeta<string> = string,
   TAccountVote extends string | AccountMeta<string> = string,
   TAccountPayer extends string | AccountMeta<string> = string,
@@ -133,7 +133,7 @@ export function getNewVoteInstruction<
   TAccountVote extends string,
   TAccountPayer extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof GOVERNANCE_PROGRAM_ADDRESS,
 >(
   input: NewVoteInput<
     TAccountProposal,
@@ -150,7 +150,7 @@ export function getNewVoteInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? GOVERN_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? GOVERNANCE_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -195,7 +195,7 @@ export function getNewVoteInstruction<
 }
 
 export type ParsedNewVoteInstruction<
-  TProgram extends string = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof GOVERNANCE_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

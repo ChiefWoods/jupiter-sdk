@@ -33,7 +33,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS } from "../programs";
+import { LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS } from "../programs";
 
 export const TRANSITION_TO_NEXT_REWARDS_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([167, 50, 233, 93, 0, 178, 154, 247]);
@@ -45,7 +45,8 @@ export function getTransitionToNextRewardsDiscriminatorBytes(): ReadonlyUint8Arr
 }
 
 export type TransitionToNextRewardsInstruction<
-  TProgram extends string = typeof LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
+  TProgram extends string =
+    typeof LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
   TAccountLendingRewardsAdmin extends string | AccountMeta<string> = string,
   TAccountLendingAccount extends string | AccountMeta<string> = string,
   TAccountMint extends string | AccountMeta<string> = string,
@@ -143,7 +144,7 @@ export function getTransitionToNextRewardsInstruction<
   TAccountLendingRewardsRateModel extends string,
   TAccountLendingProgram extends string,
   TProgramAddress extends Address =
-    typeof LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
+    typeof LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
 >(
   input: TransitionToNextRewardsInput<
     TAccountLendingRewardsAdmin,
@@ -167,7 +168,7 @@ export function getTransitionToNextRewardsInstruction<
 > {
   // Program address.
   const programAddress =
-    config?.programAddress ?? LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS;
+    config?.programAddress ?? LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -225,7 +226,8 @@ export function getTransitionToNextRewardsInstruction<
 }
 
 export type ParsedTransitionToNextRewardsInstruction<
-  TProgram extends string = typeof LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
+  TProgram extends string =
+    typeof LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

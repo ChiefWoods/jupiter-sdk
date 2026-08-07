@@ -40,7 +40,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { DEX_PROGRAM_ADDRESS } from "../programs";
+import { LEND_DEX_PROGRAM_ADDRESS } from "../programs";
 
 export const SWAP_IN_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   141, 172, 10, 208, 69, 9, 56, 154,
@@ -51,7 +51,7 @@ export function getSwapInDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type SwapInInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountDex extends string | AccountMeta<string> = string,
   TAccountUserToken0Account extends string | AccountMeta<string> = string,
@@ -287,7 +287,7 @@ export function getSwapInInstruction<
   TAccountToken0Program extends string,
   TAccountToken1Program extends string,
   TAccountOracleProgram extends string,
-  TProgramAddress extends Address = typeof DEX_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_DEX_PROGRAM_ADDRESS,
 >(
   input: SwapInInput<
     TAccountSigner,
@@ -344,7 +344,7 @@ export function getSwapInInstruction<
   TAccountOracleProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? DEX_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_DEX_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -488,7 +488,7 @@ export function getSwapInInstruction<
 }
 
 export type ParsedSwapInInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -553,7 +553,7 @@ export function parseSwapInInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === DEX_PROGRAM_ADDRESS
+    return accountMeta.address === LEND_DEX_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

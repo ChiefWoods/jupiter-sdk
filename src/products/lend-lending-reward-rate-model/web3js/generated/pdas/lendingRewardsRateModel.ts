@@ -1,5 +1,5 @@
 import { Address } from '@solana/web3.js';
-import { LENDINGREWARDRATEMODEL_PROGRAM_ID } from '..';
+import { LENDLENDINGREWARDRATEMODEL_PROGRAM_ID } from '../programs/lendLendingRewardRateModel';
 
 export interface LendingRewardsRateModelPdaSeeds {
     mint: Address;
@@ -7,7 +7,7 @@ export interface LendingRewardsRateModelPdaSeeds {
 
 export async function findLendingRewardsRateModelPda(
     seeds: LendingRewardsRateModelPdaSeeds,
-    programId: Address = LENDINGREWARDRATEMODEL_PROGRAM_ID,
+    programId: Address = LENDLENDINGREWARDRATEMODEL_PROGRAM_ID,
 ): Promise<[Address, number]> {
     const seedsBuffer: Uint8Array[] = [Buffer.from('lending_rewards_rate_model', 'utf8'), seeds.mint.toBytes()];
     return await Address.findProgramAddress(seedsBuffer, programId);

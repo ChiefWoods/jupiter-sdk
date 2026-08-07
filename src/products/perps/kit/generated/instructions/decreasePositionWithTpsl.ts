@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const DECREASE_POSITION_WITH_TPSL_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([108, 18, 203, 209, 227, 103, 65, 165]);
@@ -48,7 +48,7 @@ export function getDecreasePositionWithTpslDiscriminatorBytes(): ReadonlyUint8Ar
 }
 
 export type DecreasePositionWithTpslInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountKeeper extends string | AccountMeta<string> = string,
   TAccountOwner extends string | AccountMeta<string> = string,
   TAccountTransferAuthority extends string | AccountMeta<string> = string,
@@ -212,7 +212,7 @@ export function getDecreasePositionWithTpslInstruction<
   TAccountTokenProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: DecreasePositionWithTpslInput<
     TAccountKeeper,
@@ -253,7 +253,7 @@ export function getDecreasePositionWithTpslInstruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -356,7 +356,7 @@ export function getDecreasePositionWithTpslInstruction<
 }
 
 export type ParsedDecreasePositionWithTpslInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

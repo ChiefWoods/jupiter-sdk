@@ -121,7 +121,7 @@ impl anchor_lang::AccountSerialize for LendingAdmin {}
 #[cfg(feature = "anchor")]
 impl anchor_lang::Owner for LendingAdmin {
     fn owner() -> anchor_lang::solana_program::pubkey::Pubkey {
-        anchor_lang::solana_program::pubkey::Pubkey::from(crate::LENDING_ID.to_bytes())
+        anchor_lang::solana_program::pubkey::Pubkey::from(crate::LEND_EARN_ID.to_bytes())
     }
 }
 

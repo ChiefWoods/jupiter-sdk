@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { GOVERN_PROGRAM_ADDRESS } from "../programs";
+import { GOVERNANCE_PROGRAM_ADDRESS } from "../programs";
 
 export const ACTIVATE_PROPOSAL_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([90, 186, 203, 234, 70, 185, 191, 21]);
@@ -48,7 +48,7 @@ export function getActivateProposalDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type ActivateProposalInstruction<
-  TProgram extends string = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof GOVERNANCE_PROGRAM_ADDRESS,
   TAccountGovernor extends string | AccountMeta<string> = string,
   TAccountProposal extends string | AccountMeta<string> = string,
   TAccountLocker extends string | AccountMeta<string> = string,
@@ -117,7 +117,7 @@ export function getActivateProposalInstruction<
   TAccountGovernor extends string,
   TAccountProposal extends string,
   TAccountLocker extends string,
-  TProgramAddress extends Address = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof GOVERNANCE_PROGRAM_ADDRESS,
 >(
   input: ActivateProposalInput<
     TAccountGovernor,
@@ -132,7 +132,7 @@ export function getActivateProposalInstruction<
   TAccountLocker
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? GOVERN_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? GOVERNANCE_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -163,7 +163,7 @@ export function getActivateProposalInstruction<
 }
 
 export type ParsedActivateProposalInstruction<
-  TProgram extends string = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof GOVERNANCE_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

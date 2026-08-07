@@ -35,7 +35,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
+import { LEND_LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
 
 export const UPDATE_EXCHANGE_PRICE_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([239, 244, 10, 248, 116, 25, 53, 150]);
@@ -47,7 +47,7 @@ export function getUpdateExchangePriceDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type UpdateExchangePriceInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountTokenReserve extends string | AccountMeta<string> = string,
   TAccountRateModel extends string | AccountMeta<string> = string,
   TRemainingAccounts extends readonly AccountMeta<string>[] = [],
@@ -114,7 +114,7 @@ export type UpdateExchangePriceInput<
 export function getUpdateExchangePriceInstruction<
   TAccountTokenReserve extends string,
   TAccountRateModel extends string,
-  TProgramAddress extends Address = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
 >(
   input: UpdateExchangePriceInput<TAccountTokenReserve, TAccountRateModel>,
   config?: { programAddress?: TProgramAddress },
@@ -124,7 +124,8 @@ export function getUpdateExchangePriceInstruction<
   TAccountRateModel
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LIQUIDITY_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? LEND_LIQUIDITY_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -157,7 +158,7 @@ export function getUpdateExchangePriceInstruction<
 }
 
 export type ParsedUpdateExchangePriceInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

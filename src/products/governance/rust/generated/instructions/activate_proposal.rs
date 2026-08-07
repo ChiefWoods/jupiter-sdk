@@ -45,7 +45,7 @@ impl ActivateProposal {
         let data = ActivateProposalInstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::GOVERN_ID,
+            program_id: crate::GOVERNANCE_ID,
             accounts,
             data,
         }
@@ -219,7 +219,7 @@ impl<'a, 'b> ActivateProposalCpi<'a, 'b> {
         let data = ActivateProposalInstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::GOVERN_ID,
+            program_id: crate::GOVERNANCE_ID,
             accounts,
             data,
         };

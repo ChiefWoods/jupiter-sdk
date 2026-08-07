@@ -9,6 +9,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const ORACLE_ADMIN_ACCOUNT_DISCRIMINATOR = new Uint8Array([239, 232, 8, 20, 254, 63, 25, 246]);
+
 export type OracleAdminAccountData = { authority: Address; auths: Array<Address> };
 
 export interface OracleAdminAccount {
@@ -32,6 +34,9 @@ function getOracleAdminAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeOracleAdminAccount(data: Uint8Array): OracleAdminAccountData {
+    if (!ORACLE_ADMIN_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('ORACLEADMINACCOUNT discriminator mismatch');
+    }
     const deserialized = getOracleAdminAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as OracleAdminAccountData;

@@ -48,7 +48,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PREDICTION_MARKET_PROGRAM_ADDRESS } from "../programs";
+import { PREDICTION_PROGRAM_ADDRESS } from "../programs";
 
 export const CREATE_MARKET_RESULT_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([51, 39, 218, 9, 68, 94, 136, 115]);
@@ -60,7 +60,7 @@ export function getCreateMarketResultDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type CreateMarketResultInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountMarketResult extends string | AccountMeta<string> = string,
   TAccountSystemProgram extends string | AccountMeta<string> =
@@ -155,7 +155,7 @@ export function getCreateMarketResultInstruction<
   TAccountAuthority extends string,
   TAccountMarketResult extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PREDICTION_PROGRAM_ADDRESS,
 >(
   input: CreateMarketResultInput<
     TAccountAuthority,
@@ -170,8 +170,7 @@ export function getCreateMarketResultInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? PREDICTION_MARKET_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PREDICTION_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -213,7 +212,7 @@ export function getCreateMarketResultInstruction<
 }
 
 export type ParsedCreateMarketResultInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

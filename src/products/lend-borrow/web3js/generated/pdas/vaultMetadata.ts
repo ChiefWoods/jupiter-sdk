@@ -1,5 +1,5 @@
 import { Address } from '@solana/web3.js';
-import { VAULTS_PROGRAM_ID } from '..';
+import { LENDBORROW_PROGRAM_ID } from '../programs/lendBorrow';
 
 export interface VaultMetadataPdaSeeds {
     vaultId: number;
@@ -7,7 +7,7 @@ export interface VaultMetadataPdaSeeds {
 
 export async function findVaultMetadataPda(
     seeds: VaultMetadataPdaSeeds,
-    programId: Address = VAULTS_PROGRAM_ID,
+    programId: Address = LENDBORROW_PROGRAM_ID,
 ): Promise<[Address, number]> {
     const seedsBuffer: Uint8Array[] = [
         Buffer.from('vault_metadata', 'utf8'),

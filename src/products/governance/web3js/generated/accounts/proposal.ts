@@ -15,6 +15,8 @@ import {
 import { getProposalInstructionDecoder, type ProposalInstruction } from '../types/proposalInstruction';
 import { getVotingRewardDecoder, type VotingReward } from '../types/votingReward';
 
+export const PROPOSAL_ACCOUNT_DISCRIMINATOR = new Uint8Array([26, 94, 189, 187, 116, 136, 53, 33]);
+
 export type ProposalAccountData = {
     /** The public key of the governor. */
     governor: Address;
@@ -138,6 +140,9 @@ function getProposalAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeProposalAccount(data: Uint8Array): ProposalAccountData {
+    if (!PROPOSAL_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('PROPOSALACCOUNT discriminator mismatch');
+    }
     const deserialized = getProposalAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as ProposalAccountData;

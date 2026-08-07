@@ -1,0 +1,114 @@
+export const LEND_LENDING_REWARD_RATE_MODEL_ERROR__INVALID_PARAMS = 0x1770; // 6000
+export const LEND_LENDING_REWARD_RATE_MODEL_ERROR__ALREADY_STOPPED = 0x1771; // 6001
+export const LEND_LENDING_REWARD_RATE_MODEL_ERROR__NEXT_REWARDS_QUEUED = 0x1772; // 6002
+export const LEND_LENDING_REWARD_RATE_MODEL_ERROR__NOT_ENDED = 0x1773; // 6003
+export const LEND_LENDING_REWARD_RATE_MODEL_ERROR__NO_QUEUED_REWARDS = 0x1774; // 6004
+export const LEND_LENDING_REWARD_RATE_MODEL_ERROR__MUST_TRANSITION_TO_NEXT = 0x1775; // 6005
+export const LEND_LENDING_REWARD_RATE_MODEL_ERROR__NO_REWARDS_STARTED = 0x1776; // 6006
+export const LEND_LENDING_REWARD_RATE_MODEL_ERROR__MAX_AUTH_COUNT_REACHED = 0x1777; // 6007
+export const LEND_LENDING_REWARD_RATE_MODEL_ERROR__ONLY_AUTHORITY = 0x1778; // 6008
+export const LEND_LENDING_REWARD_RATE_MODEL_ERROR__ONLY_AUTHS = 0x1779; // 6009
+export const LEND_LENDING_REWARD_RATE_MODEL_ERROR__CPI_TO_LENDING_PROGRAM_FAILED = 0x177a; // 6010
+export const LEND_LENDING_REWARD_RATE_MODEL_ERROR__INVALID_LENDING_PROGRAM = 0x177b; // 6011
+export const LEND_LENDING_REWARD_RATE_MODEL_ERROR__INVALID_MINT = 0x177c; // 6012
+
+export type LendLendingRewardRateModelError =
+    | typeof LEND_LENDING_REWARD_RATE_MODEL_ERROR__ALREADY_STOPPED
+    | typeof LEND_LENDING_REWARD_RATE_MODEL_ERROR__CPI_TO_LENDING_PROGRAM_FAILED
+    | typeof LEND_LENDING_REWARD_RATE_MODEL_ERROR__INVALID_LENDING_PROGRAM
+    | typeof LEND_LENDING_REWARD_RATE_MODEL_ERROR__INVALID_MINT
+    | typeof LEND_LENDING_REWARD_RATE_MODEL_ERROR__INVALID_PARAMS
+    | typeof LEND_LENDING_REWARD_RATE_MODEL_ERROR__MAX_AUTH_COUNT_REACHED
+    | typeof LEND_LENDING_REWARD_RATE_MODEL_ERROR__MUST_TRANSITION_TO_NEXT
+    | typeof LEND_LENDING_REWARD_RATE_MODEL_ERROR__NEXT_REWARDS_QUEUED
+    | typeof LEND_LENDING_REWARD_RATE_MODEL_ERROR__NO_QUEUED_REWARDS
+    | typeof LEND_LENDING_REWARD_RATE_MODEL_ERROR__NO_REWARDS_STARTED
+    | typeof LEND_LENDING_REWARD_RATE_MODEL_ERROR__NOT_ENDED
+    | typeof LEND_LENDING_REWARD_RATE_MODEL_ERROR__ONLY_AUTHORITY
+    | typeof LEND_LENDING_REWARD_RATE_MODEL_ERROR__ONLY_AUTHS;
+
+export interface LendLendingRewardRateModelErrorInfo {
+    code: LendLendingRewardRateModelError;
+    name: string;
+    message: string;
+}
+
+const LENDLENDINGREWARDRATEMODEL_ERRORS: Readonly<
+    Record<LendLendingRewardRateModelError, LendLendingRewardRateModelErrorInfo>
+> = {
+    [LEND_LENDING_REWARD_RATE_MODEL_ERROR__INVALID_PARAMS]: {
+        code: 6000,
+        name: 'invalidParams',
+        message: 'LENDING_REWARD_RATE_MODEL_INVALID_PARAMS',
+    },
+    [LEND_LENDING_REWARD_RATE_MODEL_ERROR__ALREADY_STOPPED]: {
+        code: 6001,
+        name: 'alreadyStopped',
+        message: 'LENDING_REWARD_RATE_MODEL_ALREADY_STOPPED',
+    },
+    [LEND_LENDING_REWARD_RATE_MODEL_ERROR__NEXT_REWARDS_QUEUED]: {
+        code: 6002,
+        name: 'nextRewardsQueued',
+        message: 'LENDING_REWARD_RATE_MODEL_NEXT_REWARDS_QUEUED',
+    },
+    [LEND_LENDING_REWARD_RATE_MODEL_ERROR__NOT_ENDED]: {
+        code: 6003,
+        name: 'notEnded',
+        message: 'LENDING_REWARD_RATE_MODEL_NOT_ENDED',
+    },
+    [LEND_LENDING_REWARD_RATE_MODEL_ERROR__NO_QUEUED_REWARDS]: {
+        code: 6004,
+        name: 'noQueuedRewards',
+        message: 'LENDING_REWARD_RATE_MODEL_NO_QUEUED_REWARDS',
+    },
+    [LEND_LENDING_REWARD_RATE_MODEL_ERROR__MUST_TRANSITION_TO_NEXT]: {
+        code: 6005,
+        name: 'mustTransitionToNext',
+        message: 'LENDING_REWARD_RATE_MODEL_MUST_TRANSITION_TO_NEXT',
+    },
+    [LEND_LENDING_REWARD_RATE_MODEL_ERROR__NO_REWARDS_STARTED]: {
+        code: 6006,
+        name: 'noRewardsStarted',
+        message: 'LENDING_REWARD_RATE_MODEL_NO_REWARDS_STARTED',
+    },
+    [LEND_LENDING_REWARD_RATE_MODEL_ERROR__MAX_AUTH_COUNT_REACHED]: {
+        code: 6007,
+        name: 'maxAuthCountReached',
+        message: 'LENDING_REWARD_RATE_MODEL_MAX_AUTH_COUNT_REACHED',
+    },
+    [LEND_LENDING_REWARD_RATE_MODEL_ERROR__ONLY_AUTHORITY]: {
+        code: 6008,
+        name: 'onlyAuthority',
+        message: 'LENDING_REWARD_RATE_MODEL_ONLY_AUTHORITY',
+    },
+    [LEND_LENDING_REWARD_RATE_MODEL_ERROR__ONLY_AUTHS]: {
+        code: 6009,
+        name: 'onlyAuths',
+        message: 'LENDING_REWARD_RATE_MODEL_ONLY_AUTH',
+    },
+    [LEND_LENDING_REWARD_RATE_MODEL_ERROR__CPI_TO_LENDING_PROGRAM_FAILED]: {
+        code: 6010,
+        name: 'cpiToLendingProgramFailed',
+        message: 'LENDING_REWARD_RATE_MODEL_CPI_TO_LENDING_PROGRAM_FAILED',
+    },
+    [LEND_LENDING_REWARD_RATE_MODEL_ERROR__INVALID_LENDING_PROGRAM]: {
+        code: 6011,
+        name: 'invalidLendingProgram',
+        message: 'LENDING_REWARD_RATE_MODEL_INVALID_LENDING_PROGRAM',
+    },
+    [LEND_LENDING_REWARD_RATE_MODEL_ERROR__INVALID_MINT]: {
+        code: 6012,
+        name: 'invalidMint',
+        message: 'LENDING_REWARD_RATE_MODEL_INVALID_MINT',
+    },
+};
+
+export function getLendLendingRewardRateModelErrorFromCode(
+    code: number,
+): LendLendingRewardRateModelErrorInfo | undefined {
+    return LENDLENDINGREWARDRATEMODEL_ERRORS[code as LendLendingRewardRateModelError];
+}
+
+export function getLendLendingRewardRateModelErrorMessage(code: LendLendingRewardRateModelError): string {
+    return LENDLENDINGREWARDRATEMODEL_ERRORS[code].message;
+}

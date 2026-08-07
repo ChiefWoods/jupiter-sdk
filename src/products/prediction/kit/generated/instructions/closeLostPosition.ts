@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PREDICTION_MARKET_PROGRAM_ADDRESS } from "../programs";
+import { PREDICTION_PROGRAM_ADDRESS } from "../programs";
 
 export const CLOSE_LOST_POSITION_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([235, 157, 191, 130, 227, 214, 104, 178]);
@@ -48,7 +48,7 @@ export function getCloseLostPositionDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type CloseLostPositionInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountVault extends string | AccountMeta<string> = string,
   TAccountPosition extends string | AccountMeta<string> = string,
@@ -121,7 +121,7 @@ export function getCloseLostPositionInstruction<
   TAccountVault extends string,
   TAccountPosition extends string,
   TAccountMarketResult extends string,
-  TProgramAddress extends Address = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PREDICTION_PROGRAM_ADDRESS,
 >(
   input: CloseLostPositionInput<
     TAccountAuthority,
@@ -138,8 +138,7 @@ export function getCloseLostPositionInstruction<
   TAccountMarketResult
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? PREDICTION_MARKET_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PREDICTION_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -173,7 +172,7 @@ export function getCloseLostPositionInstruction<
 }
 
 export type ParsedCloseLostPositionInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

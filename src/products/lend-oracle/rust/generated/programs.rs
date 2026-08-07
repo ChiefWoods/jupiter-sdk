@@ -7,5 +7,5 @@
 
 use solana_address::{address, Address};
 
-/// `oracle` program ID.
-pub const ORACLE_ID: Address = address!("jupnw4B6Eqs7ft6rxpzYLJZYSnrpRgPcr589n5Kv4oc");
+/// `lend_oracle` program ID.
+pub const LEND_ORACLE_ID: Address = address!("jupnw4B6Eqs7ft6rxpzYLJZYSnrpRgPcr589n5Kv4oc");

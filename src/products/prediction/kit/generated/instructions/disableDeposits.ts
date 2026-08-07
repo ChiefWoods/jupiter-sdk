@@ -35,7 +35,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PREDICTION_MARKET_PROGRAM_ADDRESS } from "../programs";
+import { PREDICTION_PROGRAM_ADDRESS } from "../programs";
 
 export const DISABLE_DEPOSITS_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([214, 13, 103, 248, 66, 87, 164, 200]);
@@ -47,7 +47,7 @@ export function getDisableDepositsDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type DisableDepositsInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountVault extends string | AccountMeta<string> = string,
   TRemainingAccounts extends readonly AccountMeta<string>[] = [],
@@ -106,7 +106,7 @@ export type DisableDepositsInput<
 export function getDisableDepositsInstruction<
   TAccountAuthority extends string,
   TAccountVault extends string,
-  TProgramAddress extends Address = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PREDICTION_PROGRAM_ADDRESS,
 >(
   input: DisableDepositsInput<TAccountAuthority, TAccountVault>,
   config?: { programAddress?: TProgramAddress },
@@ -116,8 +116,7 @@ export function getDisableDepositsInstruction<
   TAccountVault
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? PREDICTION_MARKET_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PREDICTION_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -145,7 +144,7 @@ export function getDisableDepositsInstruction<
 }
 
 export type ParsedDisableDepositsInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

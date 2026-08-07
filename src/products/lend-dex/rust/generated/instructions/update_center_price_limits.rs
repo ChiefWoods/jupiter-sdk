@@ -52,7 +52,7 @@ impl UpdateCenterPriceLimits {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::DEX_ID,
+            program_id: crate::LEND_DEX_ID,
             accounts,
             data,
         }
@@ -261,7 +261,7 @@ impl<'a, 'b> UpdateCenterPriceLimitsCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::DEX_ID,
+            program_id: crate::LEND_DEX_ID,
             accounts,
             data,
         };

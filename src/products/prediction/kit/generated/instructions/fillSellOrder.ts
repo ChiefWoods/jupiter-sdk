@@ -48,7 +48,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PREDICTION_MARKET_PROGRAM_ADDRESS } from "../programs";
+import { PREDICTION_PROGRAM_ADDRESS } from "../programs";
 
 export const FILL_SELL_ORDER_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array(
   [251, 169, 25, 71, 13, 120, 20, 126],
@@ -61,7 +61,7 @@ export function getFillSellOrderDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type FillSellOrderInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountSecondaryAuthority extends string | AccountMeta<string> = string,
   TAccountOwner extends string | AccountMeta<string> = string,
@@ -209,7 +209,7 @@ export function getFillSellOrderInstruction<
   TAccountOrderAta extends string,
   TAccountIntegratorTokenAccount extends string,
   TAccountTokenProgram extends string,
-  TProgramAddress extends Address = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PREDICTION_PROGRAM_ADDRESS,
 >(
   input: FillSellOrderInput<
     TAccountAuthority,
@@ -238,8 +238,7 @@ export function getFillSellOrderInstruction<
   TAccountTokenProgram
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? PREDICTION_MARKET_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PREDICTION_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -311,7 +310,7 @@ export function getFillSellOrderInstruction<
 }
 
 export type ParsedFillSellOrderInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -355,7 +354,7 @@ export function parseFillSellOrderInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === PREDICTION_MARKET_PROGRAM_ADDRESS
+    return accountMeta.address === PREDICTION_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

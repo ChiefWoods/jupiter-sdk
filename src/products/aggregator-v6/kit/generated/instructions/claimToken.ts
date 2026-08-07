@@ -41,7 +41,7 @@ import {
   getAddressFromResolvedInstructionAccount,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { JUPITER_PROGRAM_ADDRESS } from "../programs";
+import { AGGREGATOR_V6_PROGRAM_ADDRESS } from "../programs";
 
 export const CLAIM_TOKEN_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   116, 206, 27, 191, 166, 19, 0, 73,
@@ -52,7 +52,7 @@ export function getClaimTokenDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type ClaimTokenInstruction<
-  TProgram extends string = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
   TAccountPayer extends string | AccountMeta<string> = string,
   TAccountWallet extends string | AccountMeta<string> =
     "7JQeyNK55fkUPUmEotupBFpiBGpgEQYLe8Ht1VdSfxcP",
@@ -170,7 +170,7 @@ export async function getClaimTokenInstructionAsync<
   TAccountTokenProgram extends string,
   TAccountAssociatedTokenProgram extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
 >(
   input: ClaimTokenAsyncInput<
     TAccountPayer,
@@ -199,7 +199,8 @@ export async function getClaimTokenInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? JUPITER_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? AGGREGATOR_V6_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -341,7 +342,7 @@ export function getClaimTokenInstruction<
   TAccountTokenProgram extends string,
   TAccountAssociatedTokenProgram extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
 >(
   input: ClaimTokenInput<
     TAccountPayer,
@@ -368,7 +369,8 @@ export function getClaimTokenInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? JUPITER_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? AGGREGATOR_V6_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -455,7 +457,7 @@ export function getClaimTokenInstruction<
 }
 
 export type ParsedClaimTokenInstruction<
-  TProgram extends string = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

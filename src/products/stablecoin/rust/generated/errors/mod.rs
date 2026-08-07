@@ -5,6 +5,6 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-pub(crate) mod jup_stable;
+pub(crate) mod stablecoin;
 
-pub use self::jup_stable::JupStableError;
+pub use self::stablecoin::StablecoinError;

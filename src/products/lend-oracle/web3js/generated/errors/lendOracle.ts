@@ -1,0 +1,386 @@
+export const LEND_ORACLE_ERROR__PRICE_NOT_VALID = 0x1770; // 6000
+export const LEND_ORACLE_ERROR__PRICE_TOO_OLD = 0x1771; // 6001
+export const LEND_ORACLE_ERROR__RATE_ZERO = 0x1772; // 6002
+export const LEND_ORACLE_ERROR__INVALID_PARAMS = 0x1773; // 6003
+export const LEND_ORACLE_ERROR__INVALID_SOURCE_MULTIPLIER_AND_DIVISOR = 0x1774; // 6004
+export const LEND_ORACLE_ERROR__INVALID_SOURCE = 0x1775; // 6005
+export const LEND_ORACLE_ERROR__INVALID_SOURCES_LENGTH = 0x1776; // 6006
+export const LEND_ORACLE_ERROR__ORACLE_ADMIN_ONLY_AUTHORITY = 0x1777; // 6007
+export const LEND_ORACLE_ERROR__ORACLE_ADMIN_ONLY_AUTH = 0x1778; // 6008
+export const LEND_ORACLE_ERROR__ORACLE_ADMIN_MAX_AUTH_COUNT_REACHED = 0x1779; // 6009
+export const LEND_ORACLE_ERROR__ORACLE_ADMIN_INVALID_PARAMS = 0x177a; // 6010
+export const LEND_ORACLE_ERROR__ORACLE_NONCE_MISMATCH = 0x177b; // 6011
+export const LEND_ORACLE_ERROR__PRICE_CONFIDENCE_NOT_SUFFICIENT = 0x177c; // 6012
+export const LEND_ORACLE_ERROR__STAKE_POOL_NOT_REFRESHED = 0x177d; // 6013
+export const LEND_ORACLE_ERROR__INVALID_PRICE = 0x177e; // 6014
+export const LEND_ORACLE_ERROR__FEE_TOO_HIGH = 0x177f; // 6015
+export const LEND_ORACLE_ERROR__REDSTONE_PRICE_OVERFLOW = 0x1780; // 6016
+export const LEND_ORACLE_ERROR__TIMESTAMP_EXPECTED = 0x1781; // 6017
+export const LEND_ORACLE_ERROR__CPI_TO_STAKE_PROGRAM_FAILED = 0x1782; // 6018
+export const LEND_ORACLE_ERROR__INVALID_STAKE_POOL_RETURN_PARAMS = 0x1783; // 6019
+export const LEND_ORACLE_ERROR__CHAINLINK_PRICE_READ_ERROR = 0x1784; // 6020
+export const LEND_ORACLE_ERROR__SINGLE_POOL_TOKEN_SUPPLY_ZERO = 0x1785; // 6021
+export const LEND_ORACLE_ERROR__SINGLE_POOL_INVALID_STAKE_ACCOUNT = 0x1786; // 6022
+export const LEND_ORACLE_ERROR__SINGLE_POOL_INVALID_MINT = 0x1787; // 6023
+export const LEND_ORACLE_ERROR__JUP_LEND_ACCOUNT_MISMATCH = 0x1788; // 6024
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_NO_REPORT_DATA = 0x1789; // 6025
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_INVALID_REPORT = 0x178a; // 6026
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_FEED_ID_MISMATCH = 0x178b; // 6027
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_INVALID_REPORT_TYPE = 0x178c; // 6028
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_FEED_SUSPENDED = 0x178d; // 6029
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_FEED_ALREADY_SUSPENDED_OR_RESUMED = 0x178e; // 6030
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_NOT_A_KEEPER = 0x178f; // 6031
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_MAX_FEED_KEEPER_COUNT_REACHED = 0x1790; // 6032
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_MARKET_STATUS_UNKNOWN = 0x1791; // 6033
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_PRICE_TOO_OLD = 0x1792; // 6034
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_V10_PRICE_NOT_ALLOWED = 0x1793; // 6035
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_MULTIPLE_V10_FEEDS = 0x1794; // 6036
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_V11_FEED_REQUIRES_V10_FEED = 0x1795; // 6037
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_ALLOWED_FEED_NOT_FOUND = 0x1796; // 6038
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_MARKET_STATUS_NOT_SUPPORTED_BY_FEED = 0x1797; // 6039
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_OBSERVATION_TIMESTAMP_TOO_OLD = 0x1798; // 6040
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_FEED_ID_ZERO = 0x1799; // 6041
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_DUPLICATE_FEED_ID_REPORT_TYPE = 0x179a; // 6042
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_DUPLICATE_FEED_ID = 0x179b; // 6043
+export const LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_NO_FEED_KEEPERS = 0x179c; // 6044
+export const LEND_ORACLE_ERROR__PST_POOL_INVALID_STATE = 0x179d; // 6045
+export const LEND_ORACLE_ERROR__PST_POOL_MODE_STATES_EMPTY = 0x179e; // 6046
+export const LEND_ORACLE_ERROR__PST_POOL_MINT_MISMATCH = 0x179f; // 6047
+export const LEND_ORACLE_ERROR__PST_POOL_MINT_SUPPLY_ZERO = 0x17a0; // 6048
+export const LEND_ORACLE_ERROR__DEX_SMART_COL_NOT_ENABLED = 0x17a1; // 6049
+export const LEND_ORACLE_ERROR__DEX_SMART_DEBT_NOT_ENABLED = 0x17a2; // 6050
+export const LEND_ORACLE_ERROR__DEX_PEG_INVALID_QUOTE_MULTIPLIER = 0x17a3; // 6051
+export const LEND_ORACLE_ERROR__DEX_PEG_INVALID_PEG_BUFFER = 0x17a4; // 6052
+export const LEND_ORACLE_ERROR__DEX_PEG_ACCOUNT_MISMATCH = 0x17a5; // 6053
+export const LEND_ORACLE_ERROR__DEX_PEG_ZERO_RESERVES = 0x17a6; // 6054
+export const LEND_ORACLE_ERROR__DEX_PEG_CONFIG_MISMATCH = 0x17a7; // 6055
+export const LEND_ORACLE_ERROR__DEX_PEG_INVALID_KIND = 0x17a8; // 6056
+
+export type LendOracleError =
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_ALLOWED_FEED_NOT_FOUND
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_DUPLICATE_FEED_ID
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_DUPLICATE_FEED_ID_REPORT_TYPE
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_FEED_ALREADY_SUSPENDED_OR_RESUMED
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_FEED_ID_MISMATCH
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_FEED_ID_ZERO
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_FEED_SUSPENDED
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_INVALID_REPORT
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_INVALID_REPORT_TYPE
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_MARKET_STATUS_NOT_SUPPORTED_BY_FEED
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_MARKET_STATUS_UNKNOWN
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_MAX_FEED_KEEPER_COUNT_REACHED
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_MULTIPLE_V10_FEEDS
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_NO_FEED_KEEPERS
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_NO_REPORT_DATA
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_NOT_A_KEEPER
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_OBSERVATION_TIMESTAMP_TOO_OLD
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_PRICE_TOO_OLD
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_V10_PRICE_NOT_ALLOWED
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_V11_FEED_REQUIRES_V10_FEED
+    | typeof LEND_ORACLE_ERROR__CHAINLINK_PRICE_READ_ERROR
+    | typeof LEND_ORACLE_ERROR__CPI_TO_STAKE_PROGRAM_FAILED
+    | typeof LEND_ORACLE_ERROR__DEX_PEG_ACCOUNT_MISMATCH
+    | typeof LEND_ORACLE_ERROR__DEX_PEG_CONFIG_MISMATCH
+    | typeof LEND_ORACLE_ERROR__DEX_PEG_INVALID_KIND
+    | typeof LEND_ORACLE_ERROR__DEX_PEG_INVALID_PEG_BUFFER
+    | typeof LEND_ORACLE_ERROR__DEX_PEG_INVALID_QUOTE_MULTIPLIER
+    | typeof LEND_ORACLE_ERROR__DEX_PEG_ZERO_RESERVES
+    | typeof LEND_ORACLE_ERROR__DEX_SMART_COL_NOT_ENABLED
+    | typeof LEND_ORACLE_ERROR__DEX_SMART_DEBT_NOT_ENABLED
+    | typeof LEND_ORACLE_ERROR__FEE_TOO_HIGH
+    | typeof LEND_ORACLE_ERROR__INVALID_PARAMS
+    | typeof LEND_ORACLE_ERROR__INVALID_PRICE
+    | typeof LEND_ORACLE_ERROR__INVALID_SOURCE
+    | typeof LEND_ORACLE_ERROR__INVALID_SOURCE_MULTIPLIER_AND_DIVISOR
+    | typeof LEND_ORACLE_ERROR__INVALID_SOURCES_LENGTH
+    | typeof LEND_ORACLE_ERROR__INVALID_STAKE_POOL_RETURN_PARAMS
+    | typeof LEND_ORACLE_ERROR__JUP_LEND_ACCOUNT_MISMATCH
+    | typeof LEND_ORACLE_ERROR__ORACLE_ADMIN_INVALID_PARAMS
+    | typeof LEND_ORACLE_ERROR__ORACLE_ADMIN_MAX_AUTH_COUNT_REACHED
+    | typeof LEND_ORACLE_ERROR__ORACLE_ADMIN_ONLY_AUTH
+    | typeof LEND_ORACLE_ERROR__ORACLE_ADMIN_ONLY_AUTHORITY
+    | typeof LEND_ORACLE_ERROR__ORACLE_NONCE_MISMATCH
+    | typeof LEND_ORACLE_ERROR__PRICE_CONFIDENCE_NOT_SUFFICIENT
+    | typeof LEND_ORACLE_ERROR__PRICE_NOT_VALID
+    | typeof LEND_ORACLE_ERROR__PRICE_TOO_OLD
+    | typeof LEND_ORACLE_ERROR__PST_POOL_INVALID_STATE
+    | typeof LEND_ORACLE_ERROR__PST_POOL_MINT_MISMATCH
+    | typeof LEND_ORACLE_ERROR__PST_POOL_MINT_SUPPLY_ZERO
+    | typeof LEND_ORACLE_ERROR__PST_POOL_MODE_STATES_EMPTY
+    | typeof LEND_ORACLE_ERROR__RATE_ZERO
+    | typeof LEND_ORACLE_ERROR__REDSTONE_PRICE_OVERFLOW
+    | typeof LEND_ORACLE_ERROR__SINGLE_POOL_INVALID_MINT
+    | typeof LEND_ORACLE_ERROR__SINGLE_POOL_INVALID_STAKE_ACCOUNT
+    | typeof LEND_ORACLE_ERROR__SINGLE_POOL_TOKEN_SUPPLY_ZERO
+    | typeof LEND_ORACLE_ERROR__STAKE_POOL_NOT_REFRESHED
+    | typeof LEND_ORACLE_ERROR__TIMESTAMP_EXPECTED;
+
+export interface LendOracleErrorInfo {
+    code: LendOracleError;
+    name: string;
+    message: string;
+}
+
+const LENDORACLE_ERRORS: Readonly<Record<LendOracleError, LendOracleErrorInfo>> = {
+    [LEND_ORACLE_ERROR__PRICE_NOT_VALID]: { code: 6000, name: 'priceNotValid', message: 'PRICE_NOT_VALID' },
+    [LEND_ORACLE_ERROR__PRICE_TOO_OLD]: { code: 6001, name: 'priceTooOld', message: 'PRICE_TOO_OLD' },
+    [LEND_ORACLE_ERROR__RATE_ZERO]: { code: 6002, name: 'rateZero', message: 'RATE_ZERO' },
+    [LEND_ORACLE_ERROR__INVALID_PARAMS]: { code: 6003, name: 'invalidParams', message: 'INVALID_PARAMS' },
+    [LEND_ORACLE_ERROR__INVALID_SOURCE_MULTIPLIER_AND_DIVISOR]: {
+        code: 6004,
+        name: 'invalidSourceMultiplierAndDivisor',
+        message: 'INVALID_SOURCE_MULTIPLIER_AND_DIVISOR',
+    },
+    [LEND_ORACLE_ERROR__INVALID_SOURCE]: { code: 6005, name: 'invalidSource', message: 'INVALID_SOURCE' },
+    [LEND_ORACLE_ERROR__INVALID_SOURCES_LENGTH]: {
+        code: 6006,
+        name: 'invalidSourcesLength',
+        message: 'INVALID_SOURCES_LENGTH',
+    },
+    [LEND_ORACLE_ERROR__ORACLE_ADMIN_ONLY_AUTHORITY]: {
+        code: 6007,
+        name: 'oracleAdminOnlyAuthority',
+        message: 'ORACLE_ADMIN_ONLY_AUTHORITY',
+    },
+    [LEND_ORACLE_ERROR__ORACLE_ADMIN_ONLY_AUTH]: {
+        code: 6008,
+        name: 'oracleAdminOnlyAuth',
+        message: 'ORACLE_ADMIN_ONLY_AUTH',
+    },
+    [LEND_ORACLE_ERROR__ORACLE_ADMIN_MAX_AUTH_COUNT_REACHED]: {
+        code: 6009,
+        name: 'oracleAdminMaxAuthCountReached',
+        message: 'ORACLE_ADMIN_MAX_AUTH_COUNT_REACHED',
+    },
+    [LEND_ORACLE_ERROR__ORACLE_ADMIN_INVALID_PARAMS]: {
+        code: 6010,
+        name: 'oracleAdminInvalidParams',
+        message: 'ORACLE_ADMIN_INVALID_PARAMS',
+    },
+    [LEND_ORACLE_ERROR__ORACLE_NONCE_MISMATCH]: {
+        code: 6011,
+        name: 'oracleNonceMismatch',
+        message: 'ORACLE_NONCE_MISMATCH',
+    },
+    [LEND_ORACLE_ERROR__PRICE_CONFIDENCE_NOT_SUFFICIENT]: {
+        code: 6012,
+        name: 'priceConfidenceNotSufficient',
+        message: 'PRICE_CONFIDENCE_NOT_SUFFICIENT',
+    },
+    [LEND_ORACLE_ERROR__STAKE_POOL_NOT_REFRESHED]: {
+        code: 6013,
+        name: 'stakePoolNotRefreshed',
+        message: 'STAKE_POOL_NOT_REFRESHED',
+    },
+    [LEND_ORACLE_ERROR__INVALID_PRICE]: { code: 6014, name: 'invalidPrice', message: 'INVALID_PRICE' },
+    [LEND_ORACLE_ERROR__FEE_TOO_HIGH]: { code: 6015, name: 'feeTooHigh', message: 'FEE_TOO_HIGH' },
+    [LEND_ORACLE_ERROR__REDSTONE_PRICE_OVERFLOW]: {
+        code: 6016,
+        name: 'redstonePriceOverflow',
+        message: 'REDSTONE_PRICE_OVERFLOW',
+    },
+    [LEND_ORACLE_ERROR__TIMESTAMP_EXPECTED]: { code: 6017, name: 'timestampExpected', message: 'TIMESTAMP_EXPECTED' },
+    [LEND_ORACLE_ERROR__CPI_TO_STAKE_PROGRAM_FAILED]: {
+        code: 6018,
+        name: 'cpiToStakeProgramFailed',
+        message: 'CPI_TO_STAKE_PROGRAM_FAILED',
+    },
+    [LEND_ORACLE_ERROR__INVALID_STAKE_POOL_RETURN_PARAMS]: {
+        code: 6019,
+        name: 'invalidStakePoolReturnParams',
+        message: 'INVALID_STAKE_POOL_RETURN_PARAMS',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_PRICE_READ_ERROR]: {
+        code: 6020,
+        name: 'chainlinkPriceReadError',
+        message: 'CHAINLINK_PRICE_READ_ERROR',
+    },
+    [LEND_ORACLE_ERROR__SINGLE_POOL_TOKEN_SUPPLY_ZERO]: {
+        code: 6021,
+        name: 'singlePoolTokenSupplyZero',
+        message: 'SINGLE_POOL_TOKEN_SUPPLY_ZERO',
+    },
+    [LEND_ORACLE_ERROR__SINGLE_POOL_INVALID_STAKE_ACCOUNT]: {
+        code: 6022,
+        name: 'singlePoolInvalidStakeAccount',
+        message: 'SINGLE_POOL_INVALID_STAKE_ACCOUNT',
+    },
+    [LEND_ORACLE_ERROR__SINGLE_POOL_INVALID_MINT]: {
+        code: 6023,
+        name: 'singlePoolInvalidMint',
+        message: 'SINGLE_POOL_INVALID_MINT',
+    },
+    [LEND_ORACLE_ERROR__JUP_LEND_ACCOUNT_MISMATCH]: {
+        code: 6024,
+        name: 'jupLendAccountMismatch',
+        message: 'JUP_LEND_ACCOUNT_MISMATCH',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_NO_REPORT_DATA]: {
+        code: 6025,
+        name: 'chainlinkDataStreamsNoReportData',
+        message: 'CHAINLINK_DATA_STREAMS_NO_REPORT_DATA',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_INVALID_REPORT]: {
+        code: 6026,
+        name: 'chainlinkDataStreamsInvalidReport',
+        message: 'CHAINLINK_DATA_STREAMS_INVALID_REPORT',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_FEED_ID_MISMATCH]: {
+        code: 6027,
+        name: 'chainlinkDataStreamsFeedIdMismatch',
+        message: 'CHAINLINK_DATA_STREAMS_FEED_ID_MISMATCH',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_INVALID_REPORT_TYPE]: {
+        code: 6028,
+        name: 'chainlinkDataStreamsInvalidReportType',
+        message: 'CHAINLINK_DATA_STREAMS_INVALID_REPORT_TYPE',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_FEED_SUSPENDED]: {
+        code: 6029,
+        name: 'chainlinkDataStreamsFeedSuspended',
+        message: 'CHAINLINK_DATA_STREAMS_FEED_SUSPENDED',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_FEED_ALREADY_SUSPENDED_OR_RESUMED]: {
+        code: 6030,
+        name: 'chainlinkDataStreamsFeedAlreadySuspendedOrResumed',
+        message: 'CHAINLINK_DATA_STREAMS_FEED_ALREADY_SUSPENDED_OR_RESUMED',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_NOT_A_KEEPER]: {
+        code: 6031,
+        name: 'chainlinkDataStreamsNotAKeeper',
+        message: 'CHAINLINK_DATA_STREAMS_NOT_A_KEEPER',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_MAX_FEED_KEEPER_COUNT_REACHED]: {
+        code: 6032,
+        name: 'chainlinkDataStreamsMaxFeedKeeperCountReached',
+        message: 'CHAINLINK_DATA_STREAMS_MAX_FEED_KEEPER_COUNT_REACHED',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_MARKET_STATUS_UNKNOWN]: {
+        code: 6033,
+        name: 'chainlinkDataStreamsMarketStatusUnknown',
+        message: 'CHAINLINK_DATA_STREAMS_MARKET_STATUS_UNKNOWN',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_PRICE_TOO_OLD]: {
+        code: 6034,
+        name: 'chainlinkDataStreamsPriceTooOld',
+        message: 'CHAINLINK_DATA_STREAMS_PRICE_TOO_OLD',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_V10_PRICE_NOT_ALLOWED]: {
+        code: 6035,
+        name: 'chainlinkDataStreamsV10PriceNotAllowed',
+        message: 'CHAINLINK_DATA_STREAMS_V10_PRICE_NOT_ALLOWED',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_MULTIPLE_V10_FEEDS]: {
+        code: 6036,
+        name: 'chainlinkDataStreamsMultipleV10Feeds',
+        message: 'CHAINLINK_DATA_STREAMS_MULTIPLE_V10_FEEDS',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_V11_FEED_REQUIRES_V10_FEED]: {
+        code: 6037,
+        name: 'chainlinkDataStreamsV11FeedRequiresV10Feed',
+        message: 'CHAINLINK_DATA_STREAMS_V11_FEED_REQUIRES_V10_FEED',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_ALLOWED_FEED_NOT_FOUND]: {
+        code: 6038,
+        name: 'chainlinkDataStreamsAllowedFeedNotFound',
+        message: 'CHAINLINK_DATA_STREAMS_ALLOWED_FEED_NOT_FOUND',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_MARKET_STATUS_NOT_SUPPORTED_BY_FEED]: {
+        code: 6039,
+        name: 'chainlinkDataStreamsMarketStatusNotSupportedByFeed',
+        message: 'CHAINLINK_DATA_STREAMS_MARKET_STATUS_NOT_SUPPORTED_BY_FEED',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_OBSERVATION_TIMESTAMP_TOO_OLD]: {
+        code: 6040,
+        name: 'chainlinkDataStreamsObservationTimestampTooOld',
+        message: 'CHAINLINK_DATA_STREAMS_OBSERVATION_TIMESTAMP_TOO_OLD',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_FEED_ID_ZERO]: {
+        code: 6041,
+        name: 'chainlinkDataStreamsFeedIdZero',
+        message: 'CHAINLINK_DATA_STREAMS_FEED_ID_ZERO',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_DUPLICATE_FEED_ID_REPORT_TYPE]: {
+        code: 6042,
+        name: 'chainlinkDataStreamsDuplicateFeedIdReportType',
+        message: 'CHAINLINK_DATA_STREAMS_DUPLICATE_FEED_ID_REPORT_TYPE',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_DUPLICATE_FEED_ID]: {
+        code: 6043,
+        name: 'chainlinkDataStreamsDuplicateFeedId',
+        message: 'CHAINLINK_DATA_STREAMS_DUPLICATE_FEED_ID',
+    },
+    [LEND_ORACLE_ERROR__CHAINLINK_DATA_STREAMS_NO_FEED_KEEPERS]: {
+        code: 6044,
+        name: 'chainlinkDataStreamsNoFeedKeepers',
+        message: 'CHAINLINK_DATA_STREAMS_NO_FEED_KEEPERS',
+    },
+    [LEND_ORACLE_ERROR__PST_POOL_INVALID_STATE]: {
+        code: 6045,
+        name: 'pstPoolInvalidState',
+        message: 'PST_POOL_INVALID_STATE',
+    },
+    [LEND_ORACLE_ERROR__PST_POOL_MODE_STATES_EMPTY]: {
+        code: 6046,
+        name: 'pstPoolModeStatesEmpty',
+        message: 'PST_POOL_MODE_STATES_EMPTY',
+    },
+    [LEND_ORACLE_ERROR__PST_POOL_MINT_MISMATCH]: {
+        code: 6047,
+        name: 'pstPoolMintMismatch',
+        message: 'PST_POOL_MINT_MISMATCH',
+    },
+    [LEND_ORACLE_ERROR__PST_POOL_MINT_SUPPLY_ZERO]: {
+        code: 6048,
+        name: 'pstPoolMintSupplyZero',
+        message: 'PST_POOL_MINT_SUPPLY_ZERO',
+    },
+    [LEND_ORACLE_ERROR__DEX_SMART_COL_NOT_ENABLED]: {
+        code: 6049,
+        name: 'dexSmartColNotEnabled',
+        message: 'DEX_SMART_COL_NOT_ENABLED',
+    },
+    [LEND_ORACLE_ERROR__DEX_SMART_DEBT_NOT_ENABLED]: {
+        code: 6050,
+        name: 'dexSmartDebtNotEnabled',
+        message: 'DEX_SMART_DEBT_NOT_ENABLED',
+    },
+    [LEND_ORACLE_ERROR__DEX_PEG_INVALID_QUOTE_MULTIPLIER]: {
+        code: 6051,
+        name: 'dexPegInvalidQuoteMultiplier',
+        message: 'DEX_PEG_INVALID_QUOTE_MULTIPLIER',
+    },
+    [LEND_ORACLE_ERROR__DEX_PEG_INVALID_PEG_BUFFER]: {
+        code: 6052,
+        name: 'dexPegInvalidPegBuffer',
+        message: 'DEX_PEG_INVALID_PEG_BUFFER',
+    },
+    [LEND_ORACLE_ERROR__DEX_PEG_ACCOUNT_MISMATCH]: {
+        code: 6053,
+        name: 'dexPegAccountMismatch',
+        message: 'DEX_PEG_ACCOUNT_MISMATCH',
+    },
+    [LEND_ORACLE_ERROR__DEX_PEG_ZERO_RESERVES]: {
+        code: 6054,
+        name: 'dexPegZeroReserves',
+        message: 'DEX_PEG_ZERO_RESERVES',
+    },
+    [LEND_ORACLE_ERROR__DEX_PEG_CONFIG_MISMATCH]: {
+        code: 6055,
+        name: 'dexPegConfigMismatch',
+        message: 'DEX_PEG_CONFIG_MISMATCH',
+    },
+    [LEND_ORACLE_ERROR__DEX_PEG_INVALID_KIND]: {
+        code: 6056,
+        name: 'dexPegInvalidKind',
+        message: 'DEX_PEG_INVALID_KIND',
+    },
+};
+
+export function getLendOracleErrorFromCode(code: number): LendOracleErrorInfo | undefined {
+    return LENDORACLE_ERRORS[code as LendOracleError];
+}
+
+export function getLendOracleErrorMessage(code: LendOracleError): string {
+    return LENDORACLE_ERRORS[code].message;
+}

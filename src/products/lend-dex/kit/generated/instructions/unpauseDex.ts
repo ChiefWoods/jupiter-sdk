@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { DEX_PROGRAM_ADDRESS } from "../programs";
+import { LEND_DEX_PROGRAM_ADDRESS } from "../programs";
 
 export const UNPAUSE_DEX_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   88, 52, 175, 105, 210, 116, 178, 218,
@@ -47,7 +47,7 @@ export function getUnpauseDexDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type UnpauseDexInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountDexAdmin extends string | AccountMeta<string> = string,
   TAccountDex extends string | AccountMeta<string> = string,
@@ -109,7 +109,7 @@ export function getUnpauseDexInstruction<
   TAccountAuthority extends string,
   TAccountDexAdmin extends string,
   TAccountDex extends string,
-  TProgramAddress extends Address = typeof DEX_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_DEX_PROGRAM_ADDRESS,
 >(
   input: UnpauseDexInput<TAccountAuthority, TAccountDexAdmin, TAccountDex>,
   config?: { programAddress?: TProgramAddress },
@@ -120,7 +120,7 @@ export function getUnpauseDexInstruction<
   TAccountDex
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? DEX_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_DEX_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -151,7 +151,7 @@ export function getUnpauseDexInstruction<
 }
 
 export type ParsedUnpauseDexInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

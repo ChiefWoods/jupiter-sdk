@@ -1,5 +1,4 @@
 import { Address } from '@solana/web3.js';
-import { LIQUIDITY_PROGRAM_ID } from '..';
 
 export interface RevenueCollectorAccountPdaSeeds {
     revenueCollector: Address;
@@ -9,8 +8,8 @@ export interface RevenueCollectorAccountPdaSeeds {
 
 export async function findRevenueCollectorAccountPda(
     seeds: RevenueCollectorAccountPdaSeeds,
-    programId: Address = LIQUIDITY_PROGRAM_ID,
 ): Promise<[Address, number]> {
+    const programId = new Address('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');
     const seedsBuffer: Uint8Array[] = [
         seeds.revenueCollector.toBytes(),
         seeds.tokenProgram.toBytes(),

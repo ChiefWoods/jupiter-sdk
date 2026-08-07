@@ -135,7 +135,7 @@ impl BorrowPerfect {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::DEX_ID,
+                crate::LEND_DEX_ID,
                 false,
             ));
         }
@@ -146,7 +146,7 @@ impl BorrowPerfect {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::DEX_ID,
+                crate::LEND_DEX_ID,
                 false,
             ));
         }
@@ -157,7 +157,7 @@ impl BorrowPerfect {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::DEX_ID,
+                crate::LEND_DEX_ID,
                 false,
             ));
         }
@@ -168,7 +168,7 @@ impl BorrowPerfect {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::DEX_ID,
+                crate::LEND_DEX_ID,
                 false,
             ));
         }
@@ -198,7 +198,7 @@ impl BorrowPerfect {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::DEX_ID,
+                crate::LEND_DEX_ID,
                 false,
             ));
         }
@@ -209,7 +209,7 @@ impl BorrowPerfect {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::DEX_ID,
+                crate::LEND_DEX_ID,
                 false,
             ));
         }
@@ -220,7 +220,7 @@ impl BorrowPerfect {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::DEX_ID,
+                crate::LEND_DEX_ID,
                 false,
             ));
         }
@@ -230,7 +230,7 @@ impl BorrowPerfect {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::DEX_ID,
+            program_id: crate::LEND_DEX_ID,
             accounts,
             data,
         }
@@ -822,7 +822,7 @@ impl<'a, 'b> BorrowPerfectCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::DEX_ID,
+                crate::LEND_DEX_ID,
                 false,
             ));
         }
@@ -833,7 +833,7 @@ impl<'a, 'b> BorrowPerfectCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::DEX_ID,
+                crate::LEND_DEX_ID,
                 false,
             ));
         }
@@ -844,7 +844,7 @@ impl<'a, 'b> BorrowPerfectCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::DEX_ID,
+                crate::LEND_DEX_ID,
                 false,
             ));
         }
@@ -855,7 +855,7 @@ impl<'a, 'b> BorrowPerfectCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::DEX_ID,
+                crate::LEND_DEX_ID,
                 false,
             ));
         }
@@ -886,7 +886,7 @@ impl<'a, 'b> BorrowPerfectCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::DEX_ID,
+                crate::LEND_DEX_ID,
                 false,
             ));
         }
@@ -897,7 +897,7 @@ impl<'a, 'b> BorrowPerfectCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::DEX_ID,
+                crate::LEND_DEX_ID,
                 false,
             ));
         }
@@ -908,7 +908,7 @@ impl<'a, 'b> BorrowPerfectCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::DEX_ID,
+                crate::LEND_DEX_ID,
                 false,
             ));
         }
@@ -924,7 +924,7 @@ impl<'a, 'b> BorrowPerfectCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::DEX_ID,
+            program_id: crate::LEND_DEX_ID,
             accounts,
             data,
         };

@@ -132,7 +132,7 @@ impl anchor_lang::AccountSerialize for Vault {}
 #[cfg(feature = "anchor")]
 impl anchor_lang::Owner for Vault {
     fn owner() -> anchor_lang::solana_program::pubkey::Pubkey {
-        anchor_lang::solana_program::pubkey::Pubkey::from(crate::PREDICTION_MARKET_ID.to_bytes())
+        anchor_lang::solana_program::pubkey::Pubkey::from(crate::PREDICTION_ID.to_bytes())
     }
 }
 

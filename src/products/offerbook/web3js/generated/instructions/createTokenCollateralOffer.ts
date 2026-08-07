@@ -1,7 +1,22 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { OFFERBOOK_PROGRAM_ID } from '..';
+import { OFFERBOOK_PROGRAM_ID } from '../programs/offerbook';
 import { findEventAuthorityPda } from '../pdas/eventAuthority';
-import { getBooleanEncoder, getStructEncoder, getU32Encoder, getU64Encoder, type Encoder } from '@solana/codecs';
+import {
+    getBooleanDecoder,
+    getBooleanEncoder,
+    getStructDecoder,
+    getStructEncoder,
+    getU32Decoder,
+    getU32Encoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+export const CREATE_TOKEN_COLLATERAL_OFFER_INSTRUCTION_DISCRIMINATOR = new Uint8Array([
+    38, 75, 182, 254, 173, 13, 240, 41,
+]);
 
 export interface CreateTokenCollateralOfferInstructionAccounts {
     signer: Address;
@@ -38,6 +53,67 @@ function getCreateTokenCollateralOfferInstructionDataEncoder(): Encoder<CreateTo
     ]);
 }
 
+function getCreateTokenCollateralOfferInstructionDataDecoder(): Decoder<CreateTokenCollateralOfferInstructionArgs> {
+    return getStructDecoder([
+        ['principalAmount', getU64Decoder()],
+        ['collateralAmount', getU64Decoder()],
+        ['apy', getU32Decoder()],
+        ['duration', getU32Decoder()],
+        ['expiry', getU32Decoder()],
+        ['allowPartialFill', getBooleanDecoder()],
+        ['minFillAmount', getU64Decoder()],
+    ]);
+}
+
+export interface ParsedCreateTokenCollateralOfferInstruction {
+    programId: Address;
+    accounts: {
+        signer: AccountMeta;
+        signerUser: AccountMeta;
+        config: AccountMeta;
+        offer: AccountMeta;
+        principalMint: AccountMeta;
+        collateralMint: AccountMeta;
+        counteredOffer: AccountMeta;
+        systemProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: CreateTokenCollateralOfferInstructionArgs;
+}
+
+export function parseCreateTokenCollateralOfferInstruction(
+    instruction: TransactionInstruction,
+): ParsedCreateTokenCollateralOfferInstruction {
+    if (instruction.keys.length < 10) {
+        throw new Error('Expected 10 account metas for CreateTokenCollateralOffer instruction');
+    }
+    if (
+        !CREATE_TOKEN_COLLATERAL_OFFER_INSTRUCTION_DISCRIMINATOR.every(
+            (byte, index) => instruction.data[0 + index] === byte,
+        )
+    ) {
+        throw new Error('CreateTokenCollateralOffer instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            signer: instruction.keys[0]!,
+            signerUser: instruction.keys[1]!,
+            config: instruction.keys[2]!,
+            offer: instruction.keys[3]!,
+            principalMint: instruction.keys[4]!,
+            collateralMint: instruction.keys[5]!,
+            counteredOffer: instruction.keys[6]!,
+            systemProgram: instruction.keys[7]!,
+            eventAuthority: instruction.keys[8]!,
+            program: instruction.keys[9]!,
+        },
+        data: getCreateTokenCollateralOfferInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export async function createCreateTokenCollateralOfferInstruction(
     accounts: CreateTokenCollateralOfferInstructionAccounts,
     args: CreateTokenCollateralOfferInstructionArgs,
@@ -62,9 +138,13 @@ export async function createCreateTokenCollateralOfferInstruction(
         { pubkey: eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getCreateTokenCollateralOfferInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('264bb6fead0df029', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getCreateTokenCollateralOfferInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(CREATE_TOKEN_COLLATERAL_OFFER_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

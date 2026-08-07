@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const UNSTAKE_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   90, 95, 107, 42, 205, 124, 50, 225,
@@ -47,7 +47,7 @@ export function getUnstakeDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type UnstakeInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountOperator extends string | AccountMeta<string> = string,
   TAccountPerpetuals extends string | AccountMeta<string> = string,
   TAccountPool extends string | AccountMeta<string> = string,
@@ -153,7 +153,7 @@ export function getUnstakeInstruction<
   TAccountStakeInfo extends string,
   TAccountClock extends string,
   TAccountStakeProgram extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: UnstakeInput<
     TAccountOperator,
@@ -180,7 +180,7 @@ export function getUnstakeInstruction<
   TAccountStakeProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -232,7 +232,7 @@ export function getUnstakeInstruction<
 }
 
 export type ParsedUnstakeInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

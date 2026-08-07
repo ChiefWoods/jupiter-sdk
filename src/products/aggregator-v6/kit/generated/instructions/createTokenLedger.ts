@@ -35,7 +35,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { JUPITER_PROGRAM_ADDRESS } from "../programs";
+import { AGGREGATOR_V6_PROGRAM_ADDRESS } from "../programs";
 
 export const CREATE_TOKEN_LEDGER_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([232, 242, 197, 253, 240, 143, 129, 52]);
@@ -47,7 +47,7 @@ export function getCreateTokenLedgerDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type CreateTokenLedgerInstruction<
-  TProgram extends string = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
   TAccountTokenLedger extends string | AccountMeta<string> = string,
   TAccountPayer extends string | AccountMeta<string> = string,
   TAccountSystemProgram extends string | AccountMeta<string> =
@@ -115,7 +115,7 @@ export function getCreateTokenLedgerInstruction<
   TAccountTokenLedger extends string,
   TAccountPayer extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
 >(
   input: CreateTokenLedgerInput<
     TAccountTokenLedger,
@@ -130,7 +130,8 @@ export function getCreateTokenLedgerInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? JUPITER_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? AGGREGATOR_V6_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -167,7 +168,7 @@ export function getCreateTokenLedgerInstruction<
 }
 
 export type ParsedCreateTokenLedgerInstruction<
-  TProgram extends string = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

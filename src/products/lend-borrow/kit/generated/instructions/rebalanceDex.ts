@@ -41,7 +41,7 @@ import {
   getAddressFromResolvedInstructionAccount,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { VAULTS_PROGRAM_ADDRESS } from "../programs";
+import { LEND_BORROW_PROGRAM_ADDRESS } from "../programs";
 
 export const REBALANCE_DEX_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   71, 178, 19, 146, 254, 47, 109, 126,
@@ -54,7 +54,7 @@ export function getRebalanceDexDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type RebalanceDexInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountRebalancer extends string | AccountMeta<string> = string,
   TAccountRebalancerSupplyTokenAccount extends string | AccountMeta<string> =
     string,
@@ -633,7 +633,7 @@ export async function getRebalanceDexInstructionAsync<
   TAccountBorrowDexDexToken1Program extends string,
   TAccountBorrowDexDexRecipientToken0Account extends string,
   TAccountBorrowDexDexRecipientToken1Account extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: RebalanceDexAsyncInput<
     TAccountRebalancer,
@@ -770,7 +770,7 @@ export async function getRebalanceDexInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -1560,7 +1560,7 @@ export function getRebalanceDexInstruction<
   TAccountBorrowDexDexToken1Program extends string,
   TAccountBorrowDexDexRecipientToken0Account extends string,
   TAccountBorrowDexDexRecipientToken1Account extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: RebalanceDexInput<
     TAccountRebalancer,
@@ -1695,7 +1695,7 @@ export function getRebalanceDexInstruction<
   TAccountBorrowDexDexRecipientToken1Account
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -2200,7 +2200,7 @@ export function getRebalanceDexInstruction<
 }
 
 export type ParsedRebalanceDexInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -2331,7 +2331,7 @@ export function parseRebalanceDexInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === VAULTS_PROGRAM_ADDRESS
+    return accountMeta.address === LEND_BORROW_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

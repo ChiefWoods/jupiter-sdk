@@ -1,7 +1,9 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { JUPSTABLE_PROGRAM_ID } from '..';
+import { STABLECOIN_PROGRAM_ID } from '../programs/stablecoin';
 import { findTokenAccountPda } from '../pdas/tokenAccount';
 import { findVaultPda } from '../pdas/vault';
+
+export const CREATE_VAULT_INSTRUCTION_DISCRIMINATOR = new Uint8Array([29, 237, 247, 208, 193, 82, 54, 135]);
 
 export interface CreateVaultInstructionAccounts {
     operatorAuthority: Address;
@@ -17,9 +19,54 @@ export interface CreateVaultInstructionAccounts {
     systemProgram: Address;
 }
 
+export interface ParsedCreateVaultInstruction {
+    programId: Address;
+    accounts: {
+        operatorAuthority: AccountMeta;
+        operator: AccountMeta;
+        payer: AccountMeta;
+        mint: AccountMeta;
+        config: AccountMeta;
+        authority: AccountMeta;
+        vault: AccountMeta;
+        tokenAccount: AccountMeta;
+        tokenProgram: AccountMeta;
+        associatedTokenProgram: AccountMeta;
+        systemProgram: AccountMeta;
+    };
+    data: {};
+}
+
+export function parseCreateVaultInstruction(instruction: TransactionInstruction): ParsedCreateVaultInstruction {
+    if (instruction.keys.length < 11) {
+        throw new Error('Expected 11 account metas for CreateVault instruction');
+    }
+    if (!CREATE_VAULT_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('CreateVault instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            operatorAuthority: instruction.keys[0]!,
+            operator: instruction.keys[1]!,
+            payer: instruction.keys[2]!,
+            mint: instruction.keys[3]!,
+            config: instruction.keys[4]!,
+            authority: instruction.keys[5]!,
+            vault: instruction.keys[6]!,
+            tokenAccount: instruction.keys[7]!,
+            tokenProgram: instruction.keys[8]!,
+            associatedTokenProgram: instruction.keys[9]!,
+            systemProgram: instruction.keys[10]!,
+        },
+        data: {},
+    };
+}
+
 export async function createCreateVaultInstruction(
     accounts: CreateVaultInstructionAccounts,
-    programId: Address = JUPSTABLE_PROGRAM_ID,
+    programId: Address = STABLECOIN_PROGRAM_ID,
 ): Promise<TransactionInstruction> {
     let vault = accounts.vault;
     if (!vault) {
@@ -33,14 +80,11 @@ export async function createCreateVaultInstruction(
     }
     let tokenAccount = accounts.tokenAccount;
     if (!tokenAccount) {
-        const [derived] = await findTokenAccountPda(
-            {
-                authority: accounts.authority,
-                tokenProgram: accounts.tokenProgram,
-                mint: accounts.mint,
-            },
-            programId,
-        );
+        const [derived] = await findTokenAccountPda({
+            authority: accounts.authority,
+            tokenProgram: accounts.tokenProgram,
+            mint: accounts.mint,
+        });
         tokenAccount = derived;
     }
     const keys: AccountMeta[] = [
@@ -56,7 +100,13 @@ export async function createCreateVaultInstruction(
         { pubkey: accounts.associatedTokenProgram, isSigner: false, isWritable: false },
         { pubkey: accounts.systemProgram, isSigner: false, isWritable: false },
     ];
-    const data = Buffer.from('1dedf7d0c1523687', 'hex');
+    let data = Buffer.alloc(0);
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(CREATE_VAULT_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

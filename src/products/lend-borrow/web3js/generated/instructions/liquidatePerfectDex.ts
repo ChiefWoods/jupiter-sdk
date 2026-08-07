@@ -1,24 +1,40 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { VAULTS_PROGRAM_ID } from '..';
+import { LENDBORROW_PROGRAM_ID } from '../programs/lendBorrow';
 import {
+    addDecoderSizePrefix,
     addEncoderSizePrefix,
+    getBooleanDecoder,
     getBooleanEncoder,
+    getBytesDecoder,
     getBytesEncoder,
+    getOptionDecoder,
     getOptionEncoder,
+    getStructDecoder,
     getStructEncoder,
+    getU128Decoder,
     getU128Encoder,
+    getU32Decoder,
     getU32Encoder,
+    getU64Decoder,
     getU64Encoder,
+    type Decoder,
     type Encoder,
     type OptionOrNullable,
     type ReadonlyUint8Array,
 } from '@solana/codecs';
-import { getLiquidateDexColAmountsEncoder, type LiquidateDexColAmountsArgs } from '../types/liquidateDexColAmounts';
 import {
+    getLiquidateDexColAmountsDecoder,
+    getLiquidateDexColAmountsEncoder,
+    type LiquidateDexColAmountsArgs,
+} from '../types/liquidateDexColAmounts';
+import {
+    getLiquidatePerfectDexDebtAmountsDecoder,
     getLiquidatePerfectDexDebtAmountsEncoder,
     type LiquidatePerfectDexDebtAmountsArgs,
 } from '../types/liquidatePerfectDexDebtAmounts';
-import { getTransferTypeEncoder, type TransferTypeArgs } from '../types/transferType';
+import { getTransferTypeDecoder, getTransferTypeEncoder, type TransferTypeArgs } from '../types/transferType';
+
+export const LIQUIDATE_PERFECT_DEX_INSTRUCTION_DISCRIMINATOR = new Uint8Array([26, 113, 116, 50, 247, 131, 208, 5]);
 
 export interface LiquidatePerfectDexInstructionAccounts {
     signer: Address;
@@ -112,10 +128,181 @@ function getLiquidatePerfectDexInstructionDataEncoder(): Encoder<LiquidatePerfec
     ]);
 }
 
+function getLiquidatePerfectDexInstructionDataDecoder(): Decoder<LiquidatePerfectDexInstructionArgs> {
+    return getStructDecoder([
+        ['debtAmt', getU64Decoder()],
+        ['debtPerfectAmounts', getOptionDecoder(getLiquidatePerfectDexDebtAmountsDecoder())],
+        ['colPerUnitDebt', getU128Decoder()],
+        ['colAmounts', getOptionDecoder(getLiquidateDexColAmountsDecoder())],
+        ['absorb', getBooleanDecoder()],
+        ['transferType', getOptionDecoder(getTransferTypeDecoder())],
+        ['remainingAccountsIndices', addDecoderSizePrefix(getBytesDecoder(), getU32Decoder())],
+    ]);
+}
+
+export interface ParsedLiquidatePerfectDexInstruction {
+    programId: Address;
+    accounts: {
+        signer: AccountMeta;
+        signerTokenAccount: AccountMeta;
+        to: AccountMeta;
+        toTokenAccount: AccountMeta;
+        vaultConfig: AccountMeta;
+        vaultState: AccountMeta;
+        supplyToken: AccountMeta;
+        borrowToken: AccountMeta;
+        oracle: AccountMeta;
+        newBranch: AccountMeta;
+        supplyTokenReservesLiquidity: AccountMeta;
+        borrowTokenReservesLiquidity: AccountMeta;
+        vaultSupplyPositionOnLiquidity: AccountMeta;
+        vaultBorrowPositionOnLiquidity: AccountMeta;
+        supplyRateModel: AccountMeta;
+        borrowRateModel: AccountMeta;
+        supplyTokenClaimAccount: AccountMeta;
+        liquidity: AccountMeta;
+        liquidityProgram: AccountMeta;
+        vaultSupplyTokenAccount: AccountMeta;
+        vaultBorrowTokenAccount: AccountMeta;
+        supplyTokenProgram: AccountMeta;
+        borrowTokenProgram: AccountMeta;
+        systemProgram: AccountMeta;
+        oracleProgram: AccountMeta;
+        supplyDexDex: AccountMeta;
+        supplyDexDexPosition: AccountMeta;
+        supplyDexDexUserToken0Account: AccountMeta;
+        supplyDexDexUserToken1Account: AccountMeta;
+        supplyDexDexToken0: AccountMeta;
+        supplyDexDexToken1: AccountMeta;
+        supplyDexDexToken0Reserve: AccountMeta;
+        supplyDexDexToken1Reserve: AccountMeta;
+        supplyDexDexToken0RateModel: AccountMeta;
+        supplyDexDexToken1RateModel: AccountMeta;
+        supplyDexDexToken0Vault: AccountMeta;
+        supplyDexDexToken1Vault: AccountMeta;
+        supplyDexSupplyPosToken0: AccountMeta;
+        supplyDexSupplyPosToken1: AccountMeta;
+        supplyDexBorrowPosToken0: AccountMeta;
+        supplyDexBorrowPosToken1: AccountMeta;
+        supplyDexDexToken0Program: AccountMeta;
+        supplyDexDexToken1Program: AccountMeta;
+        supplyDexDexRecipientToken0Account: AccountMeta;
+        supplyDexDexRecipientToken1Account: AccountMeta;
+        borrowDexDex: AccountMeta;
+        borrowDexDexPosition: AccountMeta;
+        borrowDexDexUserToken0Account: AccountMeta;
+        borrowDexDexUserToken1Account: AccountMeta;
+        borrowDexDexToken0: AccountMeta;
+        borrowDexDexToken1: AccountMeta;
+        borrowDexDexToken0Reserve: AccountMeta;
+        borrowDexDexToken1Reserve: AccountMeta;
+        borrowDexDexToken0RateModel: AccountMeta;
+        borrowDexDexToken1RateModel: AccountMeta;
+        borrowDexDexToken0Vault: AccountMeta;
+        borrowDexDexToken1Vault: AccountMeta;
+        borrowDexSupplyPosToken0: AccountMeta;
+        borrowDexSupplyPosToken1: AccountMeta;
+        borrowDexBorrowPosToken0: AccountMeta;
+        borrowDexBorrowPosToken1: AccountMeta;
+        borrowDexDexToken0Program: AccountMeta;
+        borrowDexDexToken1Program: AccountMeta;
+        borrowDexDexRecipientToken0Account: AccountMeta;
+        borrowDexDexRecipientToken1Account: AccountMeta;
+        dexProgram: AccountMeta;
+        dexOracleProgram: AccountMeta;
+    };
+    data: LiquidatePerfectDexInstructionArgs;
+}
+
+export function parseLiquidatePerfectDexInstruction(
+    instruction: TransactionInstruction,
+): ParsedLiquidatePerfectDexInstruction {
+    if (instruction.keys.length < 67) {
+        throw new Error('Expected 67 account metas for LiquidatePerfectDex instruction');
+    }
+    if (!LIQUIDATE_PERFECT_DEX_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('LiquidatePerfectDex instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            signer: instruction.keys[0]!,
+            signerTokenAccount: instruction.keys[1]!,
+            to: instruction.keys[2]!,
+            toTokenAccount: instruction.keys[3]!,
+            vaultConfig: instruction.keys[4]!,
+            vaultState: instruction.keys[5]!,
+            supplyToken: instruction.keys[6]!,
+            borrowToken: instruction.keys[7]!,
+            oracle: instruction.keys[8]!,
+            newBranch: instruction.keys[9]!,
+            supplyTokenReservesLiquidity: instruction.keys[10]!,
+            borrowTokenReservesLiquidity: instruction.keys[11]!,
+            vaultSupplyPositionOnLiquidity: instruction.keys[12]!,
+            vaultBorrowPositionOnLiquidity: instruction.keys[13]!,
+            supplyRateModel: instruction.keys[14]!,
+            borrowRateModel: instruction.keys[15]!,
+            supplyTokenClaimAccount: instruction.keys[16]!,
+            liquidity: instruction.keys[17]!,
+            liquidityProgram: instruction.keys[18]!,
+            vaultSupplyTokenAccount: instruction.keys[19]!,
+            vaultBorrowTokenAccount: instruction.keys[20]!,
+            supplyTokenProgram: instruction.keys[21]!,
+            borrowTokenProgram: instruction.keys[22]!,
+            systemProgram: instruction.keys[23]!,
+            oracleProgram: instruction.keys[24]!,
+            supplyDexDex: instruction.keys[25]!,
+            supplyDexDexPosition: instruction.keys[26]!,
+            supplyDexDexUserToken0Account: instruction.keys[27]!,
+            supplyDexDexUserToken1Account: instruction.keys[28]!,
+            supplyDexDexToken0: instruction.keys[29]!,
+            supplyDexDexToken1: instruction.keys[30]!,
+            supplyDexDexToken0Reserve: instruction.keys[31]!,
+            supplyDexDexToken1Reserve: instruction.keys[32]!,
+            supplyDexDexToken0RateModel: instruction.keys[33]!,
+            supplyDexDexToken1RateModel: instruction.keys[34]!,
+            supplyDexDexToken0Vault: instruction.keys[35]!,
+            supplyDexDexToken1Vault: instruction.keys[36]!,
+            supplyDexSupplyPosToken0: instruction.keys[37]!,
+            supplyDexSupplyPosToken1: instruction.keys[38]!,
+            supplyDexBorrowPosToken0: instruction.keys[39]!,
+            supplyDexBorrowPosToken1: instruction.keys[40]!,
+            supplyDexDexToken0Program: instruction.keys[41]!,
+            supplyDexDexToken1Program: instruction.keys[42]!,
+            supplyDexDexRecipientToken0Account: instruction.keys[43]!,
+            supplyDexDexRecipientToken1Account: instruction.keys[44]!,
+            borrowDexDex: instruction.keys[45]!,
+            borrowDexDexPosition: instruction.keys[46]!,
+            borrowDexDexUserToken0Account: instruction.keys[47]!,
+            borrowDexDexUserToken1Account: instruction.keys[48]!,
+            borrowDexDexToken0: instruction.keys[49]!,
+            borrowDexDexToken1: instruction.keys[50]!,
+            borrowDexDexToken0Reserve: instruction.keys[51]!,
+            borrowDexDexToken1Reserve: instruction.keys[52]!,
+            borrowDexDexToken0RateModel: instruction.keys[53]!,
+            borrowDexDexToken1RateModel: instruction.keys[54]!,
+            borrowDexDexToken0Vault: instruction.keys[55]!,
+            borrowDexDexToken1Vault: instruction.keys[56]!,
+            borrowDexSupplyPosToken0: instruction.keys[57]!,
+            borrowDexSupplyPosToken1: instruction.keys[58]!,
+            borrowDexBorrowPosToken0: instruction.keys[59]!,
+            borrowDexBorrowPosToken1: instruction.keys[60]!,
+            borrowDexDexToken0Program: instruction.keys[61]!,
+            borrowDexDexToken1Program: instruction.keys[62]!,
+            borrowDexDexRecipientToken0Account: instruction.keys[63]!,
+            borrowDexDexRecipientToken1Account: instruction.keys[64]!,
+            dexProgram: instruction.keys[65]!,
+            dexOracleProgram: instruction.keys[66]!,
+        },
+        data: getLiquidatePerfectDexInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createLiquidatePerfectDexInstruction(
     accounts: LiquidatePerfectDexInstructionAccounts,
     args: LiquidatePerfectDexInstructionArgs,
-    programId: Address = VAULTS_PROGRAM_ID,
+    programId: Address = LENDBORROW_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.signer, isSigner: true, isWritable: true },
@@ -298,9 +485,13 @@ export function createLiquidatePerfectDexInstruction(
             ? { pubkey: accounts.dexOracleProgram, isSigner: false, isWritable: false }
             : { pubkey: programId, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getLiquidatePerfectDexInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('1a717432f783d005', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getLiquidatePerfectDexInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(LIQUIDATE_PERFECT_DEX_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

@@ -41,7 +41,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findFlashloanAdminPda } from "../pdas";
-import { FLASHLOAN_PROGRAM_ADDRESS } from "../programs";
+import { LEND_FLASH_LOAN_PROGRAM_ADDRESS } from "../programs";
 
 export const INIT_FLASHLOAN_ADMIN_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([185, 117, 154, 56, 95, 12, 187, 139]);
@@ -53,7 +53,7 @@ export function getInitFlashloanAdminDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type InitFlashloanAdminInstruction<
-  TProgram extends string = typeof FLASHLOAN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_FLASH_LOAN_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountFlashloanAdmin extends string | AccountMeta<string> = string,
   TAccountSystemProgram extends string | AccountMeta<string> =
@@ -141,7 +141,7 @@ export async function getInitFlashloanAdminInstructionAsync<
   TAccountSigner extends string,
   TAccountFlashloanAdmin extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof FLASHLOAN_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_FLASH_LOAN_PROGRAM_ADDRESS,
 >(
   input: InitFlashloanAdminAsyncInput<
     TAccountSigner,
@@ -158,7 +158,8 @@ export async function getInitFlashloanAdminInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? FLASHLOAN_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? LEND_FLASH_LOAN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -219,7 +220,7 @@ export function getInitFlashloanAdminInstruction<
   TAccountSigner extends string,
   TAccountFlashloanAdmin extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof FLASHLOAN_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_FLASH_LOAN_PROGRAM_ADDRESS,
 >(
   input: InitFlashloanAdminInput<
     TAccountSigner,
@@ -234,7 +235,8 @@ export function getInitFlashloanAdminInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? FLASHLOAN_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? LEND_FLASH_LOAN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -276,7 +278,7 @@ export function getInitFlashloanAdminInstruction<
 }
 
 export type ParsedInitFlashloanAdminInstruction<
-  TProgram extends string = typeof FLASHLOAN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_FLASH_LOAN_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

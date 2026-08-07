@@ -5,6 +5,6 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-pub(crate) mod flashloan;
+pub(crate) mod lend_flash_loan;
 
-pub use self::flashloan::FlashloanError;
+pub use self::lend_flash_loan::LendFlashLoanError;

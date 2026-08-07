@@ -44,7 +44,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { JUPITER_PROGRAM_ADDRESS } from "../programs";
+import { AGGREGATOR_V6_PROGRAM_ADDRESS } from "../programs";
 import {
   getRoutePlanStepDecoder,
   getRoutePlanStepEncoder,
@@ -62,7 +62,7 @@ export function getRouteWithTokenLedgerDiscriminatorBytes(): ReadonlyUint8Array 
 }
 
 export type RouteWithTokenLedgerInstruction<
-  TProgram extends string = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
   TAccountTokenProgram extends string | AccountMeta<string> =
     "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
   TAccountUserTransferAuthority extends string | AccountMeta<string> = string,
@@ -206,7 +206,7 @@ export function getRouteWithTokenLedgerInstruction<
   TAccountTokenLedger extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
 >(
   input: RouteWithTokenLedgerInput<
     TAccountTokenProgram,
@@ -235,7 +235,8 @@ export function getRouteWithTokenLedgerInstruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? JUPITER_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? AGGREGATOR_V6_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -326,7 +327,7 @@ export function getRouteWithTokenLedgerInstruction<
 }
 
 export type ParsedRouteWithTokenLedgerInstruction<
-  TProgram extends string = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -370,7 +371,7 @@ export function parseRouteWithTokenLedgerInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === JUPITER_PROGRAM_ADDRESS
+    return accountMeta.address === AGGREGATOR_V6_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

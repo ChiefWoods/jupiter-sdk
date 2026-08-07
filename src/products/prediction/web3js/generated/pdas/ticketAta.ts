@@ -1,15 +1,12 @@
 import { Address } from '@solana/web3.js';
-import { PREDICTIONMARKET_PROGRAM_ID } from '..';
 
 export interface TicketAtaPdaSeeds {
     ticket: Address;
     settlementMint: Address;
 }
 
-export async function findTicketAtaPda(
-    seeds: TicketAtaPdaSeeds,
-    programId: Address = PREDICTIONMARKET_PROGRAM_ID,
-): Promise<[Address, number]> {
+export async function findTicketAtaPda(seeds: TicketAtaPdaSeeds): Promise<[Address, number]> {
+    const programId = new Address('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');
     const seedsBuffer: Uint8Array[] = [
         seeds.ticket.toBytes(),
         Buffer.from([

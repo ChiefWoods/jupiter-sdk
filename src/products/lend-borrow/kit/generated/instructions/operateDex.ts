@@ -44,7 +44,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { VAULTS_PROGRAM_ADDRESS } from "../programs";
+import { LEND_BORROW_PROGRAM_ADDRESS } from "../programs";
 import {
   getOperateDexColAmountsDecoder,
   getOperateDexColAmountsEncoder,
@@ -69,7 +69,7 @@ export function getOperateDexDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type OperateDexInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountSignerSupplyTokenAccount extends string | AccountMeta<string> =
     string,
@@ -742,7 +742,7 @@ export function getOperateDexInstruction<
   TAccountBorrowDexDexRecipientToken0Account extends string,
   TAccountBorrowDexDexRecipientToken1Account extends string,
   TAccountDexProgram extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: OperateDexInput<
     TAccountSigner,
@@ -897,7 +897,7 @@ export function getOperateDexInstruction<
   TAccountDexProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -1449,7 +1449,7 @@ export function getOperateDexInstruction<
 }
 
 export type ParsedOperateDexInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -1607,7 +1607,7 @@ export function parseOperateDexInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === VAULTS_PROGRAM_ADDRESS
+    return accountMeta.address === LEND_BORROW_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

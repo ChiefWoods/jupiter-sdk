@@ -10,6 +10,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const LIQUIDITY_ACCOUNT_DISCRIMINATOR = new Uint8Array([54, 252, 249, 226, 137, 172, 121, 58]);
+
 export type LiquidityAccountData = { authority: Address; revenueCollector: Address; status: boolean; bump: number };
 
 export interface LiquidityAccount {
@@ -34,6 +36,9 @@ function getLiquidityAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeLiquidityAccount(data: Uint8Array): LiquidityAccountData {
+    if (!LIQUIDITY_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('LIQUIDITYACCOUNT discriminator mismatch');
+    }
     const deserialized = getLiquidityAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as LiquidityAccountData;

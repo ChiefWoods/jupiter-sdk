@@ -1,5 +1,4 @@
 import { Address } from '@solana/web3.js';
-import { JUPSTABLE_PROGRAM_ID } from '..';
 
 export interface CustodianTokenAccountPdaSeeds {
     custodian: Address;
@@ -7,10 +6,8 @@ export interface CustodianTokenAccountPdaSeeds {
     vaultMint: Address;
 }
 
-export async function findCustodianTokenAccountPda(
-    seeds: CustodianTokenAccountPdaSeeds,
-    programId: Address = JUPSTABLE_PROGRAM_ID,
-): Promise<[Address, number]> {
+export async function findCustodianTokenAccountPda(seeds: CustodianTokenAccountPdaSeeds): Promise<[Address, number]> {
+    const programId = new Address('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');
     const seedsBuffer: Uint8Array[] = [
         seeds.custodian.toBytes(),
         seeds.vaultTokenProgram.toBytes(),

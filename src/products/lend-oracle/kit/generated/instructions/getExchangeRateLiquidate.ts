@@ -34,7 +34,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { ORACLE_PROGRAM_ADDRESS } from "../programs";
+import { LEND_ORACLE_PROGRAM_ADDRESS } from "../programs";
 
 export const GET_EXCHANGE_RATE_LIQUIDATE_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([228, 169, 73, 39, 91, 82, 27, 5]);
@@ -46,7 +46,7 @@ export function getGetExchangeRateLiquidateDiscriminatorBytes(): ReadonlyUint8Ar
 }
 
 export type GetExchangeRateLiquidateInstruction<
-  TProgram extends string = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_ORACLE_PROGRAM_ADDRESS,
   TAccountOracle extends string | AccountMeta<string> = string,
   TRemainingAccounts extends readonly AccountMeta<string>[] = [],
 > = Instruction<TProgram> &
@@ -106,13 +106,13 @@ export type GetExchangeRateLiquidateInput<
 
 export function getGetExchangeRateLiquidateInstruction<
   TAccountOracle extends string,
-  TProgramAddress extends Address = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_ORACLE_PROGRAM_ADDRESS,
 >(
   input: GetExchangeRateLiquidateInput<TAccountOracle>,
   config?: { programAddress?: TProgramAddress },
 ): GetExchangeRateLiquidateInstruction<TProgramAddress, TAccountOracle> {
   // Program address.
-  const programAddress = config?.programAddress ?? ORACLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_ORACLE_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -137,7 +137,7 @@ export function getGetExchangeRateLiquidateInstruction<
 }
 
 export type ParsedGetExchangeRateLiquidateInstruction<
-  TProgram extends string = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_ORACLE_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

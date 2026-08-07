@@ -42,7 +42,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const CREATE_TOKEN_METADATA_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([221, 80, 176, 37, 153, 188, 160, 68]);
@@ -54,7 +54,7 @@ export function getCreateTokenMetadataDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type CreateTokenMetadataInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountAdmin extends string | AccountMeta<string> = string,
   TAccountPerpetuals extends string | AccountMeta<string> = string,
   TAccountPool extends string | AccountMeta<string> = string,
@@ -186,7 +186,7 @@ export function getCreateTokenMetadataInstruction<
   TAccountTokenMetadataProgram extends string,
   TAccountSystemProgram extends string,
   TAccountRent extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: CreateTokenMetadataInput<
     TAccountAdmin,
@@ -213,7 +213,7 @@ export function getCreateTokenMetadataInstruction<
   TAccountRent
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -287,7 +287,7 @@ export function getCreateTokenMetadataInstruction<
 }
 
 export type ParsedCreateTokenMetadataInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

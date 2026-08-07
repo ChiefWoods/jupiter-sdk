@@ -1,7 +1,21 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { PERPETUALS_PROGRAM_ID } from '..';
-import { getOptionEncoder, getStructEncoder, getU64Encoder, type Encoder, type OptionOrNullable } from '@solana/codecs';
-import { getSideEncoder, type SideArgs } from '../types/side';
+import { PERPS_PROGRAM_ID } from '../programs/perps';
+import {
+    getOptionDecoder,
+    getOptionEncoder,
+    getStructDecoder,
+    getStructEncoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+    type OptionOrNullable,
+} from '@solana/codecs';
+import { getSideDecoder, getSideEncoder, type SideArgs } from '../types/side';
+
+export const CREATE_INCREASE_POSITION_MARKET_REQUEST_INSTRUCTION_DISCRIMINATOR = new Uint8Array([
+    184, 85, 199, 24, 105, 171, 156, 56,
+]);
 
 export interface CreateIncreasePositionMarketRequestInstructionAccounts {
     owner: Address;
@@ -42,10 +56,82 @@ function getCreateIncreasePositionMarketRequestInstructionDataEncoder(): Encoder
     ]);
 }
 
+function getCreateIncreasePositionMarketRequestInstructionDataDecoder(): Decoder<CreateIncreasePositionMarketRequestInstructionArgs> {
+    return getStructDecoder([
+        ['sizeUsdDelta', getU64Decoder()],
+        ['collateralTokenDelta', getU64Decoder()],
+        ['side', getSideDecoder()],
+        ['priceSlippage', getU64Decoder()],
+        ['jupiterMinimumOut', getOptionDecoder(getU64Decoder())],
+        ['counter', getU64Decoder()],
+    ]);
+}
+
+export interface ParsedCreateIncreasePositionMarketRequestInstruction {
+    programId: Address;
+    accounts: {
+        owner: AccountMeta;
+        fundingAccount: AccountMeta;
+        perpetuals: AccountMeta;
+        pool: AccountMeta;
+        position: AccountMeta;
+        positionRequest: AccountMeta;
+        positionRequestAta: AccountMeta;
+        custody: AccountMeta;
+        collateralCustody: AccountMeta;
+        inputMint: AccountMeta;
+        referral: AccountMeta;
+        tokenProgram: AccountMeta;
+        associatedTokenProgram: AccountMeta;
+        systemProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: CreateIncreasePositionMarketRequestInstructionArgs;
+}
+
+export function parseCreateIncreasePositionMarketRequestInstruction(
+    instruction: TransactionInstruction,
+): ParsedCreateIncreasePositionMarketRequestInstruction {
+    if (instruction.keys.length < 16) {
+        throw new Error('Expected 16 account metas for CreateIncreasePositionMarketRequest instruction');
+    }
+    if (
+        !CREATE_INCREASE_POSITION_MARKET_REQUEST_INSTRUCTION_DISCRIMINATOR.every(
+            (byte, index) => instruction.data[0 + index] === byte,
+        )
+    ) {
+        throw new Error('CreateIncreasePositionMarketRequest instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            owner: instruction.keys[0]!,
+            fundingAccount: instruction.keys[1]!,
+            perpetuals: instruction.keys[2]!,
+            pool: instruction.keys[3]!,
+            position: instruction.keys[4]!,
+            positionRequest: instruction.keys[5]!,
+            positionRequestAta: instruction.keys[6]!,
+            custody: instruction.keys[7]!,
+            collateralCustody: instruction.keys[8]!,
+            inputMint: instruction.keys[9]!,
+            referral: instruction.keys[10]!,
+            tokenProgram: instruction.keys[11]!,
+            associatedTokenProgram: instruction.keys[12]!,
+            systemProgram: instruction.keys[13]!,
+            eventAuthority: instruction.keys[14]!,
+            program: instruction.keys[15]!,
+        },
+        data: getCreateIncreasePositionMarketRequestInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createCreateIncreasePositionMarketRequestInstruction(
     accounts: CreateIncreasePositionMarketRequestInstructionAccounts,
     args: CreateIncreasePositionMarketRequestInstructionArgs,
-    programId: Address = PERPETUALS_PROGRAM_ID,
+    programId: Address = PERPS_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.owner, isSigner: true, isWritable: true },
@@ -67,9 +153,13 @@ export function createCreateIncreasePositionMarketRequestInstruction(
         { pubkey: accounts.eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getCreateIncreasePositionMarketRequestInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('b855c71869ab9c38', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getCreateIncreasePositionMarketRequestInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(CREATE_INCREASE_POSITION_MARKET_REQUEST_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

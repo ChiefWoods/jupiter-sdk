@@ -1,6 +1,15 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { PERPETUALS_PROGRAM_ID } from '..';
-import { getStructEncoder, getU64Encoder, type Encoder } from '@solana/codecs';
+import { PERPS_PROGRAM_ID } from '../programs/perps';
+import {
+    getStructDecoder,
+    getStructEncoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+export const SWAP2_INSTRUCTION_DISCRIMINATOR = new Uint8Array([65, 75, 63, 76, 235, 91, 91, 136]);
 
 export interface Swap2InstructionAccounts {
     owner: Address;
@@ -34,10 +43,74 @@ function getSwap2InstructionDataEncoder(): Encoder<Swap2InstructionArgs> {
     ]);
 }
 
+function getSwap2InstructionDataDecoder(): Decoder<Swap2InstructionArgs> {
+    return getStructDecoder([
+        ['amountIn', getU64Decoder()],
+        ['minAmountOut', getU64Decoder()],
+    ]);
+}
+
+export interface ParsedSwap2Instruction {
+    programId: Address;
+    accounts: {
+        owner: AccountMeta;
+        fundingAccount: AccountMeta;
+        receivingAccount: AccountMeta;
+        transferAuthority: AccountMeta;
+        perpetuals: AccountMeta;
+        pool: AccountMeta;
+        receivingCustody: AccountMeta;
+        receivingCustodyDovesPriceAccount: AccountMeta;
+        receivingCustodyPythnetPriceAccount: AccountMeta;
+        receivingCustodyTokenAccount: AccountMeta;
+        dispensingCustody: AccountMeta;
+        dispensingCustodyDovesPriceAccount: AccountMeta;
+        dispensingCustodyPythnetPriceAccount: AccountMeta;
+        dispensingCustodyTokenAccount: AccountMeta;
+        tokenProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: Swap2InstructionArgs;
+}
+
+export function parseSwap2Instruction(instruction: TransactionInstruction): ParsedSwap2Instruction {
+    if (instruction.keys.length < 17) {
+        throw new Error('Expected 17 account metas for Swap2 instruction');
+    }
+    if (!SWAP2_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('Swap2 instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            owner: instruction.keys[0]!,
+            fundingAccount: instruction.keys[1]!,
+            receivingAccount: instruction.keys[2]!,
+            transferAuthority: instruction.keys[3]!,
+            perpetuals: instruction.keys[4]!,
+            pool: instruction.keys[5]!,
+            receivingCustody: instruction.keys[6]!,
+            receivingCustodyDovesPriceAccount: instruction.keys[7]!,
+            receivingCustodyPythnetPriceAccount: instruction.keys[8]!,
+            receivingCustodyTokenAccount: instruction.keys[9]!,
+            dispensingCustody: instruction.keys[10]!,
+            dispensingCustodyDovesPriceAccount: instruction.keys[11]!,
+            dispensingCustodyPythnetPriceAccount: instruction.keys[12]!,
+            dispensingCustodyTokenAccount: instruction.keys[13]!,
+            tokenProgram: instruction.keys[14]!,
+            eventAuthority: instruction.keys[15]!,
+            program: instruction.keys[16]!,
+        },
+        data: getSwap2InstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createSwap2Instruction(
     accounts: Swap2InstructionAccounts,
     args: Swap2InstructionArgs,
-    programId: Address = PERPETUALS_PROGRAM_ID,
+    programId: Address = PERPS_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.owner, isSigner: true, isWritable: false },
@@ -58,9 +131,13 @@ export function createSwap2Instruction(
         { pubkey: accounts.eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getSwap2InstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('414b3f4ceb5b5b88', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getSwap2InstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(SWAP2_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

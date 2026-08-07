@@ -1,17 +1,27 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { VAULTS_PROGRAM_ID } from '..';
+import { LENDBORROW_PROGRAM_ID } from '../programs/lendBorrow';
 import { findVaultConfigPda } from '../pdas/vaultConfig';
 import { findVaultMetadataPda } from '../pdas/vaultMetadata';
 import {
+    fixDecoderSize,
     fixEncoderSize,
+    getBytesDecoder,
     getBytesEncoder,
+    getI16Decoder,
     getI16Encoder,
+    getStructDecoder,
     getStructEncoder,
+    getU16Decoder,
     getU16Encoder,
+    getU8Decoder,
     getU8Encoder,
+    transformDecoder,
     transformEncoder,
+    type Decoder,
     type Encoder,
 } from '@solana/codecs';
+
+export const INIT_VAULT_CONFIG_INSTRUCTION_DISCRIMINATOR = new Uint8Array([41, 194, 69, 254, 196, 246, 226, 195]);
 
 export interface InitVaultConfigInstructionAccounts {
     authority: Address;
@@ -63,10 +73,71 @@ function getInitVaultConfigInstructionDataEncoder(): Encoder<InitVaultConfigInst
     ]);
 }
 
+function getInitVaultConfigInstructionDataDecoder(): Decoder<InitVaultConfigInstructionArgs> {
+    return getStructDecoder([
+        ['vaultId', getU16Decoder()],
+        ['supplyRateMagnifier', getI16Decoder()],
+        ['borrowRateMagnifier', getI16Decoder()],
+        ['collateralFactor', getU16Decoder()],
+        ['liquidationThreshold', getU16Decoder()],
+        ['liquidationMaxLimit', getU16Decoder()],
+        ['withdrawGap', getU16Decoder()],
+        ['liquidationPenalty', getU16Decoder()],
+        ['borrowFee', getU8Decoder()],
+        ['vaultType', getU8Decoder()],
+        ['rebalancer', transformDecoder(fixDecoderSize(getBytesDecoder(), 32), value => new Address(value))],
+        ['liquidityProgram', transformDecoder(fixDecoderSize(getBytesDecoder(), 32), value => new Address(value))],
+        ['oracleProgram', transformDecoder(fixDecoderSize(getBytesDecoder(), 32), value => new Address(value))],
+    ]);
+}
+
+export interface ParsedInitVaultConfigInstruction {
+    programId: Address;
+    accounts: {
+        authority: AccountMeta;
+        vaultAdmin: AccountMeta;
+        vaultConfig: AccountMeta;
+        vaultMetadata: AccountMeta;
+        oracle: AccountMeta;
+        supplyToken: AccountMeta;
+        borrowToken: AccountMeta;
+        supplyDex: AccountMeta;
+        borrowDex: AccountMeta;
+        systemProgram: AccountMeta;
+    };
+    data: InitVaultConfigInstructionArgs;
+}
+
+export function parseInitVaultConfigInstruction(instruction: TransactionInstruction): ParsedInitVaultConfigInstruction {
+    if (instruction.keys.length < 10) {
+        throw new Error('Expected 10 account metas for InitVaultConfig instruction');
+    }
+    if (!INIT_VAULT_CONFIG_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('InitVaultConfig instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            authority: instruction.keys[0]!,
+            vaultAdmin: instruction.keys[1]!,
+            vaultConfig: instruction.keys[2]!,
+            vaultMetadata: instruction.keys[3]!,
+            oracle: instruction.keys[4]!,
+            supplyToken: instruction.keys[5]!,
+            borrowToken: instruction.keys[6]!,
+            supplyDex: instruction.keys[7]!,
+            borrowDex: instruction.keys[8]!,
+            systemProgram: instruction.keys[9]!,
+        },
+        data: getInitVaultConfigInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export async function createInitVaultConfigInstruction(
     accounts: InitVaultConfigInstructionAccounts,
     args: InitVaultConfigInstructionArgs,
-    programId: Address = VAULTS_PROGRAM_ID,
+    programId: Address = LENDBORROW_PROGRAM_ID,
 ): Promise<TransactionInstruction> {
     let vaultConfig = accounts.vaultConfig;
     if (!vaultConfig) {
@@ -108,9 +179,13 @@ export async function createInitVaultConfigInstruction(
             : { pubkey: programId, isSigner: false, isWritable: false },
         { pubkey: accounts.systemProgram, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getInitVaultConfigInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('29c245fec4f6e2c3', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getInitVaultConfigInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(INIT_VAULT_CONFIG_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

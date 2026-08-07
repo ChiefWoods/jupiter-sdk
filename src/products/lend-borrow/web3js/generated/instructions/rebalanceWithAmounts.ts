@@ -1,12 +1,18 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { VAULTS_PROGRAM_ID } from '..';
+import { LENDBORROW_PROGRAM_ID } from '../programs/lendBorrow';
 import {
+    getOptionDecoder,
     getOptionEncoder,
+    getStructDecoder,
     getStructEncoder,
+    getU128Decoder,
     getU128Encoder,
+    type Decoder,
     type Encoder,
     type OptionOrNullable,
 } from '@solana/codecs';
+
+export const REBALANCE_WITH_AMOUNTS_INSTRUCTION_DISCRIMINATOR = new Uint8Array([190, 33, 144, 182, 86, 4, 141, 73]);
 
 export interface RebalanceWithAmountsInstructionAccounts {
     rebalancer: Address;
@@ -44,10 +50,86 @@ function getRebalanceWithAmountsInstructionDataEncoder(): Encoder<RebalanceWithA
     ]);
 }
 
+function getRebalanceWithAmountsInstructionDataDecoder(): Decoder<RebalanceWithAmountsInstructionArgs> {
+    return getStructDecoder([
+        ['supplyAmount', getOptionDecoder(getU128Decoder())],
+        ['borrowAmount', getOptionDecoder(getU128Decoder())],
+    ]);
+}
+
+export interface ParsedRebalanceWithAmountsInstruction {
+    programId: Address;
+    accounts: {
+        rebalancer: AccountMeta;
+        rebalancerSupplyTokenAccount: AccountMeta;
+        rebalancerBorrowTokenAccount: AccountMeta;
+        vaultConfig: AccountMeta;
+        vaultState: AccountMeta;
+        supplyToken: AccountMeta;
+        borrowToken: AccountMeta;
+        supplyTokenReservesLiquidity: AccountMeta;
+        borrowTokenReservesLiquidity: AccountMeta;
+        vaultSupplyPositionOnLiquidity: AccountMeta;
+        vaultBorrowPositionOnLiquidity: AccountMeta;
+        supplyRateModel: AccountMeta;
+        borrowRateModel: AccountMeta;
+        liquidity: AccountMeta;
+        liquidityProgram: AccountMeta;
+        vaultSupplyTokenAccount: AccountMeta;
+        vaultBorrowTokenAccount: AccountMeta;
+        systemProgram: AccountMeta;
+        supplyTokenProgram: AccountMeta;
+        borrowTokenProgram: AccountMeta;
+        associatedTokenProgram: AccountMeta;
+    };
+    data: RebalanceWithAmountsInstructionArgs;
+}
+
+export function parseRebalanceWithAmountsInstruction(
+    instruction: TransactionInstruction,
+): ParsedRebalanceWithAmountsInstruction {
+    if (instruction.keys.length < 21) {
+        throw new Error('Expected 21 account metas for RebalanceWithAmounts instruction');
+    }
+    if (
+        !REBALANCE_WITH_AMOUNTS_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)
+    ) {
+        throw new Error('RebalanceWithAmounts instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            rebalancer: instruction.keys[0]!,
+            rebalancerSupplyTokenAccount: instruction.keys[1]!,
+            rebalancerBorrowTokenAccount: instruction.keys[2]!,
+            vaultConfig: instruction.keys[3]!,
+            vaultState: instruction.keys[4]!,
+            supplyToken: instruction.keys[5]!,
+            borrowToken: instruction.keys[6]!,
+            supplyTokenReservesLiquidity: instruction.keys[7]!,
+            borrowTokenReservesLiquidity: instruction.keys[8]!,
+            vaultSupplyPositionOnLiquidity: instruction.keys[9]!,
+            vaultBorrowPositionOnLiquidity: instruction.keys[10]!,
+            supplyRateModel: instruction.keys[11]!,
+            borrowRateModel: instruction.keys[12]!,
+            liquidity: instruction.keys[13]!,
+            liquidityProgram: instruction.keys[14]!,
+            vaultSupplyTokenAccount: instruction.keys[15]!,
+            vaultBorrowTokenAccount: instruction.keys[16]!,
+            systemProgram: instruction.keys[17]!,
+            supplyTokenProgram: instruction.keys[18]!,
+            borrowTokenProgram: instruction.keys[19]!,
+            associatedTokenProgram: instruction.keys[20]!,
+        },
+        data: getRebalanceWithAmountsInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createRebalanceWithAmountsInstruction(
     accounts: RebalanceWithAmountsInstructionAccounts,
     args: RebalanceWithAmountsInstructionArgs,
-    programId: Address = VAULTS_PROGRAM_ID,
+    programId: Address = LENDBORROW_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.rebalancer, isSigner: true, isWritable: true },
@@ -74,9 +156,13 @@ export function createRebalanceWithAmountsInstruction(
             ? { pubkey: accounts.associatedTokenProgram, isSigner: false, isWritable: false }
             : { pubkey: programId, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getRebalanceWithAmountsInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('be2190b656048d49', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getRebalanceWithAmountsInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(REBALANCE_WITH_AMOUNTS_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

@@ -79,7 +79,7 @@ impl InitTokenReserve {
         let data = InitTokenReserveInstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::LIQUIDITY_ID,
+            program_id: crate::LEND_LIQUIDITY_ID,
             accounts,
             data,
         }
@@ -377,7 +377,7 @@ impl<'a, 'b> InitTokenReserveCpi<'a, 'b> {
         let data = InitTokenReserveInstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::LIQUIDITY_ID,
+            program_id: crate::LEND_LIQUIDITY_ID,
             accounts,
             data,
         };

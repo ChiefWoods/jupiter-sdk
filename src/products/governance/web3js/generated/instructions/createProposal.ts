@@ -1,7 +1,22 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { GOVERN_PROGRAM_ID } from '..';
-import { getArrayEncoder, getStructEncoder, getU8Encoder, type Encoder } from '@solana/codecs';
-import { getProposalInstructionEncoder, type ProposalInstructionArgs } from '../types/proposalInstruction';
+import { GOVERNANCE_PROGRAM_ID } from '../programs/governance';
+import {
+    getArrayDecoder,
+    getArrayEncoder,
+    getStructDecoder,
+    getStructEncoder,
+    getU8Decoder,
+    getU8Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+import {
+    getProposalInstructionDecoder,
+    getProposalInstructionEncoder,
+    type ProposalInstructionArgs,
+} from '../types/proposalInstruction';
+
+export const CREATE_PROPOSAL_INSTRUCTION_DISCRIMINATOR = new Uint8Array([132, 116, 68, 174, 216, 160, 198, 22]);
 
 export interface CreateProposalInstructionAccounts {
     governor: Address;
@@ -28,10 +43,57 @@ function getCreateProposalInstructionDataEncoder(): Encoder<CreateProposalInstru
     ]);
 }
 
+function getCreateProposalInstructionDataDecoder(): Decoder<CreateProposalInstructionArgs> {
+    return getStructDecoder([
+        ['proposalType', getU8Decoder()],
+        ['maxOption', getU8Decoder()],
+        ['instructions', getArrayDecoder(getProposalInstructionDecoder())],
+    ]);
+}
+
+export interface ParsedCreateProposalInstruction {
+    programId: Address;
+    accounts: {
+        governor: AccountMeta;
+        proposal: AccountMeta;
+        smartWallet: AccountMeta;
+        proposer: AccountMeta;
+        payer: AccountMeta;
+        systemProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: CreateProposalInstructionArgs;
+}
+
+export function parseCreateProposalInstruction(instruction: TransactionInstruction): ParsedCreateProposalInstruction {
+    if (instruction.keys.length < 8) {
+        throw new Error('Expected 8 account metas for CreateProposal instruction');
+    }
+    if (!CREATE_PROPOSAL_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('CreateProposal instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            governor: instruction.keys[0]!,
+            proposal: instruction.keys[1]!,
+            smartWallet: instruction.keys[2]!,
+            proposer: instruction.keys[3]!,
+            payer: instruction.keys[4]!,
+            systemProgram: instruction.keys[5]!,
+            eventAuthority: instruction.keys[6]!,
+            program: instruction.keys[7]!,
+        },
+        data: getCreateProposalInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createCreateProposalInstruction(
     accounts: CreateProposalInstructionAccounts,
     args: CreateProposalInstructionArgs,
-    programId: Address = GOVERN_PROGRAM_ID,
+    programId: Address = GOVERNANCE_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.governor, isSigner: false, isWritable: true },
@@ -43,9 +105,13 @@ export function createCreateProposalInstruction(
         { pubkey: accounts.eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getCreateProposalInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('847444aed8a0c616', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getCreateProposalInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(CREATE_PROPOSAL_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

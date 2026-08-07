@@ -42,7 +42,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findTickHasDebtArrayPda } from "../pdas";
-import { VAULTS_PROGRAM_ADDRESS } from "../programs";
+import { LEND_BORROW_PROGRAM_ADDRESS } from "../programs";
 
 export const INIT_TICK_HAS_DEBT_ARRAY_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([206, 108, 146, 245, 20, 0, 141, 208]);
@@ -54,7 +54,7 @@ export function getInitTickHasDebtArrayDiscriminatorBytes(): ReadonlyUint8Array 
 }
 
 export type InitTickHasDebtArrayInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountVaultConfig extends string | AccountMeta<string> = string,
   TAccountTickHasDebtArray extends string | AccountMeta<string> = string,
@@ -145,7 +145,7 @@ export async function getInitTickHasDebtArrayInstructionAsync<
   TAccountVaultConfig extends string,
   TAccountTickHasDebtArray extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: InitTickHasDebtArrayAsyncInput<
     TAccountSigner,
@@ -164,7 +164,7 @@ export async function getInitTickHasDebtArrayInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -237,7 +237,7 @@ export function getInitTickHasDebtArrayInstruction<
   TAccountVaultConfig extends string,
   TAccountTickHasDebtArray extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: InitTickHasDebtArrayInput<
     TAccountSigner,
@@ -254,7 +254,7 @@ export function getInitTickHasDebtArrayInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -302,7 +302,7 @@ export function getInitTickHasDebtArrayInstruction<
 }
 
 export type ParsedInitTickHasDebtArrayInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

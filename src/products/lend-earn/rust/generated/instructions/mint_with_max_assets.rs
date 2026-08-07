@@ -117,7 +117,7 @@ impl MintWithMaxAssets {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::LENDING_ID,
+                crate::LEND_EARN_ID,
                 false,
             ));
         }
@@ -133,7 +133,7 @@ impl MintWithMaxAssets {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::LENDING_ID,
+            program_id: crate::LEND_EARN_ID,
             accounts,
             data,
         }
@@ -590,7 +590,7 @@ impl<'a, 'b> MintWithMaxAssetsCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::LENDING_ID,
+                crate::LEND_EARN_ID,
                 false,
             ));
         }
@@ -612,7 +612,7 @@ impl<'a, 'b> MintWithMaxAssetsCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::LENDING_ID,
+            program_id: crate::LEND_EARN_ID,
             accounts,
             data,
         };

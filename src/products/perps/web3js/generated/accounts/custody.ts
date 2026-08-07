@@ -21,6 +21,8 @@ import { getPermissionsDecoder, type Permissions } from '../types/permissions';
 import { getPriceImpactBufferDecoder, type PriceImpactBuffer } from '../types/priceImpactBuffer';
 import { getPricingParamsDecoder, type PricingParams } from '../types/pricingParams';
 
+export const CUSTODY_ACCOUNT_DISCRIMINATOR = new Uint8Array([1, 184, 48, 81, 93, 131, 63, 145]);
+
 export type CustodyAccountData = {
     pool: Address;
     mint: Address;
@@ -143,6 +145,9 @@ function getCustodyAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeCustodyAccount(data: Uint8Array): CustodyAccountData {
+    if (!CUSTODY_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('CUSTODYACCOUNT discriminator mismatch');
+    }
     const deserialized = getCustodyAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as CustodyAccountData;

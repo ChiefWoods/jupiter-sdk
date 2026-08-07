@@ -7,5 +7,5 @@
 
 use solana_address::{address, Address};
 
-/// `locker` program ID.
-pub const LOCKER_ID: Address = address!("LocpQgucEQHbqNABEYvBvwoxCPsSbG91A1QaQhQQqjn");
+/// `lock` program ID.
+pub const LOCK_ID: Address = address!("LocpQgucEQHbqNABEYvBvwoxCPsSbG91A1QaQhQQqjn");

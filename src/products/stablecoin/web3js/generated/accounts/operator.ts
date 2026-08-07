@@ -10,6 +10,8 @@ import {
 } from '@solana/codecs';
 import { getOperatorStatusDecoder, type OperatorStatus } from '../types/operatorStatus';
 
+export const OPERATOR_ACCOUNT_DISCRIMINATOR = new Uint8Array([219, 31, 188, 145, 69, 139, 204, 117]);
+
 export type OperatorAccountData = {
     operatorAuthority: Address;
     role: bigint;
@@ -42,6 +44,9 @@ function getOperatorAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeOperatorAccount(data: Uint8Array): OperatorAccountData {
+    if (!OPERATOR_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('OPERATORACCOUNT discriminator mismatch');
+    }
     const deserialized = getOperatorAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as OperatorAccountData;

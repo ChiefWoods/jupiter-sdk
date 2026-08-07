@@ -7,5 +7,5 @@
 
 use solana_address::{address, Address};
 
-/// `govern` program ID.
-pub const GOVERN_ID: Address = address!("GovaE4iu227srtG2s3tZzB4RmWBzw8sTwrCLZz7kN7rY");
+/// `governance` program ID.
+pub const GOVERNANCE_ID: Address = address!("GovaE4iu227srtG2s3tZzB4RmWBzw8sTwrCLZz7kN7rY");

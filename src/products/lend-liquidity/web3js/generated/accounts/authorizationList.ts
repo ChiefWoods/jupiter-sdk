@@ -10,6 +10,8 @@ import {
 } from '@solana/codecs';
 import { getUserClassDecoder, type UserClass } from '../types/userClass';
 
+export const AUTHORIZATION_LIST_ACCOUNT_DISCRIMINATOR = new Uint8Array([19, 157, 117, 43, 236, 167, 251, 69]);
+
 export type AuthorizationListAccountData = {
     authUsers: Array<Address>;
     guardians: Array<Address>;
@@ -42,6 +44,9 @@ function getAuthorizationListAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeAuthorizationListAccount(data: Uint8Array): AuthorizationListAccountData {
+    if (!AUTHORIZATION_LIST_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('AUTHORIZATIONLISTACCOUNT discriminator mismatch');
+    }
     const deserialized = getAuthorizationListAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as AuthorizationListAccountData;

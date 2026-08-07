@@ -124,7 +124,7 @@ impl anchor_lang::AccountSerialize for Tick {}
 #[cfg(feature = "anchor")]
 impl anchor_lang::Owner for Tick {
     fn owner() -> anchor_lang::solana_program::pubkey::Pubkey {
-        anchor_lang::solana_program::pubkey::Pubkey::from(crate::VAULTS_ID.to_bytes())
+        anchor_lang::solana_program::pubkey::Pubkey::from(crate::LEND_BORROW_ID.to_bytes())
     }
 }
 

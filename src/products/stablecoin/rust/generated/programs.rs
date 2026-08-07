@@ -7,5 +7,5 @@
 
 use solana_address::{address, Address};
 
-/// `jup_stable` program ID.
-pub const JUP_STABLE_ID: Address = address!("JUPUSDecMzAVgztLe6eGhwUBj1Pn3j9WAXwmtHmfbRr");
+/// `stablecoin` program ID.
+pub const STABLECOIN_ID: Address = address!("JUPUSDecMzAVgztLe6eGhwUBj1Pn3j9WAXwmtHmfbRr");

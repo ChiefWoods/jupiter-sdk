@@ -37,7 +37,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { VAULTS_PROGRAM_ADDRESS } from "../programs";
+import { LEND_BORROW_PROGRAM_ADDRESS } from "../programs";
 import {
   getAddressBoolDecoder,
   getAddressBoolEncoder,
@@ -56,7 +56,7 @@ export function getUpdateAuthsDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type UpdateAuthsInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountVaultAdmin extends string | AccountMeta<string> = string,
   TRemainingAccounts extends readonly AccountMeta<string>[] = [],
@@ -123,13 +123,13 @@ export type UpdateAuthsInput<
 export function getUpdateAuthsInstruction<
   TAccountSigner extends string,
   TAccountVaultAdmin extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: UpdateAuthsInput<TAccountSigner, TAccountVaultAdmin>,
   config?: { programAddress?: TProgramAddress },
 ): UpdateAuthsInstruction<TProgramAddress, TAccountSigner, TAccountVaultAdmin> {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -162,7 +162,7 @@ export function getUpdateAuthsInstruction<
 }
 
 export type ParsedUpdateAuthsInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

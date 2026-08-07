@@ -5,6 +5,6 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-pub(crate) mod prediction_market;
+pub(crate) mod prediction;
 
-pub use self::prediction_market::PredictionMarketError;
+pub use self::prediction::PredictionError;

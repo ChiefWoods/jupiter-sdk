@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const REDEEM_STAKE_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   178, 203, 250, 105, 133, 118, 255, 69,
@@ -49,7 +49,7 @@ export function getRedeemStakeDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type RedeemStakeInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountKeeper extends string | AccountMeta<string> = string,
   TAccountPerpetuals extends string | AccountMeta<string> = string,
   TAccountPool extends string | AccountMeta<string> = string,
@@ -134,7 +134,7 @@ export function getRedeemStakeInstruction<
   TAccountCustody extends string,
   TAccountStakeAccount extends string,
   TAccountStakeInfo extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: RedeemStakeInput<
     TAccountKeeper,
@@ -155,7 +155,7 @@ export function getRedeemStakeInstruction<
   TAccountStakeInfo
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -195,7 +195,7 @@ export function getRedeemStakeInstruction<
 }
 
 export type ParsedRedeemStakeInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

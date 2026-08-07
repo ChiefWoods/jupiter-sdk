@@ -1,14 +1,21 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { LOCKER_PROGRAM_ID } from '..';
+import { LOCK_PROGRAM_ID } from '../programs/lock';
 import { findEventAuthorityPda } from '../pdas/eventAuthority';
 import {
+    fixDecoderSize,
     fixEncoderSize,
+    getBytesDecoder,
     getBytesEncoder,
+    getStructDecoder,
     getStructEncoder,
+    getU64Decoder,
     getU64Encoder,
+    type Decoder,
     type Encoder,
     type ReadonlyUint8Array,
 } from '@solana/codecs';
+
+export const CREATE_ROOT_ESCROW_INSTRUCTION_DISCRIMINATOR = new Uint8Array([116, 212, 12, 188, 77, 226, 32, 201]);
 
 export interface CreateRootEscrowInstructionAccounts {
     base: Address;
@@ -37,10 +44,60 @@ function getCreateRootEscrowInstructionDataEncoder(): Encoder<CreateRootEscrowIn
     ]);
 }
 
+function getCreateRootEscrowInstructionDataDecoder(): Decoder<CreateRootEscrowInstructionArgs> {
+    return getStructDecoder([
+        ['maxClaimAmount', getU64Decoder()],
+        ['maxEscrow', getU64Decoder()],
+        ['version', getU64Decoder()],
+        ['root', fixDecoderSize(getBytesDecoder(), 32)],
+    ]);
+}
+
+export interface ParsedCreateRootEscrowInstruction {
+    programId: Address;
+    accounts: {
+        base: AccountMeta;
+        rootEscrow: AccountMeta;
+        tokenMint: AccountMeta;
+        payer: AccountMeta;
+        creator: AccountMeta;
+        systemProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: CreateRootEscrowInstructionArgs;
+}
+
+export function parseCreateRootEscrowInstruction(
+    instruction: TransactionInstruction,
+): ParsedCreateRootEscrowInstruction {
+    if (instruction.keys.length < 8) {
+        throw new Error('Expected 8 account metas for CreateRootEscrow instruction');
+    }
+    if (!CREATE_ROOT_ESCROW_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('CreateRootEscrow instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            base: instruction.keys[0]!,
+            rootEscrow: instruction.keys[1]!,
+            tokenMint: instruction.keys[2]!,
+            payer: instruction.keys[3]!,
+            creator: instruction.keys[4]!,
+            systemProgram: instruction.keys[5]!,
+            eventAuthority: instruction.keys[6]!,
+            program: instruction.keys[7]!,
+        },
+        data: getCreateRootEscrowInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export async function createCreateRootEscrowInstruction(
     accounts: CreateRootEscrowInstructionAccounts,
     args: CreateRootEscrowInstructionArgs,
-    programId: Address = LOCKER_PROGRAM_ID,
+    programId: Address = LOCK_PROGRAM_ID,
 ): Promise<TransactionInstruction> {
     let eventAuthority = accounts.eventAuthority;
     if (!eventAuthority) {
@@ -57,9 +114,13 @@ export async function createCreateRootEscrowInstruction(
         { pubkey: eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getCreateRootEscrowInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('74d40cbc4de220c9', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getCreateRootEscrowInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(CREATE_ROOT_ESCROW_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

@@ -1,5 +1,9 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { PERPETUALS_PROGRAM_ID } from '..';
+import { PERPS_PROGRAM_ID } from '../programs/perps';
+
+export const DECREASE_POSITION_WITH_INTERNAL_SWAP_INSTRUCTION_DISCRIMINATOR = new Uint8Array([
+    131, 17, 153, 110, 119, 100, 97, 38,
+]);
 
 export interface DecreasePositionWithInternalSwapInstructionAccounts {
     keeper: Address;
@@ -26,9 +30,82 @@ export interface DecreasePositionWithInternalSwapInstructionAccounts {
     program: Address;
 }
 
+export interface ParsedDecreasePositionWithInternalSwapInstruction {
+    programId: Address;
+    accounts: {
+        keeper: AccountMeta;
+        owner: AccountMeta;
+        transferAuthority: AccountMeta;
+        perpetuals: AccountMeta;
+        pool: AccountMeta;
+        positionRequest: AccountMeta;
+        positionRequestAta: AccountMeta;
+        position: AccountMeta;
+        custody: AccountMeta;
+        custodyDovesPriceAccount: AccountMeta;
+        custodyPythnetPriceAccount: AccountMeta;
+        collateralCustody: AccountMeta;
+        collateralCustodyDovesPriceAccount: AccountMeta;
+        collateralCustodyPythnetPriceAccount: AccountMeta;
+        collateralCustodyTokenAccount: AccountMeta;
+        dispensingCustody: AccountMeta;
+        dispensingCustodyDovesPriceAccount: AccountMeta;
+        dispensingCustodyPythnetPriceAccount: AccountMeta;
+        dispensingCustodyTokenAccount: AccountMeta;
+        tokenProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: {};
+}
+
+export function parseDecreasePositionWithInternalSwapInstruction(
+    instruction: TransactionInstruction,
+): ParsedDecreasePositionWithInternalSwapInstruction {
+    if (instruction.keys.length < 22) {
+        throw new Error('Expected 22 account metas for DecreasePositionWithInternalSwap instruction');
+    }
+    if (
+        !DECREASE_POSITION_WITH_INTERNAL_SWAP_INSTRUCTION_DISCRIMINATOR.every(
+            (byte, index) => instruction.data[0 + index] === byte,
+        )
+    ) {
+        throw new Error('DecreasePositionWithInternalSwap instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            keeper: instruction.keys[0]!,
+            owner: instruction.keys[1]!,
+            transferAuthority: instruction.keys[2]!,
+            perpetuals: instruction.keys[3]!,
+            pool: instruction.keys[4]!,
+            positionRequest: instruction.keys[5]!,
+            positionRequestAta: instruction.keys[6]!,
+            position: instruction.keys[7]!,
+            custody: instruction.keys[8]!,
+            custodyDovesPriceAccount: instruction.keys[9]!,
+            custodyPythnetPriceAccount: instruction.keys[10]!,
+            collateralCustody: instruction.keys[11]!,
+            collateralCustodyDovesPriceAccount: instruction.keys[12]!,
+            collateralCustodyPythnetPriceAccount: instruction.keys[13]!,
+            collateralCustodyTokenAccount: instruction.keys[14]!,
+            dispensingCustody: instruction.keys[15]!,
+            dispensingCustodyDovesPriceAccount: instruction.keys[16]!,
+            dispensingCustodyPythnetPriceAccount: instruction.keys[17]!,
+            dispensingCustodyTokenAccount: instruction.keys[18]!,
+            tokenProgram: instruction.keys[19]!,
+            eventAuthority: instruction.keys[20]!,
+            program: instruction.keys[21]!,
+        },
+        data: {},
+    };
+}
+
 export function createDecreasePositionWithInternalSwapInstruction(
     accounts: DecreasePositionWithInternalSwapInstructionAccounts,
-    programId: Address = PERPETUALS_PROGRAM_ID,
+    programId: Address = PERPS_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.keeper, isSigner: true, isWritable: false },
@@ -54,7 +131,13 @@ export function createDecreasePositionWithInternalSwapInstruction(
         { pubkey: accounts.eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const data = Buffer.from('8311996e77646126', 'hex');
+    let data = Buffer.alloc(0);
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(DECREASE_POSITION_WITH_INTERNAL_SWAP_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

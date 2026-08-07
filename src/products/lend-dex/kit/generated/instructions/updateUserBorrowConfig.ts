@@ -42,7 +42,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { DEX_PROGRAM_ADDRESS } from "../programs";
+import { LEND_DEX_PROGRAM_ADDRESS } from "../programs";
 
 export const UPDATE_USER_BORROW_CONFIG_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([100, 176, 201, 174, 247, 2, 54, 168]);
@@ -54,7 +54,7 @@ export function getUpdateUserBorrowConfigDiscriminatorBytes(): ReadonlyUint8Arra
 }
 
 export type UpdateUserBorrowConfigInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountDexAdmin extends string | AccountMeta<string> = string,
   TAccountDex extends string | AccountMeta<string> = string,
@@ -151,7 +151,7 @@ export function getUpdateUserBorrowConfigInstruction<
   TAccountDexAdmin extends string,
   TAccountDex extends string,
   TAccountPosition extends string,
-  TProgramAddress extends Address = typeof DEX_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_DEX_PROGRAM_ADDRESS,
 >(
   input: UpdateUserBorrowConfigInput<
     TAccountAuthority,
@@ -168,7 +168,7 @@ export function getUpdateUserBorrowConfigInstruction<
   TAccountPosition
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? DEX_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_DEX_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -207,7 +207,7 @@ export function getUpdateUserBorrowConfigInstruction<
 }
 
 export type ParsedUpdateUserBorrowConfigInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

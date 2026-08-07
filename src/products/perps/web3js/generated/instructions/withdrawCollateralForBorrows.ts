@@ -1,6 +1,17 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { PERPETUALS_PROGRAM_ID } from '..';
-import { getStructEncoder, getU64Encoder, type Encoder } from '@solana/codecs';
+import { PERPS_PROGRAM_ID } from '../programs/perps';
+import {
+    getStructDecoder,
+    getStructEncoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+export const WITHDRAW_COLLATERAL_FOR_BORROWS_INSTRUCTION_DISCRIMINATOR = new Uint8Array([
+    117, 160, 60, 82, 237, 233, 46, 182,
+]);
 
 export interface WithdrawCollateralForBorrowsInstructionAccounts {
     owner: Address;
@@ -25,10 +36,67 @@ function getWithdrawCollateralForBorrowsInstructionDataEncoder(): Encoder<Withdr
     return getStructEncoder([['amount', getU64Encoder()]]);
 }
 
+function getWithdrawCollateralForBorrowsInstructionDataDecoder(): Decoder<WithdrawCollateralForBorrowsInstructionArgs> {
+    return getStructDecoder([['amount', getU64Decoder()]]);
+}
+
+export interface ParsedWithdrawCollateralForBorrowsInstruction {
+    programId: Address;
+    accounts: {
+        owner: AccountMeta;
+        perpetuals: AccountMeta;
+        pool: AccountMeta;
+        custody: AccountMeta;
+        transferAuthority: AccountMeta;
+        borrowPosition: AccountMeta;
+        collateralTokenAccount: AccountMeta;
+        userTokenAccount: AccountMeta;
+        lpTokenMint: AccountMeta;
+        tokenProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: WithdrawCollateralForBorrowsInstructionArgs;
+}
+
+export function parseWithdrawCollateralForBorrowsInstruction(
+    instruction: TransactionInstruction,
+): ParsedWithdrawCollateralForBorrowsInstruction {
+    if (instruction.keys.length < 12) {
+        throw new Error('Expected 12 account metas for WithdrawCollateralForBorrows instruction');
+    }
+    if (
+        !WITHDRAW_COLLATERAL_FOR_BORROWS_INSTRUCTION_DISCRIMINATOR.every(
+            (byte, index) => instruction.data[0 + index] === byte,
+        )
+    ) {
+        throw new Error('WithdrawCollateralForBorrows instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            owner: instruction.keys[0]!,
+            perpetuals: instruction.keys[1]!,
+            pool: instruction.keys[2]!,
+            custody: instruction.keys[3]!,
+            transferAuthority: instruction.keys[4]!,
+            borrowPosition: instruction.keys[5]!,
+            collateralTokenAccount: instruction.keys[6]!,
+            userTokenAccount: instruction.keys[7]!,
+            lpTokenMint: instruction.keys[8]!,
+            tokenProgram: instruction.keys[9]!,
+            eventAuthority: instruction.keys[10]!,
+            program: instruction.keys[11]!,
+        },
+        data: getWithdrawCollateralForBorrowsInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createWithdrawCollateralForBorrowsInstruction(
     accounts: WithdrawCollateralForBorrowsInstructionAccounts,
     args: WithdrawCollateralForBorrowsInstructionArgs,
-    programId: Address = PERPETUALS_PROGRAM_ID,
+    programId: Address = PERPS_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.owner, isSigner: true, isWritable: true },
@@ -44,9 +112,13 @@ export function createWithdrawCollateralForBorrowsInstruction(
         { pubkey: accounts.eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getWithdrawCollateralForBorrowsInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('75a03c52ede92eb6', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getWithdrawCollateralForBorrowsInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(WITHDRAW_COLLATERAL_FOR_BORROWS_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

@@ -50,7 +50,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findBasePda, findEscrowPda, findEventAuthorityPda } from "../pdas";
-import { LOCKER_PROGRAM_ADDRESS } from "../programs";
+import { LOCK_PROGRAM_ADDRESS } from "../programs";
 import {
   getRemainingAccountsInfoDecoder,
   getRemainingAccountsInfoEncoder,
@@ -68,7 +68,7 @@ export function getCreateVestingEscrowFromRootDiscriminatorBytes(): ReadonlyUint
 }
 
 export type CreateVestingEscrowFromRootInstruction<
-  TProgram extends string = typeof LOCKER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LOCK_PROGRAM_ADDRESS,
   TAccountRootEscrow extends string | AccountMeta<string> = string,
   TAccountBase extends string | AccountMeta<string> = string,
   TAccountEscrow extends string | AccountMeta<string> = string,
@@ -276,7 +276,7 @@ export async function getCreateVestingEscrowFromRootInstructionAsync<
   TAccountAssociatedTokenProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof LOCKER_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LOCK_PROGRAM_ADDRESS,
 >(
   input: CreateVestingEscrowFromRootAsyncInput<
     TAccountRootEscrow,
@@ -313,7 +313,7 @@ export async function getCreateVestingEscrowFromRootInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LOCKER_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LOCK_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -531,7 +531,7 @@ export function getCreateVestingEscrowFromRootInstruction<
   TAccountAssociatedTokenProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof LOCKER_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LOCK_PROGRAM_ADDRESS,
 >(
   input: CreateVestingEscrowFromRootInput<
     TAccountRootEscrow,
@@ -566,7 +566,7 @@ export function getCreateVestingEscrowFromRootInstruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LOCKER_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LOCK_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -649,7 +649,7 @@ export function getCreateVestingEscrowFromRootInstruction<
 }
 
 export type ParsedCreateVestingEscrowFromRootInstruction<
-  TProgram extends string = typeof LOCKER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LOCK_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

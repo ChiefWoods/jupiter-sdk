@@ -1,9 +1,25 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { LOCKER_PROGRAM_ID } from '..';
+import { LOCK_PROGRAM_ID } from '../programs/lock';
 import { findEventAuthorityPda } from '../pdas/eventAuthority';
 import { findRootEscrowTokenPda } from '../pdas/rootEscrowToken';
-import { getOptionEncoder, getStructEncoder, getU64Encoder, type Encoder, type OptionOrNullable } from '@solana/codecs';
-import { getRemainingAccountsInfoEncoder, type RemainingAccountsInfoArgs } from '../types/remainingAccountsInfo';
+import {
+    getOptionDecoder,
+    getOptionEncoder,
+    getStructDecoder,
+    getStructEncoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+    type OptionOrNullable,
+} from '@solana/codecs';
+import {
+    getRemainingAccountsInfoDecoder,
+    getRemainingAccountsInfoEncoder,
+    type RemainingAccountsInfoArgs,
+} from '../types/remainingAccountsInfo';
+
+export const FUND_ROOT_ESCROW_INSTRUCTION_DISCRIMINATOR = new Uint8Array([251, 106, 189, 200, 108, 15, 144, 95]);
 
 export interface FundRootEscrowInstructionAccounts {
     rootEscrow: Address;
@@ -30,21 +46,68 @@ function getFundRootEscrowInstructionDataEncoder(): Encoder<FundRootEscrowInstru
     ]);
 }
 
+function getFundRootEscrowInstructionDataDecoder(): Decoder<FundRootEscrowInstructionArgs> {
+    return getStructDecoder([
+        ['maxAmount', getU64Decoder()],
+        ['remainingAccountsInfo', getOptionDecoder(getRemainingAccountsInfoDecoder())],
+    ]);
+}
+
+export interface ParsedFundRootEscrowInstruction {
+    programId: Address;
+    accounts: {
+        rootEscrow: AccountMeta;
+        tokenMint: AccountMeta;
+        rootEscrowToken: AccountMeta;
+        payer: AccountMeta;
+        payerToken: AccountMeta;
+        tokenProgram: AccountMeta;
+        systemProgram: AccountMeta;
+        associatedTokenProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: FundRootEscrowInstructionArgs;
+}
+
+export function parseFundRootEscrowInstruction(instruction: TransactionInstruction): ParsedFundRootEscrowInstruction {
+    if (instruction.keys.length < 10) {
+        throw new Error('Expected 10 account metas for FundRootEscrow instruction');
+    }
+    if (!FUND_ROOT_ESCROW_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('FundRootEscrow instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            rootEscrow: instruction.keys[0]!,
+            tokenMint: instruction.keys[1]!,
+            rootEscrowToken: instruction.keys[2]!,
+            payer: instruction.keys[3]!,
+            payerToken: instruction.keys[4]!,
+            tokenProgram: instruction.keys[5]!,
+            systemProgram: instruction.keys[6]!,
+            associatedTokenProgram: instruction.keys[7]!,
+            eventAuthority: instruction.keys[8]!,
+            program: instruction.keys[9]!,
+        },
+        data: getFundRootEscrowInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export async function createFundRootEscrowInstruction(
     accounts: FundRootEscrowInstructionAccounts,
     args: FundRootEscrowInstructionArgs,
-    programId: Address = LOCKER_PROGRAM_ID,
+    programId: Address = LOCK_PROGRAM_ID,
 ): Promise<TransactionInstruction> {
     let rootEscrowToken = accounts.rootEscrowToken;
     if (!rootEscrowToken) {
-        const [derived] = await findRootEscrowTokenPda(
-            {
-                rootEscrow: accounts.rootEscrow,
-                tokenProgram: accounts.tokenProgram,
-                tokenMint: accounts.tokenMint,
-            },
-            programId,
-        );
+        const [derived] = await findRootEscrowTokenPda({
+            rootEscrow: accounts.rootEscrow,
+            tokenProgram: accounts.tokenProgram,
+            tokenMint: accounts.tokenMint,
+        });
         rootEscrowToken = derived;
     }
     let eventAuthority = accounts.eventAuthority;
@@ -64,9 +127,13 @@ export async function createFundRootEscrowInstruction(
         { pubkey: eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getFundRootEscrowInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('fb6abdc86c0f905f', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getFundRootEscrowInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(FUND_ROOT_ESCROW_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

@@ -10,6 +10,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const VAULT_METADATA_ACCOUNT_DISCRIMINATOR = new Uint8Array([248, 177, 244, 93, 67, 19, 117, 57]);
+
 export type VaultMetadataAccountData = {
     vaultId: number;
     lookupTable: Address;
@@ -39,6 +41,9 @@ function getVaultMetadataAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeVaultMetadataAccount(data: Uint8Array): VaultMetadataAccountData {
+    if (!VAULT_METADATA_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('VAULTMETADATAACCOUNT discriminator mismatch');
+    }
     const deserialized = getVaultMetadataAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as VaultMetadataAccountData;

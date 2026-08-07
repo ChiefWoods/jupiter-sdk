@@ -1,5 +1,5 @@
 import { Address } from '@solana/web3.js';
-import { ORACLE_PROGRAM_ID } from '..';
+import { LENDORACLE_PROGRAM_ID } from '../programs/lendOracle';
 
 export interface DexPegConfigPdaSeeds {
     nonce: number;
@@ -7,7 +7,7 @@ export interface DexPegConfigPdaSeeds {
 
 export async function findDexPegConfigPda(
     seeds: DexPegConfigPdaSeeds,
-    programId: Address = ORACLE_PROGRAM_ID,
+    programId: Address = LENDORACLE_PROGRAM_ID,
 ): Promise<[Address, number]> {
     const seedsBuffer: Uint8Array[] = [
         Buffer.from('dex_peg', 'utf8'),

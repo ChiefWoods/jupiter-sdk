@@ -1,15 +1,12 @@
 import { Address } from '@solana/web3.js';
-import { VAULTS_PROGRAM_ID } from '..';
 
 export interface PositionTokenAccountPdaSeeds {
     signer: Address;
     positionMint: Address;
 }
 
-export async function findPositionTokenAccountPda(
-    seeds: PositionTokenAccountPdaSeeds,
-    programId: Address = VAULTS_PROGRAM_ID,
-): Promise<[Address, number]> {
+export async function findPositionTokenAccountPda(seeds: PositionTokenAccountPdaSeeds): Promise<[Address, number]> {
+    const programId = new Address('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');
     const seedsBuffer: Uint8Array[] = [
         seeds.signer.toBytes(),
         Buffer.from([

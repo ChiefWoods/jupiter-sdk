@@ -90,7 +90,7 @@ impl CreateVestingEscrow {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::LOCKER_ID,
+            program_id: crate::LOCK_ID,
             accounts,
             data,
         }
@@ -415,7 +415,7 @@ impl<'a, 'b> CreateVestingEscrowCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::LOCKER_ID,
+            program_id: crate::LOCK_ID,
             accounts,
             data,
         };

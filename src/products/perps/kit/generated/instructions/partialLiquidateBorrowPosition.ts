@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const PARTIAL_LIQUIDATE_BORROW_POSITION_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([250, 166, 13, 74, 97, 204, 130, 209]);
@@ -48,7 +48,7 @@ export function getPartialLiquidateBorrowPositionDiscriminatorBytes(): ReadonlyU
 }
 
 export type PartialLiquidateBorrowPositionInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountPerpetuals extends string | AccountMeta<string> = string,
   TAccountPool extends string | AccountMeta<string> = string,
@@ -174,7 +174,7 @@ export function getPartialLiquidateBorrowPositionInstruction<
   TAccountTokenProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: PartialLiquidateBorrowPositionInput<
     TAccountSigner,
@@ -205,7 +205,7 @@ export function getPartialLiquidateBorrowPositionInstruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -272,7 +272,7 @@ export function getPartialLiquidateBorrowPositionInstruction<
 }
 
 export type ParsedPartialLiquidateBorrowPositionInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

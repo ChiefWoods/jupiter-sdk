@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const REALLOC_POOL_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   114, 128, 37, 167, 71, 227, 40, 178,
@@ -49,7 +49,7 @@ export function getReallocPoolDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type ReallocPoolInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountKeeper extends string | AccountMeta<string> = string,
   TAccountPool extends string | AccountMeta<string> = string,
   TAccountSystemProgram extends string | AccountMeta<string> =
@@ -122,7 +122,7 @@ export function getReallocPoolInstruction<
   TAccountPool extends string,
   TAccountSystemProgram extends string,
   TAccountRent extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: ReallocPoolInput<
     TAccountKeeper,
@@ -139,7 +139,7 @@ export function getReallocPoolInstruction<
   TAccountRent
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -183,7 +183,7 @@ export function getReallocPoolInstruction<
 }
 
 export type ParsedReallocPoolInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

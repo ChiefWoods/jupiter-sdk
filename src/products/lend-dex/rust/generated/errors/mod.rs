@@ -5,6 +5,6 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-pub(crate) mod dex;
+pub(crate) mod lend_dex;
 
-pub use self::dex::DexError;
+pub use self::lend_dex::LendDexError;

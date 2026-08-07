@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const REMOVE_LIQUIDITY2_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([230, 215, 82, 127, 241, 101, 227, 146]);
@@ -50,7 +50,7 @@ export function getRemoveLiquidity2DiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type RemoveLiquidity2Instruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountOwner extends string | AccountMeta<string> = string,
   TAccountReceivingAccount extends string | AccountMeta<string> = string,
   TAccountLpTokenAccount extends string | AccountMeta<string> = string,
@@ -209,7 +209,7 @@ export function getRemoveLiquidity2Instruction<
   TAccountTokenProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: RemoveLiquidity2Input<
     TAccountOwner,
@@ -246,7 +246,7 @@ export function getRemoveLiquidity2Instruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -342,7 +342,7 @@ export function getRemoveLiquidity2Instruction<
 }
 
 export type ParsedRemoveLiquidity2Instruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

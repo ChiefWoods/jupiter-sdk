@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { LENDING_PROGRAM_ADDRESS } from "../programs";
+import { LEND_EARN_PROGRAM_ADDRESS } from "../programs";
 
 export const WITHDRAW_WITH_MAX_SHARES_BURN_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([47, 197, 183, 171, 239, 18, 245, 171]);
@@ -50,7 +50,7 @@ export function getWithdrawWithMaxSharesBurnDiscriminatorBytes(): ReadonlyUint8A
 }
 
 export type WithdrawWithMaxSharesBurnInstruction<
-  TProgram extends string = typeof LENDING_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_EARN_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountOwnerTokenAccount extends string | AccountMeta<string> = string,
   TAccountRecipientTokenAccount extends string | AccountMeta<string> = string,
@@ -242,7 +242,7 @@ export function getWithdrawWithMaxSharesBurnInstruction<
   TAccountTokenProgram extends string,
   TAccountAssociatedTokenProgram extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof LENDING_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_EARN_PROGRAM_ADDRESS,
 >(
   input: WithdrawWithMaxSharesBurnInput<
     TAccountSigner,
@@ -287,7 +287,7 @@ export function getWithdrawWithMaxSharesBurnInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LENDING_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_EARN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -409,7 +409,7 @@ export function getWithdrawWithMaxSharesBurnInstruction<
 }
 
 export type ParsedWithdrawWithMaxSharesBurnInstruction<
-  TProgram extends string = typeof LENDING_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_EARN_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -461,7 +461,7 @@ export function parseWithdrawWithMaxSharesBurnInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === LENDING_PROGRAM_ADDRESS
+    return accountMeta.address === LEND_EARN_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

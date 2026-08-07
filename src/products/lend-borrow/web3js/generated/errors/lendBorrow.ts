@@ -1,0 +1,756 @@
+export const LEND_BORROW_ERROR__VAULT_NEXT_TICK_NOT_FOUND = 0x1770; // 6000
+export const LEND_BORROW_ERROR__VAULT_INVALID_POSITION_MINT = 0x1771; // 6001
+export const LEND_BORROW_ERROR__VAULT_TICK_ID_LIQUIDATION_MISMATCH = 0x1772; // 6002
+export const LEND_BORROW_ERROR__VAULT_INVALID_POSITION_TOKEN_AMOUNT = 0x1773; // 6003
+export const LEND_BORROW_ERROR__VAULT_INVALID_REMAINING_ACCOUNTS_INDICES = 0x1774; // 6004
+export const LEND_BORROW_ERROR__VAULT_TICK_HAS_DEBT_VAULT_ID_MISMATCH = 0x1775; // 6005
+export const LEND_BORROW_ERROR__VAULT_BRANCH_VAULT_ID_MISMATCH = 0x1776; // 6006
+export const LEND_BORROW_ERROR__VAULT_TICK_VAULT_ID_MISMATCH = 0x1777; // 6007
+export const LEND_BORROW_ERROR__VAULT_INVALID_DECIMALS = 0x1778; // 6008
+export const LEND_BORROW_ERROR__VAULT_INVALID_OPERATE_AMOUNT = 0x1779; // 6009
+export const LEND_BORROW_ERROR__VAULT_TICK_IS_EMPTY = 0x177a; // 6010
+export const LEND_BORROW_ERROR__VAULT_POSITION_ABOVE_C_F = 0x177b; // 6011
+export const LEND_BORROW_ERROR__VAULT_TOP_TICK_DOES_NOT_EXIST = 0x177c; // 6012
+export const LEND_BORROW_ERROR__VAULT_EXCESS_SLIPPAGE_LIQUIDATION = 0x177d; // 6013
+export const LEND_BORROW_ERROR__VAULT_NOT_REBALANCER = 0x177e; // 6014
+export const LEND_BORROW_ERROR__VAULT_TOKEN_NOT_INITIALIZED = 0x177f; // 6015
+export const LEND_BORROW_ERROR__VAULT_USER_COLLATERAL_DEBT_EXCEED = 0x1780; // 6016
+export const LEND_BORROW_ERROR__VAULT_EXCESS_COLLATERAL_WITHDRAWAL = 0x1781; // 6017
+export const LEND_BORROW_ERROR__VAULT_EXCESS_DEBT_PAYBACK = 0x1782; // 6018
+export const LEND_BORROW_ERROR__VAULT_WITHDRAW_MORE_THAN_OPERATE_LIMIT = 0x1783; // 6019
+export const LEND_BORROW_ERROR__VAULT_INVALID_LIQUIDATION_AMT = 0x1784; // 6020
+export const LEND_BORROW_ERROR__VAULT_LIQUIDATION_RESULT = 0x1785; // 6021
+export const LEND_BORROW_ERROR__VAULT_BRANCH_DEBT_TOO_LOW = 0x1786; // 6022
+export const LEND_BORROW_ERROR__VAULT_TICK_DEBT_TOO_LOW = 0x1787; // 6023
+export const LEND_BORROW_ERROR__VAULT_LIQUIDITY_EXCHANGE_PRICE_UNEXPECTED = 0x1788; // 6024
+export const LEND_BORROW_ERROR__VAULT_USER_DEBT_TOO_LOW = 0x1789; // 6025
+export const LEND_BORROW_ERROR__VAULT_INVALID_PAYBACK_OR_DEPOSIT = 0x178a; // 6026
+export const LEND_BORROW_ERROR__VAULT_INVALID_LIQUIDATION = 0x178b; // 6027
+export const LEND_BORROW_ERROR__VAULT_NOTHING_TO_REBALANCE = 0x178c; // 6028
+export const LEND_BORROW_ERROR__VAULT_INVALID_REBALANCE_MIN_MAX = 0x178d; // 6029
+export const LEND_BORROW_ERROR__VAULT_LIQUIDATION_REVERTS = 0x178e; // 6030
+export const LEND_BORROW_ERROR__VAULT_INVALID_ORACLE_PRICE = 0x178f; // 6031
+export const LEND_BORROW_ERROR__VAULT_BRANCH_NOT_FOUND = 0x1790; // 6032
+export const LEND_BORROW_ERROR__VAULT_TICK_NOT_FOUND = 0x1791; // 6033
+export const LEND_BORROW_ERROR__VAULT_TICK_HAS_DEBT_NOT_FOUND = 0x1792; // 6034
+export const LEND_BORROW_ERROR__VAULT_TICK_MISMATCH = 0x1793; // 6035
+export const LEND_BORROW_ERROR__VAULT_INVALID_VAULT_ID = 0x1794; // 6036
+export const LEND_BORROW_ERROR__VAULT_INVALID_NEXT_POSITION_ID = 0x1795; // 6037
+export const LEND_BORROW_ERROR__VAULT_INVALID_POSITION_ID = 0x1796; // 6038
+export const LEND_BORROW_ERROR__VAULT_POSITION_NOT_EMPTY = 0x1797; // 6039
+export const LEND_BORROW_ERROR__VAULT_INVALID_SUPPLY_MINT = 0x1798; // 6040
+export const LEND_BORROW_ERROR__VAULT_INVALID_BORROW_MINT = 0x1799; // 6041
+export const LEND_BORROW_ERROR__VAULT_INVALID_ORACLE = 0x179a; // 6042
+export const LEND_BORROW_ERROR__VAULT_INVALID_TICK = 0x179b; // 6043
+export const LEND_BORROW_ERROR__VAULT_INVALID_LIQUIDITY_PROGRAM = 0x179c; // 6044
+export const LEND_BORROW_ERROR__VAULT_INVALID_POSITION_AUTHORITY = 0x179d; // 6045
+export const LEND_BORROW_ERROR__VAULT_ORACLE_NOT_VALID = 0x179e; // 6046
+export const LEND_BORROW_ERROR__VAULT_BRANCH_OWNER_NOT_VALID = 0x179f; // 6047
+export const LEND_BORROW_ERROR__VAULT_TICK_HAS_DEBT_OWNER_NOT_VALID = 0x17a0; // 6048
+export const LEND_BORROW_ERROR__VAULT_TICK_OWNER_NOT_VALID = 0x17a1; // 6049
+export const LEND_BORROW_ERROR__VAULT_LIQUIDATE_REMAINING_ACCOUNTS_TOO_SHORT = 0x17a2; // 6050
+export const LEND_BORROW_ERROR__VAULT_OPERATE_REMAINING_ACCOUNTS_TOO_SHORT = 0x17a3; // 6051
+export const LEND_BORROW_ERROR__VAULT_INVALID_ZEROTH_BRANCH = 0x17a4; // 6052
+export const LEND_BORROW_ERROR__VAULT_CPI_TO_LIQUIDITY_FAILED = 0x17a5; // 6053
+export const LEND_BORROW_ERROR__VAULT_CPI_TO_ORACLE_FAILED = 0x17a6; // 6054
+export const LEND_BORROW_ERROR__VAULT_ONLY_AUTHORITY = 0x17a7; // 6055
+export const LEND_BORROW_ERROR__VAULT_NEW_BRANCH_INVALID = 0x17a8; // 6056
+export const LEND_BORROW_ERROR__VAULT_TICK_HAS_DEBT_INDEX_MISMATCH = 0x17a9; // 6057
+export const LEND_BORROW_ERROR__VAULT_TICK_HAS_DEBT_OUT_OF_RANGE = 0x17aa; // 6058
+export const LEND_BORROW_ERROR__VAULT_USER_SUPPLY_POSITION_REQUIRED = 0x17ab; // 6059
+export const LEND_BORROW_ERROR__VAULT_CLAIM_ACCOUNT_REQUIRED = 0x17ac; // 6060
+export const LEND_BORROW_ERROR__VAULT_RECIPIENT_WITHDRAW_ACCOUNT_REQUIRED = 0x17ad; // 6061
+export const LEND_BORROW_ERROR__VAULT_RECIPIENT_BORROW_ACCOUNT_REQUIRED = 0x17ae; // 6062
+export const LEND_BORROW_ERROR__VAULT_POSITION_ABOVE_LIQUIDATION_THRESHOLD = 0x17af; // 6063
+export const LEND_BORROW_ERROR__VAULT_ADMIN_VALUE_ABOVE_LIMIT = 0x17b0; // 6064
+export const LEND_BORROW_ERROR__VAULT_ADMIN_ONLY_AUTHS = 0x17b1; // 6065
+export const LEND_BORROW_ERROR__VAULT_ADMIN_ADDRESS_ZERO_NOT_ALLOWED = 0x17b2; // 6066
+export const LEND_BORROW_ERROR__VAULT_ADMIN_VAULT_ID_MISMATCH = 0x17b3; // 6067
+export const LEND_BORROW_ERROR__VAULT_ADMIN_TOTAL_IDS_MISMATCH = 0x17b4; // 6068
+export const LEND_BORROW_ERROR__VAULT_ADMIN_TICK_MISMATCH = 0x17b5; // 6069
+export const LEND_BORROW_ERROR__VAULT_ADMIN_LIQUIDITY_PROGRAM_MISMATCH = 0x17b6; // 6070
+export const LEND_BORROW_ERROR__VAULT_ADMIN_MAX_AUTH_COUNT_REACHED = 0x17b7; // 6071
+export const LEND_BORROW_ERROR__VAULT_ADMIN_INVALID_PARAMS = 0x17b8; // 6072
+export const LEND_BORROW_ERROR__VAULT_ADMIN_ONLY_AUTHORITY = 0x17b9; // 6073
+export const LEND_BORROW_ERROR__VAULT_ADMIN_ORACLE_PROGRAM_MISMATCH = 0x17ba; // 6074
+export const LEND_BORROW_ERROR__VAULT_ADMIN_INVALID_VAULT_TYPE = 0x17bb; // 6075
+export const LEND_BORROW_ERROR__VAULT_ADMIN_INVALID_DEX_PROGRAM = 0x17bc; // 6076
+export const LEND_BORROW_ERROR__VAULT_ADMIN_INVALID_DEX_POOL = 0x17bd; // 6077
+export const LEND_BORROW_ERROR__VAULT_CPI_TO_DEX_FAILED = 0x17be; // 6078
+export const LEND_BORROW_ERROR__VAULT_DEX_ACCOUNTS_REQUIRED = 0x17bf; // 6079
+export const LEND_BORROW_ERROR__VAULT_INVALID_DEX_POOL = 0x17c0; // 6080
+export const LEND_BORROW_ERROR__VAULT_INVALID_VAULT_TYPE_FOR_DEX = 0x17c1; // 6081
+export const LEND_BORROW_ERROR__VAULT_OPERATE_DEX_IMPERFECT_MAX_USE_PERFECT = 0x17c2; // 6082
+export const LEND_BORROW_ERROR__VAULT_OPERATE_DEX_NFT_ID_MISMATCH = 0x17c3; // 6083
+export const LEND_BORROW_ERROR__VAULT_ADMIN_SUPPLY_TOKEN_REQUIRED = 0x17c4; // 6084
+export const LEND_BORROW_ERROR__VAULT_ADMIN_BORROW_TOKEN_REQUIRED = 0x17c5; // 6085
+export const LEND_BORROW_ERROR__VAULT_ADMIN_RATE_MAGNIFIER_NOT_ALLOWED_FOR_SMART_LEG = 0x17c6; // 6086
+export const LEND_BORROW_ERROR__VAULT_DEX_DEBT_SHARES_PAID_MORE_THAN_AVAILABLE_LIQUIDATION = 0x17c7; // 6087
+export const LEND_BORROW_ERROR__VAULT_SIGNER_SUPPLY_TOKEN_ACCOUNT_REQUIRED = 0x17c8; // 6088
+export const LEND_BORROW_ERROR__VAULT_SIGNER_BORROW_TOKEN_ACCOUNT_REQUIRED = 0x17c9; // 6089
+export const LEND_BORROW_ERROR__VAULT_INVALID_VAULT_TYPE_FOR_OPERATE = 0x17ca; // 6090
+export const LEND_BORROW_ERROR__VAULT_SUPPLY_TOKEN_REQUIRED = 0x17cb; // 6091
+export const LEND_BORROW_ERROR__VAULT_BORROW_TOKEN_REQUIRED = 0x17cc; // 6092
+export const LEND_BORROW_ERROR__VAULT_SUPPLY_RESERVES_REQUIRED = 0x17cd; // 6093
+export const LEND_BORROW_ERROR__VAULT_BORROW_RESERVES_REQUIRED = 0x17ce; // 6094
+export const LEND_BORROW_ERROR__VAULT_SUPPLY_DEX_REQUIRED = 0x17cf; // 6095
+export const LEND_BORROW_ERROR__VAULT_BORROW_DEX_REQUIRED = 0x17d0; // 6096
+export const LEND_BORROW_ERROR__VAULT_SUPPLY_RATE_MODEL_REQUIRED = 0x17d1; // 6097
+export const LEND_BORROW_ERROR__VAULT_BORROW_RATE_MODEL_REQUIRED = 0x17d2; // 6098
+export const LEND_BORROW_ERROR__VAULT_SUPPLY_TOKEN_PROGRAM_REQUIRED = 0x17d3; // 6099
+export const LEND_BORROW_ERROR__VAULT_BORROW_TOKEN_PROGRAM_REQUIRED = 0x17d4; // 6100
+export const LEND_BORROW_ERROR__VAULT_SUPPLY_VAULT_ACCOUNT_REQUIRED = 0x17d5; // 6101
+export const LEND_BORROW_ERROR__VAULT_BORROW_VAULT_ACCOUNT_REQUIRED = 0x17d6; // 6102
+export const LEND_BORROW_ERROR__VAULT_USER_BORROW_POSITION_REQUIRED = 0x17d7; // 6103
+export const LEND_BORROW_ERROR__VAULT_LIQUIDATE_COL_AMOUNTS_REQUIRED = 0x17d8; // 6104
+export const LEND_BORROW_ERROR__VAULT_LIQUIDATE_DEBT_AMOUNTS_REQUIRED = 0x17d9; // 6105
+export const LEND_BORROW_ERROR__VAULT_INVALID_DEX_ORACLE_PROGRAM = 0x17da; // 6106
+
+export type LendBorrowError =
+    | typeof LEND_BORROW_ERROR__VAULT_ADMIN_ADDRESS_ZERO_NOT_ALLOWED
+    | typeof LEND_BORROW_ERROR__VAULT_ADMIN_BORROW_TOKEN_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_ADMIN_INVALID_DEX_POOL
+    | typeof LEND_BORROW_ERROR__VAULT_ADMIN_INVALID_DEX_PROGRAM
+    | typeof LEND_BORROW_ERROR__VAULT_ADMIN_INVALID_PARAMS
+    | typeof LEND_BORROW_ERROR__VAULT_ADMIN_INVALID_VAULT_TYPE
+    | typeof LEND_BORROW_ERROR__VAULT_ADMIN_LIQUIDITY_PROGRAM_MISMATCH
+    | typeof LEND_BORROW_ERROR__VAULT_ADMIN_MAX_AUTH_COUNT_REACHED
+    | typeof LEND_BORROW_ERROR__VAULT_ADMIN_ONLY_AUTHORITY
+    | typeof LEND_BORROW_ERROR__VAULT_ADMIN_ONLY_AUTHS
+    | typeof LEND_BORROW_ERROR__VAULT_ADMIN_ORACLE_PROGRAM_MISMATCH
+    | typeof LEND_BORROW_ERROR__VAULT_ADMIN_RATE_MAGNIFIER_NOT_ALLOWED_FOR_SMART_LEG
+    | typeof LEND_BORROW_ERROR__VAULT_ADMIN_SUPPLY_TOKEN_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_ADMIN_TICK_MISMATCH
+    | typeof LEND_BORROW_ERROR__VAULT_ADMIN_TOTAL_IDS_MISMATCH
+    | typeof LEND_BORROW_ERROR__VAULT_ADMIN_VALUE_ABOVE_LIMIT
+    | typeof LEND_BORROW_ERROR__VAULT_ADMIN_VAULT_ID_MISMATCH
+    | typeof LEND_BORROW_ERROR__VAULT_BORROW_DEX_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_BORROW_RATE_MODEL_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_BORROW_RESERVES_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_BORROW_TOKEN_PROGRAM_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_BORROW_TOKEN_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_BORROW_VAULT_ACCOUNT_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_BRANCH_DEBT_TOO_LOW
+    | typeof LEND_BORROW_ERROR__VAULT_BRANCH_NOT_FOUND
+    | typeof LEND_BORROW_ERROR__VAULT_BRANCH_OWNER_NOT_VALID
+    | typeof LEND_BORROW_ERROR__VAULT_BRANCH_VAULT_ID_MISMATCH
+    | typeof LEND_BORROW_ERROR__VAULT_CLAIM_ACCOUNT_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_CPI_TO_DEX_FAILED
+    | typeof LEND_BORROW_ERROR__VAULT_CPI_TO_LIQUIDITY_FAILED
+    | typeof LEND_BORROW_ERROR__VAULT_CPI_TO_ORACLE_FAILED
+    | typeof LEND_BORROW_ERROR__VAULT_DEX_ACCOUNTS_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_DEX_DEBT_SHARES_PAID_MORE_THAN_AVAILABLE_LIQUIDATION
+    | typeof LEND_BORROW_ERROR__VAULT_EXCESS_COLLATERAL_WITHDRAWAL
+    | typeof LEND_BORROW_ERROR__VAULT_EXCESS_DEBT_PAYBACK
+    | typeof LEND_BORROW_ERROR__VAULT_EXCESS_SLIPPAGE_LIQUIDATION
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_BORROW_MINT
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_DECIMALS
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_DEX_ORACLE_PROGRAM
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_DEX_POOL
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_LIQUIDATION
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_LIQUIDATION_AMT
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_LIQUIDITY_PROGRAM
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_NEXT_POSITION_ID
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_OPERATE_AMOUNT
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_ORACLE
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_ORACLE_PRICE
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_PAYBACK_OR_DEPOSIT
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_POSITION_AUTHORITY
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_POSITION_ID
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_POSITION_MINT
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_POSITION_TOKEN_AMOUNT
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_REBALANCE_MIN_MAX
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_REMAINING_ACCOUNTS_INDICES
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_SUPPLY_MINT
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_TICK
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_VAULT_ID
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_VAULT_TYPE_FOR_DEX
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_VAULT_TYPE_FOR_OPERATE
+    | typeof LEND_BORROW_ERROR__VAULT_INVALID_ZEROTH_BRANCH
+    | typeof LEND_BORROW_ERROR__VAULT_LIQUIDATE_COL_AMOUNTS_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_LIQUIDATE_DEBT_AMOUNTS_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_LIQUIDATE_REMAINING_ACCOUNTS_TOO_SHORT
+    | typeof LEND_BORROW_ERROR__VAULT_LIQUIDATION_RESULT
+    | typeof LEND_BORROW_ERROR__VAULT_LIQUIDATION_REVERTS
+    | typeof LEND_BORROW_ERROR__VAULT_LIQUIDITY_EXCHANGE_PRICE_UNEXPECTED
+    | typeof LEND_BORROW_ERROR__VAULT_NEW_BRANCH_INVALID
+    | typeof LEND_BORROW_ERROR__VAULT_NEXT_TICK_NOT_FOUND
+    | typeof LEND_BORROW_ERROR__VAULT_NOTHING_TO_REBALANCE
+    | typeof LEND_BORROW_ERROR__VAULT_NOT_REBALANCER
+    | typeof LEND_BORROW_ERROR__VAULT_ONLY_AUTHORITY
+    | typeof LEND_BORROW_ERROR__VAULT_OPERATE_DEX_IMPERFECT_MAX_USE_PERFECT
+    | typeof LEND_BORROW_ERROR__VAULT_OPERATE_DEX_NFT_ID_MISMATCH
+    | typeof LEND_BORROW_ERROR__VAULT_OPERATE_REMAINING_ACCOUNTS_TOO_SHORT
+    | typeof LEND_BORROW_ERROR__VAULT_ORACLE_NOT_VALID
+    | typeof LEND_BORROW_ERROR__VAULT_POSITION_ABOVE_C_F
+    | typeof LEND_BORROW_ERROR__VAULT_POSITION_ABOVE_LIQUIDATION_THRESHOLD
+    | typeof LEND_BORROW_ERROR__VAULT_POSITION_NOT_EMPTY
+    | typeof LEND_BORROW_ERROR__VAULT_RECIPIENT_BORROW_ACCOUNT_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_RECIPIENT_WITHDRAW_ACCOUNT_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_SIGNER_BORROW_TOKEN_ACCOUNT_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_SIGNER_SUPPLY_TOKEN_ACCOUNT_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_SUPPLY_DEX_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_SUPPLY_RATE_MODEL_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_SUPPLY_RESERVES_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_SUPPLY_TOKEN_PROGRAM_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_SUPPLY_TOKEN_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_SUPPLY_VAULT_ACCOUNT_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_TICK_DEBT_TOO_LOW
+    | typeof LEND_BORROW_ERROR__VAULT_TICK_HAS_DEBT_INDEX_MISMATCH
+    | typeof LEND_BORROW_ERROR__VAULT_TICK_HAS_DEBT_NOT_FOUND
+    | typeof LEND_BORROW_ERROR__VAULT_TICK_HAS_DEBT_OUT_OF_RANGE
+    | typeof LEND_BORROW_ERROR__VAULT_TICK_HAS_DEBT_OWNER_NOT_VALID
+    | typeof LEND_BORROW_ERROR__VAULT_TICK_HAS_DEBT_VAULT_ID_MISMATCH
+    | typeof LEND_BORROW_ERROR__VAULT_TICK_ID_LIQUIDATION_MISMATCH
+    | typeof LEND_BORROW_ERROR__VAULT_TICK_IS_EMPTY
+    | typeof LEND_BORROW_ERROR__VAULT_TICK_MISMATCH
+    | typeof LEND_BORROW_ERROR__VAULT_TICK_NOT_FOUND
+    | typeof LEND_BORROW_ERROR__VAULT_TICK_OWNER_NOT_VALID
+    | typeof LEND_BORROW_ERROR__VAULT_TICK_VAULT_ID_MISMATCH
+    | typeof LEND_BORROW_ERROR__VAULT_TOKEN_NOT_INITIALIZED
+    | typeof LEND_BORROW_ERROR__VAULT_TOP_TICK_DOES_NOT_EXIST
+    | typeof LEND_BORROW_ERROR__VAULT_USER_BORROW_POSITION_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_USER_COLLATERAL_DEBT_EXCEED
+    | typeof LEND_BORROW_ERROR__VAULT_USER_DEBT_TOO_LOW
+    | typeof LEND_BORROW_ERROR__VAULT_USER_SUPPLY_POSITION_REQUIRED
+    | typeof LEND_BORROW_ERROR__VAULT_WITHDRAW_MORE_THAN_OPERATE_LIMIT;
+
+export interface LendBorrowErrorInfo {
+    code: LendBorrowError;
+    name: string;
+    message: string;
+}
+
+const LENDBORROW_ERRORS: Readonly<Record<LendBorrowError, LendBorrowErrorInfo>> = {
+    [LEND_BORROW_ERROR__VAULT_NEXT_TICK_NOT_FOUND]: {
+        code: 6000,
+        name: 'vaultNextTickNotFound',
+        message: 'VAULT_NEXT_TICK_NOT_FOUND',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_POSITION_MINT]: {
+        code: 6001,
+        name: 'vaultInvalidPositionMint',
+        message: 'VAULT_INVALID_POSITION_MINT',
+    },
+    [LEND_BORROW_ERROR__VAULT_TICK_ID_LIQUIDATION_MISMATCH]: {
+        code: 6002,
+        name: 'vaultTickIdLiquidationMismatch',
+        message: 'VAULT_TICK_ID_LIQUIDATION_MISMATCH',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_POSITION_TOKEN_AMOUNT]: {
+        code: 6003,
+        name: 'vaultInvalidPositionTokenAmount',
+        message: 'VAULT_INVALID_POSITION_TOKEN_AMOUNT',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_REMAINING_ACCOUNTS_INDICES]: {
+        code: 6004,
+        name: 'vaultInvalidRemainingAccountsIndices',
+        message: 'VAULT_INVALID_REMAINING_ACCOUNTS_INDICES',
+    },
+    [LEND_BORROW_ERROR__VAULT_TICK_HAS_DEBT_VAULT_ID_MISMATCH]: {
+        code: 6005,
+        name: 'vaultTickHasDebtVaultIdMismatch',
+        message: 'VAULT_TICK_HAS_DEBT_VAULT_ID_MISMATCH',
+    },
+    [LEND_BORROW_ERROR__VAULT_BRANCH_VAULT_ID_MISMATCH]: {
+        code: 6006,
+        name: 'vaultBranchVaultIdMismatch',
+        message: 'VAULT_BRANCH_VAULT_ID_MISMATCH',
+    },
+    [LEND_BORROW_ERROR__VAULT_TICK_VAULT_ID_MISMATCH]: {
+        code: 6007,
+        name: 'vaultTickVaultIdMismatch',
+        message: 'VAULT_TICK_VAULT_ID_MISMATCH',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_DECIMALS]: {
+        code: 6008,
+        name: 'vaultInvalidDecimals',
+        message: 'VAULT_INVALID_DECIMALS',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_OPERATE_AMOUNT]: {
+        code: 6009,
+        name: 'vaultInvalidOperateAmount',
+        message: 'VAULT_INVALID_OPERATE_AMOUNT',
+    },
+    [LEND_BORROW_ERROR__VAULT_TICK_IS_EMPTY]: { code: 6010, name: 'vaultTickIsEmpty', message: 'VAULT_TICK_IS_EMPTY' },
+    [LEND_BORROW_ERROR__VAULT_POSITION_ABOVE_C_F]: {
+        code: 6011,
+        name: 'vaultPositionAboveCF',
+        message: 'VAULT_POSITION_ABOVE_CF',
+    },
+    [LEND_BORROW_ERROR__VAULT_TOP_TICK_DOES_NOT_EXIST]: {
+        code: 6012,
+        name: 'vaultTopTickDoesNotExist',
+        message: 'VAULT_TOP_TICK_DOES_NOT_EXIST',
+    },
+    [LEND_BORROW_ERROR__VAULT_EXCESS_SLIPPAGE_LIQUIDATION]: {
+        code: 6013,
+        name: 'vaultExcessSlippageLiquidation',
+        message: 'VAULT_EXCESS_SLIPPAGE_LIQUIDATION',
+    },
+    [LEND_BORROW_ERROR__VAULT_NOT_REBALANCER]: {
+        code: 6014,
+        name: 'vaultNotRebalancer',
+        message: 'VAULT_NOT_REBALANCER',
+    },
+    [LEND_BORROW_ERROR__VAULT_TOKEN_NOT_INITIALIZED]: {
+        code: 6015,
+        name: 'vaultTokenNotInitialized',
+        message: 'VAULT_TOKEN_NOT_INITIALIZED',
+    },
+    [LEND_BORROW_ERROR__VAULT_USER_COLLATERAL_DEBT_EXCEED]: {
+        code: 6016,
+        name: 'vaultUserCollateralDebtExceed',
+        message: 'VAULT_USER_COLLATERAL_DEBT_EXCEED',
+    },
+    [LEND_BORROW_ERROR__VAULT_EXCESS_COLLATERAL_WITHDRAWAL]: {
+        code: 6017,
+        name: 'vaultExcessCollateralWithdrawal',
+        message: 'VAULT_EXCESS_COLLATERAL_WITHDRAWAL',
+    },
+    [LEND_BORROW_ERROR__VAULT_EXCESS_DEBT_PAYBACK]: {
+        code: 6018,
+        name: 'vaultExcessDebtPayback',
+        message: 'VAULT_EXCESS_DEBT_PAYBACK',
+    },
+    [LEND_BORROW_ERROR__VAULT_WITHDRAW_MORE_THAN_OPERATE_LIMIT]: {
+        code: 6019,
+        name: 'vaultWithdrawMoreThanOperateLimit',
+        message: 'VAULT_WITHDRAW_MORE_THAN_OPERATE_LIMIT',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_LIQUIDATION_AMT]: {
+        code: 6020,
+        name: 'vaultInvalidLiquidationAmt',
+        message: 'VAULT_INVALID_LIQUIDATION_AMT',
+    },
+    [LEND_BORROW_ERROR__VAULT_LIQUIDATION_RESULT]: {
+        code: 6021,
+        name: 'vaultLiquidationResult',
+        message: 'VAULT_LIQUIDATION_RESULT',
+    },
+    [LEND_BORROW_ERROR__VAULT_BRANCH_DEBT_TOO_LOW]: {
+        code: 6022,
+        name: 'vaultBranchDebtTooLow',
+        message: 'VAULT_BRANCH_DEBT_TOO_LOW',
+    },
+    [LEND_BORROW_ERROR__VAULT_TICK_DEBT_TOO_LOW]: {
+        code: 6023,
+        name: 'vaultTickDebtTooLow',
+        message: 'VAULT_TICK_DEBT_TOO_LOW',
+    },
+    [LEND_BORROW_ERROR__VAULT_LIQUIDITY_EXCHANGE_PRICE_UNEXPECTED]: {
+        code: 6024,
+        name: 'vaultLiquidityExchangePriceUnexpected',
+        message: 'VAULT_LIQUIDITY_EXCHANGE_PRICE_UNEXPECTED',
+    },
+    [LEND_BORROW_ERROR__VAULT_USER_DEBT_TOO_LOW]: {
+        code: 6025,
+        name: 'vaultUserDebtTooLow',
+        message: 'VAULT_USER_DEBT_TOO_LOW',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_PAYBACK_OR_DEPOSIT]: {
+        code: 6026,
+        name: 'vaultInvalidPaybackOrDeposit',
+        message: 'VAULT_INVALID_PAYBACK_OR_DEPOSIT',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_LIQUIDATION]: {
+        code: 6027,
+        name: 'vaultInvalidLiquidation',
+        message: 'VAULT_INVALID_LIQUIDATION',
+    },
+    [LEND_BORROW_ERROR__VAULT_NOTHING_TO_REBALANCE]: {
+        code: 6028,
+        name: 'vaultNothingToRebalance',
+        message: 'VAULT_NOTHING_TO_REBALANCE',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_REBALANCE_MIN_MAX]: {
+        code: 6029,
+        name: 'vaultInvalidRebalanceMinMax',
+        message: 'VAULT_INVALID_REBALANCE_MIN_MAX',
+    },
+    [LEND_BORROW_ERROR__VAULT_LIQUIDATION_REVERTS]: {
+        code: 6030,
+        name: 'vaultLiquidationReverts',
+        message: 'VAULT_LIQUIDATION_REVERTS',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_ORACLE_PRICE]: {
+        code: 6031,
+        name: 'vaultInvalidOraclePrice',
+        message: 'VAULT_INVALID_ORACLE_PRICE',
+    },
+    [LEND_BORROW_ERROR__VAULT_BRANCH_NOT_FOUND]: {
+        code: 6032,
+        name: 'vaultBranchNotFound',
+        message: 'VAULT_BRANCH_NOT_FOUND',
+    },
+    [LEND_BORROW_ERROR__VAULT_TICK_NOT_FOUND]: {
+        code: 6033,
+        name: 'vaultTickNotFound',
+        message: 'VAULT_TICK_NOT_FOUND',
+    },
+    [LEND_BORROW_ERROR__VAULT_TICK_HAS_DEBT_NOT_FOUND]: {
+        code: 6034,
+        name: 'vaultTickHasDebtNotFound',
+        message: 'VAULT_TICK_HAS_DEBT_NOT_FOUND',
+    },
+    [LEND_BORROW_ERROR__VAULT_TICK_MISMATCH]: { code: 6035, name: 'vaultTickMismatch', message: 'VAULT_TICK_MISMATCH' },
+    [LEND_BORROW_ERROR__VAULT_INVALID_VAULT_ID]: {
+        code: 6036,
+        name: 'vaultInvalidVaultId',
+        message: 'VAULT_INVALID_VAULT_ID',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_NEXT_POSITION_ID]: {
+        code: 6037,
+        name: 'vaultInvalidNextPositionId',
+        message: 'VAULT_INVALID_NEXT_POSITION_ID',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_POSITION_ID]: {
+        code: 6038,
+        name: 'vaultInvalidPositionId',
+        message: 'VAULT_INVALID_POSITION_ID',
+    },
+    [LEND_BORROW_ERROR__VAULT_POSITION_NOT_EMPTY]: {
+        code: 6039,
+        name: 'vaultPositionNotEmpty',
+        message: 'VAULT_POSITION_NOT_EMPTY',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_SUPPLY_MINT]: {
+        code: 6040,
+        name: 'vaultInvalidSupplyMint',
+        message: 'VAULT_INVALID_SUPPLY_MINT',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_BORROW_MINT]: {
+        code: 6041,
+        name: 'vaultInvalidBorrowMint',
+        message: 'VAULT_INVALID_BORROW_MINT',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_ORACLE]: {
+        code: 6042,
+        name: 'vaultInvalidOracle',
+        message: 'VAULT_INVALID_ORACLE',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_TICK]: { code: 6043, name: 'vaultInvalidTick', message: 'VAULT_INVALID_TICK' },
+    [LEND_BORROW_ERROR__VAULT_INVALID_LIQUIDITY_PROGRAM]: {
+        code: 6044,
+        name: 'vaultInvalidLiquidityProgram',
+        message: 'VAULT_INVALID_LIQUIDITY_PROGRAM',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_POSITION_AUTHORITY]: {
+        code: 6045,
+        name: 'vaultInvalidPositionAuthority',
+        message: 'VAULT_INVALID_POSITION_AUTHORITY',
+    },
+    [LEND_BORROW_ERROR__VAULT_ORACLE_NOT_VALID]: {
+        code: 6046,
+        name: 'vaultOracleNotValid',
+        message: 'VAULT_ORACLE_NOT_VALID',
+    },
+    [LEND_BORROW_ERROR__VAULT_BRANCH_OWNER_NOT_VALID]: {
+        code: 6047,
+        name: 'vaultBranchOwnerNotValid',
+        message: 'VAULT_BRANCH_OWNER_NOT_VALID',
+    },
+    [LEND_BORROW_ERROR__VAULT_TICK_HAS_DEBT_OWNER_NOT_VALID]: {
+        code: 6048,
+        name: 'vaultTickHasDebtOwnerNotValid',
+        message: 'VAULT_TICK_HAS_DEBT_OWNER_NOT_VALID',
+    },
+    [LEND_BORROW_ERROR__VAULT_TICK_OWNER_NOT_VALID]: {
+        code: 6049,
+        name: 'vaultTickOwnerNotValid',
+        message: 'VAULT_TICK_DATA_OWNER_NOT_VALID',
+    },
+    [LEND_BORROW_ERROR__VAULT_LIQUIDATE_REMAINING_ACCOUNTS_TOO_SHORT]: {
+        code: 6050,
+        name: 'vaultLiquidateRemainingAccountsTooShort',
+        message: 'VAULT_LIQUIDATE_REMAINING_ACCOUNTS_TOO_SHORT',
+    },
+    [LEND_BORROW_ERROR__VAULT_OPERATE_REMAINING_ACCOUNTS_TOO_SHORT]: {
+        code: 6051,
+        name: 'vaultOperateRemainingAccountsTooShort',
+        message: 'VAULT_OPERATE_REMAINING_ACCOUNTS_TOO_SHORT',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_ZEROTH_BRANCH]: {
+        code: 6052,
+        name: 'vaultInvalidZerothBranch',
+        message: 'VAULT_INVALID_ZEROTH_BRANCH',
+    },
+    [LEND_BORROW_ERROR__VAULT_CPI_TO_LIQUIDITY_FAILED]: {
+        code: 6053,
+        name: 'vaultCpiToLiquidityFailed',
+        message: 'VAULT_CPI_TO_LIQUIDITY_FAILED',
+    },
+    [LEND_BORROW_ERROR__VAULT_CPI_TO_ORACLE_FAILED]: {
+        code: 6054,
+        name: 'vaultCpiToOracleFailed',
+        message: 'VAULT_CPI_TO_ORACLE_FAILED',
+    },
+    [LEND_BORROW_ERROR__VAULT_ONLY_AUTHORITY]: {
+        code: 6055,
+        name: 'vaultOnlyAuthority',
+        message: 'VAULT_ONLY_AUTHORITY',
+    },
+    [LEND_BORROW_ERROR__VAULT_NEW_BRANCH_INVALID]: {
+        code: 6056,
+        name: 'vaultNewBranchInvalid',
+        message: 'VAULT_NEW_BRANCH_INVALID',
+    },
+    [LEND_BORROW_ERROR__VAULT_TICK_HAS_DEBT_INDEX_MISMATCH]: {
+        code: 6057,
+        name: 'vaultTickHasDebtIndexMismatch',
+        message: 'VAULT_TICK_HAS_DEBT_INDEX_MISMATCH',
+    },
+    [LEND_BORROW_ERROR__VAULT_TICK_HAS_DEBT_OUT_OF_RANGE]: {
+        code: 6058,
+        name: 'vaultTickHasDebtOutOfRange',
+        message: 'VAULT_TICK_HAS_DEBT_OUT_OF_RANGE',
+    },
+    [LEND_BORROW_ERROR__VAULT_USER_SUPPLY_POSITION_REQUIRED]: {
+        code: 6059,
+        name: 'vaultUserSupplyPositionRequired',
+        message: 'VAULT_USER_SUPPLY_POSITION_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_CLAIM_ACCOUNT_REQUIRED]: {
+        code: 6060,
+        name: 'vaultClaimAccountRequired',
+        message: 'VAULT_CLAIM_ACCOUNT_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_RECIPIENT_WITHDRAW_ACCOUNT_REQUIRED]: {
+        code: 6061,
+        name: 'vaultRecipientWithdrawAccountRequired',
+        message: 'VAULT_RECIPIENT_WITHDRAW_ACCOUNT_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_RECIPIENT_BORROW_ACCOUNT_REQUIRED]: {
+        code: 6062,
+        name: 'vaultRecipientBorrowAccountRequired',
+        message: 'VAULT_RECIPIENT_BORROW_ACCOUNT_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_POSITION_ABOVE_LIQUIDATION_THRESHOLD]: {
+        code: 6063,
+        name: 'vaultPositionAboveLiquidationThreshold',
+        message: 'VAULT_POSITION_ABOVE_LIQUIDATION_THRESHOLD',
+    },
+    [LEND_BORROW_ERROR__VAULT_ADMIN_VALUE_ABOVE_LIMIT]: {
+        code: 6064,
+        name: 'vaultAdminValueAboveLimit',
+        message: 'VAULT_ADMIN_VALUE_ABOVE_LIMIT',
+    },
+    [LEND_BORROW_ERROR__VAULT_ADMIN_ONLY_AUTHS]: {
+        code: 6065,
+        name: 'vaultAdminOnlyAuths',
+        message: 'VAULT_ADMIN_ONLY_AUTH_ACCOUNTS',
+    },
+    [LEND_BORROW_ERROR__VAULT_ADMIN_ADDRESS_ZERO_NOT_ALLOWED]: {
+        code: 6066,
+        name: 'vaultAdminAddressZeroNotAllowed',
+        message: 'VAULT_ADMIN_ADDRESS_ZERO_NOT_ALLOWED',
+    },
+    [LEND_BORROW_ERROR__VAULT_ADMIN_VAULT_ID_MISMATCH]: {
+        code: 6067,
+        name: 'vaultAdminVaultIdMismatch',
+        message: 'VAULT_ADMIN_VAULT_ID_MISMATCH',
+    },
+    [LEND_BORROW_ERROR__VAULT_ADMIN_TOTAL_IDS_MISMATCH]: {
+        code: 6068,
+        name: 'vaultAdminTotalIdsMismatch',
+        message: 'VAULT_ADMIN_TOTAL_IDS_MISMATCH',
+    },
+    [LEND_BORROW_ERROR__VAULT_ADMIN_TICK_MISMATCH]: {
+        code: 6069,
+        name: 'vaultAdminTickMismatch',
+        message: 'VAULT_ADMIN_TICK_MISMATCH',
+    },
+    [LEND_BORROW_ERROR__VAULT_ADMIN_LIQUIDITY_PROGRAM_MISMATCH]: {
+        code: 6070,
+        name: 'vaultAdminLiquidityProgramMismatch',
+        message: 'VAULT_ADMIN_LIQUIDITY_PROGRAM_MISMATCH',
+    },
+    [LEND_BORROW_ERROR__VAULT_ADMIN_MAX_AUTH_COUNT_REACHED]: {
+        code: 6071,
+        name: 'vaultAdminMaxAuthCountReached',
+        message: 'VAULT_ADMIN_MAX_AUTH_COUNT_REACHED',
+    },
+    [LEND_BORROW_ERROR__VAULT_ADMIN_INVALID_PARAMS]: {
+        code: 6072,
+        name: 'vaultAdminInvalidParams',
+        message: 'VAULT_ADMIN_INVALID_PARAMS',
+    },
+    [LEND_BORROW_ERROR__VAULT_ADMIN_ONLY_AUTHORITY]: {
+        code: 6073,
+        name: 'vaultAdminOnlyAuthority',
+        message: 'VAULT_ADMIN_ONLY_AUTHORITY',
+    },
+    [LEND_BORROW_ERROR__VAULT_ADMIN_ORACLE_PROGRAM_MISMATCH]: {
+        code: 6074,
+        name: 'vaultAdminOracleProgramMismatch',
+        message: 'VAULT_ADMIN_ORACLE_PROGRAM_MISMATCH',
+    },
+    [LEND_BORROW_ERROR__VAULT_ADMIN_INVALID_VAULT_TYPE]: {
+        code: 6075,
+        name: 'vaultAdminInvalidVaultType',
+        message: 'VAULT_ADMIN_INVALID_VAULT_TYPE',
+    },
+    [LEND_BORROW_ERROR__VAULT_ADMIN_INVALID_DEX_PROGRAM]: {
+        code: 6076,
+        name: 'vaultAdminInvalidDexProgram',
+        message: 'VAULT_ADMIN_INVALID_DEX_PROGRAM',
+    },
+    [LEND_BORROW_ERROR__VAULT_ADMIN_INVALID_DEX_POOL]: {
+        code: 6077,
+        name: 'vaultAdminInvalidDexPool',
+        message: 'VAULT_ADMIN_INVALID_DEX_POOL',
+    },
+    [LEND_BORROW_ERROR__VAULT_CPI_TO_DEX_FAILED]: {
+        code: 6078,
+        name: 'vaultCpiToDexFailed',
+        message: 'VAULT_CPI_TO_DEX_FAILED',
+    },
+    [LEND_BORROW_ERROR__VAULT_DEX_ACCOUNTS_REQUIRED]: {
+        code: 6079,
+        name: 'vaultDexAccountsRequired',
+        message: 'VAULT_DEX_ACCOUNTS_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_DEX_POOL]: {
+        code: 6080,
+        name: 'vaultInvalidDexPool',
+        message: 'VAULT_INVALID_DEX_POOL',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_VAULT_TYPE_FOR_DEX]: {
+        code: 6081,
+        name: 'vaultInvalidVaultTypeForDex',
+        message: 'VAULT_INVALID_VAULT_TYPE_FOR_DEX',
+    },
+    [LEND_BORROW_ERROR__VAULT_OPERATE_DEX_IMPERFECT_MAX_USE_PERFECT]: {
+        code: 6082,
+        name: 'vaultOperateDexImperfectMaxUsePerfect',
+        message: 'VAULT_OPERATE_DEX_IMPERFECT_MAX_USE_PERFECT',
+    },
+    [LEND_BORROW_ERROR__VAULT_OPERATE_DEX_NFT_ID_MISMATCH]: {
+        code: 6083,
+        name: 'vaultOperateDexNftIdMismatch',
+        message: 'VAULT_OPERATE_DEX_NFT_ID_MISMATCH',
+    },
+    [LEND_BORROW_ERROR__VAULT_ADMIN_SUPPLY_TOKEN_REQUIRED]: {
+        code: 6084,
+        name: 'vaultAdminSupplyTokenRequired',
+        message: 'VAULT_ADMIN_SUPPLY_TOKEN_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_ADMIN_BORROW_TOKEN_REQUIRED]: {
+        code: 6085,
+        name: 'vaultAdminBorrowTokenRequired',
+        message: 'VAULT_ADMIN_BORROW_TOKEN_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_ADMIN_RATE_MAGNIFIER_NOT_ALLOWED_FOR_SMART_LEG]: {
+        code: 6086,
+        name: 'vaultAdminRateMagnifierNotAllowedForSmartLeg',
+        message: 'VAULT_ADMIN_RATE_MAGNIFIER_NOT_ALLOWED_FOR_SMART_LEG',
+    },
+    [LEND_BORROW_ERROR__VAULT_DEX_DEBT_SHARES_PAID_MORE_THAN_AVAILABLE_LIQUIDATION]: {
+        code: 6087,
+        name: 'vaultDexDebtSharesPaidMoreThanAvailableLiquidation',
+        message: 'VAULT_DEX_DEBT_SHARES_PAID_MORE_THAN_AVAILABLE_LIQUIDATION',
+    },
+    [LEND_BORROW_ERROR__VAULT_SIGNER_SUPPLY_TOKEN_ACCOUNT_REQUIRED]: {
+        code: 6088,
+        name: 'vaultSignerSupplyTokenAccountRequired',
+        message: 'VAULT_SIGNER_SUPPLY_TOKEN_ACCOUNT_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_SIGNER_BORROW_TOKEN_ACCOUNT_REQUIRED]: {
+        code: 6089,
+        name: 'vaultSignerBorrowTokenAccountRequired',
+        message: 'VAULT_SIGNER_BORROW_TOKEN_ACCOUNT_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_VAULT_TYPE_FOR_OPERATE]: {
+        code: 6090,
+        name: 'vaultInvalidVaultTypeForOperate',
+        message: 'VAULT_INVALID_VAULT_TYPE_FOR_OPERATE',
+    },
+    [LEND_BORROW_ERROR__VAULT_SUPPLY_TOKEN_REQUIRED]: {
+        code: 6091,
+        name: 'vaultSupplyTokenRequired',
+        message: 'VAULT_SUPPLY_TOKEN_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_BORROW_TOKEN_REQUIRED]: {
+        code: 6092,
+        name: 'vaultBorrowTokenRequired',
+        message: 'VAULT_BORROW_TOKEN_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_SUPPLY_RESERVES_REQUIRED]: {
+        code: 6093,
+        name: 'vaultSupplyReservesRequired',
+        message: 'VAULT_SUPPLY_RESERVES_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_BORROW_RESERVES_REQUIRED]: {
+        code: 6094,
+        name: 'vaultBorrowReservesRequired',
+        message: 'VAULT_BORROW_RESERVES_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_SUPPLY_DEX_REQUIRED]: {
+        code: 6095,
+        name: 'vaultSupplyDexRequired',
+        message: 'VAULT_SUPPLY_DEX_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_BORROW_DEX_REQUIRED]: {
+        code: 6096,
+        name: 'vaultBorrowDexRequired',
+        message: 'VAULT_BORROW_DEX_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_SUPPLY_RATE_MODEL_REQUIRED]: {
+        code: 6097,
+        name: 'vaultSupplyRateModelRequired',
+        message: 'VAULT_SUPPLY_RATE_MODEL_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_BORROW_RATE_MODEL_REQUIRED]: {
+        code: 6098,
+        name: 'vaultBorrowRateModelRequired',
+        message: 'VAULT_BORROW_RATE_MODEL_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_SUPPLY_TOKEN_PROGRAM_REQUIRED]: {
+        code: 6099,
+        name: 'vaultSupplyTokenProgramRequired',
+        message: 'VAULT_SUPPLY_TOKEN_PROGRAM_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_BORROW_TOKEN_PROGRAM_REQUIRED]: {
+        code: 6100,
+        name: 'vaultBorrowTokenProgramRequired',
+        message: 'VAULT_BORROW_TOKEN_PROGRAM_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_SUPPLY_VAULT_ACCOUNT_REQUIRED]: {
+        code: 6101,
+        name: 'vaultSupplyVaultAccountRequired',
+        message: 'VAULT_SUPPLY_VAULT_ACCOUNT_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_BORROW_VAULT_ACCOUNT_REQUIRED]: {
+        code: 6102,
+        name: 'vaultBorrowVaultAccountRequired',
+        message: 'VAULT_BORROW_VAULT_ACCOUNT_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_USER_BORROW_POSITION_REQUIRED]: {
+        code: 6103,
+        name: 'vaultUserBorrowPositionRequired',
+        message: 'VAULT_USER_BORROW_POSITION_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_LIQUIDATE_COL_AMOUNTS_REQUIRED]: {
+        code: 6104,
+        name: 'vaultLiquidateColAmountsRequired',
+        message: 'VAULT_LIQUIDATE_COL_AMOUNTS_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_LIQUIDATE_DEBT_AMOUNTS_REQUIRED]: {
+        code: 6105,
+        name: 'vaultLiquidateDebtAmountsRequired',
+        message: 'VAULT_LIQUIDATE_DEBT_AMOUNTS_REQUIRED',
+    },
+    [LEND_BORROW_ERROR__VAULT_INVALID_DEX_ORACLE_PROGRAM]: {
+        code: 6106,
+        name: 'vaultInvalidDexOracleProgram',
+        message: 'VAULT_INVALID_DEX_ORACLE_PROGRAM',
+    },
+};
+
+export function getLendBorrowErrorFromCode(code: number): LendBorrowErrorInfo | undefined {
+    return LENDBORROW_ERRORS[code as LendBorrowError];
+}
+
+export function getLendBorrowErrorMessage(code: LendBorrowError): string {
+    return LENDBORROW_ERRORS[code].message;
+}

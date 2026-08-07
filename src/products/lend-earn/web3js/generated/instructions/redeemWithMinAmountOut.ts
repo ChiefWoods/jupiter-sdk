@@ -1,6 +1,17 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { LENDING_PROGRAM_ID } from '..';
-import { getStructEncoder, getU64Encoder, type Encoder } from '@solana/codecs';
+import { LENDEARN_PROGRAM_ID } from '../programs/lendEarn';
+import {
+    getStructDecoder,
+    getStructEncoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+export const REDEEM_WITH_MIN_AMOUNT_OUT_INSTRUCTION_DISCRIMINATOR = new Uint8Array([
+    235, 189, 237, 56, 166, 180, 184, 149,
+]);
 
 export interface RedeemWithMinAmountOutInstructionAccounts {
     signer: Address;
@@ -35,10 +46,82 @@ function getRedeemWithMinAmountOutInstructionDataEncoder(): Encoder<RedeemWithMi
     ]);
 }
 
+function getRedeemWithMinAmountOutInstructionDataDecoder(): Decoder<RedeemWithMinAmountOutInstructionArgs> {
+    return getStructDecoder([
+        ['shares', getU64Decoder()],
+        ['minAmountOut', getU64Decoder()],
+    ]);
+}
+
+export interface ParsedRedeemWithMinAmountOutInstruction {
+    programId: Address;
+    accounts: {
+        signer: AccountMeta;
+        ownerTokenAccount: AccountMeta;
+        recipientTokenAccount: AccountMeta;
+        lendingAdmin: AccountMeta;
+        lending: AccountMeta;
+        mint: AccountMeta;
+        fTokenMint: AccountMeta;
+        supplyTokenReservesLiquidity: AccountMeta;
+        lendingSupplyPositionOnLiquidity: AccountMeta;
+        rateModel: AccountMeta;
+        vault: AccountMeta;
+        claimAccount: AccountMeta;
+        liquidity: AccountMeta;
+        liquidityProgram: AccountMeta;
+        rewardsRateModel: AccountMeta;
+        tokenProgram: AccountMeta;
+        associatedTokenProgram: AccountMeta;
+        systemProgram: AccountMeta;
+    };
+    data: RedeemWithMinAmountOutInstructionArgs;
+}
+
+export function parseRedeemWithMinAmountOutInstruction(
+    instruction: TransactionInstruction,
+): ParsedRedeemWithMinAmountOutInstruction {
+    if (instruction.keys.length < 18) {
+        throw new Error('Expected 18 account metas for RedeemWithMinAmountOut instruction');
+    }
+    if (
+        !REDEEM_WITH_MIN_AMOUNT_OUT_INSTRUCTION_DISCRIMINATOR.every(
+            (byte, index) => instruction.data[0 + index] === byte,
+        )
+    ) {
+        throw new Error('RedeemWithMinAmountOut instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            signer: instruction.keys[0]!,
+            ownerTokenAccount: instruction.keys[1]!,
+            recipientTokenAccount: instruction.keys[2]!,
+            lendingAdmin: instruction.keys[3]!,
+            lending: instruction.keys[4]!,
+            mint: instruction.keys[5]!,
+            fTokenMint: instruction.keys[6]!,
+            supplyTokenReservesLiquidity: instruction.keys[7]!,
+            lendingSupplyPositionOnLiquidity: instruction.keys[8]!,
+            rateModel: instruction.keys[9]!,
+            vault: instruction.keys[10]!,
+            claimAccount: instruction.keys[11]!,
+            liquidity: instruction.keys[12]!,
+            liquidityProgram: instruction.keys[13]!,
+            rewardsRateModel: instruction.keys[14]!,
+            tokenProgram: instruction.keys[15]!,
+            associatedTokenProgram: instruction.keys[16]!,
+            systemProgram: instruction.keys[17]!,
+        },
+        data: getRedeemWithMinAmountOutInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createRedeemWithMinAmountOutInstruction(
     accounts: RedeemWithMinAmountOutInstructionAccounts,
     args: RedeemWithMinAmountOutInstructionArgs,
-    programId: Address = LENDING_PROGRAM_ID,
+    programId: Address = LENDEARN_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.signer, isSigner: true, isWritable: true },
@@ -64,9 +147,13 @@ export function createRedeemWithMinAmountOutInstruction(
             : { pubkey: programId, isSigner: false, isWritable: false },
         { pubkey: accounts.systemProgram, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getRedeemWithMinAmountOutInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('ebbded38a6b4b895', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getRedeemWithMinAmountOutInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(REDEEM_WITH_MIN_AMOUNT_OUT_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
+import { LEND_LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
 import {
   getUserBorrowConfigDecoder,
   getUserBorrowConfigEncoder,
@@ -54,7 +54,7 @@ export function getUpdateUserBorrowConfigDiscriminatorBytes(): ReadonlyUint8Arra
 }
 
 export type UpdateUserBorrowConfigInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountProtocol extends string | AccountMeta<string> = string,
   TAccountAuthList extends string | AccountMeta<string> = string,
@@ -159,7 +159,7 @@ export function getUpdateUserBorrowConfigInstruction<
   TAccountMint extends string,
   TAccountTokenReserve extends string,
   TAccountUserBorrowPosition extends string,
-  TProgramAddress extends Address = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
 >(
   input: UpdateUserBorrowConfigInput<
     TAccountAuthority,
@@ -182,7 +182,8 @@ export function getUpdateUserBorrowConfigInstruction<
   TAccountUserBorrowPosition
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LIQUIDITY_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? LEND_LIQUIDITY_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -233,7 +234,7 @@ export function getUpdateUserBorrowConfigInstruction<
 }
 
 export type ParsedUpdateUserBorrowConfigInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

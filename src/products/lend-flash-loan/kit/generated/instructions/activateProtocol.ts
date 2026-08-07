@@ -35,7 +35,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { FLASHLOAN_PROGRAM_ADDRESS } from "../programs";
+import { LEND_FLASH_LOAN_PROGRAM_ADDRESS } from "../programs";
 
 export const ACTIVATE_PROTOCOL_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([230, 235, 188, 19, 120, 91, 11, 94]);
@@ -47,7 +47,7 @@ export function getActivateProtocolDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type ActivateProtocolInstruction<
-  TProgram extends string = typeof FLASHLOAN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_FLASH_LOAN_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountFlashloanAdmin extends string | AccountMeta<string> = string,
   TRemainingAccounts extends readonly AccountMeta<string>[] = [],
@@ -106,7 +106,7 @@ export type ActivateProtocolInput<
 export function getActivateProtocolInstruction<
   TAccountAuthority extends string,
   TAccountFlashloanAdmin extends string,
-  TProgramAddress extends Address = typeof FLASHLOAN_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_FLASH_LOAN_PROGRAM_ADDRESS,
 >(
   input: ActivateProtocolInput<TAccountAuthority, TAccountFlashloanAdmin>,
   config?: { programAddress?: TProgramAddress },
@@ -116,7 +116,8 @@ export function getActivateProtocolInstruction<
   TAccountFlashloanAdmin
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? FLASHLOAN_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? LEND_FLASH_LOAN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -144,7 +145,7 @@ export function getActivateProtocolInstruction<
 }
 
 export type ParsedActivateProtocolInstruction<
-  TProgram extends string = typeof FLASHLOAN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_FLASH_LOAN_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

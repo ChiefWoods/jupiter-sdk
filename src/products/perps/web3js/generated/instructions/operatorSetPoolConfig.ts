@@ -1,8 +1,21 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { PERPETUALS_PROGRAM_ID } from '..';
-import { getBooleanEncoder, getI64Encoder, getStructEncoder, getU64Encoder, type Encoder } from '@solana/codecs';
-import { getFeesEncoder, type FeesArgs } from '../types/fees';
-import { getLimitEncoder, type LimitArgs } from '../types/limit';
+import { PERPS_PROGRAM_ID } from '../programs/perps';
+import {
+    getBooleanDecoder,
+    getBooleanEncoder,
+    getI64Decoder,
+    getI64Encoder,
+    getStructDecoder,
+    getStructEncoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+import { getFeesDecoder, getFeesEncoder, type FeesArgs } from '../types/fees';
+import { getLimitDecoder, getLimitEncoder, type LimitArgs } from '../types/limit';
+
+export const OPERATOR_SET_POOL_CONFIG_INSTRUCTION_DISCRIMINATOR = new Uint8Array([76, 201, 80, 18, 199, 92, 246, 105]);
 
 export interface OperatorSetPoolConfigInstructionAccounts {
     operator: Address;
@@ -29,18 +42,64 @@ function getOperatorSetPoolConfigInstructionDataEncoder(): Encoder<OperatorSetPo
     ]);
 }
 
+function getOperatorSetPoolConfigInstructionDataDecoder(): Decoder<OperatorSetPoolConfigInstructionArgs> {
+    return getStructDecoder([
+        ['fees', getFeesDecoder()],
+        ['limit', getLimitDecoder()],
+        ['maxRequestExecutionSec', getI64Decoder()],
+        ['maxTriggerPriceDiffBps', getU64Decoder()],
+        ['disableClosePositionRequest', getBooleanDecoder()],
+        ['maxLpTokenPriceChangeBps', getU64Decoder()],
+    ]);
+}
+
+export interface ParsedOperatorSetPoolConfigInstruction {
+    programId: Address;
+    accounts: {
+        operator: AccountMeta;
+        pool: AccountMeta;
+    };
+    data: OperatorSetPoolConfigInstructionArgs;
+}
+
+export function parseOperatorSetPoolConfigInstruction(
+    instruction: TransactionInstruction,
+): ParsedOperatorSetPoolConfigInstruction {
+    if (instruction.keys.length < 2) {
+        throw new Error('Expected 2 account metas for OperatorSetPoolConfig instruction');
+    }
+    if (
+        !OPERATOR_SET_POOL_CONFIG_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)
+    ) {
+        throw new Error('OperatorSetPoolConfig instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            operator: instruction.keys[0]!,
+            pool: instruction.keys[1]!,
+        },
+        data: getOperatorSetPoolConfigInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createOperatorSetPoolConfigInstruction(
     accounts: OperatorSetPoolConfigInstructionAccounts,
     args: OperatorSetPoolConfigInstructionArgs,
-    programId: Address = PERPETUALS_PROGRAM_ID,
+    programId: Address = PERPS_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.operator, isSigner: true, isWritable: false },
         { pubkey: accounts.pool, isSigner: false, isWritable: true },
     ];
-    const instructionData = Buffer.from(getOperatorSetPoolConfigInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('4cc95012c75cf669', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getOperatorSetPoolConfigInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(OPERATOR_SET_POOL_CONFIG_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

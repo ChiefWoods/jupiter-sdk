@@ -1,15 +1,24 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { VAULTS_PROGRAM_ID } from '..';
+import { LENDBORROW_PROGRAM_ID } from '../programs/lendBorrow';
 import { findRebalancerBorrowTokenAccountPda } from '../pdas/rebalancerBorrowTokenAccount';
 import { findRebalancerSupplyTokenAccountPda } from '../pdas/rebalancerSupplyTokenAccount';
 import {
+    getI128Decoder,
     getI128Encoder,
+    getOptionDecoder,
     getOptionEncoder,
+    getStructDecoder,
     getStructEncoder,
+    getU128Decoder,
     getU128Encoder,
+    type Decoder,
     type Encoder,
     type OptionOrNullable,
 } from '@solana/codecs';
+
+export const REBALANCE_DEX_WITH_AMOUNTS_INSTRUCTION_DISCRIMINATOR = new Uint8Array([
+    240, 127, 38, 166, 99, 125, 51, 124,
+]);
 
 export interface RebalanceDexWithAmountsInstructionAccounts {
     rebalancer: Address;
@@ -97,33 +106,193 @@ function getRebalanceDexWithAmountsInstructionDataEncoder(): Encoder<RebalanceDe
     ]);
 }
 
+function getRebalanceDexWithAmountsInstructionDataDecoder(): Decoder<RebalanceDexWithAmountsInstructionArgs> {
+    return getStructDecoder([
+        ['supplyAmount', getOptionDecoder(getU128Decoder())],
+        ['borrowAmount', getOptionDecoder(getU128Decoder())],
+        ['colToken0MinMax', getI128Decoder()],
+        ['colToken1MinMax', getI128Decoder()],
+        ['debtToken0MinMax', getI128Decoder()],
+        ['debtToken1MinMax', getI128Decoder()],
+    ]);
+}
+
+export interface ParsedRebalanceDexWithAmountsInstruction {
+    programId: Address;
+    accounts: {
+        rebalancer: AccountMeta;
+        rebalancerSupplyTokenAccount: AccountMeta;
+        rebalancerBorrowTokenAccount: AccountMeta;
+        vaultConfig: AccountMeta;
+        vaultState: AccountMeta;
+        supplyToken: AccountMeta;
+        borrowToken: AccountMeta;
+        supplyTokenReservesLiquidity: AccountMeta;
+        borrowTokenReservesLiquidity: AccountMeta;
+        vaultSupplyPositionOnLiquidity: AccountMeta;
+        vaultBorrowPositionOnLiquidity: AccountMeta;
+        supplyRateModel: AccountMeta;
+        borrowRateModel: AccountMeta;
+        liquidity: AccountMeta;
+        liquidityProgram: AccountMeta;
+        vaultSupplyTokenAccount: AccountMeta;
+        vaultBorrowTokenAccount: AccountMeta;
+        systemProgram: AccountMeta;
+        supplyTokenProgram: AccountMeta;
+        borrowTokenProgram: AccountMeta;
+        associatedTokenProgram: AccountMeta;
+        dexProgram: AccountMeta;
+        dexOracleProgram: AccountMeta;
+        supplyDexDex: AccountMeta;
+        supplyDexDexPosition: AccountMeta;
+        supplyDexDexUserToken0Account: AccountMeta;
+        supplyDexDexUserToken1Account: AccountMeta;
+        supplyDexDexToken0: AccountMeta;
+        supplyDexDexToken1: AccountMeta;
+        supplyDexDexToken0Reserve: AccountMeta;
+        supplyDexDexToken1Reserve: AccountMeta;
+        supplyDexDexToken0RateModel: AccountMeta;
+        supplyDexDexToken1RateModel: AccountMeta;
+        supplyDexDexToken0Vault: AccountMeta;
+        supplyDexDexToken1Vault: AccountMeta;
+        supplyDexSupplyPosToken0: AccountMeta;
+        supplyDexSupplyPosToken1: AccountMeta;
+        supplyDexBorrowPosToken0: AccountMeta;
+        supplyDexBorrowPosToken1: AccountMeta;
+        supplyDexDexToken0Program: AccountMeta;
+        supplyDexDexToken1Program: AccountMeta;
+        supplyDexDexRecipientToken0Account: AccountMeta;
+        supplyDexDexRecipientToken1Account: AccountMeta;
+        borrowDexDex: AccountMeta;
+        borrowDexDexPosition: AccountMeta;
+        borrowDexDexUserToken0Account: AccountMeta;
+        borrowDexDexUserToken1Account: AccountMeta;
+        borrowDexDexToken0: AccountMeta;
+        borrowDexDexToken1: AccountMeta;
+        borrowDexDexToken0Reserve: AccountMeta;
+        borrowDexDexToken1Reserve: AccountMeta;
+        borrowDexDexToken0RateModel: AccountMeta;
+        borrowDexDexToken1RateModel: AccountMeta;
+        borrowDexDexToken0Vault: AccountMeta;
+        borrowDexDexToken1Vault: AccountMeta;
+        borrowDexSupplyPosToken0: AccountMeta;
+        borrowDexSupplyPosToken1: AccountMeta;
+        borrowDexBorrowPosToken0: AccountMeta;
+        borrowDexBorrowPosToken1: AccountMeta;
+        borrowDexDexToken0Program: AccountMeta;
+        borrowDexDexToken1Program: AccountMeta;
+        borrowDexDexRecipientToken0Account: AccountMeta;
+        borrowDexDexRecipientToken1Account: AccountMeta;
+    };
+    data: RebalanceDexWithAmountsInstructionArgs;
+}
+
+export function parseRebalanceDexWithAmountsInstruction(
+    instruction: TransactionInstruction,
+): ParsedRebalanceDexWithAmountsInstruction {
+    if (instruction.keys.length < 63) {
+        throw new Error('Expected 63 account metas for RebalanceDexWithAmounts instruction');
+    }
+    if (
+        !REBALANCE_DEX_WITH_AMOUNTS_INSTRUCTION_DISCRIMINATOR.every(
+            (byte, index) => instruction.data[0 + index] === byte,
+        )
+    ) {
+        throw new Error('RebalanceDexWithAmounts instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            rebalancer: instruction.keys[0]!,
+            rebalancerSupplyTokenAccount: instruction.keys[1]!,
+            rebalancerBorrowTokenAccount: instruction.keys[2]!,
+            vaultConfig: instruction.keys[3]!,
+            vaultState: instruction.keys[4]!,
+            supplyToken: instruction.keys[5]!,
+            borrowToken: instruction.keys[6]!,
+            supplyTokenReservesLiquidity: instruction.keys[7]!,
+            borrowTokenReservesLiquidity: instruction.keys[8]!,
+            vaultSupplyPositionOnLiquidity: instruction.keys[9]!,
+            vaultBorrowPositionOnLiquidity: instruction.keys[10]!,
+            supplyRateModel: instruction.keys[11]!,
+            borrowRateModel: instruction.keys[12]!,
+            liquidity: instruction.keys[13]!,
+            liquidityProgram: instruction.keys[14]!,
+            vaultSupplyTokenAccount: instruction.keys[15]!,
+            vaultBorrowTokenAccount: instruction.keys[16]!,
+            systemProgram: instruction.keys[17]!,
+            supplyTokenProgram: instruction.keys[18]!,
+            borrowTokenProgram: instruction.keys[19]!,
+            associatedTokenProgram: instruction.keys[20]!,
+            dexProgram: instruction.keys[21]!,
+            dexOracleProgram: instruction.keys[22]!,
+            supplyDexDex: instruction.keys[23]!,
+            supplyDexDexPosition: instruction.keys[24]!,
+            supplyDexDexUserToken0Account: instruction.keys[25]!,
+            supplyDexDexUserToken1Account: instruction.keys[26]!,
+            supplyDexDexToken0: instruction.keys[27]!,
+            supplyDexDexToken1: instruction.keys[28]!,
+            supplyDexDexToken0Reserve: instruction.keys[29]!,
+            supplyDexDexToken1Reserve: instruction.keys[30]!,
+            supplyDexDexToken0RateModel: instruction.keys[31]!,
+            supplyDexDexToken1RateModel: instruction.keys[32]!,
+            supplyDexDexToken0Vault: instruction.keys[33]!,
+            supplyDexDexToken1Vault: instruction.keys[34]!,
+            supplyDexSupplyPosToken0: instruction.keys[35]!,
+            supplyDexSupplyPosToken1: instruction.keys[36]!,
+            supplyDexBorrowPosToken0: instruction.keys[37]!,
+            supplyDexBorrowPosToken1: instruction.keys[38]!,
+            supplyDexDexToken0Program: instruction.keys[39]!,
+            supplyDexDexToken1Program: instruction.keys[40]!,
+            supplyDexDexRecipientToken0Account: instruction.keys[41]!,
+            supplyDexDexRecipientToken1Account: instruction.keys[42]!,
+            borrowDexDex: instruction.keys[43]!,
+            borrowDexDexPosition: instruction.keys[44]!,
+            borrowDexDexUserToken0Account: instruction.keys[45]!,
+            borrowDexDexUserToken1Account: instruction.keys[46]!,
+            borrowDexDexToken0: instruction.keys[47]!,
+            borrowDexDexToken1: instruction.keys[48]!,
+            borrowDexDexToken0Reserve: instruction.keys[49]!,
+            borrowDexDexToken1Reserve: instruction.keys[50]!,
+            borrowDexDexToken0RateModel: instruction.keys[51]!,
+            borrowDexDexToken1RateModel: instruction.keys[52]!,
+            borrowDexDexToken0Vault: instruction.keys[53]!,
+            borrowDexDexToken1Vault: instruction.keys[54]!,
+            borrowDexSupplyPosToken0: instruction.keys[55]!,
+            borrowDexSupplyPosToken1: instruction.keys[56]!,
+            borrowDexBorrowPosToken0: instruction.keys[57]!,
+            borrowDexBorrowPosToken1: instruction.keys[58]!,
+            borrowDexDexToken0Program: instruction.keys[59]!,
+            borrowDexDexToken1Program: instruction.keys[60]!,
+            borrowDexDexRecipientToken0Account: instruction.keys[61]!,
+            borrowDexDexRecipientToken1Account: instruction.keys[62]!,
+        },
+        data: getRebalanceDexWithAmountsInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export async function createRebalanceDexWithAmountsInstruction(
     accounts: RebalanceDexWithAmountsInstructionAccounts,
     args: RebalanceDexWithAmountsInstructionArgs,
-    programId: Address = VAULTS_PROGRAM_ID,
+    programId: Address = LENDBORROW_PROGRAM_ID,
 ): Promise<TransactionInstruction> {
     let rebalancerSupplyTokenAccount = accounts.rebalancerSupplyTokenAccount;
     if (!rebalancerSupplyTokenAccount) {
-        const [derived] = await findRebalancerSupplyTokenAccountPda(
-            {
-                rebalancer: accounts.rebalancer,
-                supplyTokenProgram: accounts.supplyTokenProgram,
-                supplyToken: accounts.supplyToken,
-            },
-            programId,
-        );
+        const [derived] = await findRebalancerSupplyTokenAccountPda({
+            rebalancer: accounts.rebalancer,
+            supplyTokenProgram: accounts.supplyTokenProgram,
+            supplyToken: accounts.supplyToken,
+        });
         rebalancerSupplyTokenAccount = derived;
     }
     let rebalancerBorrowTokenAccount = accounts.rebalancerBorrowTokenAccount;
     if (!rebalancerBorrowTokenAccount) {
-        const [derived] = await findRebalancerBorrowTokenAccountPda(
-            {
-                rebalancer: accounts.rebalancer,
-                borrowTokenProgram: accounts.borrowTokenProgram,
-                borrowToken: accounts.borrowToken,
-            },
-            programId,
-        );
+        const [derived] = await findRebalancerBorrowTokenAccountPda({
+            rebalancer: accounts.rebalancer,
+            borrowTokenProgram: accounts.borrowTokenProgram,
+            borrowToken: accounts.borrowToken,
+        });
         rebalancerBorrowTokenAccount = derived;
     }
     const keys: AccountMeta[] = [
@@ -291,9 +460,13 @@ export async function createRebalanceDexWithAmountsInstruction(
             ? { pubkey: accounts.borrowDexDexRecipientToken1Account, isSigner: false, isWritable: true }
             : { pubkey: programId, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getRebalanceDexWithAmountsInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('f07f26a6637d337c', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getRebalanceDexWithAmountsInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(REBALANCE_DEX_WITH_AMOUNTS_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

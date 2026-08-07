@@ -66,7 +66,7 @@ impl AcceptTicket {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::PREDICTION_MARKET_ID,
+            program_id: crate::PREDICTION_ID,
             accounts,
             data,
         }
@@ -352,7 +352,7 @@ impl<'a, 'b> AcceptTicketCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::PREDICTION_MARKET_ID,
+            program_id: crate::PREDICTION_ID,
             accounts,
             data,
         };

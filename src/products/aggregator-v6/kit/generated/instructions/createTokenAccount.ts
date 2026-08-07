@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { JUPITER_PROGRAM_ADDRESS } from "../programs";
+import { AGGREGATOR_V6_PROGRAM_ADDRESS } from "../programs";
 
 export const CREATE_TOKEN_ACCOUNT_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([147, 241, 123, 100, 244, 132, 174, 118]);
@@ -50,7 +50,7 @@ export function getCreateTokenAccountDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type CreateTokenAccountInstruction<
-  TProgram extends string = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
   TAccountTokenAccount extends string | AccountMeta<string> = string,
   TAccountUser extends string | AccountMeta<string> = string,
   TAccountMint extends string | AccountMeta<string> = string,
@@ -140,7 +140,7 @@ export function getCreateTokenAccountInstruction<
   TAccountMint extends string,
   TAccountTokenProgram extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
 >(
   input: CreateTokenAccountInput<
     TAccountTokenAccount,
@@ -159,7 +159,8 @@ export function getCreateTokenAccountInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? JUPITER_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? AGGREGATOR_V6_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -211,7 +212,7 @@ export function getCreateTokenAccountInstruction<
 }
 
 export type ParsedCreateTokenAccountInstruction<
-  TProgram extends string = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

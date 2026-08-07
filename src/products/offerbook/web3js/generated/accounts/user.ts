@@ -10,6 +10,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const USER_ACCOUNT_DISCRIMINATOR = new Uint8Array([159, 117, 95, 227, 239, 151, 58, 236]);
+
 export type UserAccountData = {
     owner: Address;
     referrer: Address;
@@ -66,6 +68,9 @@ function getUserAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeUserAccount(data: Uint8Array): UserAccountData {
+    if (!USER_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('USERACCOUNT discriminator mismatch');
+    }
     const deserialized = getUserAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as UserAccountData;

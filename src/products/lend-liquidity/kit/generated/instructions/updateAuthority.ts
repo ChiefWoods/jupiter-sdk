@@ -37,7 +37,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
+import { LEND_LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
 
 export const UPDATE_AUTHORITY_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([32, 46, 64, 28, 149, 75, 243, 88]);
@@ -49,7 +49,7 @@ export function getUpdateAuthorityDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type UpdateAuthorityInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountLiquidity extends string | AccountMeta<string> = string,
   TAccountAuthList extends string | AccountMeta<string> = string,
@@ -121,7 +121,7 @@ export function getUpdateAuthorityInstruction<
   TAccountAuthority extends string,
   TAccountLiquidity extends string,
   TAccountAuthList extends string,
-  TProgramAddress extends Address = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
 >(
   input: UpdateAuthorityInput<
     TAccountAuthority,
@@ -136,7 +136,8 @@ export function getUpdateAuthorityInstruction<
   TAccountAuthList
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LIQUIDITY_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? LEND_LIQUIDITY_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -172,7 +173,7 @@ export function getUpdateAuthorityInstruction<
 }
 
 export type ParsedUpdateAuthorityInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

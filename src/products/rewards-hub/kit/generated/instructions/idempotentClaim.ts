@@ -41,7 +41,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { GENIE_DISTRIBUTOR_PROGRAM_ADDRESS } from "../programs";
+import { REWARDS_HUB_PROGRAM_ADDRESS } from "../programs";
 
 export const IDEMPOTENT_CLAIM_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([229, 117, 181, 84, 217, 200, 61, 150]);
@@ -53,7 +53,7 @@ export function getIdempotentClaimDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type IdempotentClaimInstruction<
-  TProgram extends string = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgram extends string = typeof REWARDS_HUB_PROGRAM_ADDRESS,
   TAccountCampaign extends string | AccountMeta<string> = string,
   TAccountClaimStatus extends string | AccountMeta<string> = string,
   TAccountFrom extends string | AccountMeta<string> = string,
@@ -199,7 +199,7 @@ export function getIdempotentClaimInstruction<
   TAccountAssociatedTokenProgram extends string,
   TAccountProgram extends string,
   TAccountMint extends string,
-  TProgramAddress extends Address = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof REWARDS_HUB_PROGRAM_ADDRESS,
 >(
   input: IdempotentClaimInput<
     TAccountCampaign,
@@ -230,8 +230,7 @@ export function getIdempotentClaimInstruction<
   TAccountMint
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? GENIE_DISTRIBUTOR_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? REWARDS_HUB_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -312,7 +311,7 @@ export function getIdempotentClaimInstruction<
 }
 
 export type ParsedIdempotentClaimInstruction<
-  TProgram extends string = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgram extends string = typeof REWARDS_HUB_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

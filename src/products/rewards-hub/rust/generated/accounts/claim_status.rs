@@ -123,7 +123,7 @@ impl anchor_lang::AccountSerialize for ClaimStatus {}
 #[cfg(feature = "anchor")]
 impl anchor_lang::Owner for ClaimStatus {
     fn owner() -> anchor_lang::solana_program::pubkey::Pubkey {
-        anchor_lang::solana_program::pubkey::Pubkey::from(crate::GENIE_DISTRIBUTOR_ID.to_bytes())
+        anchor_lang::solana_program::pubkey::Pubkey::from(crate::REWARDS_HUB_ID.to_bytes())
     }
 }
 

@@ -1,5 +1,5 @@
 import { Address } from '@solana/web3.js';
-import { VAULTS_PROGRAM_ID } from '..';
+import { LENDBORROW_PROGRAM_ID } from '../programs/lendBorrow';
 
 export interface BranchPdaSeeds {
     vaultId: number;
@@ -8,7 +8,7 @@ export interface BranchPdaSeeds {
 
 export async function findBranchPda(
     seeds: BranchPdaSeeds,
-    programId: Address = VAULTS_PROGRAM_ID,
+    programId: Address = LENDBORROW_PROGRAM_ID,
 ): Promise<[Address, number]> {
     const seedsBuffer: Uint8Array[] = [
         Buffer.from('branch', 'utf8'),

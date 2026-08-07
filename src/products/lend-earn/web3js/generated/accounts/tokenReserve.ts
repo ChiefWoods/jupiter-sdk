@@ -10,6 +10,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const TOKEN_RESERVE_ACCOUNT_DISCRIMINATOR = new Uint8Array([21, 18, 59, 135, 120, 20, 31, 12]);
+
 export type TokenReserveAccountData = {
     mint: Address;
     vault: Address;
@@ -78,6 +80,9 @@ function getTokenReserveAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeTokenReserveAccount(data: Uint8Array): TokenReserveAccountData {
+    if (!TOKEN_RESERVE_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('TOKENRESERVEACCOUNT discriminator mismatch');
+    }
     const deserialized = getTokenReserveAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as TokenReserveAccountData;

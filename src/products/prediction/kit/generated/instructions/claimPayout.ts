@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PREDICTION_MARKET_PROGRAM_ADDRESS } from "../programs";
+import { PREDICTION_PROGRAM_ADDRESS } from "../programs";
 
 export const CLAIM_PAYOUT_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   127, 240, 132, 62, 227, 198, 146, 133,
@@ -49,7 +49,7 @@ export function getClaimPayoutDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type ClaimPayoutInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountOwner extends string | AccountMeta<string> = string,
   TAccountVault extends string | AccountMeta<string> = string,
   TAccountPosition extends string | AccountMeta<string> = string,
@@ -142,7 +142,7 @@ export function getClaimPayoutInstruction<
   TAccountOwnerTokenAccount extends string,
   TAccountVaultTokenAccount extends string,
   TAccountTokenProgram extends string,
-  TProgramAddress extends Address = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PREDICTION_PROGRAM_ADDRESS,
 >(
   input: ClaimPayoutInput<
     TAccountOwner,
@@ -165,8 +165,7 @@ export function getClaimPayoutInstruction<
   TAccountTokenProgram
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? PREDICTION_MARKET_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PREDICTION_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -221,7 +220,7 @@ export function getClaimPayoutInstruction<
 }
 
 export type ParsedClaimPayoutInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

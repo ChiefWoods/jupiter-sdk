@@ -37,7 +37,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const SET_TEST_TIME_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   242, 231, 177, 251, 126, 145, 159, 104,
@@ -50,7 +50,7 @@ export function getSetTestTimeDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type SetTestTimeInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountAdmin extends string | AccountMeta<string> = string,
   TAccountPerpetuals extends string | AccountMeta<string> = string,
   TRemainingAccounts extends readonly AccountMeta<string>[] = [],
@@ -115,13 +115,13 @@ export type SetTestTimeInput<
 export function getSetTestTimeInstruction<
   TAccountAdmin extends string,
   TAccountPerpetuals extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: SetTestTimeInput<TAccountAdmin, TAccountPerpetuals>,
   config?: { programAddress?: TProgramAddress },
 ): SetTestTimeInstruction<TProgramAddress, TAccountAdmin, TAccountPerpetuals> {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -154,7 +154,7 @@ export function getSetTestTimeInstruction<
 }
 
 export type ParsedSetTestTimeInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

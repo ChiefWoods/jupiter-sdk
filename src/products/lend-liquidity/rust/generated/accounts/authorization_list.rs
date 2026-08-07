@@ -119,7 +119,7 @@ impl anchor_lang::AccountSerialize for AuthorizationList {}
 #[cfg(feature = "anchor")]
 impl anchor_lang::Owner for AuthorizationList {
     fn owner() -> anchor_lang::solana_program::pubkey::Pubkey {
-        anchor_lang::solana_program::pubkey::Pubkey::from(crate::LIQUIDITY_ID.to_bytes())
+        anchor_lang::solana_program::pubkey::Pubkey::from(crate::LEND_LIQUIDITY_ID.to_bytes())
     }
 }
 

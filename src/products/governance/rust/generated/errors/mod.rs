@@ -5,6 +5,6 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-pub(crate) mod govern;
+pub(crate) mod governance;
 
-pub use self::govern::GovernError;
+pub use self::governance::GovernanceError;

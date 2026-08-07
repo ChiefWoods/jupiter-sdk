@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { GOVERN_PROGRAM_ADDRESS } from "../programs";
+import { GOVERNANCE_PROGRAM_ADDRESS } from "../programs";
 
 export const CLAIM_REWARD_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   149, 95, 181, 242, 94, 90, 158, 162,
@@ -49,7 +49,7 @@ export function getClaimRewardDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type ClaimRewardInstruction<
-  TProgram extends string = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof GOVERNANCE_PROGRAM_ADDRESS,
   TAccountGovernor extends string | AccountMeta<string> = string,
   TAccountRewardVault extends string | AccountMeta<string> = string,
   TAccountProposal extends string | AccountMeta<string> = string,
@@ -166,7 +166,7 @@ export function getClaimRewardInstruction<
   TAccountTokenProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof GOVERNANCE_PROGRAM_ADDRESS,
 >(
   input: ClaimRewardInput<
     TAccountGovernor,
@@ -193,7 +193,7 @@ export function getClaimRewardInstruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? GOVERN_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? GOVERNANCE_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -251,7 +251,7 @@ export function getClaimRewardInstruction<
 }
 
 export type ParsedClaimRewardInstruction<
-  TProgram extends string = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof GOVERNANCE_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

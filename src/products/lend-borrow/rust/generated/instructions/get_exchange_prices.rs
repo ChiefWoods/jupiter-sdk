@@ -55,7 +55,7 @@ impl GetExchangePrices {
             .unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::VAULTS_ID,
+            program_id: crate::LEND_BORROW_ID,
             accounts,
             data,
         }
@@ -254,7 +254,7 @@ impl<'a, 'b> GetExchangePricesCpi<'a, 'b> {
             .unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::VAULTS_ID,
+            program_id: crate::LEND_BORROW_ID,
             accounts,
             data,
         };

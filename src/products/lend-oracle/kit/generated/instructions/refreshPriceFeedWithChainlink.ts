@@ -40,7 +40,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { ORACLE_PROGRAM_ADDRESS } from "../programs";
+import { LEND_ORACLE_PROGRAM_ADDRESS } from "../programs";
 
 export const REFRESH_PRICE_FEED_WITH_CHAINLINK_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([74, 3, 0, 183, 242, 117, 152, 203]);
@@ -52,7 +52,7 @@ export function getRefreshPriceFeedWithChainlinkDiscriminatorBytes(): ReadonlyUi
 }
 
 export type RefreshPriceFeedWithChainlinkInstruction<
-  TProgram extends string = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_ORACLE_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountChainlinkDsCache extends string | AccountMeta<string> = string,
   TAccountVerifierAccount extends string | AccountMeta<string> =
@@ -164,7 +164,7 @@ export function getRefreshPriceFeedWithChainlinkInstruction<
   TAccountAccessController extends string,
   TAccountConfigAccount extends string,
   TAccountVerifierProgramId extends string,
-  TProgramAddress extends Address = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_ORACLE_PROGRAM_ADDRESS,
 >(
   input: RefreshPriceFeedWithChainlinkInput<
     TAccountSigner,
@@ -185,7 +185,7 @@ export function getRefreshPriceFeedWithChainlinkInstruction<
   TAccountVerifierProgramId
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? ORACLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_ORACLE_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -256,7 +256,7 @@ export function getRefreshPriceFeedWithChainlinkInstruction<
 }
 
 export type ParsedRefreshPriceFeedWithChainlinkInstruction<
-  TProgram extends string = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_ORACLE_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

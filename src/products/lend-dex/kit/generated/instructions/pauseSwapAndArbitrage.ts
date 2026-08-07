@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { DEX_PROGRAM_ADDRESS } from "../programs";
+import { LEND_DEX_PROGRAM_ADDRESS } from "../programs";
 
 export const PAUSE_SWAP_AND_ARBITRAGE_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([252, 67, 166, 62, 45, 136, 88, 76]);
@@ -48,7 +48,7 @@ export function getPauseSwapAndArbitrageDiscriminatorBytes(): ReadonlyUint8Array
 }
 
 export type PauseSwapAndArbitrageInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountDexAdmin extends string | AccountMeta<string> = string,
   TAccountDex extends string | AccountMeta<string> = string,
@@ -115,7 +115,7 @@ export function getPauseSwapAndArbitrageInstruction<
   TAccountAuthority extends string,
   TAccountDexAdmin extends string,
   TAccountDex extends string,
-  TProgramAddress extends Address = typeof DEX_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_DEX_PROGRAM_ADDRESS,
 >(
   input: PauseSwapAndArbitrageInput<
     TAccountAuthority,
@@ -130,7 +130,7 @@ export function getPauseSwapAndArbitrageInstruction<
   TAccountDex
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? DEX_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_DEX_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -161,7 +161,7 @@ export function getPauseSwapAndArbitrageInstruction<
 }
 
 export type ParsedPauseSwapAndArbitrageInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

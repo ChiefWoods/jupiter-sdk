@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { DEX_PROGRAM_ADDRESS } from "../programs";
+import { LEND_DEX_PROGRAM_ADDRESS } from "../programs";
 
 export const UPDATE_MAX_BORROW_SHARES_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([176, 13, 121, 189, 225, 225, 238, 78]);
@@ -50,7 +50,7 @@ export function getUpdateMaxBorrowSharesDiscriminatorBytes(): ReadonlyUint8Array
 }
 
 export type UpdateMaxBorrowSharesInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountDexAdmin extends string | AccountMeta<string> = string,
   TAccountDex extends string | AccountMeta<string> = string,
@@ -125,7 +125,7 @@ export function getUpdateMaxBorrowSharesInstruction<
   TAccountAuthority extends string,
   TAccountDexAdmin extends string,
   TAccountDex extends string,
-  TProgramAddress extends Address = typeof DEX_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_DEX_PROGRAM_ADDRESS,
 >(
   input: UpdateMaxBorrowSharesInput<
     TAccountAuthority,
@@ -140,7 +140,7 @@ export function getUpdateMaxBorrowSharesInstruction<
   TAccountDex
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? DEX_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_DEX_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -176,7 +176,7 @@ export function getUpdateMaxBorrowSharesInstruction<
 }
 
 export type ParsedUpdateMaxBorrowSharesInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

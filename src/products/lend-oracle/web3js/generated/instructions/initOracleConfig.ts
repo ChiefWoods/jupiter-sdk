@@ -1,8 +1,19 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { ORACLE_PROGRAM_ID } from '..';
+import { LENDORACLE_PROGRAM_ID } from '../programs/lendOracle';
 import { findOraclePda } from '../pdas/oracle';
-import { getArrayEncoder, getStructEncoder, getU16Encoder, type Encoder } from '@solana/codecs';
-import { getSourcesEncoder, type SourcesArgs } from '../types/sources';
+import {
+    getArrayDecoder,
+    getArrayEncoder,
+    getStructDecoder,
+    getStructEncoder,
+    getU16Decoder,
+    getU16Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+import { getSourcesDecoder, getSourcesEncoder, type SourcesArgs } from '../types/sources';
+
+export const INIT_ORACLE_CONFIG_INSTRUCTION_DISCRIMINATOR = new Uint8Array([77, 144, 180, 246, 217, 15, 118, 92]);
 
 export interface InitOracleConfigInstructionAccounts {
     signer: Address;
@@ -23,10 +34,50 @@ function getInitOracleConfigInstructionDataEncoder(): Encoder<InitOracleConfigIn
     ]);
 }
 
+function getInitOracleConfigInstructionDataDecoder(): Decoder<InitOracleConfigInstructionArgs> {
+    return getStructDecoder([
+        ['sources', getArrayDecoder(getSourcesDecoder())],
+        ['nonce', getU16Decoder()],
+    ]);
+}
+
+export interface ParsedInitOracleConfigInstruction {
+    programId: Address;
+    accounts: {
+        signer: AccountMeta;
+        oracleAdmin: AccountMeta;
+        oracle: AccountMeta;
+        systemProgram: AccountMeta;
+    };
+    data: InitOracleConfigInstructionArgs;
+}
+
+export function parseInitOracleConfigInstruction(
+    instruction: TransactionInstruction,
+): ParsedInitOracleConfigInstruction {
+    if (instruction.keys.length < 4) {
+        throw new Error('Expected 4 account metas for InitOracleConfig instruction');
+    }
+    if (!INIT_ORACLE_CONFIG_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('InitOracleConfig instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            signer: instruction.keys[0]!,
+            oracleAdmin: instruction.keys[1]!,
+            oracle: instruction.keys[2]!,
+            systemProgram: instruction.keys[3]!,
+        },
+        data: getInitOracleConfigInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export async function createInitOracleConfigInstruction(
     accounts: InitOracleConfigInstructionAccounts,
     args: InitOracleConfigInstructionArgs,
-    programId: Address = ORACLE_PROGRAM_ID,
+    programId: Address = LENDORACLE_PROGRAM_ID,
 ): Promise<TransactionInstruction> {
     let oracle = accounts.oracle;
     if (!oracle) {
@@ -44,9 +95,13 @@ export async function createInitOracleConfigInstruction(
         { pubkey: oracle, isSigner: false, isWritable: true },
         { pubkey: accounts.systemProgram, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getInitOracleConfigInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('4d90b4f6d90f765c', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getInitOracleConfigInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(INIT_ORACLE_CONFIG_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

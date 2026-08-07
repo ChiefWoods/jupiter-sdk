@@ -20,6 +20,8 @@ import {
 import { getOrderStatusDecoder, type OrderStatus } from '../types/orderStatus';
 import { getOrderTypeDecoder, type OrderType } from '../types/orderType';
 
+export const ORDER_ACCOUNT_DISCRIMINATOR = new Uint8Array([134, 173, 223, 185, 77, 86, 28, 51]);
+
 export type OrderAccountData = {
     owner: Address;
     position: Address;
@@ -97,6 +99,9 @@ function getOrderAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeOrderAccount(data: Uint8Array): OrderAccountData {
+    if (!ORDER_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('ORDERACCOUNT discriminator mismatch');
+    }
     const deserialized = getOrderAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as OrderAccountData;

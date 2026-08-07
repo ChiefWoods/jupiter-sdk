@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PREDICTION_MARKET_PROGRAM_ADDRESS } from "../programs";
+import { PREDICTION_PROGRAM_ADDRESS } from "../programs";
 
 export const CLAIM_TICKET_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   122, 229, 144, 167, 42, 113, 16, 220,
@@ -49,7 +49,7 @@ export function getClaimTicketDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type ClaimTicketInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountOwner extends string | AccountMeta<string> = string,
   TAccountVault extends string | AccountMeta<string> = string,
@@ -142,7 +142,7 @@ export function getClaimTicketInstruction<
   TAccountVaultTokenAccount extends string,
   TAccountOwnerTokenAccount extends string,
   TAccountTokenProgram extends string,
-  TProgramAddress extends Address = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PREDICTION_PROGRAM_ADDRESS,
 >(
   input: ClaimTicketInput<
     TAccountAuthority,
@@ -165,8 +165,7 @@ export function getClaimTicketInstruction<
   TAccountTokenProgram
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? PREDICTION_MARKET_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PREDICTION_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -221,7 +220,7 @@ export function getClaimTicketInstruction<
 }
 
 export type ParsedClaimTicketInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

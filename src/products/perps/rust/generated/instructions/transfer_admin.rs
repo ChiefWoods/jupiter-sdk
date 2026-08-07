@@ -43,7 +43,7 @@ impl TransferAdmin {
         let data = TransferAdminInstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::PERPETUALS_ID,
+            program_id: crate::PERPS_ID,
             accounts,
             data,
         }
@@ -213,7 +213,7 @@ impl<'a, 'b> TransferAdminCpi<'a, 'b> {
         let data = TransferAdminInstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::PERPETUALS_ID,
+            program_id: crate::PERPS_ID,
             accounts,
             data,
         };

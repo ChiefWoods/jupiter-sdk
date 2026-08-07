@@ -7,6 +7,6 @@
 
 use solana_address::{address, Address};
 
-/// `lending_reward_rate_model` program ID.
-pub const LENDING_REWARD_RATE_MODEL_ID: Address =
+/// `lend_lending_reward_rate_model` program ID.
+pub const LEND_LENDING_REWARD_RATE_MODEL_ID: Address =
     address!("jup7TthsMgcR9Y3L277b8Eo9uboVSmu1utkuXHNUKar");

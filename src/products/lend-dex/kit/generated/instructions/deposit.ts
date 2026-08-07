@@ -39,7 +39,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { DEX_PROGRAM_ADDRESS } from "../programs";
+import { LEND_DEX_PROGRAM_ADDRESS } from "../programs";
 
 export const DEPOSIT_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   242, 35, 198, 137, 82, 225, 242, 182,
@@ -50,7 +50,7 @@ export function getDepositDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type DepositInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountDex extends string | AccountMeta<string> = string,
   TAccountUser extends string | AccountMeta<string> = string,
@@ -299,7 +299,7 @@ export function getDepositInstruction<
   TAccountRecipient extends string,
   TAccountRecipientToken0Account extends string,
   TAccountRecipientToken1Account extends string,
-  TProgramAddress extends Address = typeof DEX_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_DEX_PROGRAM_ADDRESS,
 >(
   input: DepositInput<
     TAccountSigner,
@@ -360,7 +360,7 @@ export function getDepositInstruction<
   TAccountRecipientToken1Account
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? DEX_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_DEX_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -510,7 +510,7 @@ export function getDepositInstruction<
 }
 
 export type ParsedDepositInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -576,7 +576,7 @@ export function parseDepositInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === DEX_PROGRAM_ADDRESS
+    return accountMeta.address === LEND_DEX_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

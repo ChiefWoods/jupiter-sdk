@@ -1,7 +1,22 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { PERPETUALS_PROGRAM_ID } from '..';
-import { getBooleanEncoder, getI64Encoder, getStructEncoder, getU64Encoder, type Encoder } from '@solana/codecs';
-import { getSideEncoder, type SideArgs } from '../types/side';
+import { PERPS_PROGRAM_ID } from '../programs/perps';
+import {
+    getBooleanDecoder,
+    getBooleanEncoder,
+    getI64Decoder,
+    getI64Encoder,
+    getStructDecoder,
+    getStructEncoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+import { getSideDecoder, getSideEncoder, type SideArgs } from '../types/side';
+
+export const INSTANT_CREATE_LIMIT_ORDER_INSTRUCTION_DISCRIMINATOR = new Uint8Array([
+    194, 37, 195, 123, 40, 127, 126, 156,
+]);
 
 export interface InstantCreateLimitOrderInstructionAccounts {
     keeper: Address;
@@ -48,10 +63,91 @@ function getInstantCreateLimitOrderInstructionDataEncoder(): Encoder<InstantCrea
     ]);
 }
 
+function getInstantCreateLimitOrderInstructionDataDecoder(): Decoder<InstantCreateLimitOrderInstructionArgs> {
+    return getStructDecoder([
+        ['sizeUsdDelta', getU64Decoder()],
+        ['collateralTokenDelta', getU64Decoder()],
+        ['side', getSideDecoder()],
+        ['triggerPrice', getU64Decoder()],
+        ['triggerAboveThreshold', getBooleanDecoder()],
+        ['counter', getU64Decoder()],
+        ['requestTime', getI64Decoder()],
+    ]);
+}
+
+export interface ParsedInstantCreateLimitOrderInstruction {
+    programId: Address;
+    accounts: {
+        keeper: AccountMeta;
+        apiKeeper: AccountMeta;
+        owner: AccountMeta;
+        fundingAccount: AccountMeta;
+        perpetuals: AccountMeta;
+        pool: AccountMeta;
+        position: AccountMeta;
+        positionRequest: AccountMeta;
+        positionRequestAta: AccountMeta;
+        custody: AccountMeta;
+        custodyDovesPriceAccount: AccountMeta;
+        custodyPythnetPriceAccount: AccountMeta;
+        collateralCustody: AccountMeta;
+        inputMint: AccountMeta;
+        referral: AccountMeta;
+        tokenProgram: AccountMeta;
+        associatedTokenProgram: AccountMeta;
+        systemProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: InstantCreateLimitOrderInstructionArgs;
+}
+
+export function parseInstantCreateLimitOrderInstruction(
+    instruction: TransactionInstruction,
+): ParsedInstantCreateLimitOrderInstruction {
+    if (instruction.keys.length < 20) {
+        throw new Error('Expected 20 account metas for InstantCreateLimitOrder instruction');
+    }
+    if (
+        !INSTANT_CREATE_LIMIT_ORDER_INSTRUCTION_DISCRIMINATOR.every(
+            (byte, index) => instruction.data[0 + index] === byte,
+        )
+    ) {
+        throw new Error('InstantCreateLimitOrder instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            keeper: instruction.keys[0]!,
+            apiKeeper: instruction.keys[1]!,
+            owner: instruction.keys[2]!,
+            fundingAccount: instruction.keys[3]!,
+            perpetuals: instruction.keys[4]!,
+            pool: instruction.keys[5]!,
+            position: instruction.keys[6]!,
+            positionRequest: instruction.keys[7]!,
+            positionRequestAta: instruction.keys[8]!,
+            custody: instruction.keys[9]!,
+            custodyDovesPriceAccount: instruction.keys[10]!,
+            custodyPythnetPriceAccount: instruction.keys[11]!,
+            collateralCustody: instruction.keys[12]!,
+            inputMint: instruction.keys[13]!,
+            referral: instruction.keys[14]!,
+            tokenProgram: instruction.keys[15]!,
+            associatedTokenProgram: instruction.keys[16]!,
+            systemProgram: instruction.keys[17]!,
+            eventAuthority: instruction.keys[18]!,
+            program: instruction.keys[19]!,
+        },
+        data: getInstantCreateLimitOrderInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createInstantCreateLimitOrderInstruction(
     accounts: InstantCreateLimitOrderInstructionAccounts,
     args: InstantCreateLimitOrderInstructionArgs,
-    programId: Address = PERPETUALS_PROGRAM_ID,
+    programId: Address = PERPS_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.keeper, isSigner: true, isWritable: false },
@@ -77,9 +173,13 @@ export function createInstantCreateLimitOrderInstruction(
         { pubkey: accounts.eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getInstantCreateLimitOrderInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('c225c37b287f7e9c', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getInstantCreateLimitOrderInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(INSTANT_CREATE_LIMIT_ORDER_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

@@ -44,7 +44,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { JUPITER_PROGRAM_ADDRESS } from "../programs";
+import { AGGREGATOR_V6_PROGRAM_ADDRESS } from "../programs";
 import {
   getRoutePlanStepV2Decoder,
   getRoutePlanStepV2Encoder,
@@ -62,7 +62,7 @@ export function getSharedAccountsExactOutRouteV2DiscriminatorBytes(): ReadonlyUi
 }
 
 export type SharedAccountsExactOutRouteV2Instruction<
-  TProgram extends string = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
   TAccountProgramAuthority extends string | AccountMeta<string> = string,
   TAccountUserTransferAuthority extends string | AccountMeta<string> = string,
   TAccountSourceTokenAccount extends string | AccountMeta<string> = string,
@@ -235,7 +235,7 @@ export function getSharedAccountsExactOutRouteV2Instruction<
   TAccountDestinationTokenProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
 >(
   input: SharedAccountsExactOutRouteV2Input<
     TAccountProgramAuthority,
@@ -268,7 +268,8 @@ export function getSharedAccountsExactOutRouteV2Instruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? JUPITER_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? AGGREGATOR_V6_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -376,7 +377,7 @@ export function getSharedAccountsExactOutRouteV2Instruction<
 }
 
 export type ParsedSharedAccountsExactOutRouteV2Instruction<
-  TProgram extends string = typeof JUPITER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof AGGREGATOR_V6_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

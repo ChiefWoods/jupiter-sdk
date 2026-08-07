@@ -57,7 +57,7 @@ impl ClosePositionRequest3 {
             accounts.push(solana_instruction::AccountMeta::new(keeper, true));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::PERPETUALS_ID,
+                crate::PERPS_ID,
                 false,
             ));
         }
@@ -106,7 +106,7 @@ impl ClosePositionRequest3 {
             .unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::PERPETUALS_ID,
+            program_id: crate::PERPS_ID,
             accounts,
             data,
         }
@@ -418,7 +418,7 @@ impl<'a, 'b> ClosePositionRequest3Cpi<'a, 'b> {
             accounts.push(solana_instruction::AccountMeta::new(*keeper.key, true));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::PERPETUALS_ID,
+                crate::PERPS_ID,
                 false,
             ));
         }
@@ -480,7 +480,7 @@ impl<'a, 'b> ClosePositionRequest3Cpi<'a, 'b> {
             .unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::PERPETUALS_ID,
+            program_id: crate::PERPS_ID,
             accounts,
             data,
         };

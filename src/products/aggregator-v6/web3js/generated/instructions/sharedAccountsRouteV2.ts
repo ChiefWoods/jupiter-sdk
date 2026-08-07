@@ -1,14 +1,28 @@
+import { AGGREGATORV6_PROGRAM_ID } from '../programs/aggregatorV6';
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { JUPITER_PROGRAM_ID } from '..';
 import {
+    getArrayDecoder,
     getArrayEncoder,
+    getStructDecoder,
     getStructEncoder,
+    getU16Decoder,
     getU16Encoder,
+    getU64Decoder,
     getU64Encoder,
+    getU8Decoder,
     getU8Encoder,
+    type Decoder,
     type Encoder,
 } from '@solana/codecs';
-import { getRoutePlanStepV2Encoder, type RoutePlanStepV2Args } from '../types/routePlanStepV2';
+import {
+    getRoutePlanStepV2Decoder,
+    getRoutePlanStepV2Encoder,
+    type RoutePlanStepV2Args,
+} from '../types/routePlanStepV2';
+
+export const SHARED_ACCOUNTS_ROUTE_V2_INSTRUCTION_DISCRIMINATOR = new Uint8Array([
+    209, 152, 83, 147, 124, 254, 216, 233,
+]);
 
 export interface SharedAccountsRouteV2InstructionAccounts {
     programAuthority: Address;
@@ -47,10 +61,73 @@ function getSharedAccountsRouteV2InstructionDataEncoder(): Encoder<SharedAccount
     ]);
 }
 
+function getSharedAccountsRouteV2InstructionDataDecoder(): Decoder<SharedAccountsRouteV2InstructionArgs> {
+    return getStructDecoder([
+        ['id', getU8Decoder()],
+        ['inAmount', getU64Decoder()],
+        ['quotedOutAmount', getU64Decoder()],
+        ['slippageBps', getU16Decoder()],
+        ['platformFeeBps', getU16Decoder()],
+        ['positiveSlippageBps', getU16Decoder()],
+        ['routePlan', getArrayDecoder(getRoutePlanStepV2Decoder())],
+    ]);
+}
+
+export interface ParsedSharedAccountsRouteV2Instruction {
+    programId: Address;
+    accounts: {
+        programAuthority: AccountMeta;
+        userTransferAuthority: AccountMeta;
+        sourceTokenAccount: AccountMeta;
+        programSourceTokenAccount: AccountMeta;
+        programDestinationTokenAccount: AccountMeta;
+        destinationTokenAccount: AccountMeta;
+        sourceMint: AccountMeta;
+        destinationMint: AccountMeta;
+        sourceTokenProgram: AccountMeta;
+        destinationTokenProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: SharedAccountsRouteV2InstructionArgs;
+}
+
+export function parseSharedAccountsRouteV2Instruction(
+    instruction: TransactionInstruction,
+): ParsedSharedAccountsRouteV2Instruction {
+    if (instruction.keys.length < 12) {
+        throw new Error('Expected 12 account metas for SharedAccountsRouteV2 instruction');
+    }
+    if (
+        !SHARED_ACCOUNTS_ROUTE_V2_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)
+    ) {
+        throw new Error('SharedAccountsRouteV2 instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            programAuthority: instruction.keys[0]!,
+            userTransferAuthority: instruction.keys[1]!,
+            sourceTokenAccount: instruction.keys[2]!,
+            programSourceTokenAccount: instruction.keys[3]!,
+            programDestinationTokenAccount: instruction.keys[4]!,
+            destinationTokenAccount: instruction.keys[5]!,
+            sourceMint: instruction.keys[6]!,
+            destinationMint: instruction.keys[7]!,
+            sourceTokenProgram: instruction.keys[8]!,
+            destinationTokenProgram: instruction.keys[9]!,
+            eventAuthority: instruction.keys[10]!,
+            program: instruction.keys[11]!,
+        },
+        data: getSharedAccountsRouteV2InstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createSharedAccountsRouteV2Instruction(
     accounts: SharedAccountsRouteV2InstructionAccounts,
     args: SharedAccountsRouteV2InstructionArgs,
-    programId: Address = JUPITER_PROGRAM_ID,
+    programId: Address = AGGREGATORV6_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.programAuthority, isSigner: false, isWritable: false },
@@ -66,9 +143,13 @@ export function createSharedAccountsRouteV2Instruction(
         { pubkey: accounts.eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getSharedAccountsRouteV2InstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('d19853937cfed8e9', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getSharedAccountsRouteV2InstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(SHARED_ACCOUNTS_ROUTE_V2_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

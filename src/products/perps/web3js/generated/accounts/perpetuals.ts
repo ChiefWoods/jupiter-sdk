@@ -12,6 +12,8 @@ import {
 } from '@solana/codecs';
 import { getPermissionsDecoder, type Permissions } from '../types/permissions';
 
+export const PERPETUALS_ACCOUNT_DISCRIMINATOR = new Uint8Array([28, 167, 98, 191, 104, 82, 108, 196]);
+
 export type PerpetualsAccountData = {
     permissions: Permissions;
     pools: Array<Address>;
@@ -50,6 +52,9 @@ function getPerpetualsAccountDataDecoder(): Decoder<{
 }
 
 export function deserializePerpetualsAccount(data: Uint8Array): PerpetualsAccountData {
+    if (!PERPETUALS_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('PERPETUALSACCOUNT discriminator mismatch');
+    }
     const deserialized = getPerpetualsAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as PerpetualsAccountData;

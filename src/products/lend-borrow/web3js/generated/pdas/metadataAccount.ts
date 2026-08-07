@@ -1,14 +1,11 @@
 import { Address } from '@solana/web3.js';
-import { VAULTS_PROGRAM_ID } from '..';
 
 export interface MetadataAccountPdaSeeds {
     positionMint: Address;
 }
 
-export async function findMetadataAccountPda(
-    seeds: MetadataAccountPdaSeeds,
-    programId: Address = VAULTS_PROGRAM_ID,
-): Promise<[Address, number]> {
+export async function findMetadataAccountPda(seeds: MetadataAccountPdaSeeds): Promise<[Address, number]> {
+    const programId = new Address('metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s');
     const seedsBuffer: Uint8Array[] = [
         Buffer.from('metadata', 'utf8'),
         Buffer.from([

@@ -5,6 +5,6 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-pub(crate) mod liquidity;
+pub(crate) mod lend_liquidity;
 
-pub use self::liquidity::LiquidityError;
+pub use self::lend_liquidity::LendLiquidityError;

@@ -1,5 +1,5 @@
 import { Address } from '@solana/web3.js';
-import { LOCKER_PROGRAM_ID } from '..';
+import { LOCK_PROGRAM_ID } from '../programs/lock';
 
 export interface BasePdaSeeds {
     rootEscrow: Address;
@@ -8,7 +8,7 @@ export interface BasePdaSeeds {
 
 export async function findBasePda(
     seeds: BasePdaSeeds,
-    programId: Address = LOCKER_PROGRAM_ID,
+    programId: Address = LOCK_PROGRAM_ID,
 ): Promise<[Address, number]> {
     const seedsBuffer: Uint8Array[] = [
         Buffer.from('base', 'utf8'),

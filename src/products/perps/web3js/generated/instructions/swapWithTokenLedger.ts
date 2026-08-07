@@ -1,6 +1,15 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { PERPETUALS_PROGRAM_ID } from '..';
-import { getStructEncoder, getU64Encoder, type Encoder } from '@solana/codecs';
+import { PERPS_PROGRAM_ID } from '../programs/perps';
+import {
+    getStructDecoder,
+    getStructEncoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+export const SWAP_WITH_TOKEN_LEDGER_INSTRUCTION_DISCRIMINATOR = new Uint8Array([139, 141, 238, 197, 41, 211, 172, 19]);
 
 export interface SwapWithTokenLedgerInstructionAccounts {
     owner: Address;
@@ -30,10 +39,75 @@ function getSwapWithTokenLedgerInstructionDataEncoder(): Encoder<SwapWithTokenLe
     return getStructEncoder([['minAmountOut', getU64Encoder()]]);
 }
 
+function getSwapWithTokenLedgerInstructionDataDecoder(): Decoder<SwapWithTokenLedgerInstructionArgs> {
+    return getStructDecoder([['minAmountOut', getU64Decoder()]]);
+}
+
+export interface ParsedSwapWithTokenLedgerInstruction {
+    programId: Address;
+    accounts: {
+        owner: AccountMeta;
+        fundingAccount: AccountMeta;
+        receivingAccount: AccountMeta;
+        transferAuthority: AccountMeta;
+        perpetuals: AccountMeta;
+        pool: AccountMeta;
+        receivingCustody: AccountMeta;
+        receivingCustodyDovesPriceAccount: AccountMeta;
+        receivingCustodyTokenAccount: AccountMeta;
+        dispensingCustody: AccountMeta;
+        dispensingCustodyDovesPriceAccount: AccountMeta;
+        dispensingCustodyTokenAccount: AccountMeta;
+        tokenLedger: AccountMeta;
+        tokenProgram: AccountMeta;
+        instructionSysvar: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: SwapWithTokenLedgerInstructionArgs;
+}
+
+export function parseSwapWithTokenLedgerInstruction(
+    instruction: TransactionInstruction,
+): ParsedSwapWithTokenLedgerInstruction {
+    if (instruction.keys.length < 17) {
+        throw new Error('Expected 17 account metas for SwapWithTokenLedger instruction');
+    }
+    if (
+        !SWAP_WITH_TOKEN_LEDGER_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)
+    ) {
+        throw new Error('SwapWithTokenLedger instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            owner: instruction.keys[0]!,
+            fundingAccount: instruction.keys[1]!,
+            receivingAccount: instruction.keys[2]!,
+            transferAuthority: instruction.keys[3]!,
+            perpetuals: instruction.keys[4]!,
+            pool: instruction.keys[5]!,
+            receivingCustody: instruction.keys[6]!,
+            receivingCustodyDovesPriceAccount: instruction.keys[7]!,
+            receivingCustodyTokenAccount: instruction.keys[8]!,
+            dispensingCustody: instruction.keys[9]!,
+            dispensingCustodyDovesPriceAccount: instruction.keys[10]!,
+            dispensingCustodyTokenAccount: instruction.keys[11]!,
+            tokenLedger: instruction.keys[12]!,
+            tokenProgram: instruction.keys[13]!,
+            instructionSysvar: instruction.keys[14]!,
+            eventAuthority: instruction.keys[15]!,
+            program: instruction.keys[16]!,
+        },
+        data: getSwapWithTokenLedgerInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createSwapWithTokenLedgerInstruction(
     accounts: SwapWithTokenLedgerInstructionAccounts,
     args: SwapWithTokenLedgerInstructionArgs,
-    programId: Address = PERPETUALS_PROGRAM_ID,
+    programId: Address = PERPS_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.owner, isSigner: true, isWritable: false },
@@ -54,9 +128,13 @@ export function createSwapWithTokenLedgerInstruction(
         { pubkey: accounts.eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getSwapWithTokenLedgerInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('8b8deec529d3ac13', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getSwapWithTokenLedgerInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(SWAP_WITH_TOKEN_LEDGER_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

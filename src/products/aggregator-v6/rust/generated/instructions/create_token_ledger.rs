@@ -46,7 +46,7 @@ impl CreateTokenLedger {
             .unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::JUPITER_ID,
+            program_id: crate::AGGREGATOR_V6_ID,
             accounts,
             data,
         }
@@ -218,7 +218,7 @@ impl<'a, 'b> CreateTokenLedgerCpi<'a, 'b> {
             .unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::JUPITER_ID,
+            program_id: crate::AGGREGATOR_V6_ID,
             accounts,
             data,
         };

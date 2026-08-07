@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PREDICTION_MARKET_PROGRAM_ADDRESS } from "../programs";
+import { PREDICTION_PROGRAM_ADDRESS } from "../programs";
 
 export const SETTLE_TICKET_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   201, 80, 119, 145, 208, 184, 168, 70,
@@ -51,7 +51,7 @@ export function getSettleTicketDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type SettleTicketInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountVault extends string | AccountMeta<string> = string,
   TAccountTicket extends string | AccountMeta<string> = string,
@@ -123,7 +123,7 @@ export function getSettleTicketInstruction<
   TAccountAuthority extends string,
   TAccountVault extends string,
   TAccountTicket extends string,
-  TProgramAddress extends Address = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PREDICTION_PROGRAM_ADDRESS,
 >(
   input: SettleTicketInput<TAccountAuthority, TAccountVault, TAccountTicket>,
   config?: { programAddress?: TProgramAddress },
@@ -134,8 +134,7 @@ export function getSettleTicketInstruction<
   TAccountTicket
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? PREDICTION_MARKET_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PREDICTION_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -171,7 +170,7 @@ export function getSettleTicketInstruction<
 }
 
 export type ParsedSettleTicketInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

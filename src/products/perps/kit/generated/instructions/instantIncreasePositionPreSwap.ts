@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const INSTANT_INCREASE_POSITION_PRE_SWAP_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([197, 38, 86, 165, 199, 23, 38, 234]);
@@ -50,7 +50,7 @@ export function getInstantIncreasePositionPreSwapDiscriminatorBytes(): ReadonlyU
 }
 
 export type InstantIncreasePositionPreSwapInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountOwner extends string | AccountMeta<string> = string,
   TAccountFundingAccount extends string | AccountMeta<string> = string,
   TAccountReceivingAccount extends string | AccountMeta<string> = string,
@@ -228,7 +228,7 @@ export function getInstantIncreasePositionPreSwapInstruction<
   TAccountInstructionSysvar extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: InstantIncreasePositionPreSwapInput<
     TAccountOwner,
@@ -269,7 +269,7 @@ export function getInstantIncreasePositionPreSwapInstruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -389,7 +389,7 @@ export function getInstantIncreasePositionPreSwapInstruction<
 }
 
 export type ParsedInstantIncreasePositionPreSwapInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

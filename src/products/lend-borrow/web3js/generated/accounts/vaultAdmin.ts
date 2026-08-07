@@ -11,6 +11,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const VAULT_ADMIN_ACCOUNT_DISCRIMINATOR = new Uint8Array([88, 97, 160, 117, 102, 39, 103, 44]);
+
 export type VaultAdminAccountData = {
     authority: Address;
     liquidityProgram: Address;
@@ -46,6 +48,9 @@ function getVaultAdminAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeVaultAdminAccount(data: Uint8Array): VaultAdminAccountData {
+    if (!VAULT_ADMIN_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('VAULTADMINACCOUNT discriminator mismatch');
+    }
     const deserialized = getVaultAdminAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as VaultAdminAccountData;

@@ -7,5 +7,5 @@
 
 use solana_address::{address, Address};
 
-/// `jupiter` program ID.
-pub const JUPITER_ID: Address = address!("JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4");
+/// `aggregator_v6` program ID.
+pub const AGGREGATOR_V6_ID: Address = address!("JUP6LkbZbjS1jKKwapdHNy74zcZ3tLUZoi5QNyVTaV4");

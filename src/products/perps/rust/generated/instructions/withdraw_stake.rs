@@ -94,7 +94,7 @@ impl WithdrawStake {
         let data = WithdrawStakeInstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::PERPETUALS_ID,
+            program_id: crate::PERPS_ID,
             accounts,
             data,
         }
@@ -441,7 +441,7 @@ impl<'a, 'b> WithdrawStakeCpi<'a, 'b> {
         let data = WithdrawStakeInstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::PERPETUALS_ID,
+            program_id: crate::PERPS_ID,
             accounts,
             data,
         };

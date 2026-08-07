@@ -34,7 +34,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { DEX_PROGRAM_ADDRESS } from "../programs";
+import { LEND_DEX_PROGRAM_ADDRESS } from "../programs";
 
 export const PREVIEW_DEX_SHARES_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([246, 97, 50, 171, 63, 142, 62, 229]);
@@ -46,7 +46,7 @@ export function getPreviewDexSharesDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type PreviewDexSharesInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountDex extends string | AccountMeta<string> = string,
   TAccountPosition extends string | AccountMeta<string> = string,
   TAccountToken0Reserve extends string | AccountMeta<string> = string,
@@ -178,7 +178,7 @@ export function getPreviewDexSharesInstruction<
   TAccountDexBorrowPositionToken0 extends string,
   TAccountDexBorrowPositionToken1 extends string,
   TAccountOracleProgram extends string,
-  TProgramAddress extends Address = typeof DEX_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_DEX_PROGRAM_ADDRESS,
 >(
   input: PreviewDexSharesInput<
     TAccountDex,
@@ -205,7 +205,7 @@ export function getPreviewDexSharesInstruction<
   TAccountOracleProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? DEX_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_DEX_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -283,7 +283,7 @@ export function getPreviewDexSharesInstruction<
 }
 
 export type ParsedPreviewDexSharesInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -330,7 +330,7 @@ export function parsePreviewDexSharesInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === DEX_PROGRAM_ADDRESS
+    return accountMeta.address === LEND_DEX_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

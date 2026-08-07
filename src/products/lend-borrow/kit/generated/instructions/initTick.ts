@@ -40,7 +40,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { VAULTS_PROGRAM_ADDRESS } from "../programs";
+import { LEND_BORROW_PROGRAM_ADDRESS } from "../programs";
 
 export const INIT_TICK_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   22, 13, 62, 141, 73, 89, 178, 29,
@@ -51,7 +51,7 @@ export function getInitTickDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type InitTickInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountVaultConfig extends string | AccountMeta<string> = string,
   TAccountTickData extends string | AccountMeta<string> = string,
@@ -136,7 +136,7 @@ export function getInitTickInstruction<
   TAccountVaultConfig extends string,
   TAccountTickData extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: InitTickInput<
     TAccountSigner,
@@ -153,7 +153,7 @@ export function getInitTickInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -198,7 +198,7 @@ export function getInitTickInstruction<
 }
 
 export type ParsedInitTickInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

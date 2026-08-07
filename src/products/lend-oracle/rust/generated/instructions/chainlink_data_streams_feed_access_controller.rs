@@ -50,7 +50,7 @@ impl ChainlinkDataStreamsFeedAccessController {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::ORACLE_ID,
+            program_id: crate::LEND_ORACLE_ID,
             accounts,
             data,
         }
@@ -233,7 +233,7 @@ impl<'a, 'b> ChainlinkDataStreamsFeedAccessControllerCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::ORACLE_ID,
+            program_id: crate::LEND_ORACLE_ID,
             accounts,
             data,
         };

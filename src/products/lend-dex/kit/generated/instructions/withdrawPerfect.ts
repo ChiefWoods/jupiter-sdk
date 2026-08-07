@@ -39,7 +39,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { DEX_PROGRAM_ADDRESS } from "../programs";
+import { LEND_DEX_PROGRAM_ADDRESS } from "../programs";
 
 export const WITHDRAW_PERFECT_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([41, 170, 122, 166, 20, 154, 180, 245]);
@@ -51,7 +51,7 @@ export function getWithdrawPerfectDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type WithdrawPerfectInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountDex extends string | AccountMeta<string> = string,
   TAccountUser extends string | AccountMeta<string> = string,
@@ -300,7 +300,7 @@ export function getWithdrawPerfectInstruction<
   TAccountRecipient extends string,
   TAccountRecipientToken0Account extends string,
   TAccountRecipientToken1Account extends string,
-  TProgramAddress extends Address = typeof DEX_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_DEX_PROGRAM_ADDRESS,
 >(
   input: WithdrawPerfectInput<
     TAccountSigner,
@@ -361,7 +361,7 @@ export function getWithdrawPerfectInstruction<
   TAccountRecipientToken1Account
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? DEX_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_DEX_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -511,7 +511,7 @@ export function getWithdrawPerfectInstruction<
 }
 
 export type ParsedWithdrawPerfectInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -577,7 +577,7 @@ export function parseWithdrawPerfectInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === DEX_PROGRAM_ADDRESS
+    return accountMeta.address === LEND_DEX_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

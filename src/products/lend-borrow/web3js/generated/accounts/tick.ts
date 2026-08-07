@@ -12,6 +12,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const TICK_ACCOUNT_DISCRIMINATOR = new Uint8Array([176, 94, 67, 247, 133, 173, 7, 115]);
+
 export type TickAccountData = {
     vaultId: number;
     tick: number;
@@ -53,6 +55,9 @@ function getTickAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeTickAccount(data: Uint8Array): TickAccountData {
+    if (!TICK_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('TICKACCOUNT discriminator mismatch');
+    }
     const deserialized = getTickAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as TickAccountData;

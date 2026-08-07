@@ -40,7 +40,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { VAULTS_PROGRAM_ADDRESS } from "../programs";
+import { LEND_BORROW_PROGRAM_ADDRESS } from "../programs";
 
 export const UPDATE_BORROW_RATE_MAGNIFIER_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([75, 250, 27, 176, 156, 53, 26, 112]);
@@ -52,7 +52,7 @@ export function getUpdateBorrowRateMagnifierDiscriminatorBytes(): ReadonlyUint8A
 }
 
 export type UpdateBorrowRateMagnifierInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountVaultAdmin extends string | AccountMeta<string> = string,
   TAccountVaultState extends string | AccountMeta<string> = string,
@@ -161,7 +161,7 @@ export function getUpdateBorrowRateMagnifierInstruction<
   TAccountVaultConfig extends string,
   TAccountSupplyTokenReservesLiquidity extends string,
   TAccountBorrowTokenReservesLiquidity extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: UpdateBorrowRateMagnifierInput<
     TAccountAuthority,
@@ -182,7 +182,7 @@ export function getUpdateBorrowRateMagnifierInstruction<
   TAccountBorrowTokenReservesLiquidity
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -239,7 +239,7 @@ export function getUpdateBorrowRateMagnifierInstruction<
 }
 
 export type ParsedUpdateBorrowRateMagnifierInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

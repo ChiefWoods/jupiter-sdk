@@ -39,7 +39,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findEventAuthorityPda } from "../pdas";
-import { LOCKER_PROGRAM_ADDRESS } from "../programs";
+import { LOCK_PROGRAM_ADDRESS } from "../programs";
 
 export const CLAIM_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   62, 198, 214, 193, 213, 159, 108, 210,
@@ -50,7 +50,7 @@ export function getClaimDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type ClaimInstruction<
-  TProgram extends string = typeof LOCKER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LOCK_PROGRAM_ADDRESS,
   TAccountEscrow extends string | AccountMeta<string> = string,
   TAccountEscrowToken extends string | AccountMeta<string> = string,
   TAccountRecipient extends string | AccountMeta<string> = string,
@@ -156,7 +156,7 @@ export async function getClaimInstructionAsync<
   TAccountTokenProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof LOCKER_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LOCK_PROGRAM_ADDRESS,
 >(
   input: ClaimAsyncInput<
     TAccountEscrow,
@@ -181,7 +181,7 @@ export async function getClaimInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LOCKER_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LOCK_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -269,7 +269,7 @@ export function getClaimInstruction<
   TAccountTokenProgram extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof LOCKER_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LOCK_PROGRAM_ADDRESS,
 >(
   input: ClaimInput<
     TAccountEscrow,
@@ -292,7 +292,7 @@ export function getClaimInstruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LOCKER_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LOCK_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -346,7 +346,7 @@ export function getClaimInstruction<
 }
 
 export type ParsedClaimInstruction<
-  TProgram extends string = typeof LOCKER_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LOCK_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

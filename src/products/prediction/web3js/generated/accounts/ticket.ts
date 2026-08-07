@@ -18,6 +18,8 @@ import {
 } from '@solana/codecs';
 import { getTicketStatusDecoder, type TicketStatus } from '../types/ticketStatus';
 
+export const TICKET_ACCOUNT_DISCRIMINATOR = new Uint8Array([41, 228, 24, 165, 78, 90, 235, 200]);
+
 export type TicketAccountData = {
     owner: Address;
     payer: Address;
@@ -95,6 +97,9 @@ function getTicketAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeTicketAccount(data: Uint8Array): TicketAccountData {
+    if (!TICKET_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('TICKETACCOUNT discriminator mismatch');
+    }
     const deserialized = getTicketAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as TicketAccountData;

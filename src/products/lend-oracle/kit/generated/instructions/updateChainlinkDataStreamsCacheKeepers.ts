@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { ORACLE_PROGRAM_ADDRESS } from "../programs";
+import { LEND_ORACLE_PROGRAM_ADDRESS } from "../programs";
 import {
   getAddressBoolDecoder,
   getAddressBoolEncoder,
@@ -56,7 +56,7 @@ export function getUpdateChainlinkDataStreamsCacheKeepersDiscriminatorBytes(): R
 }
 
 export type UpdateChainlinkDataStreamsCacheKeepersInstruction<
-  TProgram extends string = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_ORACLE_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountOracleAdmin extends string | AccountMeta<string> = string,
   TAccountChainlinkDsCache extends string | AccountMeta<string> = string,
@@ -133,7 +133,7 @@ export function getUpdateChainlinkDataStreamsCacheKeepersInstruction<
   TAccountSigner extends string,
   TAccountOracleAdmin extends string,
   TAccountChainlinkDsCache extends string,
-  TProgramAddress extends Address = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_ORACLE_PROGRAM_ADDRESS,
 >(
   input: UpdateChainlinkDataStreamsCacheKeepersInput<
     TAccountSigner,
@@ -148,7 +148,7 @@ export function getUpdateChainlinkDataStreamsCacheKeepersInstruction<
   TAccountChainlinkDsCache
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? ORACLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_ORACLE_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -187,7 +187,7 @@ export function getUpdateChainlinkDataStreamsCacheKeepersInstruction<
 }
 
 export type ParsedUpdateChainlinkDataStreamsCacheKeepersInstruction<
-  TProgram extends string = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_ORACLE_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

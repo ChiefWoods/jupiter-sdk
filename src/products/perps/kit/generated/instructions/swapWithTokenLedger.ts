@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const SWAP_WITH_TOKEN_LEDGER_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([139, 141, 238, 197, 41, 211, 172, 19]);
@@ -50,7 +50,7 @@ export function getSwapWithTokenLedgerDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type SwapWithTokenLedgerInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountOwner extends string | AccountMeta<string> = string,
   TAccountFundingAccount extends string | AccountMeta<string> = string,
   TAccountReceivingAccount extends string | AccountMeta<string> = string,
@@ -230,7 +230,7 @@ export function getSwapWithTokenLedgerInstruction<
   TAccountInstructionSysvar extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: SwapWithTokenLedgerInput<
     TAccountOwner,
@@ -273,7 +273,7 @@ export function getSwapWithTokenLedgerInstruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -396,7 +396,7 @@ export function getSwapWithTokenLedgerInstruction<
 }
 
 export type ParsedSwapWithTokenLedgerInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

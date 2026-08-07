@@ -11,6 +11,8 @@ import {
 } from '@solana/codecs';
 import { getSourcesDecoder, type Sources } from '../types/sources';
 
+export const ORACLE_ACCOUNT_DISCRIMINATOR = new Uint8Array([139, 194, 131, 179, 140, 179, 229, 244]);
+
 export type OracleAccountData = { nonce: number; sources: Array<Sources>; bump: number };
 
 export interface OracleAccount {
@@ -33,6 +35,9 @@ function getOracleAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeOracleAccount(data: Uint8Array): OracleAccountData {
+    if (!ORACLE_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('ORACLEACCOUNT discriminator mismatch');
+    }
     const deserialized = getOracleAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as OracleAccountData;

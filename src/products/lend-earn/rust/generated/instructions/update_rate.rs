@@ -55,7 +55,7 @@ impl UpdateRate {
         let data = UpdateRateInstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::LENDING_ID,
+            program_id: crate::LEND_EARN_ID,
             accounts,
             data,
         }
@@ -266,7 +266,7 @@ impl<'a, 'b> UpdateRateCpi<'a, 'b> {
         let data = UpdateRateInstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::LENDING_ID,
+            program_id: crate::LEND_EARN_ID,
             accounts,
             data,
         };

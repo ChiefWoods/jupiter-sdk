@@ -1,7 +1,18 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { GENIEDISTRIBUTOR_PROGRAM_ID } from '..';
+import { REWARDSHUB_PROGRAM_ID } from '../programs/rewardsHub';
 import { findClaimStatusPda } from '../pdas/claimStatus';
-import { getArrayEncoder, getStructEncoder, getU64Encoder, type Encoder } from '@solana/codecs';
+import {
+    getArrayDecoder,
+    getArrayEncoder,
+    getStructDecoder,
+    getStructEncoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+export const CLAIM_INSTRUCTION_DISCRIMINATOR = new Uint8Array([62, 198, 214, 193, 213, 159, 108, 210]);
 
 export interface ClaimInstructionAccounts {
     campaign: Address;
@@ -25,10 +36,54 @@ function getClaimInstructionDataEncoder(): Encoder<ClaimInstructionArgs> {
     ]);
 }
 
+function getClaimInstructionDataDecoder(): Decoder<ClaimInstructionArgs> {
+    return getStructDecoder([
+        ['amountUnlocked', getArrayDecoder(getU64Decoder(), { size: 5 })],
+        ['lootboxInfo', getArrayDecoder(getU64Decoder(), { size: 5 })],
+    ]);
+}
+
+export interface ParsedClaimInstruction {
+    programId: Address;
+    accounts: {
+        campaign: AccountMeta;
+        claimStatus: AccountMeta;
+        from: AccountMeta;
+        to: AccountMeta;
+        claimant: AccountMeta;
+        claimsPubkey: AccountMeta;
+        tokenProgram: AccountMeta;
+    };
+    data: ClaimInstructionArgs;
+}
+
+export function parseClaimInstruction(instruction: TransactionInstruction): ParsedClaimInstruction {
+    if (instruction.keys.length < 7) {
+        throw new Error('Expected 7 account metas for Claim instruction');
+    }
+    if (!CLAIM_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('Claim instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            campaign: instruction.keys[0]!,
+            claimStatus: instruction.keys[1]!,
+            from: instruction.keys[2]!,
+            to: instruction.keys[3]!,
+            claimant: instruction.keys[4]!,
+            claimsPubkey: instruction.keys[5]!,
+            tokenProgram: instruction.keys[6]!,
+        },
+        data: getClaimInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export async function createClaimInstruction(
     accounts: ClaimInstructionAccounts,
     args: ClaimInstructionArgs,
-    programId: Address = GENIEDISTRIBUTOR_PROGRAM_ID,
+    programId: Address = REWARDSHUB_PROGRAM_ID,
 ): Promise<TransactionInstruction> {
     let claimStatus = accounts.claimStatus;
     if (!claimStatus) {
@@ -50,9 +105,13 @@ export async function createClaimInstruction(
         { pubkey: accounts.claimsPubkey, isSigner: true, isWritable: false },
         { pubkey: accounts.tokenProgram, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getClaimInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('3ec6d6c1d59f6cd2', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getClaimInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(CLAIM_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

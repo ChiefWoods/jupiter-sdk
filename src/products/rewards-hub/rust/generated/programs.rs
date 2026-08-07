@@ -7,5 +7,5 @@
 
 use solana_address::{address, Address};
 
-/// `genie_distributor` program ID.
-pub const GENIE_DISTRIBUTOR_ID: Address = address!("GenieRGuCtgfDGThwjp2GLreQMFtJoG1fqFE8MF1gAzG");
+/// `rewards_hub` program ID.
+pub const REWARDS_HUB_ID: Address = address!("GenieRGuCtgfDGThwjp2GLreQMFtJoG1fqFE8MF1gAzG");

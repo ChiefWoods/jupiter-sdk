@@ -39,7 +39,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findNewOperatorPda } from "../pdas";
-import { JUP_STABLE_PROGRAM_ADDRESS } from "../programs";
+import { STABLECOIN_PROGRAM_ADDRESS } from "../programs";
 import {
   getOperatorRoleDecoder,
   getOperatorRoleEncoder,
@@ -58,7 +58,7 @@ export function getCreateOperatorDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type CreateOperatorInstruction<
-  TProgram extends string = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof STABLECOIN_PROGRAM_ADDRESS,
   TAccountOperatorAuthority extends string | AccountMeta<string> = string,
   TAccountPayer extends string | AccountMeta<string> = string,
   TAccountOperator extends string | AccountMeta<string> = string,
@@ -153,7 +153,7 @@ export async function getCreateOperatorInstructionAsync<
   TAccountNewOperatorAuthority extends string,
   TAccountNewOperator extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof STABLECOIN_PROGRAM_ADDRESS,
 >(
   input: CreateOperatorAsyncInput<
     TAccountOperatorAuthority,
@@ -176,7 +176,7 @@ export async function getCreateOperatorInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? JUP_STABLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? STABLECOIN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -264,7 +264,7 @@ export function getCreateOperatorInstruction<
   TAccountNewOperatorAuthority extends string,
   TAccountNewOperator extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof STABLECOIN_PROGRAM_ADDRESS,
 >(
   input: CreateOperatorInput<
     TAccountOperatorAuthority,
@@ -285,7 +285,7 @@ export function getCreateOperatorInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? JUP_STABLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? STABLECOIN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -342,7 +342,7 @@ export function getCreateOperatorInstruction<
 }
 
 export type ParsedCreateOperatorInstruction<
-  TProgram extends string = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof STABLECOIN_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

@@ -39,7 +39,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { GOVERN_PROGRAM_ADDRESS } from "../programs";
+import { GOVERNANCE_PROGRAM_ADDRESS } from "../programs";
 import {
   getGovernanceParametersDecoder,
   getGovernanceParametersEncoder,
@@ -58,7 +58,7 @@ export function getCreateGovernorDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type CreateGovernorInstruction<
-  TProgram extends string = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof GOVERNANCE_PROGRAM_ADDRESS,
   TAccountBase extends string | AccountMeta<string> = string,
   TAccountGovernor extends string | AccountMeta<string> = string,
   TAccountSmartWallet extends string | AccountMeta<string> = string,
@@ -157,7 +157,7 @@ export function getCreateGovernorInstruction<
   TAccountSmartWallet extends string,
   TAccountPayer extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof GOVERNANCE_PROGRAM_ADDRESS,
 >(
   input: CreateGovernorInput<
     TAccountBase,
@@ -176,7 +176,7 @@ export function getCreateGovernorInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? GOVERN_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? GOVERNANCE_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -224,7 +224,7 @@ export function getCreateGovernorInstruction<
 }
 
 export type ParsedCreateGovernorInstruction<
-  TProgram extends string = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof GOVERNANCE_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

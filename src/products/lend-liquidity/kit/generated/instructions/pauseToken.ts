@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
+import { LEND_LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
 
 export const PAUSE_TOKEN_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   226, 150, 72, 211, 159, 51, 226, 39,
@@ -49,7 +49,7 @@ export function getPauseTokenDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type PauseTokenInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountAuthList extends string | AccountMeta<string> = string,
   TAccountTokenReserve extends string | AccountMeta<string> = string,
@@ -121,7 +121,7 @@ export function getPauseTokenInstruction<
   TAccountAuthority extends string,
   TAccountAuthList extends string,
   TAccountTokenReserve extends string,
-  TProgramAddress extends Address = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
 >(
   input: PauseTokenInput<
     TAccountAuthority,
@@ -136,7 +136,8 @@ export function getPauseTokenInstruction<
   TAccountTokenReserve
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LIQUIDITY_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? LEND_LIQUIDITY_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -172,7 +173,7 @@ export function getPauseTokenInstruction<
 }
 
 export type ParsedPauseTokenInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

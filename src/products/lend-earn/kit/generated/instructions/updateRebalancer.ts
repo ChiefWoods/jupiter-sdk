@@ -37,7 +37,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { LENDING_PROGRAM_ADDRESS } from "../programs";
+import { LEND_EARN_PROGRAM_ADDRESS } from "../programs";
 
 export const UPDATE_REBALANCER_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([206, 187, 54, 228, 145, 8, 203, 111]);
@@ -49,7 +49,7 @@ export function getUpdateRebalancerDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type UpdateRebalancerInstruction<
-  TProgram extends string = typeof LENDING_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_EARN_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountLendingAdmin extends string | AccountMeta<string> = string,
   TRemainingAccounts extends readonly AccountMeta<string>[] = [],
@@ -114,7 +114,7 @@ export type UpdateRebalancerInput<
 export function getUpdateRebalancerInstruction<
   TAccountSigner extends string,
   TAccountLendingAdmin extends string,
-  TProgramAddress extends Address = typeof LENDING_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_EARN_PROGRAM_ADDRESS,
 >(
   input: UpdateRebalancerInput<TAccountSigner, TAccountLendingAdmin>,
   config?: { programAddress?: TProgramAddress },
@@ -124,7 +124,7 @@ export function getUpdateRebalancerInstruction<
   TAccountLendingAdmin
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LENDING_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_EARN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -157,7 +157,7 @@ export function getUpdateRebalancerInstruction<
 }
 
 export type ParsedUpdateRebalancerInstruction<
-  TProgram extends string = typeof LENDING_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_EARN_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

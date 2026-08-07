@@ -7,5 +7,5 @@
 
 use solana_address::{address, Address};
 
-/// `flashloan` program ID.
-pub const FLASHLOAN_ID: Address = address!("jupgfSgfuAXv4B6R2Uxu85Z1qdzgju79s6MfZekN6XS");
+/// `lend_flash_loan` program ID.
+pub const LEND_FLASH_LOAN_ID: Address = address!("jupgfSgfuAXv4B6R2Uxu85Z1qdzgju79s6MfZekN6XS");

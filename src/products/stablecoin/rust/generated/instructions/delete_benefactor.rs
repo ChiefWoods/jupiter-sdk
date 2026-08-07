@@ -47,7 +47,7 @@ impl DeleteBenefactor {
         let data = DeleteBenefactorInstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::JUP_STABLE_ID,
+            program_id: crate::STABLECOIN_ID,
             accounts,
             data,
         }
@@ -236,7 +236,7 @@ impl<'a, 'b> DeleteBenefactorCpi<'a, 'b> {
         let data = DeleteBenefactorInstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::JUP_STABLE_ID,
+            program_id: crate::STABLECOIN_ID,
             accounts,
             data,
         };

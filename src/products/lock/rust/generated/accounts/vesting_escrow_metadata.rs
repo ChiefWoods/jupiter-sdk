@@ -126,7 +126,7 @@ impl anchor_lang::AccountSerialize for VestingEscrowMetadata {}
 #[cfg(feature = "anchor")]
 impl anchor_lang::Owner for VestingEscrowMetadata {
     fn owner() -> anchor_lang::solana_program::pubkey::Pubkey {
-        anchor_lang::solana_program::pubkey::Pubkey::from(crate::LOCKER_ID.to_bytes())
+        anchor_lang::solana_program::pubkey::Pubkey::from(crate::LOCK_ID.to_bytes())
     }
 }
 

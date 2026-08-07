@@ -1,14 +1,22 @@
+import { AGGREGATORV6_PROGRAM_ID } from '../programs/aggregatorV6';
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { JUPITER_PROGRAM_ID } from '..';
 import {
+    getArrayDecoder,
     getArrayEncoder,
+    getStructDecoder,
     getStructEncoder,
+    getU16Decoder,
     getU16Encoder,
+    getU64Decoder,
     getU64Encoder,
+    getU8Decoder,
     getU8Encoder,
+    type Decoder,
     type Encoder,
 } from '@solana/codecs';
-import { getRoutePlanStepEncoder, type RoutePlanStepArgs } from '../types/routePlanStep';
+import { getRoutePlanStepDecoder, getRoutePlanStepEncoder, type RoutePlanStepArgs } from '../types/routePlanStep';
+
+export const ROUTE_WITH_TOKEN_LEDGER_INSTRUCTION_DISCRIMINATOR = new Uint8Array([150, 86, 71, 116, 167, 93, 14, 104]);
 
 export interface RouteWithTokenLedgerInstructionAccounts {
     tokenProgram: Address;
@@ -39,10 +47,66 @@ function getRouteWithTokenLedgerInstructionDataEncoder(): Encoder<RouteWithToken
     ]);
 }
 
+function getRouteWithTokenLedgerInstructionDataDecoder(): Decoder<RouteWithTokenLedgerInstructionArgs> {
+    return getStructDecoder([
+        ['routePlan', getArrayDecoder(getRoutePlanStepDecoder())],
+        ['quotedOutAmount', getU64Decoder()],
+        ['slippageBps', getU16Decoder()],
+        ['platformFeeBps', getU8Decoder()],
+    ]);
+}
+
+export interface ParsedRouteWithTokenLedgerInstruction {
+    programId: Address;
+    accounts: {
+        tokenProgram: AccountMeta;
+        userTransferAuthority: AccountMeta;
+        userSourceTokenAccount: AccountMeta;
+        userDestinationTokenAccount: AccountMeta;
+        destinationTokenAccount: AccountMeta;
+        destinationMint: AccountMeta;
+        platformFeeAccount: AccountMeta;
+        tokenLedger: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: RouteWithTokenLedgerInstructionArgs;
+}
+
+export function parseRouteWithTokenLedgerInstruction(
+    instruction: TransactionInstruction,
+): ParsedRouteWithTokenLedgerInstruction {
+    if (instruction.keys.length < 10) {
+        throw new Error('Expected 10 account metas for RouteWithTokenLedger instruction');
+    }
+    if (
+        !ROUTE_WITH_TOKEN_LEDGER_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)
+    ) {
+        throw new Error('RouteWithTokenLedger instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            tokenProgram: instruction.keys[0]!,
+            userTransferAuthority: instruction.keys[1]!,
+            userSourceTokenAccount: instruction.keys[2]!,
+            userDestinationTokenAccount: instruction.keys[3]!,
+            destinationTokenAccount: instruction.keys[4]!,
+            destinationMint: instruction.keys[5]!,
+            platformFeeAccount: instruction.keys[6]!,
+            tokenLedger: instruction.keys[7]!,
+            eventAuthority: instruction.keys[8]!,
+            program: instruction.keys[9]!,
+        },
+        data: getRouteWithTokenLedgerInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createRouteWithTokenLedgerInstruction(
     accounts: RouteWithTokenLedgerInstructionAccounts,
     args: RouteWithTokenLedgerInstructionArgs,
-    programId: Address = JUPITER_PROGRAM_ID,
+    programId: Address = AGGREGATORV6_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.tokenProgram, isSigner: false, isWritable: false },
@@ -60,9 +124,13 @@ export function createRouteWithTokenLedgerInstruction(
         { pubkey: accounts.eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getRouteWithTokenLedgerInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('96564774a75d0e68', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getRouteWithTokenLedgerInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(ROUTE_WITH_TOKEN_LEDGER_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

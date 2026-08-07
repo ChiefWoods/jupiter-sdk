@@ -39,7 +39,7 @@ impl SetAdmin {
         let data = SetAdminInstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::GENIE_DISTRIBUTOR_ID,
+            program_id: crate::REWARDS_HUB_ID,
             accounts,
             data,
         }
@@ -210,7 +210,7 @@ impl<'a, 'b> SetAdminCpi<'a, 'b> {
         let data = SetAdminInstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::GENIE_DISTRIBUTOR_ID,
+            program_id: crate::REWARDS_HUB_ID,
             accounts,
             data,
         };

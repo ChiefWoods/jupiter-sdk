@@ -5,6 +5,6 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-pub(crate) mod locker;
+pub(crate) mod lock;
 
-pub use self::locker::LockerError;
+pub use self::lock::LockError;

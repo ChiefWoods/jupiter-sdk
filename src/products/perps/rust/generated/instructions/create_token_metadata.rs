@@ -83,7 +83,7 @@ impl CreateTokenMetadata {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::PERPETUALS_ID,
+            program_id: crate::PERPS_ID,
             accounts,
             data,
         }
@@ -410,7 +410,7 @@ impl<'a, 'b> CreateTokenMetadataCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::PERPETUALS_ID,
+            program_id: crate::PERPS_ID,
             accounts,
             data,
         };

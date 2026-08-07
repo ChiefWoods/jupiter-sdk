@@ -11,6 +11,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const VAULT_CONFIG_ACCOUNT_DISCRIMINATOR = new Uint8Array([99, 86, 43, 216, 184, 102, 119, 77]);
+
 export type VaultConfigAccountData = {
     vaultId: number;
     supplyRateMagnifier: number;
@@ -79,6 +81,9 @@ function getVaultConfigAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeVaultConfigAccount(data: Uint8Array): VaultConfigAccountData {
+    if (!VAULT_CONFIG_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('VAULTCONFIGACCOUNT discriminator mismatch');
+    }
     const deserialized = getVaultConfigAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as VaultConfigAccountData;

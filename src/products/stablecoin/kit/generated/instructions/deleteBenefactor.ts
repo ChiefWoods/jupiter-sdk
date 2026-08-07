@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { JUP_STABLE_PROGRAM_ADDRESS } from "../programs";
+import { STABLECOIN_PROGRAM_ADDRESS } from "../programs";
 
 export const DELETE_BENEFACTOR_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([216, 227, 84, 147, 79, 177, 152, 147]);
@@ -48,7 +48,7 @@ export function getDeleteBenefactorDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type DeleteBenefactorInstruction<
-  TProgram extends string = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof STABLECOIN_PROGRAM_ADDRESS,
   TAccountOperatorAuthority extends string | AccountMeta<string> = string,
   TAccountOperator extends string | AccountMeta<string> = string,
   TAccountReceiver extends string | AccountMeta<string> = string,
@@ -121,7 +121,7 @@ export function getDeleteBenefactorInstruction<
   TAccountOperator extends string,
   TAccountReceiver extends string,
   TAccountBenefactor extends string,
-  TProgramAddress extends Address = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof STABLECOIN_PROGRAM_ADDRESS,
 >(
   input: DeleteBenefactorInput<
     TAccountOperatorAuthority,
@@ -138,7 +138,7 @@ export function getDeleteBenefactorInstruction<
   TAccountBenefactor
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? JUP_STABLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? STABLECOIN_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -175,7 +175,7 @@ export function getDeleteBenefactorInstruction<
 }
 
 export type ParsedDeleteBenefactorInstruction<
-  TProgram extends string = typeof JUP_STABLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof STABLECOIN_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

@@ -119,7 +119,7 @@ impl anchor_lang::AccountSerialize for TokenLedger {}
 #[cfg(feature = "anchor")]
 impl anchor_lang::Owner for TokenLedger {
     fn owner() -> anchor_lang::solana_program::pubkey::Pubkey {
-        anchor_lang::solana_program::pubkey::Pubkey::from(crate::PERPETUALS_ID.to_bytes())
+        anchor_lang::solana_program::pubkey::Pubkey::from(crate::PERPS_ID.to_bytes())
     }
 }
 

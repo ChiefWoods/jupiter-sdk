@@ -11,6 +11,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const DEX_ADMIN_ACCOUNT_DISCRIMINATOR = new Uint8Array([82, 155, 122, 221, 230, 96, 118, 155]);
+
 export type DexAdminAccountData = {
     authority: Address;
     liquidityProgram: Address;
@@ -57,6 +59,9 @@ function getDexAdminAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeDexAdminAccount(data: Uint8Array): DexAdminAccountData {
+    if (!DEX_ADMIN_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('DEXADMINACCOUNT discriminator mismatch');
+    }
     const deserialized = getDexAdminAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as DexAdminAccountData;

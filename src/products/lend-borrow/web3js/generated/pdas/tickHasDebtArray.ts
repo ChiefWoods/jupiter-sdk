@@ -1,5 +1,5 @@
 import { Address } from '@solana/web3.js';
-import { VAULTS_PROGRAM_ID } from '..';
+import { LENDBORROW_PROGRAM_ID } from '../programs/lendBorrow';
 
 export interface TickHasDebtArrayPdaSeeds {
     vaultId: number;
@@ -8,7 +8,7 @@ export interface TickHasDebtArrayPdaSeeds {
 
 export async function findTickHasDebtArrayPda(
     seeds: TickHasDebtArrayPdaSeeds,
-    programId: Address = VAULTS_PROGRAM_ID,
+    programId: Address = LENDBORROW_PROGRAM_ID,
 ): Promise<[Address, number]> {
     const seedsBuffer: Uint8Array[] = [
         Buffer.from('tick_has_debt', 'utf8'),

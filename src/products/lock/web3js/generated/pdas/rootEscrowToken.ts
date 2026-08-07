@@ -1,5 +1,4 @@
 import { Address } from '@solana/web3.js';
-import { LOCKER_PROGRAM_ID } from '..';
 
 export interface RootEscrowTokenPdaSeeds {
     rootEscrow: Address;
@@ -7,10 +6,8 @@ export interface RootEscrowTokenPdaSeeds {
     tokenMint: Address;
 }
 
-export async function findRootEscrowTokenPda(
-    seeds: RootEscrowTokenPdaSeeds,
-    programId: Address = LOCKER_PROGRAM_ID,
-): Promise<[Address, number]> {
+export async function findRootEscrowTokenPda(seeds: RootEscrowTokenPdaSeeds): Promise<[Address, number]> {
+    const programId = new Address('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');
     const seedsBuffer: Uint8Array[] = [
         seeds.rootEscrow.toBytes(),
         seeds.tokenProgram.toBytes(),

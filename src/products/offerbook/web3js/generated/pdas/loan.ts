@@ -1,5 +1,5 @@
 import { Address } from '@solana/web3.js';
-import { OFFERBOOK_PROGRAM_ID } from '..';
+import { OFFERBOOK_PROGRAM_ID } from '../programs/offerbook';
 
 export interface LoanPdaSeeds {
     offer: Address;

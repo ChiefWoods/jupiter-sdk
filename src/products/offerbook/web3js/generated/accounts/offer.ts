@@ -15,6 +15,8 @@ import { getAssetFilterDecoder, type AssetFilter } from '../types/assetFilter';
 import { getOfferSideDecoder, type OfferSide } from '../types/offerSide';
 import { getOfferStatusDecoder, type OfferStatus } from '../types/offerStatus';
 
+export const OFFER_ACCOUNT_DISCRIMINATOR = new Uint8Array([215, 88, 60, 71, 170, 162, 73, 229]);
+
 export type OfferAccountData = {
     creator: Address;
     side: OfferSide;
@@ -113,6 +115,9 @@ function getOfferAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeOfferAccount(data: Uint8Array): OfferAccountData {
+    if (!OFFER_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('OFFERACCOUNT discriminator mismatch');
+    }
     const deserialized = getOfferAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as OfferAccountData;

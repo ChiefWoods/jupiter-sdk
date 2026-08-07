@@ -45,7 +45,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findPositionMintPda, findPositionPda } from "../pdas";
-import { VAULTS_PROGRAM_ADDRESS } from "../programs";
+import { LEND_BORROW_PROGRAM_ADDRESS } from "../programs";
 
 export const INIT_POSITION_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   197, 20, 10, 1, 97, 160, 177, 91,
@@ -58,7 +58,7 @@ export function getInitPositionDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type InitPositionInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountVaultAdmin extends string | AccountMeta<string> = string,
   TAccountVaultState extends string | AccountMeta<string> = string,
@@ -214,7 +214,7 @@ export async function getInitPositionInstructionAsync<
   TAccountSysvarInstruction extends string,
   TAccountMetadataProgram extends string,
   TAccountRent extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: InitPositionAsyncInput<
     TAccountSigner,
@@ -251,7 +251,7 @@ export async function getInitPositionInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -470,7 +470,7 @@ export function getInitPositionInstruction<
   TAccountSysvarInstruction extends string,
   TAccountMetadataProgram extends string,
   TAccountRent extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: InitPositionInput<
     TAccountSigner,
@@ -505,7 +505,7 @@ export function getInitPositionInstruction<
   TAccountRent
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -609,7 +609,7 @@ export function getInitPositionInstruction<
 }
 
 export type ParsedInitPositionInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

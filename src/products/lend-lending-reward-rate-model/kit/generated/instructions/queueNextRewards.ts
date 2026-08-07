@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS } from "../programs";
+import { LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS } from "../programs";
 
 export const QUEUE_NEXT_REWARDS_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([12, 38, 248, 80, 128, 76, 155, 210]);
@@ -50,7 +50,8 @@ export function getQueueNextRewardsDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type QueueNextRewardsInstruction<
-  TProgram extends string = typeof LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
+  TProgram extends string =
+    typeof LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountLendingRewardsAdmin extends string | AccountMeta<string> = string,
   TAccountLendingAccount extends string | AccountMeta<string> = string,
@@ -166,7 +167,7 @@ export function getQueueNextRewardsInstruction<
   TAccountLendingRewardsRateModel extends string,
   TAccountLendingProgram extends string,
   TProgramAddress extends Address =
-    typeof LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
+    typeof LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
 >(
   input: QueueNextRewardsInput<
     TAccountAuthority,
@@ -192,7 +193,7 @@ export function getQueueNextRewardsInstruction<
 > {
   // Program address.
   const programAddress =
-    config?.programAddress ?? LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS;
+    config?.programAddress ?? LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -258,7 +259,8 @@ export function getQueueNextRewardsInstruction<
 }
 
 export type ParsedQueueNextRewardsInstruction<
-  TProgram extends string = typeof LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
+  TProgram extends string =
+    typeof LEND_LENDING_REWARD_RATE_MODEL_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

@@ -60,7 +60,7 @@ impl RejectTicket {
         let data = RejectTicketInstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::PREDICTION_MARKET_ID,
+            program_id: crate::PREDICTION_ID,
             accounts,
             data,
         }
@@ -306,7 +306,7 @@ impl<'a, 'b> RejectTicketCpi<'a, 'b> {
         let data = RejectTicketInstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::PREDICTION_MARKET_ID,
+            program_id: crate::PREDICTION_ID,
             accounts,
             data,
         };

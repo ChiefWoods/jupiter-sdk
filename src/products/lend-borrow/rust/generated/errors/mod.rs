@@ -5,6 +5,6 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-pub(crate) mod vaults;
+pub(crate) mod lend_borrow;
 
-pub use self::vaults::VaultsError;
+pub use self::lend_borrow::LendBorrowError;

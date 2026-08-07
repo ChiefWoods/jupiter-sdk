@@ -21,6 +21,8 @@ import { getLimitDecoder, type Limit } from '../types/limit';
 import { getPoolAprDecoder, type PoolApr } from '../types/poolApr';
 import { getSecp256k1PubkeyDecoder, type Secp256k1Pubkey } from '../types/secp256k1Pubkey';
 
+export const POOL_ACCOUNT_DISCRIMINATOR = new Uint8Array([241, 154, 109, 4, 17, 177, 109, 188]);
+
 export type PoolAccountData = {
     name: string;
     custodies: Array<Address>;
@@ -89,6 +91,9 @@ function getPoolAccountDataDecoder(): Decoder<{
 }
 
 export function deserializePoolAccount(data: Uint8Array): PoolAccountData {
+    if (!POOL_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('POOLACCOUNT discriminator mismatch');
+    }
     const deserialized = getPoolAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as PoolAccountData;

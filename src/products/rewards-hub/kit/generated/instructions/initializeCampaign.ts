@@ -54,7 +54,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findCampaignPda } from "../pdas";
-import { GENIE_DISTRIBUTOR_PROGRAM_ADDRESS } from "../programs";
+import { REWARDS_HUB_PROGRAM_ADDRESS } from "../programs";
 
 export const INITIALIZE_CAMPAIGN_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([169, 88, 7, 6, 9, 165, 65, 132]);
@@ -66,7 +66,7 @@ export function getInitializeCampaignDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type InitializeCampaignInstruction<
-  TProgram extends string = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgram extends string = typeof REWARDS_HUB_PROGRAM_ADDRESS,
   TAccountCampaign extends string | AccountMeta<string> = string,
   TAccountClawbackReceiver extends string | AccountMeta<string> = string,
   TAccountMint extends string | AccountMeta<string> = string,
@@ -212,7 +212,7 @@ export async function getInitializeCampaignInstructionAsync<
   TAccountSystemProgram extends string,
   TAccountAssociatedTokenProgram extends string,
   TAccountTokenProgram extends string,
-  TProgramAddress extends Address = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof REWARDS_HUB_PROGRAM_ADDRESS,
 >(
   input: InitializeCampaignAsyncInput<
     TAccountCampaign,
@@ -239,8 +239,7 @@ export async function getInitializeCampaignInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? GENIE_DISTRIBUTOR_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? REWARDS_HUB_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -398,7 +397,7 @@ export function getInitializeCampaignInstruction<
   TAccountSystemProgram extends string,
   TAccountAssociatedTokenProgram extends string,
   TAccountTokenProgram extends string,
-  TProgramAddress extends Address = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof REWARDS_HUB_PROGRAM_ADDRESS,
 >(
   input: InitializeCampaignInput<
     TAccountCampaign,
@@ -423,8 +422,7 @@ export function getInitializeCampaignInstruction<
   TAccountTokenProgram
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? GENIE_DISTRIBUTOR_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? REWARDS_HUB_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -495,7 +493,7 @@ export function getInitializeCampaignInstruction<
 }
 
 export type ParsedInitializeCampaignInstruction<
-  TProgram extends string = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgram extends string = typeof REWARDS_HUB_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

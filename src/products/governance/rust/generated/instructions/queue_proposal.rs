@@ -79,7 +79,7 @@ impl QueueProposal {
         let data = QueueProposalInstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::GOVERN_ID,
+            program_id: crate::GOVERNANCE_ID,
             accounts,
             data,
         }
@@ -367,7 +367,7 @@ impl<'a, 'b> QueueProposalCpi<'a, 'b> {
         let data = QueueProposalInstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::GOVERN_ID,
+            program_id: crate::GOVERNANCE_ID,
             accounts,
             data,
         };

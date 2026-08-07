@@ -136,7 +136,7 @@ impl anchor_lang::AccountSerialize for LendingRewardsRateModel {}
 impl anchor_lang::Owner for LendingRewardsRateModel {
     fn owner() -> anchor_lang::solana_program::pubkey::Pubkey {
         anchor_lang::solana_program::pubkey::Pubkey::from(
-            crate::LENDING_REWARD_RATE_MODEL_ID.to_bytes(),
+            crate::LEND_LENDING_REWARD_RATE_MODEL_ID.to_bytes(),
         )
     }
 }

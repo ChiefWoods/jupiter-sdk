@@ -1,7 +1,9 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { PREDICTIONMARKET_PROGRAM_ID } from '..';
+import { PREDICTION_PROGRAM_ID } from '../programs/prediction';
 import { findOrderAtaPda } from '../pdas/orderAta';
 import { findVaultPda } from '../pdas/vault';
+
+export const CANCEL_ORDER_INSTRUCTION_DISCRIMINATOR = new Uint8Array([95, 129, 237, 240, 8, 49, 223, 132]);
 
 export interface CancelOrderInstructionAccounts {
     owner: Address;
@@ -18,9 +20,56 @@ export interface CancelOrderInstructionAccounts {
     associatedTokenProgram: Address;
 }
 
+export interface ParsedCancelOrderInstruction {
+    programId: Address;
+    accounts: {
+        owner: AccountMeta;
+        authority: AccountMeta;
+        vault: AccountMeta;
+        order: AccountMeta;
+        rentDestination: AccountMeta;
+        position: AccountMeta;
+        orderAta: AccountMeta;
+        ownerTokenAccount: AccountMeta;
+        settlementMint: AccountMeta;
+        tokenProgram: AccountMeta;
+        systemProgram: AccountMeta;
+        associatedTokenProgram: AccountMeta;
+    };
+    data: {};
+}
+
+export function parseCancelOrderInstruction(instruction: TransactionInstruction): ParsedCancelOrderInstruction {
+    if (instruction.keys.length < 12) {
+        throw new Error('Expected 12 account metas for CancelOrder instruction');
+    }
+    if (!CANCEL_ORDER_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('CancelOrder instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            owner: instruction.keys[0]!,
+            authority: instruction.keys[1]!,
+            vault: instruction.keys[2]!,
+            order: instruction.keys[3]!,
+            rentDestination: instruction.keys[4]!,
+            position: instruction.keys[5]!,
+            orderAta: instruction.keys[6]!,
+            ownerTokenAccount: instruction.keys[7]!,
+            settlementMint: instruction.keys[8]!,
+            tokenProgram: instruction.keys[9]!,
+            systemProgram: instruction.keys[10]!,
+            associatedTokenProgram: instruction.keys[11]!,
+        },
+        data: {},
+    };
+}
+
 export async function createCancelOrderInstruction(
     accounts: CancelOrderInstructionAccounts,
-    programId: Address = PREDICTIONMARKET_PROGRAM_ID,
+    programId: Address = PREDICTION_PROGRAM_ID,
 ): Promise<TransactionInstruction> {
     let vault = accounts.vault;
     if (!vault) {
@@ -34,13 +83,10 @@ export async function createCancelOrderInstruction(
     }
     let orderAta = accounts.orderAta;
     if (!orderAta) {
-        const [derived] = await findOrderAtaPda(
-            {
-                order: accounts.order,
-                settlementMint: accounts.settlementMint,
-            },
-            programId,
-        );
+        const [derived] = await findOrderAtaPda({
+            order: accounts.order,
+            settlementMint: accounts.settlementMint,
+        });
         orderAta = derived;
     }
     const keys: AccountMeta[] = [
@@ -57,7 +103,13 @@ export async function createCancelOrderInstruction(
         { pubkey: accounts.systemProgram, isSigner: false, isWritable: false },
         { pubkey: accounts.associatedTokenProgram, isSigner: false, isWritable: false },
     ];
-    const data = Buffer.from('5f81edf00831df84', 'hex');
+    let data = Buffer.alloc(0);
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(CANCEL_ORDER_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

@@ -40,7 +40,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { VAULTS_PROGRAM_ADDRESS } from "../programs";
+import { LEND_BORROW_PROGRAM_ADDRESS } from "../programs";
 
 export const UPDATE_LOOKUP_TABLE_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([221, 59, 30, 246, 106, 223, 137, 55]);
@@ -52,7 +52,7 @@ export function getUpdateLookupTableDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type UpdateLookupTableInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountVaultAdmin extends string | AccountMeta<string> = string,
   TAccountVaultMetadata extends string | AccountMeta<string> = string,
@@ -132,7 +132,7 @@ export function getUpdateLookupTableInstruction<
   TAccountAuthority extends string,
   TAccountVaultAdmin extends string,
   TAccountVaultMetadata extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: UpdateLookupTableInput<
     TAccountAuthority,
@@ -147,7 +147,7 @@ export function getUpdateLookupTableInstruction<
   TAccountVaultMetadata
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -183,7 +183,7 @@ export function getUpdateLookupTableInstruction<
 }
 
 export type ParsedUpdateLookupTableInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

@@ -12,6 +12,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const STAKE_INFO_ACCOUNT_DISCRIMINATOR = new Uint8Array([66, 62, 68, 70, 108, 179, 183, 235]);
+
 export type StakeInfoAccountData = {
     pool: Address;
     stakeAccount: Address;
@@ -53,6 +55,9 @@ function getStakeInfoAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeStakeInfoAccount(data: Uint8Array): StakeInfoAccountData {
+    if (!STAKE_INFO_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('STAKEINFOACCOUNT discriminator mismatch');
+    }
     const deserialized = getStakeInfoAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as StakeInfoAccountData;

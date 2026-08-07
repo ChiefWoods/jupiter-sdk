@@ -37,7 +37,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
+import { LEND_LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
 
 export const UPDATE_REVENUE_COLLECTOR_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([167, 142, 124, 240, 220, 113, 141, 59]);
@@ -49,7 +49,7 @@ export function getUpdateRevenueCollectorDiscriminatorBytes(): ReadonlyUint8Arra
 }
 
 export type UpdateRevenueCollectorInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountLiquidity extends string | AccountMeta<string> = string,
   TRemainingAccounts extends readonly AccountMeta<string>[] = [],
@@ -119,7 +119,7 @@ export type UpdateRevenueCollectorInput<
 export function getUpdateRevenueCollectorInstruction<
   TAccountAuthority extends string,
   TAccountLiquidity extends string,
-  TProgramAddress extends Address = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
 >(
   input: UpdateRevenueCollectorInput<TAccountAuthority, TAccountLiquidity>,
   config?: { programAddress?: TProgramAddress },
@@ -129,7 +129,8 @@ export function getUpdateRevenueCollectorInstruction<
   TAccountLiquidity
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LIQUIDITY_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? LEND_LIQUIDITY_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -162,7 +163,7 @@ export function getUpdateRevenueCollectorInstruction<
 }
 
 export type ParsedUpdateRevenueCollectorInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

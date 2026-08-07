@@ -1,7 +1,9 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { OFFERBOOK_PROGRAM_ID } from '..';
+import { OFFERBOOK_PROGRAM_ID } from '../programs/offerbook';
 import { findEventAuthorityPda } from '../pdas/eventAuthority';
 import { findLoanVaultPda } from '../pdas/loanVault';
+
+export const REPAY_NON_FUNGIBLE_LOAN_INSTRUCTION_DISCRIMINATOR = new Uint8Array([148, 211, 15, 57, 173, 27, 26, 49]);
 
 export interface RepayNonFungibleLoanInstructionAccounts {
     signer: Address;
@@ -19,6 +21,63 @@ export interface RepayNonFungibleLoanInstructionAccounts {
     systemProgram: Address;
     eventAuthority?: Address;
     program: Address;
+}
+
+export interface ParsedRepayNonFungibleLoanInstruction {
+    programId: Address;
+    accounts: {
+        signer: AccountMeta;
+        signerUser: AccountMeta;
+        lender: AccountMeta;
+        lenderUser: AccountMeta;
+        loan: AccountMeta;
+        loanVault: AccountMeta;
+        config: AccountMeta;
+        principalMint: AccountMeta;
+        signerPrincipalTokenAccount: AccountMeta;
+        lenderPrincipalEscrow: AccountMeta;
+        protocolFeeTokenAccount: AccountMeta;
+        principalTokenProgram: AccountMeta;
+        systemProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: {};
+}
+
+export function parseRepayNonFungibleLoanInstruction(
+    instruction: TransactionInstruction,
+): ParsedRepayNonFungibleLoanInstruction {
+    if (instruction.keys.length < 15) {
+        throw new Error('Expected 15 account metas for RepayNonFungibleLoan instruction');
+    }
+    if (
+        !REPAY_NON_FUNGIBLE_LOAN_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)
+    ) {
+        throw new Error('RepayNonFungibleLoan instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            signer: instruction.keys[0]!,
+            signerUser: instruction.keys[1]!,
+            lender: instruction.keys[2]!,
+            lenderUser: instruction.keys[3]!,
+            loan: instruction.keys[4]!,
+            loanVault: instruction.keys[5]!,
+            config: instruction.keys[6]!,
+            principalMint: instruction.keys[7]!,
+            signerPrincipalTokenAccount: instruction.keys[8]!,
+            lenderPrincipalEscrow: instruction.keys[9]!,
+            protocolFeeTokenAccount: instruction.keys[10]!,
+            principalTokenProgram: instruction.keys[11]!,
+            systemProgram: instruction.keys[12]!,
+            eventAuthority: instruction.keys[13]!,
+            program: instruction.keys[14]!,
+        },
+        data: {},
+    };
 }
 
 export async function createRepayNonFungibleLoanInstruction(
@@ -57,7 +116,13 @@ export async function createRepayNonFungibleLoanInstruction(
         { pubkey: eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const data = Buffer.from('94d30f39ad1b1a31', 'hex');
+    let data = Buffer.alloc(0);
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(REPAY_NON_FUNGIBLE_LOAN_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

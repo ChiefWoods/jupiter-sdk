@@ -104,7 +104,7 @@ impl CreateDecreasePositionMarketRequest {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::PERPETUALS_ID,
+                crate::PERPS_ID,
                 false,
             ));
         }
@@ -136,7 +136,7 @@ impl CreateDecreasePositionMarketRequest {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::PERPETUALS_ID,
+            program_id: crate::PERPS_ID,
             accounts,
             data,
         }
@@ -593,7 +593,7 @@ impl<'a, 'b> CreateDecreasePositionMarketRequestCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::PERPETUALS_ID,
+                crate::PERPS_ID,
                 false,
             ));
         }
@@ -631,7 +631,7 @@ impl<'a, 'b> CreateDecreasePositionMarketRequestCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::PERPETUALS_ID,
+            program_id: crate::PERPS_ID,
             accounts,
             data,
         };

@@ -76,7 +76,7 @@ impl StopRewards {
         let data = StopRewardsInstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::LENDING_REWARD_RATE_MODEL_ID,
+            program_id: crate::LEND_LENDING_REWARD_RATE_MODEL_ID,
             accounts,
             data,
         }
@@ -346,7 +346,7 @@ impl<'a, 'b> StopRewardsCpi<'a, 'b> {
         let data = StopRewardsInstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::LENDING_REWARD_RATE_MODEL_ID,
+            program_id: crate::LEND_LENDING_REWARD_RATE_MODEL_ID,
             accounts,
             data,
         };

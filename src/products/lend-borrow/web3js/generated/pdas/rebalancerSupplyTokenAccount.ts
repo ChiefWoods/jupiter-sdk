@@ -1,5 +1,4 @@
 import { Address } from '@solana/web3.js';
-import { VAULTS_PROGRAM_ID } from '..';
 
 export interface RebalancerSupplyTokenAccountPdaSeeds {
     rebalancer: Address;
@@ -9,8 +8,8 @@ export interface RebalancerSupplyTokenAccountPdaSeeds {
 
 export async function findRebalancerSupplyTokenAccountPda(
     seeds: RebalancerSupplyTokenAccountPdaSeeds,
-    programId: Address = VAULTS_PROGRAM_ID,
 ): Promise<[Address, number]> {
+    const programId = new Address('ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL');
     const seedsBuffer: Uint8Array[] = [
         seeds.rebalancer.toBytes(),
         seeds.supplyTokenProgram.toBytes(),

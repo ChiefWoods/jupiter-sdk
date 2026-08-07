@@ -5,6 +5,6 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-pub(crate) mod genie_distributor;
+pub(crate) mod rewards_hub;
 
-pub use self::genie_distributor::GenieDistributorError;
+pub use self::rewards_hub::RewardsHubError;

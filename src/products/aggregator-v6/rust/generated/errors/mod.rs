@@ -5,6 +5,6 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
-pub(crate) mod jupiter;
+pub(crate) mod aggregator_v6;
 
-pub use self::jupiter::JupiterError;
+pub use self::aggregator_v6::AggregatorV6Error;

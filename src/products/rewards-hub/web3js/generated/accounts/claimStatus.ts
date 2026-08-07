@@ -10,6 +10,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const CLAIM_STATUS_ACCOUNT_DISCRIMINATOR = new Uint8Array([22, 183, 249, 157, 247, 95, 150, 96]);
+
 export type ClaimStatusAccountData = {
     /** Authority that claimed the tokens. */
     claimant: Address;
@@ -42,6 +44,9 @@ function getClaimStatusAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeClaimStatusAccount(data: Uint8Array): ClaimStatusAccountData {
+    if (!CLAIM_STATUS_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('CLAIMSTATUSACCOUNT discriminator mismatch');
+    }
     const deserialized = getClaimStatusAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as ClaimStatusAccountData;

@@ -65,7 +65,7 @@ impl ClaimRefund {
         let data = ClaimRefundInstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::PREDICTION_MARKET_ID,
+            program_id: crate::PREDICTION_ID,
             accounts,
             data,
         }
@@ -313,7 +313,7 @@ impl<'a, 'b> ClaimRefundCpi<'a, 'b> {
         let data = ClaimRefundInstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::PREDICTION_MARKET_ID,
+            program_id: crate::PREDICTION_ID,
             accounts,
             data,
         };

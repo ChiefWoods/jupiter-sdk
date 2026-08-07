@@ -35,7 +35,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { GENIE_DISTRIBUTOR_PROGRAM_ADDRESS } from "../programs";
+import { REWARDS_HUB_PROGRAM_ADDRESS } from "../programs";
 
 export const SET_ADMIN_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   251, 163, 0, 52, 91, 194, 187, 92,
@@ -46,7 +46,7 @@ export function getSetAdminDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type SetAdminInstruction<
-  TProgram extends string = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgram extends string = typeof REWARDS_HUB_PROGRAM_ADDRESS,
   TAccountCampaign extends string | AccountMeta<string> = string,
   TAccountAdmin extends string | AccountMeta<string> = string,
   TAccountNewAdmin extends string | AccountMeta<string> = string,
@@ -113,7 +113,7 @@ export function getSetAdminInstruction<
   TAccountCampaign extends string,
   TAccountAdmin extends string,
   TAccountNewAdmin extends string,
-  TProgramAddress extends Address = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof REWARDS_HUB_PROGRAM_ADDRESS,
 >(
   input: SetAdminInput<TAccountCampaign, TAccountAdmin, TAccountNewAdmin>,
   config?: { programAddress?: TProgramAddress },
@@ -124,8 +124,7 @@ export function getSetAdminInstruction<
   TAccountNewAdmin
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? GENIE_DISTRIBUTOR_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? REWARDS_HUB_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -156,7 +155,7 @@ export function getSetAdminInstruction<
 }
 
 export type ParsedSetAdminInstruction<
-  TProgram extends string = typeof GENIE_DISTRIBUTOR_PROGRAM_ADDRESS,
+  TProgram extends string = typeof REWARDS_HUB_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

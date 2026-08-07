@@ -11,6 +11,8 @@ import {
 } from '@solana/codecs';
 import { getTickHasDebtDecoder, type TickHasDebt } from '../types/tickHasDebt';
 
+export const TICK_HAS_DEBT_ARRAY_ACCOUNT_DISCRIMINATOR = new Uint8Array([91, 232, 60, 29, 124, 103, 49, 252]);
+
 export type TickHasDebtArrayAccountData = {
     vaultId: number;
     index: number;
@@ -47,6 +49,9 @@ function getTickHasDebtArrayAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeTickHasDebtArrayAccount(data: Uint8Array): TickHasDebtArrayAccountData {
+    if (!TICK_HAS_DEBT_ARRAY_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('TICKHASDEBTARRAYACCOUNT discriminator mismatch');
+    }
     const deserialized = getTickHasDebtArrayAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as TickHasDebtArrayAccountData;

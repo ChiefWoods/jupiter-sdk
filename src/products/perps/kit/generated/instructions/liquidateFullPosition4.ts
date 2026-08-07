@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const LIQUIDATE_FULL_POSITION4_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([64, 176, 88, 51, 168, 188, 156, 175]);
@@ -48,7 +48,7 @@ export function getLiquidateFullPosition4DiscriminatorBytes(): ReadonlyUint8Arra
 }
 
 export type LiquidateFullPosition4Instruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountPerpetuals extends string | AccountMeta<string> = string,
   TAccountPool extends string | AccountMeta<string> = string,
@@ -192,7 +192,7 @@ export function getLiquidateFullPosition4Instruction<
   TAccountCollateralCustodyTokenAccount extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: LiquidateFullPosition4Input<
     TAccountSigner,
@@ -227,7 +227,7 @@ export function getLiquidateFullPosition4Instruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -321,7 +321,7 @@ export function getLiquidateFullPosition4Instruction<
 }
 
 export type ParsedLiquidateFullPosition4Instruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

@@ -94,7 +94,7 @@ impl IncreasePositionPreSwap {
             .unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::PERPETUALS_ID,
+            program_id: crate::PERPS_ID,
             accounts,
             data,
         }
@@ -419,7 +419,7 @@ impl<'a, 'b> IncreasePositionPreSwapCpi<'a, 'b> {
             .unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::PERPETUALS_ID,
+            program_id: crate::PERPS_ID,
             accounts,
             data,
         };

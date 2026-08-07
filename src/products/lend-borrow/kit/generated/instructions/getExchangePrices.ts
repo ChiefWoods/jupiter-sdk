@@ -32,7 +32,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { VAULTS_PROGRAM_ADDRESS } from "../programs";
+import { LEND_BORROW_PROGRAM_ADDRESS } from "../programs";
 
 export const GET_EXCHANGE_PRICES_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([237, 128, 83, 152, 52, 21, 231, 86]);
@@ -44,7 +44,7 @@ export function getGetExchangePricesDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type GetExchangePricesInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountVaultState extends string | AccountMeta<string> = string,
   TAccountVaultConfig extends string | AccountMeta<string> = string,
   TAccountSupplyTokenReserves extends string | AccountMeta<string> = string,
@@ -116,7 +116,7 @@ export function getGetExchangePricesInstruction<
   TAccountVaultConfig extends string,
   TAccountSupplyTokenReserves extends string,
   TAccountBorrowTokenReserves extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: GetExchangePricesInput<
     TAccountVaultState,
@@ -133,7 +133,7 @@ export function getGetExchangePricesInstruction<
   TAccountBorrowTokenReserves
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -173,7 +173,7 @@ export function getGetExchangePricesInstruction<
 }
 
 export type ParsedGetExchangePricesInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

@@ -65,7 +65,7 @@ impl ClaimPayout2 {
         let data = ClaimPayout2InstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::PREDICTION_MARKET_ID,
+            program_id: crate::PREDICTION_ID,
             accounts,
             data,
         }
@@ -313,7 +313,7 @@ impl<'a, 'b> ClaimPayout2Cpi<'a, 'b> {
         let data = ClaimPayout2InstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::PREDICTION_MARKET_ID,
+            program_id: crate::PREDICTION_ID,
             accounts,
             data,
         };

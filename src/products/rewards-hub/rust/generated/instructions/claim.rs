@@ -63,7 +63,7 @@ impl Claim {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::GENIE_DISTRIBUTOR_ID,
+            program_id: crate::REWARDS_HUB_ID,
             accounts,
             data,
         }
@@ -343,7 +343,7 @@ impl<'a, 'b> ClaimCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::GENIE_DISTRIBUTOR_ID,
+            program_id: crate::REWARDS_HUB_ID,
             accounts,
             data,
         };

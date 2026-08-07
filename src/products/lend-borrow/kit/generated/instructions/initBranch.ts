@@ -42,7 +42,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findBranchPda } from "../pdas";
-import { VAULTS_PROGRAM_ADDRESS } from "../programs";
+import { LEND_BORROW_PROGRAM_ADDRESS } from "../programs";
 
 export const INIT_BRANCH_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   162, 91, 57, 23, 228, 93, 111, 21,
@@ -53,7 +53,7 @@ export function getInitBranchDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type InitBranchInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountVaultConfig extends string | AccountMeta<string> = string,
   TAccountBranch extends string | AccountMeta<string> = string,
@@ -141,7 +141,7 @@ export async function getInitBranchInstructionAsync<
   TAccountVaultConfig extends string,
   TAccountBranch extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: InitBranchAsyncInput<
     TAccountSigner,
@@ -160,7 +160,7 @@ export async function getInitBranchInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -230,7 +230,7 @@ export function getInitBranchInstruction<
   TAccountVaultConfig extends string,
   TAccountBranch extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: InitBranchInput<
     TAccountSigner,
@@ -247,7 +247,7 @@ export function getInitBranchInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -292,7 +292,7 @@ export function getInitBranchInstruction<
 }
 
 export type ParsedInitBranchInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

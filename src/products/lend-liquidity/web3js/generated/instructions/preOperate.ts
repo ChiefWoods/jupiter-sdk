@@ -1,6 +1,19 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { LIQUIDITY_PROGRAM_ID } from '..';
-import { fixEncoderSize, getBytesEncoder, getStructEncoder, transformEncoder, type Encoder } from '@solana/codecs';
+import { LENDLIQUIDITY_PROGRAM_ID } from '../programs/lendLiquidity';
+import {
+    fixDecoderSize,
+    fixEncoderSize,
+    getBytesDecoder,
+    getBytesEncoder,
+    getStructDecoder,
+    getStructEncoder,
+    transformDecoder,
+    transformEncoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+export const PRE_OPERATE_INSTRUCTION_DISCRIMINATOR = new Uint8Array([129, 205, 158, 155, 198, 155, 72, 133]);
 
 export interface PreOperateInstructionAccounts {
     protocol: Address;
@@ -22,10 +35,53 @@ function getPreOperateInstructionDataEncoder(): Encoder<PreOperateInstructionArg
     ]);
 }
 
+function getPreOperateInstructionDataDecoder(): Decoder<PreOperateInstructionArgs> {
+    return getStructDecoder([
+        ['mint', transformDecoder(fixDecoderSize(getBytesDecoder(), 32), value => new Address(value))],
+    ]);
+}
+
+export interface ParsedPreOperateInstruction {
+    programId: Address;
+    accounts: {
+        protocol: AccountMeta;
+        liquidity: AccountMeta;
+        userSupplyPosition: AccountMeta;
+        userBorrowPosition: AccountMeta;
+        vault: AccountMeta;
+        tokenReserve: AccountMeta;
+        tokenProgram: AccountMeta;
+    };
+    data: PreOperateInstructionArgs;
+}
+
+export function parsePreOperateInstruction(instruction: TransactionInstruction): ParsedPreOperateInstruction {
+    if (instruction.keys.length < 7) {
+        throw new Error('Expected 7 account metas for PreOperate instruction');
+    }
+    if (!PRE_OPERATE_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('PreOperate instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            protocol: instruction.keys[0]!,
+            liquidity: instruction.keys[1]!,
+            userSupplyPosition: instruction.keys[2]!,
+            userBorrowPosition: instruction.keys[3]!,
+            vault: instruction.keys[4]!,
+            tokenReserve: instruction.keys[5]!,
+            tokenProgram: instruction.keys[6]!,
+        },
+        data: getPreOperateInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createPreOperateInstruction(
     accounts: PreOperateInstructionAccounts,
     args: PreOperateInstructionArgs,
-    programId: Address = LIQUIDITY_PROGRAM_ID,
+    programId: Address = LENDLIQUIDITY_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.protocol, isSigner: true, isWritable: false },
@@ -40,9 +96,13 @@ export function createPreOperateInstruction(
         { pubkey: accounts.tokenReserve, isSigner: false, isWritable: true },
         { pubkey: accounts.tokenProgram, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getPreOperateInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('81cd9e9bc69b4885', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getPreOperateInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(PRE_OPERATE_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

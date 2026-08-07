@@ -42,7 +42,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findOraclePda } from "../pdas";
-import { ORACLE_PROGRAM_ADDRESS } from "../programs";
+import { LEND_ORACLE_PROGRAM_ADDRESS } from "../programs";
 import {
   getSourcesDecoder,
   getSourcesEncoder,
@@ -60,7 +60,7 @@ export function getInitOracleConfigDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type InitOracleConfigInstruction<
-  TProgram extends string = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_ORACLE_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountOracleAdmin extends string | AccountMeta<string> = string,
   TAccountOracle extends string | AccountMeta<string> = string,
@@ -147,7 +147,7 @@ export async function getInitOracleConfigInstructionAsync<
   TAccountOracleAdmin extends string,
   TAccountOracle extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_ORACLE_PROGRAM_ADDRESS,
 >(
   input: InitOracleConfigAsyncInput<
     TAccountSigner,
@@ -166,7 +166,7 @@ export async function getInitOracleConfigInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? ORACLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_ORACLE_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -234,7 +234,7 @@ export function getInitOracleConfigInstruction<
   TAccountOracleAdmin extends string,
   TAccountOracle extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_ORACLE_PROGRAM_ADDRESS,
 >(
   input: InitOracleConfigInput<
     TAccountSigner,
@@ -251,7 +251,7 @@ export function getInitOracleConfigInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? ORACLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_ORACLE_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -296,7 +296,7 @@ export function getInitOracleConfigInstruction<
 }
 
 export type ParsedInitOracleConfigInstruction<
-  TProgram extends string = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_ORACLE_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

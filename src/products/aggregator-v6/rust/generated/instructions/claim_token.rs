@@ -82,7 +82,7 @@ impl ClaimToken {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::JUPITER_ID,
+            program_id: crate::AGGREGATOR_V6_ID,
             accounts,
             data,
         }
@@ -404,7 +404,7 @@ impl<'a, 'b> ClaimTokenCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::JUPITER_ID,
+            program_id: crate::AGGREGATOR_V6_ID,
             accounts,
             data,
         };

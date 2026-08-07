@@ -40,7 +40,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { DEX_PROGRAM_ADDRESS } from "../programs";
+import { LEND_DEX_PROGRAM_ADDRESS } from "../programs";
 
 export const UPDATE_DEX_LOOKUP_TABLE_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([87, 149, 96, 95, 24, 20, 211, 43]);
@@ -52,7 +52,7 @@ export function getUpdateDexLookupTableDiscriminatorBytes(): ReadonlyUint8Array 
 }
 
 export type UpdateDexLookupTableInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountAuthority extends string | AccountMeta<string> = string,
   TAccountDexAdmin extends string | AccountMeta<string> = string,
   TAccountDexMetadata extends string | AccountMeta<string> = string,
@@ -135,7 +135,7 @@ export function getUpdateDexLookupTableInstruction<
   TAccountAuthority extends string,
   TAccountDexAdmin extends string,
   TAccountDexMetadata extends string,
-  TProgramAddress extends Address = typeof DEX_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_DEX_PROGRAM_ADDRESS,
 >(
   input: UpdateDexLookupTableInput<
     TAccountAuthority,
@@ -150,7 +150,7 @@ export function getUpdateDexLookupTableInstruction<
   TAccountDexMetadata
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? DEX_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_DEX_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -186,7 +186,7 @@ export function getUpdateDexLookupTableInstruction<
 }
 
 export type ParsedUpdateDexLookupTableInstruction<
-  TProgram extends string = typeof DEX_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_DEX_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

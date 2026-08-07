@@ -40,7 +40,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findVaultPda } from "../pdas";
-import { PREDICTION_MARKET_PROGRAM_ADDRESS } from "../programs";
+import { PREDICTION_PROGRAM_ADDRESS } from "../programs";
 
 export const INITIALIZE_VAULT_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([48, 191, 163, 44, 71, 129, 63, 164]);
@@ -52,7 +52,7 @@ export function getInitializeVaultDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type InitializeVaultInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountAdmin extends string | AccountMeta<string> =
     "8rNYGp2wKnAGDm2SMaoJRFFGvfmt7iCTuu2GUvdMbZ1H",
   TAccountVault extends string | AccountMeta<string> = string,
@@ -150,7 +150,7 @@ export async function getInitializeVaultInstructionAsync<
   TAccountSystemProgram extends string,
   TAccountTokenProgram extends string,
   TAccountAssociatedTokenProgram extends string,
-  TProgramAddress extends Address = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PREDICTION_PROGRAM_ADDRESS,
 >(
   input: InitializeVaultAsyncInput<
     TAccountAdmin,
@@ -175,8 +175,7 @@ export async function getInitializeVaultInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? PREDICTION_MARKET_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PREDICTION_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -303,7 +302,7 @@ export function getInitializeVaultInstruction<
   TAccountSystemProgram extends string,
   TAccountTokenProgram extends string,
   TAccountAssociatedTokenProgram extends string,
-  TProgramAddress extends Address = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PREDICTION_PROGRAM_ADDRESS,
 >(
   input: InitializeVaultInput<
     TAccountAdmin,
@@ -326,8 +325,7 @@ export function getInitializeVaultInstruction<
   TAccountAssociatedTokenProgram
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? PREDICTION_MARKET_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PREDICTION_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -394,7 +392,7 @@ export function getInitializeVaultInstruction<
 }
 
 export type ParsedInitializeVaultInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

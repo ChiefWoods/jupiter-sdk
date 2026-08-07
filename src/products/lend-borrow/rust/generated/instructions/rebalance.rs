@@ -152,7 +152,7 @@ impl Rebalance {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -160,7 +160,7 @@ impl Rebalance {
         let data = RebalanceInstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::VAULTS_ID,
+            program_id: crate::LEND_BORROW_ID,
             accounts,
             data,
         }
@@ -697,7 +697,7 @@ impl<'a, 'b> RebalanceCpi<'a, 'b> {
             ));
         } else {
             accounts.push(solana_instruction::AccountMeta::new_readonly(
-                crate::VAULTS_ID,
+                crate::LEND_BORROW_ID,
                 false,
             ));
         }
@@ -711,7 +711,7 @@ impl<'a, 'b> RebalanceCpi<'a, 'b> {
         let data = RebalanceInstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::VAULTS_ID,
+            program_id: crate::LEND_BORROW_ID,
             accounts,
             data,
         };

@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { VAULTS_PROGRAM_ADDRESS } from "../programs";
+import { LEND_BORROW_PROGRAM_ADDRESS } from "../programs";
 
 export const REBALANCE_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   108, 158, 77, 9, 210, 52, 88, 62,
@@ -47,7 +47,7 @@ export function getRebalanceDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type RebalanceInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountRebalancer extends string | AccountMeta<string> = string,
   TAccountRebalancerSupplyTokenAccount extends string | AccountMeta<string> =
     string,
@@ -250,7 +250,7 @@ export function getRebalanceInstruction<
   TAccountSupplyTokenProgram extends string,
   TAccountBorrowTokenProgram extends string,
   TAccountAssociatedTokenProgram extends string,
-  TProgramAddress extends Address = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_BORROW_PROGRAM_ADDRESS,
 >(
   input: RebalanceInput<
     TAccountRebalancer,
@@ -301,7 +301,7 @@ export function getRebalanceInstruction<
   TAccountAssociatedTokenProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? VAULTS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_BORROW_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -462,7 +462,7 @@ export function getRebalanceInstruction<
 }
 
 export type ParsedRebalanceInstruction<
-  TProgram extends string = typeof VAULTS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_BORROW_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -522,7 +522,7 @@ export function parseRebalanceInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === VAULTS_PROGRAM_ADDRESS
+    return accountMeta.address === LEND_BORROW_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

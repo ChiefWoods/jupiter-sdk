@@ -10,6 +10,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const LENDING_REWARDS_ADMIN_ACCOUNT_DISCRIMINATOR = new Uint8Array([68, 18, 109, 18, 2, 9, 174, 101]);
+
 export type LendingRewardsAdminAccountData = {
     authority: Address;
     lendingProgram: Address;
@@ -42,6 +44,9 @@ function getLendingRewardsAdminAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeLendingRewardsAdminAccount(data: Uint8Array): LendingRewardsAdminAccountData {
+    if (!LENDING_REWARDS_ADMIN_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('LENDINGREWARDSADMINACCOUNT discriminator mismatch');
+    }
     const deserialized = getLendingRewardsAdminAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as LendingRewardsAdminAccountData;

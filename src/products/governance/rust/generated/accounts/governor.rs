@@ -141,7 +141,7 @@ impl anchor_lang::AccountSerialize for Governor {}
 #[cfg(feature = "anchor")]
 impl anchor_lang::Owner for Governor {
     fn owner() -> anchor_lang::solana_program::pubkey::Pubkey {
-        anchor_lang::solana_program::pubkey::Pubkey::from(crate::GOVERN_ID.to_bytes())
+        anchor_lang::solana_program::pubkey::Pubkey::from(crate::GOVERNANCE_ID.to_bytes())
     }
 }
 

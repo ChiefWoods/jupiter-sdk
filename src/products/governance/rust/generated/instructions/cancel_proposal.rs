@@ -57,7 +57,7 @@ impl CancelProposal {
         let data = CancelProposalInstructionData::new().try_to_vec().unwrap();
 
         solana_instruction::Instruction {
-            program_id: crate::GOVERN_ID,
+            program_id: crate::GOVERNANCE_ID,
             accounts,
             data,
         }
@@ -265,7 +265,7 @@ impl<'a, 'b> CancelProposalCpi<'a, 'b> {
         let data = CancelProposalInstructionData::new().try_to_vec().unwrap();
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::GOVERN_ID,
+            program_id: crate::GOVERNANCE_ID,
             accounts,
             data,
         };

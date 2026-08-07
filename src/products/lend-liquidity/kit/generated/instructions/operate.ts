@@ -40,7 +40,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
+import { LEND_LIQUIDITY_PROGRAM_ADDRESS } from "../programs";
 import {
   getTransferTypeDecoder,
   getTransferTypeEncoder,
@@ -57,7 +57,7 @@ export function getOperateDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type OperateInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountProtocol extends string | AccountMeta<string> = string,
   TAccountLiquidity extends string | AccountMeta<string> = string,
   TAccountTokenReserve extends string | AccountMeta<string> = string,
@@ -222,7 +222,7 @@ export function getOperateInstruction<
   TAccountBorrowClaimAccount extends string,
   TAccountWithdrawClaimAccount extends string,
   TAccountTokenProgram extends string,
-  TProgramAddress extends Address = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
 >(
   input: OperateInput<
     TAccountProtocol,
@@ -257,7 +257,8 @@ export function getOperateInstruction<
   TAccountTokenProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? LIQUIDITY_PROGRAM_ADDRESS;
+  const programAddress =
+    config?.programAddress ?? LEND_LIQUIDITY_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -344,7 +345,7 @@ export function getOperateInstruction<
 }
 
 export type ParsedOperateInstruction<
-  TProgram extends string = typeof LIQUIDITY_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_LIQUIDITY_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;
@@ -391,7 +392,7 @@ export function parseOperateInstruction<
   };
   const getNextOptionalAccount = () => {
     const accountMeta = getNextAccount();
-    return accountMeta.address === LIQUIDITY_PROGRAM_ADDRESS
+    return accountMeta.address === LEND_LIQUIDITY_PROGRAM_ADDRESS
       ? undefined
       : accountMeta;
   };

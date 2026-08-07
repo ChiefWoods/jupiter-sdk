@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { GOVERN_PROGRAM_ADDRESS } from "../programs";
+import { GOVERNANCE_PROGRAM_ADDRESS } from "../programs";
 
 export const CANCEL_PROPOSAL_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array(
   [106, 74, 128, 146, 19, 65, 39, 23],
@@ -49,7 +49,7 @@ export function getCancelProposalDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type CancelProposalInstruction<
-  TProgram extends string = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof GOVERNANCE_PROGRAM_ADDRESS,
   TAccountGovernor extends string | AccountMeta<string> = string,
   TAccountProposal extends string | AccountMeta<string> = string,
   TAccountProposer extends string | AccountMeta<string> = string,
@@ -132,7 +132,7 @@ export function getCancelProposalInstruction<
   TAccountProposer extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof GOVERNANCE_PROGRAM_ADDRESS,
 >(
   input: CancelProposalInput<
     TAccountGovernor,
@@ -151,7 +151,7 @@ export function getCancelProposalInstruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? GOVERN_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? GOVERNANCE_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -188,7 +188,7 @@ export function getCancelProposalInstruction<
 }
 
 export type ParsedCancelProposalInstruction<
-  TProgram extends string = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof GOVERNANCE_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

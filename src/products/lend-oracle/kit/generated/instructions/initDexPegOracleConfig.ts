@@ -44,7 +44,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findDexPegConfigPda } from "../pdas";
-import { ORACLE_PROGRAM_ADDRESS } from "../programs";
+import { LEND_ORACLE_PROGRAM_ADDRESS } from "../programs";
 import {
   getDexPegOracleKindDecoder,
   getDexPegOracleKindEncoder,
@@ -66,7 +66,7 @@ export function getInitDexPegOracleConfigDiscriminatorBytes(): ReadonlyUint8Arra
 }
 
 export type InitDexPegOracleConfigInstruction<
-  TProgram extends string = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_ORACLE_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountOracleAdmin extends string | AccountMeta<string> = string,
   TAccountDexPegConfig extends string | AccountMeta<string> = string,
@@ -204,7 +204,7 @@ export async function getInitDexPegOracleConfigInstructionAsync<
   TAccountTokenReserve0 extends string,
   TAccountTokenReserve1 extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_ORACLE_PROGRAM_ADDRESS,
 >(
   input: InitDexPegOracleConfigAsyncInput<
     TAccountSigner,
@@ -233,7 +233,7 @@ export async function getInitDexPegOracleConfigInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? ORACLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_ORACLE_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -334,7 +334,7 @@ export function getInitDexPegOracleConfigInstruction<
   TAccountTokenReserve0 extends string,
   TAccountTokenReserve1 extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_ORACLE_PROGRAM_ADDRESS,
 >(
   input: InitDexPegOracleConfigInput<
     TAccountSigner,
@@ -361,7 +361,7 @@ export function getInitDexPegOracleConfigInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? ORACLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_ORACLE_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -421,7 +421,7 @@ export function getInitDexPegOracleConfigInstruction<
 }
 
 export type ParsedInitDexPegOracleConfigInstruction<
-  TProgram extends string = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_ORACLE_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

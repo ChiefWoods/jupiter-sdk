@@ -40,7 +40,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const INSTANT_UPDATE_TPSL_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([144, 228, 114, 37, 165, 242, 111, 101]);
@@ -52,7 +52,7 @@ export function getInstantUpdateTpslDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type InstantUpdateTpslInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountKeeper extends string | AccountMeta<string> = string,
   TAccountApiKeeper extends string | AccountMeta<string> = string,
   TAccountOwner extends string | AccountMeta<string> = string,
@@ -203,7 +203,7 @@ export function getInstantUpdateTpslInstruction<
   TAccountCustodyPythnetPriceAccount extends string,
   TAccountEventAuthority extends string,
   TAccountProgram extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: InstantUpdateTpslInput<
     TAccountKeeper,
@@ -236,7 +236,7 @@ export function getInstantUpdateTpslInstruction<
   TAccountProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -311,7 +311,7 @@ export function getInstantUpdateTpslInstruction<
 }
 
 export type ParsedInstantUpdateTpslInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

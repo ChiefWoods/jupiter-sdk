@@ -13,6 +13,8 @@ import {
 } from '@solana/codecs';
 import { getSideDecoder, type Side } from '../types/side';
 
+export const POSITION_ACCOUNT_DISCRIMINATOR = new Uint8Array([170, 188, 143, 228, 122, 64, 247, 208]);
+
 export type PositionAccountData = {
     owner: Address;
     pool: Address;
@@ -72,6 +74,9 @@ function getPositionAccountDataDecoder(): Decoder<{
 }
 
 export function deserializePositionAccount(data: Uint8Array): PositionAccountData {
+    if (!POSITION_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('POSITIONACCOUNT discriminator mismatch');
+    }
     const deserialized = getPositionAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as PositionAccountData;

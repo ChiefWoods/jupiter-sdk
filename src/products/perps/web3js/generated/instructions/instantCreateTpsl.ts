@@ -1,6 +1,19 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { PERPETUALS_PROGRAM_ID } from '..';
-import { getBooleanEncoder, getI64Encoder, getStructEncoder, getU64Encoder, type Encoder } from '@solana/codecs';
+import { PERPS_PROGRAM_ID } from '../programs/perps';
+import {
+    getBooleanDecoder,
+    getBooleanEncoder,
+    getI64Decoder,
+    getI64Encoder,
+    getStructDecoder,
+    getStructEncoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+export const INSTANT_CREATE_TPSL_INSTRUCTION_DISCRIMINATOR = new Uint8Array([117, 98, 66, 127, 30, 50, 73, 185]);
 
 export interface InstantCreateTpslInstructionAccounts {
     keeper: Address;
@@ -47,10 +60,87 @@ function getInstantCreateTpslInstructionDataEncoder(): Encoder<InstantCreateTpsl
     ]);
 }
 
+function getInstantCreateTpslInstructionDataDecoder(): Decoder<InstantCreateTpslInstructionArgs> {
+    return getStructDecoder([
+        ['collateralUsdDelta', getU64Decoder()],
+        ['sizeUsdDelta', getU64Decoder()],
+        ['triggerPrice', getU64Decoder()],
+        ['triggerAboveThreshold', getBooleanDecoder()],
+        ['entirePosition', getBooleanDecoder()],
+        ['counter', getU64Decoder()],
+        ['requestTime', getI64Decoder()],
+    ]);
+}
+
+export interface ParsedInstantCreateTpslInstruction {
+    programId: Address;
+    accounts: {
+        keeper: AccountMeta;
+        apiKeeper: AccountMeta;
+        owner: AccountMeta;
+        receivingAccount: AccountMeta;
+        perpetuals: AccountMeta;
+        pool: AccountMeta;
+        position: AccountMeta;
+        positionRequest: AccountMeta;
+        positionRequestAta: AccountMeta;
+        custody: AccountMeta;
+        custodyDovesPriceAccount: AccountMeta;
+        custodyPythnetPriceAccount: AccountMeta;
+        collateralCustody: AccountMeta;
+        desiredMint: AccountMeta;
+        referral: AccountMeta;
+        tokenProgram: AccountMeta;
+        associatedTokenProgram: AccountMeta;
+        systemProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: InstantCreateTpslInstructionArgs;
+}
+
+export function parseInstantCreateTpslInstruction(
+    instruction: TransactionInstruction,
+): ParsedInstantCreateTpslInstruction {
+    if (instruction.keys.length < 20) {
+        throw new Error('Expected 20 account metas for InstantCreateTpsl instruction');
+    }
+    if (!INSTANT_CREATE_TPSL_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('InstantCreateTpsl instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            keeper: instruction.keys[0]!,
+            apiKeeper: instruction.keys[1]!,
+            owner: instruction.keys[2]!,
+            receivingAccount: instruction.keys[3]!,
+            perpetuals: instruction.keys[4]!,
+            pool: instruction.keys[5]!,
+            position: instruction.keys[6]!,
+            positionRequest: instruction.keys[7]!,
+            positionRequestAta: instruction.keys[8]!,
+            custody: instruction.keys[9]!,
+            custodyDovesPriceAccount: instruction.keys[10]!,
+            custodyPythnetPriceAccount: instruction.keys[11]!,
+            collateralCustody: instruction.keys[12]!,
+            desiredMint: instruction.keys[13]!,
+            referral: instruction.keys[14]!,
+            tokenProgram: instruction.keys[15]!,
+            associatedTokenProgram: instruction.keys[16]!,
+            systemProgram: instruction.keys[17]!,
+            eventAuthority: instruction.keys[18]!,
+            program: instruction.keys[19]!,
+        },
+        data: getInstantCreateTpslInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createInstantCreateTpslInstruction(
     accounts: InstantCreateTpslInstructionAccounts,
     args: InstantCreateTpslInstructionArgs,
-    programId: Address = PERPETUALS_PROGRAM_ID,
+    programId: Address = PERPS_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.keeper, isSigner: true, isWritable: false },
@@ -76,9 +166,13 @@ export function createInstantCreateTpslInstruction(
         { pubkey: accounts.eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getInstantCreateTpslInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('7562427f1e3249b9', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getInstantCreateTpslInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(INSTANT_CREATE_TPSL_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

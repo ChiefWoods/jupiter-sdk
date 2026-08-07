@@ -1,8 +1,23 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { OFFERBOOK_PROGRAM_ID } from '..';
+import { OFFERBOOK_PROGRAM_ID } from '../programs/offerbook';
 import { findEventAuthorityPda } from '../pdas/eventAuthority';
-import { getNftCollateralAssetEncoder, type NftCollateralAssetArgs } from '../types/nftCollateralAsset';
-import { getStructEncoder, getU32Encoder, getU64Encoder, type Encoder } from '@solana/codecs';
+import {
+    getNftCollateralAssetDecoder,
+    getNftCollateralAssetEncoder,
+    type NftCollateralAssetArgs,
+} from '../types/nftCollateralAsset';
+import {
+    getStructDecoder,
+    getStructEncoder,
+    getU32Decoder,
+    getU32Encoder,
+    getU64Decoder,
+    getU64Encoder,
+    type Decoder,
+    type Encoder,
+} from '@solana/codecs';
+
+export const CREATE_NFT_COLLATERAL_OFFER_INSTRUCTION_DISCRIMINATOR = new Uint8Array([48, 34, 52, 189, 81, 11, 169, 8]);
 
 export interface CreateNftCollateralOfferInstructionAccounts {
     signer: Address;
@@ -34,6 +49,63 @@ function getCreateNftCollateralOfferInstructionDataEncoder(): Encoder<CreateNftC
     ]);
 }
 
+function getCreateNftCollateralOfferInstructionDataDecoder(): Decoder<CreateNftCollateralOfferInstructionArgs> {
+    return getStructDecoder([
+        ['principalAmount', getU64Decoder()],
+        ['apy', getU32Decoder()],
+        ['duration', getU32Decoder()],
+        ['expiry', getU32Decoder()],
+        ['collateral', getNftCollateralAssetDecoder()],
+    ]);
+}
+
+export interface ParsedCreateNftCollateralOfferInstruction {
+    programId: Address;
+    accounts: {
+        signer: AccountMeta;
+        signerUser: AccountMeta;
+        config: AccountMeta;
+        offer: AccountMeta;
+        principalMint: AccountMeta;
+        counteredOffer: AccountMeta;
+        systemProgram: AccountMeta;
+        eventAuthority: AccountMeta;
+        program: AccountMeta;
+    };
+    data: CreateNftCollateralOfferInstructionArgs;
+}
+
+export function parseCreateNftCollateralOfferInstruction(
+    instruction: TransactionInstruction,
+): ParsedCreateNftCollateralOfferInstruction {
+    if (instruction.keys.length < 9) {
+        throw new Error('Expected 9 account metas for CreateNftCollateralOffer instruction');
+    }
+    if (
+        !CREATE_NFT_COLLATERAL_OFFER_INSTRUCTION_DISCRIMINATOR.every(
+            (byte, index) => instruction.data[0 + index] === byte,
+        )
+    ) {
+        throw new Error('CreateNftCollateralOffer instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            signer: instruction.keys[0]!,
+            signerUser: instruction.keys[1]!,
+            config: instruction.keys[2]!,
+            offer: instruction.keys[3]!,
+            principalMint: instruction.keys[4]!,
+            counteredOffer: instruction.keys[5]!,
+            systemProgram: instruction.keys[6]!,
+            eventAuthority: instruction.keys[7]!,
+            program: instruction.keys[8]!,
+        },
+        data: getCreateNftCollateralOfferInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export async function createCreateNftCollateralOfferInstruction(
     accounts: CreateNftCollateralOfferInstructionAccounts,
     args: CreateNftCollateralOfferInstructionArgs,
@@ -57,9 +129,13 @@ export async function createCreateNftCollateralOfferInstruction(
         { pubkey: eventAuthority, isSigner: false, isWritable: false },
         { pubkey: accounts.program, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getCreateNftCollateralOfferInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('302234bd510ba908', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getCreateNftCollateralOfferInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(CREATE_NFT_COLLATERAL_OFFER_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

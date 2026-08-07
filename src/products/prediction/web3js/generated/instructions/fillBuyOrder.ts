@@ -1,15 +1,24 @@
 import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/web3.js';
-import { PREDICTIONMARKET_PROGRAM_ID } from '..';
+import { PREDICTION_PROGRAM_ID } from '../programs/prediction';
 import {
+    addDecoderSizePrefix,
     addEncoderSizePrefix,
+    getOptionDecoder,
     getOptionEncoder,
+    getStructDecoder,
     getStructEncoder,
+    getU32Decoder,
     getU32Encoder,
+    getU64Decoder,
     getU64Encoder,
+    getUtf8Decoder,
     getUtf8Encoder,
+    type Decoder,
     type Encoder,
     type OptionOrNullable,
 } from '@solana/codecs';
+
+export const FILL_BUY_ORDER_INSTRUCTION_DISCRIMINATOR = new Uint8Array([179, 201, 221, 22, 91, 16, 208, 4]);
 
 export interface FillBuyOrderInstructionAccounts {
     authority: Address;
@@ -40,10 +49,62 @@ function getFillBuyOrderInstructionDataEncoder(): Encoder<FillBuyOrderInstructio
     ]);
 }
 
+function getFillBuyOrderInstructionDataDecoder(): Decoder<FillBuyOrderInstructionArgs> {
+    return getStructDecoder([
+        ['filledContracts', getU64Decoder()],
+        ['totalCostUsd', getU64Decoder()],
+        ['venueFeeUsd', getU64Decoder()],
+        ['orderId', getOptionDecoder(addDecoderSizePrefix(getUtf8Decoder(), getU32Decoder()))],
+    ]);
+}
+
+export interface ParsedFillBuyOrderInstruction {
+    programId: Address;
+    accounts: {
+        authority: AccountMeta;
+        secondaryAuthority: AccountMeta;
+        owner: AccountMeta;
+        vault: AccountMeta;
+        position: AccountMeta;
+        order: AccountMeta;
+        vaultTokenAccount: AccountMeta;
+        orderAta: AccountMeta;
+        integratorTokenAccount: AccountMeta;
+        tokenProgram: AccountMeta;
+    };
+    data: FillBuyOrderInstructionArgs;
+}
+
+export function parseFillBuyOrderInstruction(instruction: TransactionInstruction): ParsedFillBuyOrderInstruction {
+    if (instruction.keys.length < 10) {
+        throw new Error('Expected 10 account metas for FillBuyOrder instruction');
+    }
+    if (!FILL_BUY_ORDER_INSTRUCTION_DISCRIMINATOR.every((byte, index) => instruction.data[0 + index] === byte)) {
+        throw new Error('FillBuyOrder instruction discriminator mismatch');
+    }
+    const instructionData = instruction.data.subarray(8);
+    return {
+        programId: instruction.programId,
+        accounts: {
+            authority: instruction.keys[0]!,
+            secondaryAuthority: instruction.keys[1]!,
+            owner: instruction.keys[2]!,
+            vault: instruction.keys[3]!,
+            position: instruction.keys[4]!,
+            order: instruction.keys[5]!,
+            vaultTokenAccount: instruction.keys[6]!,
+            orderAta: instruction.keys[7]!,
+            integratorTokenAccount: instruction.keys[8]!,
+            tokenProgram: instruction.keys[9]!,
+        },
+        data: getFillBuyOrderInstructionDataDecoder().decode(instructionData),
+    };
+}
+
 export function createFillBuyOrderInstruction(
     accounts: FillBuyOrderInstructionAccounts,
     args: FillBuyOrderInstructionArgs,
-    programId: Address = PREDICTIONMARKET_PROGRAM_ID,
+    programId: Address = PREDICTION_PROGRAM_ID,
 ): TransactionInstruction {
     const keys: AccountMeta[] = [
         { pubkey: accounts.authority, isSigner: true, isWritable: true },
@@ -59,9 +120,13 @@ export function createFillBuyOrderInstruction(
             : { pubkey: programId, isSigner: false, isWritable: false },
         { pubkey: accounts.tokenProgram, isSigner: false, isWritable: false },
     ];
-    const instructionData = Buffer.from(getFillBuyOrderInstructionDataEncoder().encode(args));
-    const discriminator = Buffer.from('b3c9dd165b10d004', 'hex');
-    const data = Buffer.concat([discriminator, instructionData]);
+    let data = Buffer.from(getFillBuyOrderInstructionDataEncoder().encode(args));
+    data = Buffer.concat([
+        data.subarray(0, 0),
+        Buffer.alloc(Math.max(0, 0 - data.length)),
+        Buffer.from(FILL_BUY_ORDER_INSTRUCTION_DISCRIMINATOR),
+        data.subarray(0),
+    ]);
 
     return new TransactionInstruction({ keys, programId, data });
 }

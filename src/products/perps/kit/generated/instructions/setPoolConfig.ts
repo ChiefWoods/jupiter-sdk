@@ -42,7 +42,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 import {
   getFeesDecoder,
   getFeesEncoder,
@@ -69,7 +69,7 @@ export function getSetPoolConfigDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type SetPoolConfigInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountAdmin extends string | AccountMeta<string> = string,
   TAccountPerpetuals extends string | AccountMeta<string> = string,
   TAccountPool extends string | AccountMeta<string> = string,
@@ -173,7 +173,7 @@ export function getSetPoolConfigInstruction<
   TAccountAdmin extends string,
   TAccountPerpetuals extends string,
   TAccountPool extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: SetPoolConfigInput<TAccountAdmin, TAccountPerpetuals, TAccountPool>,
   config?: { programAddress?: TProgramAddress },
@@ -184,7 +184,7 @@ export function getSetPoolConfigInstruction<
   TAccountPool
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -220,7 +220,7 @@ export function getSetPoolConfigInstruction<
 }
 
 export type ParsedSetPoolConfigInstruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

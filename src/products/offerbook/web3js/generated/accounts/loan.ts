@@ -14,6 +14,8 @@ import { getAssetDecoder, type Asset } from '../types/asset';
 import { getLoanStatusDecoder, type LoanStatus } from '../types/loanStatus';
 import { getLoanTypeDecoder, type LoanType } from '../types/loanType';
 
+export const LOAN_ACCOUNT_DISCRIMINATOR = new Uint8Array([20, 195, 70, 117, 165, 227, 182, 1]);
+
 export type LoanAccountData = {
     lender: Address;
     borrower: Address;
@@ -103,6 +105,9 @@ function getLoanAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeLoanAccount(data: Uint8Array): LoanAccountData {
+    if (!LOAN_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('LOANACCOUNT discriminator mismatch');
+    }
     const deserialized = getLoanAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as LoanAccountData;

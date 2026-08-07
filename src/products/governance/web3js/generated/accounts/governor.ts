@@ -14,6 +14,8 @@ import {
 import { getGovernanceParametersDecoder, type GovernanceParameters } from '../types/governanceParameters';
 import { getVotingRewardDecoder, type VotingReward } from '../types/votingReward';
 
+export const GOVERNOR_ACCOUNT_DISCRIMINATOR = new Uint8Array([37, 136, 44, 80, 68, 85, 213, 178]);
+
 export type GovernorAccountData = {
     /** Base. */
     base: Address;
@@ -81,6 +83,9 @@ function getGovernorAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeGovernorAccount(data: Uint8Array): GovernorAccountData {
+    if (!GOVERNOR_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('GOVERNORACCOUNT discriminator mismatch');
+    }
     const deserialized = getGovernorAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as GovernorAccountData;

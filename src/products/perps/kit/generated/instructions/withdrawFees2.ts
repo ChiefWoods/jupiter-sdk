@@ -36,7 +36,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PERPETUALS_PROGRAM_ADDRESS } from "../programs";
+import { PERPS_PROGRAM_ADDRESS } from "../programs";
 
 export const WITHDRAW_FEES2_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   252, 128, 143, 145, 225, 221, 159, 207,
@@ -49,7 +49,7 @@ export function getWithdrawFees2DiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type WithdrawFees2Instruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountKeeper extends string | AccountMeta<string> = string,
   TAccountTransferAuthority extends string | AccountMeta<string> = string,
   TAccountPerpetuals extends string | AccountMeta<string> = string,
@@ -167,7 +167,7 @@ export function getWithdrawFees2Instruction<
   TAccountCustodyPythnetPriceAccount extends string,
   TAccountReceivingTokenAccount extends string,
   TAccountTokenProgram extends string,
-  TProgramAddress extends Address = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PERPS_PROGRAM_ADDRESS,
 >(
   input: WithdrawFees2Input<
     TAccountKeeper,
@@ -196,7 +196,7 @@ export function getWithdrawFees2Instruction<
   TAccountTokenProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? PERPETUALS_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PERPS_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -275,7 +275,7 @@ export function getWithdrawFees2Instruction<
 }
 
 export type ParsedWithdrawFees2Instruction<
-  TProgram extends string = typeof PERPETUALS_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PERPS_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

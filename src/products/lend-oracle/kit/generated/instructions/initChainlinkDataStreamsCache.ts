@@ -44,7 +44,7 @@ import {
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
 import { findChainlinkDsCachePda } from "../pdas";
-import { ORACLE_PROGRAM_ADDRESS } from "../programs";
+import { LEND_ORACLE_PROGRAM_ADDRESS } from "../programs";
 import {
   getFeedEntryDecoder,
   getFeedEntryEncoder,
@@ -62,7 +62,7 @@ export function getInitChainlinkDataStreamsCacheDiscriminatorBytes(): ReadonlyUi
 }
 
 export type InitChainlinkDataStreamsCacheInstruction<
-  TProgram extends string = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_ORACLE_PROGRAM_ADDRESS,
   TAccountSigner extends string | AccountMeta<string> = string,
   TAccountOracleAdmin extends string | AccountMeta<string> = string,
   TAccountChainlinkDsCache extends string | AccountMeta<string> = string,
@@ -157,7 +157,7 @@ export async function getInitChainlinkDataStreamsCacheInstructionAsync<
   TAccountOracleAdmin extends string,
   TAccountChainlinkDsCache extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_ORACLE_PROGRAM_ADDRESS,
 >(
   input: InitChainlinkDataStreamsCacheAsyncInput<
     TAccountSigner,
@@ -176,7 +176,7 @@ export async function getInitChainlinkDataStreamsCacheInstructionAsync<
   >
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? ORACLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_ORACLE_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -248,7 +248,7 @@ export function getInitChainlinkDataStreamsCacheInstruction<
   TAccountOracleAdmin extends string,
   TAccountChainlinkDsCache extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof LEND_ORACLE_PROGRAM_ADDRESS,
 >(
   input: InitChainlinkDataStreamsCacheInput<
     TAccountSigner,
@@ -265,7 +265,7 @@ export function getInitChainlinkDataStreamsCacheInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? ORACLE_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? LEND_ORACLE_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -313,7 +313,7 @@ export function getInitChainlinkDataStreamsCacheInstruction<
 }
 
 export type ParsedInitChainlinkDataStreamsCacheInstruction<
-  TProgram extends string = typeof ORACLE_PROGRAM_ADDRESS,
+  TProgram extends string = typeof LEND_ORACLE_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

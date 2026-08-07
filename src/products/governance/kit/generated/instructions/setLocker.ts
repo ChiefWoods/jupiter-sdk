@@ -37,7 +37,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { GOVERN_PROGRAM_ADDRESS } from "../programs";
+import { GOVERNANCE_PROGRAM_ADDRESS } from "../programs";
 
 export const SET_LOCKER_DISCRIMINATOR: ReadonlyUint8Array = new Uint8Array([
   17, 6, 101, 72, 250, 23, 152, 96,
@@ -48,7 +48,7 @@ export function getSetLockerDiscriminatorBytes(): ReadonlyUint8Array {
 }
 
 export type SetLockerInstruction<
-  TProgram extends string = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof GOVERNANCE_PROGRAM_ADDRESS,
   TAccountGovernor extends string | AccountMeta<string> = string,
   TAccountSmartWallet extends string | AccountMeta<string> = string,
   TRemainingAccounts extends readonly AccountMeta<string>[] = [],
@@ -115,7 +115,7 @@ export type SetLockerInput<
 export function getSetLockerInstruction<
   TAccountGovernor extends string,
   TAccountSmartWallet extends string,
-  TProgramAddress extends Address = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof GOVERNANCE_PROGRAM_ADDRESS,
 >(
   input: SetLockerInput<TAccountGovernor, TAccountSmartWallet>,
   config?: { programAddress?: TProgramAddress },
@@ -125,7 +125,7 @@ export function getSetLockerInstruction<
   TAccountSmartWallet
 > {
   // Program address.
-  const programAddress = config?.programAddress ?? GOVERN_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? GOVERNANCE_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -158,7 +158,7 @@ export function getSetLockerInstruction<
 }
 
 export type ParsedSetLockerInstruction<
-  TProgram extends string = typeof GOVERN_PROGRAM_ADDRESS,
+  TProgram extends string = typeof GOVERNANCE_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

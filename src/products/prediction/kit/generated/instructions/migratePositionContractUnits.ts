@@ -38,7 +38,7 @@ import {
   getAccountMetaFactory,
   type ResolvedInstructionAccount,
 } from "@solana/kit/program-client-core";
-import { PREDICTION_MARKET_PROGRAM_ADDRESS } from "../programs";
+import { PREDICTION_PROGRAM_ADDRESS } from "../programs";
 
 export const MIGRATE_POSITION_CONTRACT_UNITS_DISCRIMINATOR: ReadonlyUint8Array =
   new Uint8Array([135, 168, 252, 245, 45, 145, 194, 160]);
@@ -50,7 +50,7 @@ export function getMigratePositionContractUnitsDiscriminatorBytes(): ReadonlyUin
 }
 
 export type MigratePositionContractUnitsInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountAdmin extends string | AccountMeta<string> =
     "8rNYGp2wKnAGDm2SMaoJRFFGvfmt7iCTuu2GUvdMbZ1H",
   TAccountVault extends string | AccountMeta<string> = string,
@@ -136,7 +136,7 @@ export function getMigratePositionContractUnitsInstruction<
   TAccountVault extends string,
   TAccountPosition extends string,
   TAccountSystemProgram extends string,
-  TProgramAddress extends Address = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgramAddress extends Address = typeof PREDICTION_PROGRAM_ADDRESS,
 >(
   input: MigratePositionContractUnitsInput<
     TAccountAdmin,
@@ -153,8 +153,7 @@ export function getMigratePositionContractUnitsInstruction<
   TAccountSystemProgram
 > {
   // Program address.
-  const programAddress =
-    config?.programAddress ?? PREDICTION_MARKET_PROGRAM_ADDRESS;
+  const programAddress = config?.programAddress ?? PREDICTION_PROGRAM_ADDRESS;
 
   // Original accounts.
   const originalAccounts = {
@@ -203,7 +202,7 @@ export function getMigratePositionContractUnitsInstruction<
 }
 
 export type ParsedMigratePositionContractUnitsInstruction<
-  TProgram extends string = typeof PREDICTION_MARKET_PROGRAM_ADDRESS,
+  TProgram extends string = typeof PREDICTION_PROGRAM_ADDRESS,
   TAccountMetas extends readonly AccountMeta[] = readonly AccountMeta[],
 > = {
   programAddress: Address<TProgram>;

@@ -13,6 +13,8 @@ import { getBenefactorStatusDecoder, type BenefactorStatus } from '../types/bene
 import { getFeeOverrideDecoder, type FeeOverride } from '../types/feeOverride';
 import { getPeriodLimitDecoder, type PeriodLimit } from '../types/periodLimit';
 
+export const BENEFACTOR_ACCOUNT_DISCRIMINATOR = new Uint8Array([98, 159, 41, 233, 19, 232, 104, 12]);
+
 export type BenefactorAccountData = {
     authority: Address;
     status: BenefactorStatus;
@@ -63,6 +65,9 @@ function getBenefactorAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeBenefactorAccount(data: Uint8Array): BenefactorAccountData {
+    if (!BENEFACTOR_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('BENEFACTORACCOUNT discriminator mismatch');
+    }
     const deserialized = getBenefactorAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as BenefactorAccountData;

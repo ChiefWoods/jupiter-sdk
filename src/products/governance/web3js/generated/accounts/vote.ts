@@ -11,6 +11,8 @@ import {
     type ReadonlyUint8Array,
 } from '@solana/codecs';
 
+export const VOTE_ACCOUNT_DISCRIMINATOR = new Uint8Array([96, 91, 104, 57, 145, 35, 172, 155]);
+
 export type VoteAccountData = {
     /** The proposal being voted on. */
     proposal: Address;
@@ -63,6 +65,9 @@ function getVoteAccountDataDecoder(): Decoder<{
 }
 
 export function deserializeVoteAccount(data: Uint8Array): VoteAccountData {
+    if (!VOTE_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('VOTEACCOUNT discriminator mismatch');
+    }
     const deserialized = getVoteAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as VoteAccountData;

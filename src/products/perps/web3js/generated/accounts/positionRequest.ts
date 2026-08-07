@@ -17,6 +17,8 @@ import { getRequestChangeDecoder, type RequestChange } from '../types/requestCha
 import { getRequestTypeDecoder, type RequestType } from '../types/requestType';
 import { getSideDecoder, type Side } from '../types/side';
 
+export const POSITION_REQUEST_ACCOUNT_DISCRIMINATOR = new Uint8Array([12, 38, 250, 199, 46, 154, 32, 216]);
+
 export type PositionRequestAccountData = {
     owner: Address;
     pool: Address;
@@ -103,6 +105,9 @@ function getPositionRequestAccountDataDecoder(): Decoder<{
 }
 
 export function deserializePositionRequestAccount(data: Uint8Array): PositionRequestAccountData {
+    if (!POSITION_REQUEST_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
+        throw new Error('POSITIONREQUESTACCOUNT discriminator mismatch');
+    }
     const deserialized = getPositionRequestAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;
     return accountData as PositionRequestAccountData;

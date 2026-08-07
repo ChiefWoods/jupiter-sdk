@@ -45,7 +45,7 @@ impl UpdateUserClass {
         data.append(&mut args);
 
         solana_instruction::Instruction {
-            program_id: crate::LIQUIDITY_ID,
+            program_id: crate::LEND_LIQUIDITY_ID,
             accounts,
             data,
         }
@@ -224,7 +224,7 @@ impl<'a, 'b> UpdateUserClassCpi<'a, 'b> {
         data.append(&mut args);
 
         let instruction = solana_instruction::Instruction {
-            program_id: crate::LIQUIDITY_ID,
+            program_id: crate::LEND_LIQUIDITY_ID,
             accounts,
             data,
         };

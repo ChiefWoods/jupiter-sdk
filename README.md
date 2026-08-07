@@ -100,6 +100,37 @@ bun install
 bun run build
 ```
 
+## Generate
+
+Regenerate a product SDK from its IDL under `src/products/<product>/idl/`. Prefer an Anchor IDL (`anchor.json`); Codama IDL (`codama.json`) is created on first generate if missing. If `codama.json` already exists, the Codama IDL step is skipped.
+
+```bash
+bun run generate <product>
+# e.g. bun run generate offerbook
+```
+
+That runs, in order:
+
+1. `generate:codama-idl` — Anchor IDL → `idl/codama.json` (skipped when Codama IDL exists)
+2. `generate:cargo-toml` — product Rust `Cargo.toml` + `lib.rs`
+3. `generate:clients` — kit, web3js, and rust clients under `kit/`, `web3js/`, and `rust/`
+4. `generate:package-json` — product `package.json`
+5. `generate:tsconfig-json` — product `tsconfig.json`
+6. `generate:tsdown` — product `tsdown.config.ts`
+
+Run a single step when you only need that output:
+
+```bash
+bun run generate:codama-idl <product>
+bun run generate:clients <product>
+bun run generate:cargo-toml <product>
+bun run generate:package-json <product>
+bun run generate:tsconfig-json <product>
+bun run generate:tsdown <product>
+```
+
+Some products ship optional overrides (`src/products/<product>/generate-codama-idl.ts` and/or `generate-clients.ts`). The shared scripts prefer those when present. See the product README (e.g. [`offerbook`](./src/products/offerbook/README.md)) for what each override does.
+
 ## Adding a New Product
 
 > [!NOTE]

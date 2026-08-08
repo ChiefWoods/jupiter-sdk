@@ -8,8 +8,8 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: release-npm-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
 
 permissions:
   id-token: write # Required for npm OIDC trusted publishing
@@ -17,6 +17,7 @@ permissions:
 
 jobs:
   publish:
+    name: Release ${{ github.ref_name }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,20 +36,38 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           package-manager-cache: false # never use caching in release builds
 
+      - name: Parse tag and verify package.json
+        id: meta
+        run: |
+          set -euo pipefail
+          tag="${GITHUB_REF_NAME}"
+          if [[ ! "$tag" =~ ^([a-z0-9-]+)@v([0-9]+\.[0-9]+\.[0-9]+.*)$ ]]; then
+            echo "::error::Tag '${tag}' does not match package@vX.Y.Z"
+            exit 1
+          fi
+          package="${BASH_REMATCH[1]}"
+          version="${BASH_REMATCH[2]}"
+          name=$(bun -e "console.log(require('./package.json').name)")
+          pkg_version=$(bun -e "console.log(require('./package.json').version)")
+          if [[ "$name" != "$package" ]]; then
+            echo "::error::Package name '${name}' does not match tag package '${package}'"
+            exit 1
+          fi
+          if [[ "$pkg_version" != "$version" ]]; then
+            echo "::error::Tag version '${version}' does not match package.json version '${pkg_version}'"
+            exit 1
+          fi
+
+          {
+            echo "package=${package}"
+            echo "version=${version}"
+            echo "git_tag=${tag}"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "Releasing ${name} ${version} from tag ${tag}"
+
       - name: Install dependencies
         run: bun install --frozen-lockfile
-
-      - name: Typecheck
-        run: bun run typecheck
-
-      - name: Build
-        run: bun run build
-
-      - name: Lint
-        run: bun run lint:check
-
-      - name: Format
-        run: bun run format:check
 
       - name: Publish
         run: npm publish
@@ -56,4 +75,4 @@ jobs:
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "$GITHUB_REF_NAME" --title "$GITHUB_REF_NAME"
+        run: gh release create "${{ steps.meta.outputs.git_tag }}" --title "${{ steps.meta.outputs.git_tag }}"

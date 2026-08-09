@@ -44,7 +44,7 @@ import {
 
 /**
  * Frozen pre-counter-offers offer event schema. Kept in the IDL so historical
- * events remain parseable; not emitted by current code (see `OfferEventV1`).
+ * events remain parseable; not emitted by current code (see `OfferEventV2`).
  */
 export type OfferEventV0 = {
   creator: Address;

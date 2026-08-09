@@ -42,6 +42,7 @@ export type OfferAccountData = {
     fillCounter: bigint;
     allowPartialFill: number;
     bump: number;
+    allowExtend: number;
     padding6: ReadonlyUint8Array;
     counteredOffer: Address;
     reserved: ReadonlyUint8Array;
@@ -78,6 +79,7 @@ function getOfferAccountDataDecoder(): Decoder<{
     fillCounter: bigint;
     allowPartialFill: number;
     bump: number;
+    allowExtend: number;
     padding6: ReadonlyUint8Array;
     counteredOffer: Address;
     reserved: ReadonlyUint8Array;
@@ -108,7 +110,8 @@ function getOfferAccountDataDecoder(): Decoder<{
         ['fillCounter', getU64Decoder()],
         ['allowPartialFill', getU8Decoder()],
         ['bump', getU8Decoder()],
-        ['padding6', fixDecoderSize(getBytesDecoder(), 6)],
+        ['allowExtend', getU8Decoder()],
+        ['padding6', fixDecoderSize(getBytesDecoder(), 5)],
         ['counteredOffer', transformDecoder(fixDecoderSize(getBytesDecoder(), 32), value => new Address(value))],
         ['reserved', fixDecoderSize(getBytesDecoder(), 232)],
     ]);

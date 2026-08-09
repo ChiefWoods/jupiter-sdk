@@ -35,10 +35,13 @@ import {
   type SelfPlanAndSendFunctions,
 } from "@solana/kit/program-client-core";
 import {
+  getBaseAssetV1Codec,
   getConfigCodec,
   getLoanCodec,
   getOfferCodec,
   getUserCodec,
+  type BaseAssetV1,
+  type BaseAssetV1Args,
   type Config,
   type ConfigArgs,
   type Loan,
@@ -66,6 +69,7 @@ import {
   getEscrowProgrammableNftWithdrawInstructionAsync,
   getEscrowTokenDepositInstructionAsync,
   getEscrowTokenWithdrawInstructionAsync,
+  getExtendLoanInstructionAsync,
   getFillNonFungibleCollateralOfferInstructionAsync,
   getFillNonFungiblePrincipalOfferInstructionAsync,
   getFillTokenCollateralOfferInstructionAsync,
@@ -73,6 +77,7 @@ import {
   getInitInstructionAsync,
   getRepayNonFungibleLoanInstructionAsync,
   getRepayTokenLoanInstructionAsync,
+  getSetLoanExtendableInstructionAsync,
   getUpdateConfigInstruction,
   parseCancelOfferInstruction,
   parseClaimFeeInstruction,
@@ -91,6 +96,7 @@ import {
   parseEscrowProgrammableNftWithdrawInstruction,
   parseEscrowTokenDepositInstruction,
   parseEscrowTokenWithdrawInstruction,
+  parseExtendLoanInstruction,
   parseFillNonFungibleCollateralOfferInstruction,
   parseFillNonFungiblePrincipalOfferInstruction,
   parseFillTokenCollateralOfferInstruction,
@@ -98,6 +104,7 @@ import {
   parseInitInstruction,
   parseRepayNonFungibleLoanInstruction,
   parseRepayTokenLoanInstruction,
+  parseSetLoanExtendableInstruction,
   parseUpdateConfigInstruction,
   type CancelOfferAsyncInput,
   type ClaimFeeInput,
@@ -116,6 +123,7 @@ import {
   type EscrowProgrammableNftWithdrawAsyncInput,
   type EscrowTokenDepositAsyncInput,
   type EscrowTokenWithdrawAsyncInput,
+  type ExtendLoanAsyncInput,
   type FillNonFungibleCollateralOfferAsyncInput,
   type FillNonFungiblePrincipalOfferAsyncInput,
   type FillTokenCollateralOfferAsyncInput,
@@ -138,6 +146,7 @@ import {
   type ParsedEscrowProgrammableNftWithdrawInstruction,
   type ParsedEscrowTokenDepositInstruction,
   type ParsedEscrowTokenWithdrawInstruction,
+  type ParsedExtendLoanInstruction,
   type ParsedFillNonFungibleCollateralOfferInstruction,
   type ParsedFillNonFungiblePrincipalOfferInstruction,
   type ParsedFillTokenCollateralOfferInstruction,
@@ -145,9 +154,11 @@ import {
   type ParsedInitInstruction,
   type ParsedRepayNonFungibleLoanInstruction,
   type ParsedRepayTokenLoanInstruction,
+  type ParsedSetLoanExtendableInstruction,
   type ParsedUpdateConfigInstruction,
   type RepayNonFungibleLoanAsyncInput,
   type RepayTokenLoanAsyncInput,
+  type SetLoanExtendableAsyncInput,
   type UpdateConfigInput,
 } from "../instructions";
 import {
@@ -164,6 +175,7 @@ export const OFFERBOOK_PROGRAM_ADDRESS =
   "offerbkFMvVfpQhL8ZQ5iromnjct5rz3r52B9ewu3ie" as Address<"offerbkFMvVfpQhL8ZQ5iromnjct5rz3r52B9ewu3ie">;
 
 export enum OfferbookAccount {
+  BaseAssetV1,
   Config,
   Loan,
   Offer,
@@ -174,6 +186,15 @@ export function identifyOfferbookAccount(
   account: { data: ReadonlyUint8Array } | ReadonlyUint8Array,
 ): OfferbookAccount {
   const data = "data" in account ? account.data : account;
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 1).encode(new Uint8Array([1])),
+      0,
+    )
+  ) {
+    return OfferbookAccount.BaseAssetV1;
+  }
   if (
     containsBytes(
       data,
@@ -242,6 +263,7 @@ export enum OfferbookInstruction {
   EscrowProgrammableNftWithdraw,
   EscrowTokenDeposit,
   EscrowTokenWithdraw,
+  ExtendLoan,
   FillNonFungibleCollateralOffer,
   FillNonFungiblePrincipalOffer,
   FillTokenCollateralOffer,
@@ -249,6 +271,7 @@ export enum OfferbookInstruction {
   Init,
   RepayNonFungibleLoan,
   RepayTokenLoan,
+  SetLoanExtendable,
   UpdateConfig,
 }
 
@@ -447,6 +470,17 @@ export function identifyOfferbookInstruction(
     containsBytes(
       data,
       fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([2, 208, 222, 190, 109, 148, 247, 117]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookInstruction.ExtendLoan;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
         new Uint8Array([135, 55, 123, 43, 115, 61, 143, 145]),
       ),
       0,
@@ -524,6 +558,17 @@ export function identifyOfferbookInstruction(
     containsBytes(
       data,
       fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([130, 168, 137, 148, 29, 17, 239, 228]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookInstruction.SetLoanExtendable;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
         new Uint8Array([29, 158, 252, 191, 10, 83, 219, 99]),
       ),
       0,
@@ -592,6 +637,9 @@ export type ParsedOfferbookInstruction<
       instructionType: OfferbookInstruction.EscrowTokenWithdraw;
     } & ParsedEscrowTokenWithdrawInstruction<TProgram>)
   | ({
+      instructionType: OfferbookInstruction.ExtendLoan;
+    } & ParsedExtendLoanInstruction<TProgram>)
+  | ({
       instructionType: OfferbookInstruction.FillNonFungibleCollateralOffer;
     } & ParsedFillNonFungibleCollateralOfferInstruction<TProgram>)
   | ({
@@ -612,6 +660,9 @@ export type ParsedOfferbookInstruction<
   | ({
       instructionType: OfferbookInstruction.RepayTokenLoan;
     } & ParsedRepayTokenLoanInstruction<TProgram>)
+  | ({
+      instructionType: OfferbookInstruction.SetLoanExtendable;
+    } & ParsedSetLoanExtendableInstruction<TProgram>)
   | ({
       instructionType: OfferbookInstruction.UpdateConfig;
     } & ParsedUpdateConfigInstruction<TProgram>);
@@ -740,6 +791,13 @@ export function parseOfferbookInstruction<TProgram extends string>(
         ...parseEscrowTokenWithdrawInstruction(instruction),
       };
     }
+    case OfferbookInstruction.ExtendLoan: {
+      assertIsInstructionWithAccounts(instruction);
+      return {
+        instructionType: OfferbookInstruction.ExtendLoan,
+        ...parseExtendLoanInstruction(instruction),
+      };
+    }
     case OfferbookInstruction.FillNonFungibleCollateralOffer: {
       assertIsInstructionWithAccounts(instruction);
       return {
@@ -789,6 +847,13 @@ export function parseOfferbookInstruction<TProgram extends string>(
         ...parseRepayTokenLoanInstruction(instruction),
       };
     }
+    case OfferbookInstruction.SetLoanExtendable: {
+      assertIsInstructionWithAccounts(instruction);
+      return {
+        instructionType: OfferbookInstruction.SetLoanExtendable,
+        ...parseSetLoanExtendableInstruction(instruction),
+      };
+    }
     case OfferbookInstruction.UpdateConfig: {
       assertIsInstructionWithAccounts(instruction);
       return {
@@ -817,6 +882,8 @@ export type OfferbookPlugin = {
 };
 
 export type OfferbookPluginAccounts = {
+  baseAssetV1: ReturnType<typeof getBaseAssetV1Codec> &
+    SelfFetchFunctions<BaseAssetV1Args, BaseAssetV1>;
   config: ReturnType<typeof getConfigCodec> &
     SelfFetchFunctions<ConfigArgs, Config>;
   loan: ReturnType<typeof getLoanCodec> & SelfFetchFunctions<LoanArgs, Loan>;
@@ -893,6 +960,10 @@ export type OfferbookPluginInstructions = {
     input: EscrowTokenWithdrawAsyncInput,
   ) => ReturnType<typeof getEscrowTokenWithdrawInstructionAsync> &
     SelfPlanAndSendFunctions;
+  extendLoan: (
+    input: ExtendLoanAsyncInput,
+  ) => ReturnType<typeof getExtendLoanInstructionAsync> &
+    SelfPlanAndSendFunctions;
   fillNonFungibleCollateralOffer: (
     input: FillNonFungibleCollateralOfferAsyncInput,
   ) => ReturnType<typeof getFillNonFungibleCollateralOfferInstructionAsync> &
@@ -919,6 +990,10 @@ export type OfferbookPluginInstructions = {
   repayTokenLoan: (
     input: RepayTokenLoanAsyncInput,
   ) => ReturnType<typeof getRepayTokenLoanInstructionAsync> &
+    SelfPlanAndSendFunctions;
+  setLoanExtendable: (
+    input: SetLoanExtendableAsyncInput,
+  ) => ReturnType<typeof getSetLoanExtendableInstructionAsync> &
     SelfPlanAndSendFunctions;
   updateConfig: (
     input: UpdateConfigInput,
@@ -949,6 +1024,7 @@ export function offerbookProgram() {
     return extendClient(client, {
       offerbook: <OfferbookPlugin>{
         accounts: {
+          baseAssetV1: addSelfFetchFunctions(client, getBaseAssetV1Codec()),
           config: addSelfFetchFunctions(client, getConfigCodec()),
           loan: addSelfFetchFunctions(client, getLoanCodec()),
           offer: addSelfFetchFunctions(client, getOfferCodec()),
@@ -1037,6 +1113,11 @@ export function offerbookProgram() {
               client,
               getEscrowTokenWithdrawInstructionAsync(input),
             ),
+          extendLoan: (input) =>
+            addSelfPlanAndSendFunctions(
+              client,
+              getExtendLoanInstructionAsync(input),
+            ),
           fillNonFungibleCollateralOffer: (input) =>
             addSelfPlanAndSendFunctions(
               client,
@@ -1074,6 +1155,11 @@ export function offerbookProgram() {
             addSelfPlanAndSendFunctions(
               client,
               getRepayTokenLoanInstructionAsync(input),
+            ),
+          setLoanExtendable: (input) =>
+            addSelfPlanAndSendFunctions(
+              client,
+              getSetLoanExtendableInstructionAsync(input),
             ),
           updateConfig: (input) =>
             addSelfPlanAndSendFunctions(

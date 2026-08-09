@@ -6,6 +6,7 @@
  * @see https://github.com/codama-idl/codama
  */
 
+export * from "./baseAssetV1";
 export * from "./config";
 export * from "./loan";
 export * from "./offer";

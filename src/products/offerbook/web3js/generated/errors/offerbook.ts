@@ -22,6 +22,8 @@ export const OFFERBOOK_ERROR__LOAN_NOT_DUE = 0x1784; // 6020
 export const OFFERBOOK_ERROR__INVALID_OFFER_SIDE = 0x1785; // 6021
 export const OFFERBOOK_ERROR__INVALID_ASSET = 0x1786; // 6022
 export const OFFERBOOK_ERROR__MISSING_LOAN_VAULT = 0x1787; // 6023
+export const OFFERBOOK_ERROR__NOT_EXTENDABLE = 0x1788; // 6024
+export const OFFERBOOK_ERROR__LOAN_DUE = 0x1789; // 6025
 
 export type OfferbookError =
     | typeof OFFERBOOK_ERROR__ADMIN_ARRAY_FULL
@@ -42,10 +44,12 @@ export type OfferbookError =
     | typeof OFFERBOOK_ERROR__INVALID_OWNER
     | typeof OFFERBOOK_ERROR__INVALID_REFERRER
     | typeof OFFERBOOK_ERROR__INVALID_TOKEN_MINT
+    | typeof OFFERBOOK_ERROR__LOAN_DUE
     | typeof OFFERBOOK_ERROR__LOAN_NOT_DUE
     | typeof OFFERBOOK_ERROR__MISSING_LOAN_VAULT
     | typeof OFFERBOOK_ERROR__NEW_ADMIN_IS_OLD_ADMIN
     | typeof OFFERBOOK_ERROR__NOT_AUTHORIZED
+    | typeof OFFERBOOK_ERROR__NOT_EXTENDABLE
     | typeof OFFERBOOK_ERROR__OFFER_EXPIRED
     | typeof OFFERBOOK_ERROR__PROTOCOL_PAUSED;
 
@@ -56,8 +60,8 @@ export interface OfferbookErrorInfo {
 }
 
 const OFFERBOOK_ERRORS: Readonly<Record<OfferbookError, OfferbookErrorInfo>> = {
-    [OFFERBOOK_ERROR__DUPLICATE_RESOURCES]: { code: 6000, name: 'duplicateResources', message: 'Duplicate Resources' },
-    [OFFERBOOK_ERROR__ADMIN_ARRAY_FULL]: { code: 6001, name: 'adminArrayFull', message: 'Admin Array Full' },
+    [OFFERBOOK_ERROR__DUPLICATE_RESOURCES]: { code: 6000, name: 'duplicateResources', message: 'deprecated' },
+    [OFFERBOOK_ERROR__ADMIN_ARRAY_FULL]: { code: 6001, name: 'adminArrayFull', message: 'deprecated' },
     [OFFERBOOK_ERROR__NEW_ADMIN_IS_OLD_ADMIN]: {
         code: 6002,
         name: 'newAdminIsOldAdmin',
@@ -79,11 +83,7 @@ const OFFERBOOK_ERRORS: Readonly<Record<OfferbookError, OfferbookErrorInfo>> = {
         name: 'invalidOfferStatus',
         message: 'Invalid Offer Status',
     },
-    [OFFERBOOK_ERROR__INVALID_OFFER_ORIGIN]: {
-        code: 6015,
-        name: 'invalidOfferOrigin',
-        message: 'Invalid Offer Origin',
-    },
+    [OFFERBOOK_ERROR__INVALID_OFFER_ORIGIN]: { code: 6015, name: 'invalidOfferOrigin', message: 'deprecated' },
     [OFFERBOOK_ERROR__INVALID_COLLATERAL]: { code: 6016, name: 'invalidCollateral', message: 'Invalid Collateral' },
     [OFFERBOOK_ERROR__OFFER_EXPIRED]: { code: 6017, name: 'offerExpired', message: 'Offer Expired' },
     [OFFERBOOK_ERROR__INVALID_FILL_AMOUNT]: { code: 6018, name: 'invalidFillAmount', message: 'Invalid Fill Amount' },
@@ -92,6 +92,8 @@ const OFFERBOOK_ERRORS: Readonly<Record<OfferbookError, OfferbookErrorInfo>> = {
     [OFFERBOOK_ERROR__INVALID_OFFER_SIDE]: { code: 6021, name: 'invalidOfferSide', message: 'Invalid Offer Side' },
     [OFFERBOOK_ERROR__INVALID_ASSET]: { code: 6022, name: 'invalidAsset', message: 'Invalid Asset' },
     [OFFERBOOK_ERROR__MISSING_LOAN_VAULT]: { code: 6023, name: 'missingLoanVault', message: 'Missing Loan Vault' },
+    [OFFERBOOK_ERROR__NOT_EXTENDABLE]: { code: 6024, name: 'notExtendable', message: 'Loan Not Extendable' },
+    [OFFERBOOK_ERROR__LOAN_DUE]: { code: 6025, name: 'loanDue', message: 'Loan is due' },
 };
 
 export function getOfferbookErrorFromCode(code: number): OfferbookErrorInfo | undefined {

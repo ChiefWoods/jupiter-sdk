@@ -96,7 +96,7 @@ impl EscrowProgrammableNftWithdraw {
             false,
         ));
         if let Some(authorization_rules) = self.authorization_rules {
-            accounts.push(solana_instruction::AccountMeta::new(
+            accounts.push(solana_instruction::AccountMeta::new_readonly(
                 authorization_rules,
                 false,
             ));
@@ -194,7 +194,7 @@ impl Default for EscrowProgrammableNftWithdrawInstructionData {
 ///   6. `[writable]` signer_token_record
 ///   7. `[writable]` user_escrow_token_account
 ///   8. `[writable]` escrow_token_record
-///   9. `[writable, optional]` authorization_rules
+///   9. `[optional]` authorization_rules
 ///   10. `[optional]` metadata_program (default to `metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s`)
 ///   11. `[optional]` instructions (default to `Sysvar1nstructions1111111111111111111111111`)
 ///   12. `[optional]` authorization_program (default to `auth9SigNpDKz4sJJ1DfCTuZrZNSAgh9sFD3rboVmgg`)
@@ -574,7 +574,7 @@ impl<'a, 'b> EscrowProgrammableNftWithdrawCpi<'a, 'b> {
             false,
         ));
         if let Some(authorization_rules) = self.authorization_rules {
-            accounts.push(solana_instruction::AccountMeta::new(
+            accounts.push(solana_instruction::AccountMeta::new_readonly(
                 *authorization_rules.key,
                 false,
             ));
@@ -688,7 +688,7 @@ impl<'a, 'b> EscrowProgrammableNftWithdrawCpi<'a, 'b> {
 ///   6. `[writable]` signer_token_record
 ///   7. `[writable]` user_escrow_token_account
 ///   8. `[writable]` escrow_token_record
-///   9. `[writable, optional]` authorization_rules
+///   9. `[optional]` authorization_rules
 ///   10. `[]` metadata_program
 ///   11. `[]` instructions
 ///   12. `[optional]` authorization_program

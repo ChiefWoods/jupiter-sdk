@@ -10,6 +10,8 @@ import {
   combineCodec,
   fixDecoderSize,
   fixEncoderSize,
+  getBooleanDecoder,
+  getBooleanEncoder,
   getBytesDecoder,
   getBytesEncoder,
   getStructDecoder,
@@ -113,6 +115,7 @@ export type CreateNftPrincipalOfferInstructionData = {
   apy: number;
   duration: number;
   expiry: number;
+  allowExtend: boolean;
   collateral: NftCollateral;
 };
 
@@ -121,6 +124,7 @@ export type CreateNftPrincipalOfferInstructionDataArgs = {
   apy: number;
   duration: number;
   expiry: number;
+  allowExtend: boolean;
   collateral: NftCollateralArgs;
 };
 
@@ -132,6 +136,7 @@ export function getCreateNftPrincipalOfferInstructionDataEncoder(): Encoder<Crea
       ["apy", getU32Encoder()],
       ["duration", getU32Encoder()],
       ["expiry", getU32Encoder()],
+      ["allowExtend", getBooleanEncoder()],
       ["collateral", getNftCollateralEncoder()],
     ]),
     (value) => ({
@@ -148,6 +153,7 @@ export function getCreateNftPrincipalOfferInstructionDataDecoder(): Decoder<Crea
     ["apy", getU32Decoder()],
     ["duration", getU32Decoder()],
     ["expiry", getU32Decoder()],
+    ["allowExtend", getBooleanDecoder()],
     ["collateral", getNftCollateralDecoder()],
   ]);
 }
@@ -206,6 +212,7 @@ export type CreateNftPrincipalOfferAsyncInput<
   apy: CreateNftPrincipalOfferInstructionDataArgs["apy"];
   duration: CreateNftPrincipalOfferInstructionDataArgs["duration"];
   expiry: CreateNftPrincipalOfferInstructionDataArgs["expiry"];
+  allowExtend: CreateNftPrincipalOfferInstructionDataArgs["allowExtend"];
   collateral: CreateNftPrincipalOfferInstructionDataArgs["collateral"];
 };
 
@@ -354,6 +361,7 @@ export type CreateNftPrincipalOfferInput<
   apy: CreateNftPrincipalOfferInstructionDataArgs["apy"];
   duration: CreateNftPrincipalOfferInstructionDataArgs["duration"];
   expiry: CreateNftPrincipalOfferInstructionDataArgs["expiry"];
+  allowExtend: CreateNftPrincipalOfferInstructionDataArgs["allowExtend"];
   collateral: CreateNftPrincipalOfferInstructionDataArgs["collateral"];
 };
 

@@ -6,3 +6,5 @@ export * from './loan';
 export * from './config';
 export * from './feeAuthority';
 export * from './userEscrowTokenAccount';
+export * from './lenderPrincipalEscrow';
+export * from './protocolFeeTokenAccount';

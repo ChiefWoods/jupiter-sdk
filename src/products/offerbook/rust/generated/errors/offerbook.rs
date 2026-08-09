@@ -10,11 +10,11 @@ use thiserror::Error;
 
 #[derive(Clone, Debug, Eq, Error, FromPrimitive, PartialEq)]
 pub enum OfferbookError {
-    /// 6000 - Duplicate Resources
-    #[error("Duplicate Resources")]
+    /// 6000 - deprecated
+    #[error("deprecated")]
     DuplicateResources = 0x1770,
-    /// 6001 - Admin Array Full
-    #[error("Admin Array Full")]
+    /// 6001 - deprecated
+    #[error("deprecated")]
     AdminArrayFull = 0x1771,
     /// 6002 - New Admin Is Old Admin
     #[error("New Admin Is Old Admin")]
@@ -55,8 +55,8 @@ pub enum OfferbookError {
     /// 6014 - Invalid Offer Status
     #[error("Invalid Offer Status")]
     InvalidOfferStatus = 0x177E,
-    /// 6015 - Invalid Offer Origin
-    #[error("Invalid Offer Origin")]
+    /// 6015 - deprecated
+    #[error("deprecated")]
     InvalidOfferOrigin = 0x177F,
     /// 6016 - Invalid Collateral
     #[error("Invalid Collateral")]
@@ -82,6 +82,12 @@ pub enum OfferbookError {
     /// 6023 - Missing Loan Vault
     #[error("Missing Loan Vault")]
     MissingLoanVault = 0x1787,
+    /// 6024 - Loan Not Extendable
+    #[error("Loan Not Extendable")]
+    NotExtendable = 0x1788,
+    /// 6025 - Loan is due
+    #[error("Loan is due")]
+    LoanDue = 0x1789,
 }
 
 impl From<OfferbookError> for solana_program_error::ProgramError {

@@ -39,6 +39,7 @@ export interface CreateTokenCollateralOfferInstructionArgs {
     expiry: number;
     allowPartialFill: boolean;
     minFillAmount: number | bigint;
+    allowExtend: boolean;
 }
 
 function getCreateTokenCollateralOfferInstructionDataEncoder(): Encoder<CreateTokenCollateralOfferInstructionArgs> {
@@ -50,6 +51,7 @@ function getCreateTokenCollateralOfferInstructionDataEncoder(): Encoder<CreateTo
         ['expiry', getU32Encoder()],
         ['allowPartialFill', getBooleanEncoder()],
         ['minFillAmount', getU64Encoder()],
+        ['allowExtend', getBooleanEncoder()],
     ]);
 }
 
@@ -62,6 +64,7 @@ function getCreateTokenCollateralOfferInstructionDataDecoder(): Decoder<CreateTo
         ['expiry', getU32Decoder()],
         ['allowPartialFill', getBooleanDecoder()],
         ['minFillAmount', getU64Decoder()],
+        ['allowExtend', getBooleanDecoder()],
     ]);
 }
 

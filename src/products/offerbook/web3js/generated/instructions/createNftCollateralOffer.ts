@@ -2,11 +2,8 @@ import { AccountMeta, Address, Keypair, TransactionInstruction } from '@solana/w
 import { OFFERBOOK_PROGRAM_ID } from '../programs/offerbook';
 import { findEventAuthorityPda } from '../pdas/eventAuthority';
 import {
-    getNftCollateralAssetDecoder,
-    getNftCollateralAssetEncoder,
-    type NftCollateralAssetArgs,
-} from '../types/nftCollateralAsset';
-import {
+    getBooleanDecoder,
+    getBooleanEncoder,
     getStructDecoder,
     getStructEncoder,
     getU32Decoder,
@@ -16,6 +13,11 @@ import {
     type Decoder,
     type Encoder,
 } from '@solana/codecs';
+import {
+    getNftCollateralAssetDecoder,
+    getNftCollateralAssetEncoder,
+    type NftCollateralAssetArgs,
+} from '../types/nftCollateralAsset';
 
 export const CREATE_NFT_COLLATERAL_OFFER_INSTRUCTION_DISCRIMINATOR = new Uint8Array([48, 34, 52, 189, 81, 11, 169, 8]);
 
@@ -36,6 +38,7 @@ export interface CreateNftCollateralOfferInstructionArgs {
     apy: number;
     duration: number;
     expiry: number;
+    allowExtend: boolean;
     collateral: NftCollateralAssetArgs;
 }
 
@@ -45,6 +48,7 @@ function getCreateNftCollateralOfferInstructionDataEncoder(): Encoder<CreateNftC
         ['apy', getU32Encoder()],
         ['duration', getU32Encoder()],
         ['expiry', getU32Encoder()],
+        ['allowExtend', getBooleanEncoder()],
         ['collateral', getNftCollateralAssetEncoder()],
     ]);
 }
@@ -55,6 +59,7 @@ function getCreateNftCollateralOfferInstructionDataDecoder(): Decoder<CreateNftC
         ['apy', getU32Decoder()],
         ['duration', getU32Decoder()],
         ['expiry', getU32Decoder()],
+        ['allowExtend', getBooleanDecoder()],
         ['collateral', getNftCollateralAssetDecoder()],
     ]);
 }

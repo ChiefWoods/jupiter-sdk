@@ -37,7 +37,9 @@ pub struct Loan {
     pub updated_at: u64,
     pub bump: u8,
     pub collateral_account_bump: u8,
-    pub padding4: [u8; 6],
+    pub extendable: u8,
+    pub extension_count: u8,
+    pub padding4: [u8; 4],
     pub reserved: [u8; 48],
 }
 

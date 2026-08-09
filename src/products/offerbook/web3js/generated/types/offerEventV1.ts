@@ -34,6 +34,10 @@ import {
     type OfferStatusArgs,
 } from '../types/offerStatus';
 
+/**
+ * Frozen pre-extension offer event schema. Kept in the IDL so historical
+ * events remain parseable; not emitted by current code (see `OfferEventV2`).
+ */
 export type OfferEventV1 = {
     creator: Address;
     side: OfferSide;

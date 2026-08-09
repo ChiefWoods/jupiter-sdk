@@ -12,6 +12,8 @@ use borsh::BorshDeserialize;
 use borsh::BorshSerialize;
 use solana_address::Address;
 
+/// Frozen pre-extension loan event schema. Kept in the IDL so historical events
+/// remain parseable; not emitted by current code (see `LoanEventV1`).
 #[derive(BorshSerialize, BorshDeserialize, Clone, Debug, Eq, PartialEq)]
 pub struct LoanEventV0 {
     pub lender: Address,

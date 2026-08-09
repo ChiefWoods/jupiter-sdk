@@ -14,9 +14,9 @@ import {
 } from "@solana/kit";
 import { OFFERBOOK_PROGRAM_ADDRESS } from "../programs";
 
-/** DuplicateResources: Duplicate Resources */
+/** DuplicateResources: deprecated */
 export const OFFERBOOK_ERROR__DUPLICATE_RESOURCES = 0x1770; // 6000
-/** AdminArrayFull: Admin Array Full */
+/** AdminArrayFull: deprecated */
 export const OFFERBOOK_ERROR__ADMIN_ARRAY_FULL = 0x1771; // 6001
 /** NewAdminIsOldAdmin: New Admin Is Old Admin */
 export const OFFERBOOK_ERROR__NEW_ADMIN_IS_OLD_ADMIN = 0x1772; // 6002
@@ -44,7 +44,7 @@ export const OFFERBOOK_ERROR__INVALID_A_P_Y = 0x177c; // 6012
 export const OFFERBOOK_ERROR__INVALID_OWNER = 0x177d; // 6013
 /** InvalidOfferStatus: Invalid Offer Status */
 export const OFFERBOOK_ERROR__INVALID_OFFER_STATUS = 0x177e; // 6014
-/** InvalidOfferOrigin: Invalid Offer Origin */
+/** InvalidOfferOrigin: deprecated */
 export const OFFERBOOK_ERROR__INVALID_OFFER_ORIGIN = 0x177f; // 6015
 /** InvalidCollateral: Invalid Collateral */
 export const OFFERBOOK_ERROR__INVALID_COLLATERAL = 0x1780; // 6016
@@ -62,6 +62,10 @@ export const OFFERBOOK_ERROR__INVALID_OFFER_SIDE = 0x1785; // 6021
 export const OFFERBOOK_ERROR__INVALID_ASSET = 0x1786; // 6022
 /** MissingLoanVault: Missing Loan Vault */
 export const OFFERBOOK_ERROR__MISSING_LOAN_VAULT = 0x1787; // 6023
+/** NotExtendable: Loan Not Extendable */
+export const OFFERBOOK_ERROR__NOT_EXTENDABLE = 0x1788; // 6024
+/** LoanDue: Loan is due */
+export const OFFERBOOK_ERROR__LOAN_DUE = 0x1789; // 6025
 
 export type OfferbookError =
   | typeof OFFERBOOK_ERROR__ADMIN_ARRAY_FULL
@@ -82,21 +86,23 @@ export type OfferbookError =
   | typeof OFFERBOOK_ERROR__INVALID_OWNER
   | typeof OFFERBOOK_ERROR__INVALID_REFERRER
   | typeof OFFERBOOK_ERROR__INVALID_TOKEN_MINT
+  | typeof OFFERBOOK_ERROR__LOAN_DUE
   | typeof OFFERBOOK_ERROR__LOAN_NOT_DUE
   | typeof OFFERBOOK_ERROR__MISSING_LOAN_VAULT
   | typeof OFFERBOOK_ERROR__NEW_ADMIN_IS_OLD_ADMIN
   | typeof OFFERBOOK_ERROR__NOT_AUTHORIZED
+  | typeof OFFERBOOK_ERROR__NOT_EXTENDABLE
   | typeof OFFERBOOK_ERROR__OFFER_EXPIRED
   | typeof OFFERBOOK_ERROR__PROTOCOL_PAUSED;
 
 let offerbookErrorMessages: Record<OfferbookError, string> | undefined;
 if (process.env["NODE_ENV"] !== "production") {
   offerbookErrorMessages = {
-    [OFFERBOOK_ERROR__ADMIN_ARRAY_FULL]: `Admin Array Full`,
+    [OFFERBOOK_ERROR__ADMIN_ARRAY_FULL]: `deprecated`,
     [OFFERBOOK_ERROR__ALREADY_PAUSED]: `Already Paused`,
     [OFFERBOOK_ERROR__ALREADY_UNPAUSED]: `Already Unpaused`,
     [OFFERBOOK_ERROR__BAD_INPUT]: `Bad Input`,
-    [OFFERBOOK_ERROR__DUPLICATE_RESOURCES]: `Duplicate Resources`,
+    [OFFERBOOK_ERROR__DUPLICATE_RESOURCES]: `deprecated`,
     [OFFERBOOK_ERROR__INVALID_A_P_Y]: `Invalid APY`,
     [OFFERBOOK_ERROR__INVALID_ASSET]: `Invalid Asset`,
     [OFFERBOOK_ERROR__INVALID_COLLATERAL]: `Invalid Collateral`,
@@ -104,16 +110,18 @@ if (process.env["NODE_ENV"] !== "production") {
     [OFFERBOOK_ERROR__INVALID_EXPIRY]: `Invalid Expiry`,
     [OFFERBOOK_ERROR__INVALID_FILL_AMOUNT]: `Invalid Fill Amount`,
     [OFFERBOOK_ERROR__INVALID_LOAN_STATUS]: `Invalid Loan Status`,
-    [OFFERBOOK_ERROR__INVALID_OFFER_ORIGIN]: `Invalid Offer Origin`,
+    [OFFERBOOK_ERROR__INVALID_OFFER_ORIGIN]: `deprecated`,
     [OFFERBOOK_ERROR__INVALID_OFFER_SIDE]: `Invalid Offer Side`,
     [OFFERBOOK_ERROR__INVALID_OFFER_STATUS]: `Invalid Offer Status`,
     [OFFERBOOK_ERROR__INVALID_OWNER]: `Invalid Owner`,
     [OFFERBOOK_ERROR__INVALID_REFERRER]: `Invalid Referrer`,
     [OFFERBOOK_ERROR__INVALID_TOKEN_MINT]: `Invalid Token Mint`,
+    [OFFERBOOK_ERROR__LOAN_DUE]: `Loan is due`,
     [OFFERBOOK_ERROR__LOAN_NOT_DUE]: `Loan is not due`,
     [OFFERBOOK_ERROR__MISSING_LOAN_VAULT]: `Missing Loan Vault`,
     [OFFERBOOK_ERROR__NEW_ADMIN_IS_OLD_ADMIN]: `New Admin Is Old Admin`,
     [OFFERBOOK_ERROR__NOT_AUTHORIZED]: `Not Authorized`,
+    [OFFERBOOK_ERROR__NOT_EXTENDABLE]: `Loan Not Extendable`,
     [OFFERBOOK_ERROR__OFFER_EXPIRED]: `Offer Expired`,
     [OFFERBOOK_ERROR__PROTOCOL_PAUSED]: `Protocol Paused`,
   };

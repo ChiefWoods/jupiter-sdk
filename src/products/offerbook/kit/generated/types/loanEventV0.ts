@@ -38,6 +38,10 @@ import {
   type LoanTypeArgs,
 } from ".";
 
+/**
+ * Frozen pre-extension loan event schema. Kept in the IDL so historical events
+ * remain parseable; not emitted by current code (see `LoanEventV1`).
+ */
 export type LoanEventV0 = {
   lender: Address;
   borrower: Address;

@@ -1030,7 +1030,6 @@
         },
         {
           "name": "authorization_rules",
-          "writable": true,
           "optional": true
         },
         {
@@ -1116,7 +1115,6 @@
         },
         {
           "name": "authorization_rules",
-          "writable": true,
           "optional": true
         },
         {
@@ -1291,6 +1289,114 @@
           "type": "u64"
         }
       ]
+    },
+    {
+      "name": "extend_loan",
+      "discriminator": [2, 208, 222, 190, 109, 148, 247, 117],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "signer_user"
+        },
+        {
+          "name": "lender"
+        },
+        {
+          "name": "lender_user"
+        },
+        {
+          "name": "loan",
+          "writable": true
+        },
+        {
+          "name": "config"
+        },
+        {
+          "name": "principal_mint"
+        },
+        {
+          "name": "signer_principal_token_account",
+          "writable": true
+        },
+        {
+          "name": "lender_principal_escrow",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "lender_user"
+              },
+              {
+                "kind": "account",
+                "path": "principal_token_program"
+              },
+              {
+                "kind": "account",
+                "path": "principal_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142, 13, 131, 11, 90, 19,
+                153, 218, 255, 16, 132, 4, 142, 123, 216, 219, 233, 248, 89
+              ]
+            }
+          }
+        },
+        {
+          "name": "protocol_fee_token_account",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "account",
+                "path": "config"
+              },
+              {
+                "kind": "account",
+                "path": "principal_token_program"
+              },
+              {
+                "kind": "account",
+                "path": "principal_mint"
+              }
+            ],
+            "program": {
+              "kind": "const",
+              "value": [
+                140, 151, 37, 143, 78, 36, 137, 241, 187, 61, 16, 41, 20, 142, 13, 131, 11, 90, 19,
+                153, 218, 255, 16, 132, 4, 142, 123, 216, 219, 233, 248, 89
+              ]
+            }
+          }
+        },
+        {
+          "name": "principal_token_program"
+        },
+        {
+          "name": "event_authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  95, 95, 101, 118, 101, 110, 116, 95, 97, 117, 116, 104, 111, 114, 105, 116, 121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": []
     },
     {
       "name": "fill_non_fungible_collateral_offer",
@@ -2357,6 +2463,42 @@
       "args": []
     },
     {
+      "name": "set_loan_extendable",
+      "discriminator": [130, 168, 137, 148, 29, 17, 239, 228],
+      "accounts": [
+        {
+          "name": "signer",
+          "signer": true
+        },
+        {
+          "name": "loan",
+          "writable": true
+        },
+        {
+          "name": "event_authority",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  95, 95, 101, 118, 101, 110, 116, 95, 97, 117, 116, 104, 111, 114, 105, 116, 121
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "name": "program"
+        }
+      ],
+      "args": [
+        {
+          "name": "allow",
+          "type": "bool"
+        }
+      ]
+    },
+    {
       "name": "update_config",
       "discriminator": [29, 158, 252, 191, 10, 83, 219, 99],
       "accounts": [
@@ -2383,6 +2525,10 @@
     }
   ],
   "accounts": [
+    {
+      "name": "BaseAssetV1",
+      "discriminator": [1]
+    },
     {
       "name": "Config",
       "discriminator": [155, 12, 170, 224, 30, 250, 204, 130]
@@ -2414,12 +2560,32 @@
       "discriminator": [142, 148, 28, 215, 65, 185, 246, 200]
     },
     {
+      "name": "LoanCreatedV1",
+      "discriminator": [53, 204, 20, 133, 220, 71, 214, 128]
+    },
+    {
       "name": "LoanDefaulted",
       "discriminator": [194, 98, 51, 88, 228, 118, 173, 46]
     },
     {
+      "name": "LoanDefaultedV1",
+      "discriminator": [232, 160, 77, 36, 232, 60, 14, 73]
+    },
+    {
+      "name": "LoanExtendabilityUpdated",
+      "discriminator": [132, 189, 244, 21, 191, 39, 88, 94]
+    },
+    {
+      "name": "LoanExtended",
+      "discriminator": [146, 18, 190, 31, 50, 17, 133, 1]
+    },
+    {
       "name": "LoanRepaid",
       "discriminator": [202, 183, 88, 60, 211, 54, 142, 243]
+    },
+    {
+      "name": "LoanRepaidV1",
+      "discriminator": [68, 118, 134, 24, 25, 250, 199, 187]
     },
     {
       "name": "OfferCancelled",
@@ -2430,6 +2596,10 @@
       "discriminator": [148, 210, 209, 158, 129, 50, 15, 166]
     },
     {
+      "name": "OfferCancelledV2",
+      "discriminator": [39, 55, 186, 129, 177, 241, 117, 121]
+    },
+    {
       "name": "OfferCreated",
       "discriminator": [31, 236, 215, 144, 75, 45, 157, 87]
     },
@@ -2438,12 +2608,20 @@
       "discriminator": [113, 118, 59, 240, 159, 129, 104, 196]
     },
     {
+      "name": "OfferCreatedV2",
+      "discriminator": [107, 228, 58, 148, 11, 235, 232, 181]
+    },
+    {
       "name": "OfferFilled",
       "discriminator": [173, 104, 95, 161, 144, 206, 72, 57]
     },
     {
       "name": "OfferFilledV1",
       "discriminator": [53, 129, 248, 144, 138, 91, 209, 155]
+    },
+    {
+      "name": "OfferFilledV2",
+      "discriminator": [140, 79, 66, 108, 81, 186, 66, 29]
     },
     {
       "name": "ProtocolFee",
@@ -2462,12 +2640,12 @@
     {
       "code": 6000,
       "name": "DuplicateResources",
-      "msg": "Duplicate Resources"
+      "msg": "deprecated"
     },
     {
       "code": 6001,
       "name": "AdminArrayFull",
-      "msg": "Admin Array Full"
+      "msg": "deprecated"
     },
     {
       "code": 6002,
@@ -2537,7 +2715,7 @@
     {
       "code": 6015,
       "name": "InvalidOfferOrigin",
-      "msg": "Invalid Offer Origin"
+      "msg": "deprecated"
     },
     {
       "code": 6016,
@@ -2578,6 +2756,16 @@
       "code": 6023,
       "name": "MissingLoanVault",
       "msg": "Missing Loan Vault"
+    },
+    {
+      "code": 6024,
+      "name": "NotExtendable",
+      "msg": "Loan Not Extendable"
+    },
+    {
+      "code": 6025,
+      "name": "LoanDue",
+      "msg": "Loan is due"
     }
   ],
   "types": [
@@ -2687,6 +2875,48 @@
       }
     },
     {
+      "name": "BaseAssetV1",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "key",
+            "type": {
+              "defined": {
+                "name": "Key"
+              }
+            }
+          },
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "update_authority",
+            "type": {
+              "defined": {
+                "name": "UpdateAuthority"
+              }
+            }
+          },
+          {
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "name": "uri",
+            "type": "string"
+          },
+          {
+            "name": "seq",
+            "type": {
+              "option": "u64"
+            }
+          }
+        ]
+      }
+    },
+    {
       "name": "ClassicNftAsset",
       "repr": {
         "kind": "c"
@@ -2755,7 +2985,7 @@
     },
     {
       "name": "Config",
-      "serialization": "borsh",
+      "serialization": "bytemuck",
       "repr": {
         "kind": "c"
       },
@@ -3258,8 +3488,34 @@
       }
     },
     {
+      "name": "Key",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "Uninitialized"
+          },
+          {
+            "name": "AssetV1"
+          },
+          {
+            "name": "HashedAssetV1"
+          },
+          {
+            "name": "PluginHeaderV1"
+          },
+          {
+            "name": "PluginRegistryV1"
+          },
+          {
+            "name": "CollectionV1"
+          }
+        ]
+      }
+    },
+    {
       "name": "Loan",
-      "serialization": "borsh",
+      "serialization": "bytemuck",
       "repr": {
         "kind": "c"
       },
@@ -3377,9 +3633,17 @@
             "type": "u8"
           },
           {
+            "name": "extendable",
+            "type": "u8"
+          },
+          {
+            "name": "extension_count",
+            "type": "u8"
+          },
+          {
             "name": "_padding4",
             "type": {
-              "array": ["u8", 6]
+              "array": ["u8", 4]
             }
           },
           {
@@ -3412,6 +3676,26 @@
       }
     },
     {
+      "name": "LoanCreatedV1",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "loan",
+            "type": {
+              "defined": {
+                "name": "LoanEventV1"
+              }
+            }
+          },
+          {
+            "name": "pubkey",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
       "name": "LoanDefaulted",
       "type": {
         "kind": "struct",
@@ -3432,7 +3716,31 @@
       }
     },
     {
+      "name": "LoanDefaultedV1",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "loan",
+            "type": {
+              "defined": {
+                "name": "LoanEventV1"
+              }
+            }
+          },
+          {
+            "name": "pubkey",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
       "name": "LoanEventV0",
+      "docs": [
+        "Frozen pre-extension loan event schema. Kept in the IDL so historical events",
+        "remain parseable; not emitted by current code (see `LoanEventV1`)."
+      ],
       "type": {
         "kind": "struct",
         "fields": [
@@ -3532,6 +3840,154 @@
       }
     },
     {
+      "name": "LoanEventV1",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "lender",
+            "type": "pubkey"
+          },
+          {
+            "name": "borrower",
+            "type": "pubkey"
+          },
+          {
+            "name": "creator",
+            "type": "pubkey"
+          },
+          {
+            "name": "offer",
+            "type": "pubkey"
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "LoanStatus"
+              }
+            }
+          },
+          {
+            "name": "fill_index",
+            "type": "u64"
+          },
+          {
+            "name": "principal",
+            "type": {
+              "defined": {
+                "name": "EventAsset"
+              }
+            }
+          },
+          {
+            "name": "collateral",
+            "type": {
+              "defined": {
+                "name": "EventAsset"
+              }
+            }
+          },
+          {
+            "name": "apy",
+            "type": "u32"
+          },
+          {
+            "name": "duration",
+            "type": "u32"
+          },
+          {
+            "name": "principal_amount",
+            "type": "u64"
+          },
+          {
+            "name": "collateral_amount",
+            "type": "u64"
+          },
+          {
+            "name": "interest",
+            "type": "u64"
+          },
+          {
+            "name": "created_at",
+            "type": "u64"
+          },
+          {
+            "name": "expired_at",
+            "type": "u64"
+          },
+          {
+            "name": "updated_at",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "collateral_account_bump",
+            "type": "u8"
+          },
+          {
+            "name": "loan_type",
+            "type": {
+              "defined": {
+                "name": "LoanType"
+              }
+            }
+          },
+          {
+            "name": "extendable",
+            "type": "u8"
+          },
+          {
+            "name": "extension_count",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LoanExtendabilityUpdated",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "loan",
+            "type": "pubkey"
+          },
+          {
+            "name": "extendable",
+            "type": "u8"
+          },
+          {
+            "name": "timestamp",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LoanExtended",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "loan",
+            "type": {
+              "defined": {
+                "name": "LoanEventV1"
+              }
+            }
+          },
+          {
+            "name": "pubkey",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
       "name": "LoanRepaid",
       "type": {
         "kind": "struct",
@@ -3541,6 +3997,26 @@
             "type": {
               "defined": {
                 "name": "LoanEventV0"
+              }
+            }
+          },
+          {
+            "name": "pubkey",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "LoanRepaidV1",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "loan",
+            "type": {
+              "defined": {
+                "name": "LoanEventV1"
               }
             }
           },
@@ -3712,6 +4188,10 @@
           {
             "name": "expiry",
             "type": "u32"
+          },
+          {
+            "name": "allow_extend",
+            "type": "bool"
           }
         ]
       }
@@ -3736,6 +4216,10 @@
           {
             "name": "expiry",
             "type": "u32"
+          },
+          {
+            "name": "allow_extend",
+            "type": "bool"
           }
         ]
       }
@@ -3759,7 +4243,7 @@
     },
     {
       "name": "Offer",
-      "serialization": "borsh",
+      "serialization": "bytemuck",
       "repr": {
         "kind": "c"
       },
@@ -3893,9 +4377,13 @@
             "type": "u8"
           },
           {
+            "name": "allow_extend",
+            "type": "u8"
+          },
+          {
             "name": "_padding6",
             "type": {
-              "array": ["u8", 6]
+              "array": ["u8", 5]
             }
           },
           {
@@ -3952,6 +4440,26 @@
       }
     },
     {
+      "name": "OfferCancelledV2",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "offer",
+            "type": {
+              "defined": {
+                "name": "OfferEventV2"
+              }
+            }
+          },
+          {
+            "name": "pubkey",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
       "name": "OfferCreated",
       "type": {
         "kind": "struct",
@@ -3992,10 +4500,30 @@
       }
     },
     {
+      "name": "OfferCreatedV2",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "offer",
+            "type": {
+              "defined": {
+                "name": "OfferEventV2"
+              }
+            }
+          },
+          {
+            "name": "pubkey",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
       "name": "OfferEventV0",
       "docs": [
         "Frozen pre-counter-offers offer event schema. Kept in the IDL so historical",
-        "events remain parseable; not emitted by current code (see `OfferEventV1`)."
+        "events remain parseable; not emitted by current code (see `OfferEventV2`)."
       ],
       "type": {
         "kind": "struct",
@@ -4101,6 +4629,10 @@
     },
     {
       "name": "OfferEventV1",
+      "docs": [
+        "Frozen pre-extension offer event schema. Kept in the IDL so historical",
+        "events remain parseable; not emitted by current code (see `OfferEventV2`)."
+      ],
       "type": {
         "kind": "struct",
         "fields": [
@@ -4208,6 +4740,118 @@
       }
     },
     {
+      "name": "OfferEventV2",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "creator",
+            "type": "pubkey"
+          },
+          {
+            "name": "side",
+            "type": {
+              "defined": {
+                "name": "OfferSide"
+              }
+            }
+          },
+          {
+            "name": "status",
+            "type": {
+              "defined": {
+                "name": "OfferStatus"
+              }
+            }
+          },
+          {
+            "name": "principal",
+            "type": {
+              "defined": {
+                "name": "EventAsset"
+              }
+            }
+          },
+          {
+            "name": "collateral",
+            "type": {
+              "defined": {
+                "name": "EventAsset"
+              }
+            }
+          },
+          {
+            "name": "filter",
+            "type": {
+              "defined": {
+                "name": "EventAssetFilter"
+              }
+            }
+          },
+          {
+            "name": "principal_amount",
+            "type": "u64"
+          },
+          {
+            "name": "remaining_principal",
+            "type": "u64"
+          },
+          {
+            "name": "collateral_amount",
+            "type": "u64"
+          },
+          {
+            "name": "remaining_collateral",
+            "type": "u64"
+          },
+          {
+            "name": "apy",
+            "type": "u32"
+          },
+          {
+            "name": "duration",
+            "type": "u32"
+          },
+          {
+            "name": "created_at",
+            "type": "u64"
+          },
+          {
+            "name": "expired_at",
+            "type": "u64"
+          },
+          {
+            "name": "updated_at",
+            "type": "u64"
+          },
+          {
+            "name": "min_fill_amount",
+            "type": "u64"
+          },
+          {
+            "name": "fill_counter",
+            "type": "u64"
+          },
+          {
+            "name": "allow_partial_fill",
+            "type": "u8"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "countered_offer",
+            "type": "pubkey"
+          },
+          {
+            "name": "allow_extend",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
       "name": "OfferFilled",
       "type": {
         "kind": "struct",
@@ -4237,6 +4881,26 @@
             "type": {
               "defined": {
                 "name": "OfferEventV1"
+              }
+            }
+          },
+          {
+            "name": "pubkey",
+            "type": "pubkey"
+          }
+        ]
+      }
+    },
+    {
+      "name": "OfferFilledV2",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "offer",
+            "type": {
+              "defined": {
+                "name": "OfferEventV2"
               }
             }
           },
@@ -4467,6 +5131,10 @@
           {
             "name": "min_fill_amount",
             "type": "u64"
+          },
+          {
+            "name": "allow_extend",
+            "type": "bool"
           }
         ]
       }
@@ -4503,6 +5171,29 @@
           {
             "name": "min_fill_amount",
             "type": "u64"
+          },
+          {
+            "name": "allow_extend",
+            "type": "bool"
+          }
+        ]
+      }
+    },
+    {
+      "name": "UpdateAuthority",
+      "type": {
+        "kind": "enum",
+        "variants": [
+          {
+            "name": "None"
+          },
+          {
+            "name": "Address",
+            "fields": ["pubkey"]
+          },
+          {
+            "name": "Collection",
+            "fields": ["pubkey"]
           }
         ]
       }
@@ -4649,7 +5340,7 @@
     },
     {
       "name": "User",
-      "serialization": "borsh",
+      "serialization": "bytemuck",
       "repr": {
         "kind": "c"
       },

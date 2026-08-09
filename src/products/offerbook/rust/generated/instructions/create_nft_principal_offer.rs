@@ -138,6 +138,7 @@ pub struct CreateNftPrincipalOfferInstructionArgs {
     pub apy: u32,
     pub duration: u32,
     pub expiry: u32,
+    pub allow_extend: bool,
     pub collateral: NftCollateral,
 }
 
@@ -175,6 +176,7 @@ pub struct CreateNftPrincipalOfferBuilder {
     apy: Option<u32>,
     duration: Option<u32>,
     expiry: Option<u32>,
+    allow_extend: Option<bool>,
     collateral: Option<NftCollateral>,
     __remaining_accounts: Vec<solana_instruction::AccountMeta>,
 }
@@ -268,6 +270,11 @@ impl CreateNftPrincipalOfferBuilder {
         self
     }
     #[inline(always)]
+    pub fn allow_extend(&mut self, allow_extend: bool) -> &mut Self {
+        self.allow_extend = Some(allow_extend);
+        self
+    }
+    #[inline(always)]
     pub fn collateral(&mut self, collateral: NftCollateral) -> &mut Self {
         self.collateral = Some(collateral);
         self
@@ -310,6 +317,7 @@ impl CreateNftPrincipalOfferBuilder {
             apy: self.apy.clone().expect("apy is not set"),
             duration: self.duration.clone().expect("duration is not set"),
             expiry: self.expiry.clone().expect("expiry is not set"),
+            allow_extend: self.allow_extend.clone().expect("allow_extend is not set"),
             collateral: self.collateral.clone().expect("collateral is not set"),
         };
 
@@ -540,6 +548,7 @@ impl<'a, 'b> CreateNftPrincipalOfferCpiBuilder<'a, 'b> {
             apy: None,
             duration: None,
             expiry: None,
+            allow_extend: None,
             collateral: None,
             __remaining_accounts: Vec::new(),
         });
@@ -641,6 +650,11 @@ impl<'a, 'b> CreateNftPrincipalOfferCpiBuilder<'a, 'b> {
         self
     }
     #[inline(always)]
+    pub fn allow_extend(&mut self, allow_extend: bool) -> &mut Self {
+        self.instruction.allow_extend = Some(allow_extend);
+        self
+    }
+    #[inline(always)]
     pub fn collateral(&mut self, collateral: NftCollateral) -> &mut Self {
         self.instruction.collateral = Some(collateral);
         self
@@ -692,6 +706,11 @@ impl<'a, 'b> CreateNftPrincipalOfferCpiBuilder<'a, 'b> {
                 .clone()
                 .expect("duration is not set"),
             expiry: self.instruction.expiry.clone().expect("expiry is not set"),
+            allow_extend: self
+                .instruction
+                .allow_extend
+                .clone()
+                .expect("allow_extend is not set"),
             collateral: self
                 .instruction
                 .collateral
@@ -755,6 +774,7 @@ struct CreateNftPrincipalOfferCpiBuilderInstruction<'a, 'b> {
     apy: Option<u32>,
     duration: Option<u32>,
     expiry: Option<u32>,
+    allow_extend: Option<bool>,
     collateral: Option<NftCollateral>,
     /// Additional instruction accounts `(AccountInfo, is_writable, is_signer)`.
     __remaining_accounts: Vec<(&'b solana_account_info::AccountInfo<'a>, bool, bool)>,

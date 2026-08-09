@@ -39,6 +39,7 @@ export interface CreateTokenPrincipalOfferInstructionArgs {
     expiry: number;
     allowPartialFill: boolean;
     minFillAmount: number | bigint;
+    allowExtend: boolean;
 }
 
 function getCreateTokenPrincipalOfferInstructionDataEncoder(): Encoder<CreateTokenPrincipalOfferInstructionArgs> {
@@ -50,6 +51,7 @@ function getCreateTokenPrincipalOfferInstructionDataEncoder(): Encoder<CreateTok
         ['expiry', getU32Encoder()],
         ['allowPartialFill', getBooleanEncoder()],
         ['minFillAmount', getU64Encoder()],
+        ['allowExtend', getBooleanEncoder()],
     ]);
 }
 
@@ -62,6 +64,7 @@ function getCreateTokenPrincipalOfferInstructionDataDecoder(): Decoder<CreateTok
         ['expiry', getU32Decoder()],
         ['allowPartialFill', getBooleanDecoder()],
         ['minFillAmount', getU64Decoder()],
+        ['allowExtend', getBooleanDecoder()],
     ]);
 }
 

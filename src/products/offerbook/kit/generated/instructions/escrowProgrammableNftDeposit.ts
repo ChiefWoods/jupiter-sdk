@@ -111,7 +111,7 @@ export type EscrowProgrammableNftDepositInstruction<
         ? WritableAccount<TAccountEscrowTokenRecord>
         : TAccountEscrowTokenRecord,
       TAccountAuthorizationRules extends string
-        ? WritableAccount<TAccountAuthorizationRules>
+        ? ReadonlyAccount<TAccountAuthorizationRules>
         : TAccountAuthorizationRules,
       TAccountMetadataProgram extends string
         ? ReadonlyAccount<TAccountMetadataProgram>
@@ -306,7 +306,7 @@ export async function getEscrowProgrammableNftDepositInstructionAsync<
     },
     authorizationRules: {
       value: input.authorizationRules ?? null,
-      isWritable: true,
+      isWritable: false,
     },
     metadataProgram: {
       value: input.metadataProgram ?? null,
@@ -564,7 +564,7 @@ export function getEscrowProgrammableNftDepositInstruction<
     },
     authorizationRules: {
       value: input.authorizationRules ?? null,
-      isWritable: true,
+      isWritable: false,
     },
     metadataProgram: {
       value: input.metadataProgram ?? null,

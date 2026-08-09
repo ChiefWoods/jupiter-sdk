@@ -5,11 +5,13 @@
 //! <https://github.com/codama-idl/codama>
 //!
 
+pub(crate) mod r#base_asset_v1;
 pub(crate) mod r#config;
 pub(crate) mod r#loan;
 pub(crate) mod r#offer;
 pub(crate) mod r#user;
 
+pub use self::r#base_asset_v1::*;
 pub use self::r#config::*;
 pub use self::r#loan::*;
 pub use self::r#offer::*;

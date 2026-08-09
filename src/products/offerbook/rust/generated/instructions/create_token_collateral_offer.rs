@@ -147,6 +147,7 @@ pub struct CreateTokenCollateralOfferInstructionArgs {
     pub expiry: u32,
     pub allow_partial_fill: bool,
     pub min_fill_amount: u64,
+    pub allow_extend: bool,
 }
 
 impl CreateTokenCollateralOfferInstructionArgs {
@@ -188,6 +189,7 @@ pub struct CreateTokenCollateralOfferBuilder {
     expiry: Option<u32>,
     allow_partial_fill: Option<bool>,
     min_fill_amount: Option<u64>,
+    allow_extend: Option<bool>,
     __remaining_accounts: Vec<solana_instruction::AccountMeta>,
 }
 
@@ -300,6 +302,11 @@ impl CreateTokenCollateralOfferBuilder {
         self.min_fill_amount = Some(min_fill_amount);
         self
     }
+    #[inline(always)]
+    pub fn allow_extend(&mut self, allow_extend: bool) -> &mut Self {
+        self.allow_extend = Some(allow_extend);
+        self
+    }
     /// Add an additional account to the instruction.
     #[inline(always)]
     pub fn add_remaining_account(&mut self, account: solana_instruction::AccountMeta) -> &mut Self {
@@ -351,6 +358,7 @@ impl CreateTokenCollateralOfferBuilder {
                 .min_fill_amount
                 .clone()
                 .expect("min_fill_amount is not set"),
+            allow_extend: self.allow_extend.clone().expect("allow_extend is not set"),
         };
 
         accounts.instruction_with_remaining_accounts(args, &self.__remaining_accounts)
@@ -595,6 +603,7 @@ impl<'a, 'b> CreateTokenCollateralOfferCpiBuilder<'a, 'b> {
             expiry: None,
             allow_partial_fill: None,
             min_fill_amount: None,
+            allow_extend: None,
             __remaining_accounts: Vec::new(),
         });
         Self { instruction }
@@ -718,6 +727,11 @@ impl<'a, 'b> CreateTokenCollateralOfferCpiBuilder<'a, 'b> {
         self.instruction.min_fill_amount = Some(min_fill_amount);
         self
     }
+    #[inline(always)]
+    pub fn allow_extend(&mut self, allow_extend: bool) -> &mut Self {
+        self.instruction.allow_extend = Some(allow_extend);
+        self
+    }
     /// Add an additional account to the instruction.
     #[inline(always)]
     pub fn add_remaining_account(
@@ -780,6 +794,11 @@ impl<'a, 'b> CreateTokenCollateralOfferCpiBuilder<'a, 'b> {
                 .min_fill_amount
                 .clone()
                 .expect("min_fill_amount is not set"),
+            allow_extend: self
+                .instruction
+                .allow_extend
+                .clone()
+                .expect("allow_extend is not set"),
         };
         let instruction = CreateTokenCollateralOfferCpi {
             __program: self.instruction.__program,
@@ -847,6 +866,7 @@ struct CreateTokenCollateralOfferCpiBuilderInstruction<'a, 'b> {
     expiry: Option<u32>,
     allow_partial_fill: Option<bool>,
     min_fill_amount: Option<u64>,
+    allow_extend: Option<bool>,
     /// Additional instruction accounts `(AccountInfo, is_writable, is_signer)`.
     __remaining_accounts: Vec<(&'b solana_account_info::AccountInfo<'a>, bool, bool)>,
 }

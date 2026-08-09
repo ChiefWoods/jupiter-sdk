@@ -116,6 +116,7 @@ export type CreateTokenPrincipalOfferInstructionData = {
   expiry: number;
   allowPartialFill: boolean;
   minFillAmount: bigint;
+  allowExtend: boolean;
 };
 
 export type CreateTokenPrincipalOfferInstructionDataArgs = {
@@ -126,6 +127,7 @@ export type CreateTokenPrincipalOfferInstructionDataArgs = {
   expiry: number;
   allowPartialFill: boolean;
   minFillAmount: number | bigint;
+  allowExtend: boolean;
 };
 
 export function getCreateTokenPrincipalOfferInstructionDataEncoder(): FixedSizeEncoder<CreateTokenPrincipalOfferInstructionDataArgs> {
@@ -139,6 +141,7 @@ export function getCreateTokenPrincipalOfferInstructionDataEncoder(): FixedSizeE
       ["expiry", getU32Encoder()],
       ["allowPartialFill", getBooleanEncoder()],
       ["minFillAmount", getU64Encoder()],
+      ["allowExtend", getBooleanEncoder()],
     ]),
     (value) => ({
       ...value,
@@ -157,6 +160,7 @@ export function getCreateTokenPrincipalOfferInstructionDataDecoder(): FixedSizeD
     ["expiry", getU32Decoder()],
     ["allowPartialFill", getBooleanDecoder()],
     ["minFillAmount", getU64Decoder()],
+    ["allowExtend", getBooleanDecoder()],
   ]);
 }
 
@@ -224,6 +228,7 @@ export type CreateTokenPrincipalOfferAsyncInput<
   expiry: CreateTokenPrincipalOfferInstructionDataArgs["expiry"];
   allowPartialFill: CreateTokenPrincipalOfferInstructionDataArgs["allowPartialFill"];
   minFillAmount: CreateTokenPrincipalOfferInstructionDataArgs["minFillAmount"];
+  allowExtend: CreateTokenPrincipalOfferInstructionDataArgs["allowExtend"];
 };
 
 export async function getCreateTokenPrincipalOfferInstructionAsync<
@@ -387,6 +392,7 @@ export type CreateTokenPrincipalOfferInput<
   expiry: CreateTokenPrincipalOfferInstructionDataArgs["expiry"];
   allowPartialFill: CreateTokenPrincipalOfferInstructionDataArgs["allowPartialFill"];
   minFillAmount: CreateTokenPrincipalOfferInstructionDataArgs["minFillAmount"];
+  allowExtend: CreateTokenPrincipalOfferInstructionDataArgs["allowExtend"];
 };
 
 export function getCreateTokenPrincipalOfferInstruction<

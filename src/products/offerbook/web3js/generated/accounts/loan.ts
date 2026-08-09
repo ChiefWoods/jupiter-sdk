@@ -39,6 +39,8 @@ export type LoanAccountData = {
     updatedAt: bigint;
     bump: number;
     collateralAccountBump: number;
+    extendable: number;
+    extensionCount: number;
     padding4: ReadonlyUint8Array;
     reserved: ReadonlyUint8Array;
 };
@@ -72,6 +74,8 @@ function getLoanAccountDataDecoder(): Decoder<{
     updatedAt: bigint;
     bump: number;
     collateralAccountBump: number;
+    extendable: number;
+    extensionCount: number;
     padding4: ReadonlyUint8Array;
     reserved: ReadonlyUint8Array;
 }> {
@@ -99,7 +103,9 @@ function getLoanAccountDataDecoder(): Decoder<{
         ['updatedAt', getU64Decoder()],
         ['bump', getU8Decoder()],
         ['collateralAccountBump', getU8Decoder()],
-        ['padding4', fixDecoderSize(getBytesDecoder(), 6)],
+        ['extendable', getU8Decoder()],
+        ['extensionCount', getU8Decoder()],
+        ['padding4', fixDecoderSize(getBytesDecoder(), 4)],
         ['reserved', fixDecoderSize(getBytesDecoder(), 48)],
     ]);
 }

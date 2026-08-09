@@ -13,6 +13,8 @@ use borsh::BorshDeserialize;
 use borsh::BorshSerialize;
 use solana_address::Address;
 
+/// Frozen pre-extension offer event schema. Kept in the IDL so historical
+/// events remain parseable; not emitted by current code (see `OfferEventV2`).
 #[derive(BorshSerialize, BorshDeserialize, Clone, Debug, Eq, PartialEq)]
 pub struct OfferEventV1 {
     pub creator: Address,

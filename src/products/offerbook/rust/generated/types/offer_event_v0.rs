@@ -14,7 +14,7 @@ use borsh::BorshSerialize;
 use solana_address::Address;
 
 /// Frozen pre-counter-offers offer event schema. Kept in the IDL so historical
-/// events remain parseable; not emitted by current code (see `OfferEventV1`).
+/// events remain parseable; not emitted by current code (see `OfferEventV2`).
 #[derive(BorshSerialize, BorshDeserialize, Clone, Debug, Eq, PartialEq)]
 pub struct OfferEventV0 {
     pub creator: Address,

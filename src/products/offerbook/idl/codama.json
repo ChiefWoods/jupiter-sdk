@@ -11,6 +11,72 @@
     "accounts": [
       {
         "kind": "accountNode",
+        "name": "baseAssetV1",
+        "data": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "discriminator",
+              "defaultValueStrategy": "omitted",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 1,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "defaultValue": { "kind": "bytesValueNode", "data": "01", "encoding": "base16" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "key",
+              "type": { "kind": "definedTypeLinkNode", "name": "key" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "owner",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "updateAuthority",
+              "type": { "kind": "definedTypeLinkNode", "name": "updateAuthority" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "name",
+              "type": {
+                "kind": "sizePrefixTypeNode",
+                "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "uri",
+              "type": {
+                "kind": "sizePrefixTypeNode",
+                "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+              }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "seq",
+              "type": {
+                "kind": "optionTypeNode",
+                "fixed": false,
+                "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
+                "prefix": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "accountNode",
         "name": "config",
         "size": 536,
         "data": {
@@ -308,10 +374,20 @@
             },
             {
               "kind": "structFieldTypeNode",
+              "name": "extendable",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "extensionCount",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
               "name": "padding4",
               "type": {
                 "kind": "fixedSizeTypeNode",
-                "size": 6,
+                "size": 4,
                 "type": { "kind": "bytesTypeNode" }
               }
             },
@@ -493,10 +569,15 @@
             },
             {
               "kind": "structFieldTypeNode",
+              "name": "allowExtend",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
               "name": "padding6",
               "type": {
                 "kind": "fixedSizeTypeNode",
-                "size": 6,
+                "size": 5,
                 "type": { "kind": "bytesTypeNode" }
               }
             },
@@ -1133,6 +1214,14 @@
           },
           {
             "kind": "instructionArgumentNode",
+            "name": "allowExtend",
+            "type": {
+              "kind": "booleanTypeNode",
+              "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
             "name": "collateral",
             "type": { "kind": "definedTypeLinkNode", "name": "nftCollateralAsset" }
           }
@@ -1271,6 +1360,14 @@
             "kind": "instructionArgumentNode",
             "name": "expiry",
             "type": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "allowExtend",
+            "type": {
+              "kind": "booleanTypeNode",
+              "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
           },
           {
             "kind": "instructionArgumentNode",
@@ -1442,6 +1539,14 @@
             "kind": "instructionArgumentNode",
             "name": "minFillAmount",
             "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "allowExtend",
+            "type": {
+              "kind": "booleanTypeNode",
+              "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
           }
         ],
         "discriminators": [
@@ -1608,6 +1713,14 @@
             "kind": "instructionArgumentNode",
             "name": "minFillAmount",
             "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "allowExtend",
+            "type": {
+              "kind": "booleanTypeNode",
+              "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
           }
         ],
         "discriminators": [
@@ -2308,7 +2421,7 @@
           {
             "kind": "instructionAccountNode",
             "name": "authorizationRules",
-            "isWritable": true,
+            "isWritable": false,
             "isSigner": false,
             "isOptional": true
           },
@@ -2492,7 +2605,7 @@
           {
             "kind": "instructionAccountNode",
             "name": "authorizationRules",
-            "isWritable": true,
+            "isWritable": false,
             "isSigner": false,
             "isOptional": true
           },
@@ -2853,6 +2966,209 @@
             "kind": "instructionArgumentNode",
             "name": "amount",
             "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
+        "name": "extendLoan",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "signer",
+            "isWritable": true,
+            "isSigner": true,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "signerUser",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lender",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lenderUser",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "loan",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "config",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "principalMint",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "signerPrincipalTokenAccount",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "lenderPrincipalEscrow",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "lenderPrincipalEscrow",
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "lenderUser",
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "principalTokenProgram",
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "principalMint",
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "lenderUser",
+                  "value": { "kind": "accountValueNode", "name": "lenderUser" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "principalTokenProgram",
+                  "value": { "kind": "accountValueNode", "name": "principalTokenProgram" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "principalMint",
+                  "value": { "kind": "accountValueNode", "name": "principalMint" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "protocolFeeTokenAccount",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": {
+                "kind": "pdaNode",
+                "name": "protocolFeeTokenAccount",
+                "programId": "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL",
+                "seeds": [
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "config",
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "principalTokenProgram",
+                    "type": { "kind": "publicKeyTypeNode" }
+                  },
+                  {
+                    "kind": "variablePdaSeedNode",
+                    "name": "principalMint",
+                    "type": { "kind": "publicKeyTypeNode" }
+                  }
+                ]
+              },
+              "seeds": [
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "config",
+                  "value": { "kind": "accountValueNode", "name": "config" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "principalTokenProgram",
+                  "value": { "kind": "accountValueNode", "name": "principalTokenProgram" }
+                },
+                {
+                  "kind": "pdaSeedValueNode",
+                  "name": "principalMint",
+                  "value": { "kind": "accountValueNode", "name": "principalMint" }
+                }
+              ]
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "principalTokenProgram",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "eventAuthority",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
+              "seeds": []
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "program",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "02d0debe6d94f775",
+              "encoding": "base16"
+            }
           }
         ],
         "discriminators": [
@@ -4025,6 +4341,70 @@
       },
       {
         "kind": "instructionNode",
+        "name": "setLoanExtendable",
+        "optionalAccountStrategy": "programId",
+        "accounts": [
+          {
+            "kind": "instructionAccountNode",
+            "name": "signer",
+            "isWritable": false,
+            "isSigner": true,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "loan",
+            "isWritable": true,
+            "isSigner": false,
+            "isOptional": false
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "eventAuthority",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false,
+            "defaultValue": {
+              "kind": "pdaValueNode",
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
+              "seeds": []
+            }
+          },
+          {
+            "kind": "instructionAccountNode",
+            "name": "program",
+            "isWritable": false,
+            "isSigner": false,
+            "isOptional": false
+          }
+        ],
+        "arguments": [
+          {
+            "kind": "instructionArgumentNode",
+            "name": "discriminator",
+            "defaultValueStrategy": "omitted",
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
+            "defaultValue": {
+              "kind": "bytesValueNode",
+              "data": "82a889941d11efe4",
+              "encoding": "base16"
+            }
+          },
+          {
+            "kind": "instructionArgumentNode",
+            "name": "allow",
+            "type": {
+              "kind": "booleanTypeNode",
+              "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          }
+        ],
+        "discriminators": [
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
+        ]
+      },
+      {
+        "kind": "instructionNode",
         "name": "updateConfig",
         "optionalAccountStrategy": "programId",
         "accounts": [
@@ -4480,7 +4860,27 @@
       },
       {
         "kind": "definedTypeNode",
+        "name": "key",
+        "type": {
+          "kind": "enumTypeNode",
+          "variants": [
+            { "kind": "enumEmptyVariantTypeNode", "name": "uninitialized" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "assetV1" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "hashedAssetV1" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "pluginHeaderV1" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "pluginRegistryV1" },
+            { "kind": "enumEmptyVariantTypeNode", "name": "collectionV1" }
+          ],
+          "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+        }
+      },
+      {
+        "kind": "definedTypeNode",
         "name": "loanEventV0",
+        "docs": [
+          "Frozen pre-extension loan event schema. Kept in the IDL so historical events",
+          "remain parseable; not emitted by current code (see `LoanEventV1`)."
+        ],
         "type": {
           "kind": "structTypeNode",
           "fields": [
@@ -4578,6 +4978,120 @@
               "kind": "structFieldTypeNode",
               "name": "loanType",
               "type": { "kind": "definedTypeLinkNode", "name": "loanType" }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "loanEventV1",
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "lender",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "borrower",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "creator",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "offer",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "status",
+              "type": { "kind": "definedTypeLinkNode", "name": "loanStatus" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "fillIndex",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "principal",
+              "type": { "kind": "definedTypeLinkNode", "name": "eventAsset" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "collateral",
+              "type": { "kind": "definedTypeLinkNode", "name": "eventAsset" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "apy",
+              "type": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "duration",
+              "type": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "principalAmount",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "collateralAmount",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "interest",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "createdAt",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "expiredAt",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "updatedAt",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "bump",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "collateralAccountBump",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "loanType",
+              "type": { "kind": "definedTypeLinkNode", "name": "loanType" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "extendable",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "extensionCount",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
             }
           ]
         }
@@ -4782,7 +5296,7 @@
         "name": "offerEventV0",
         "docs": [
           "Frozen pre-counter-offers offer event schema. Kept in the IDL so historical",
-          "events remain parseable; not emitted by current code (see `OfferEventV1`)."
+          "events remain parseable; not emitted by current code (see `OfferEventV2`)."
         ],
         "type": {
           "kind": "structTypeNode",
@@ -4888,6 +5402,10 @@
       {
         "kind": "definedTypeNode",
         "name": "offerEventV1",
+        "docs": [
+          "Frozen pre-extension offer event schema. Kept in the IDL so historical",
+          "events remain parseable; not emitted by current code (see `OfferEventV2`)."
+        ],
         "type": {
           "kind": "structTypeNode",
           "fields": [
@@ -4996,6 +5514,120 @@
       },
       {
         "kind": "definedTypeNode",
+        "name": "offerEventV2",
+        "type": {
+          "kind": "structTypeNode",
+          "fields": [
+            {
+              "kind": "structFieldTypeNode",
+              "name": "creator",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "side",
+              "type": { "kind": "definedTypeLinkNode", "name": "offerSide" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "status",
+              "type": { "kind": "definedTypeLinkNode", "name": "offerStatus" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "principal",
+              "type": { "kind": "definedTypeLinkNode", "name": "eventAsset" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "collateral",
+              "type": { "kind": "definedTypeLinkNode", "name": "eventAsset" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "filter",
+              "type": { "kind": "definedTypeLinkNode", "name": "eventAssetFilter" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "principalAmount",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "remainingPrincipal",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "collateralAmount",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "remainingCollateral",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "apy",
+              "type": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "duration",
+              "type": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "createdAt",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "expiredAt",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "updatedAt",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "minFillAmount",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "fillCounter",
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "allowPartialFill",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "bump",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "counteredOffer",
+              "type": { "kind": "publicKeyTypeNode" }
+            },
+            {
+              "kind": "structFieldTypeNode",
+              "name": "allowExtend",
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+            }
+          ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
         "name": "offerSide",
         "type": {
           "kind": "enumTypeNode",
@@ -5086,6 +5718,27 @@
               }
             }
           ]
+        }
+      },
+      {
+        "kind": "definedTypeNode",
+        "name": "updateAuthority",
+        "type": {
+          "kind": "enumTypeNode",
+          "variants": [
+            { "kind": "enumEmptyVariantTypeNode", "name": "none" },
+            {
+              "kind": "enumTupleVariantTypeNode",
+              "name": "address",
+              "tuple": { "kind": "tupleTypeNode", "items": [{ "kind": "publicKeyTypeNode" }] }
+            },
+            {
+              "kind": "enumTupleVariantTypeNode",
+              "name": "collection",
+              "tuple": { "kind": "tupleTypeNode", "items": [{ "kind": "publicKeyTypeNode" }] }
+            }
+          ],
+          "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
         }
       },
       {
@@ -5610,6 +6263,62 @@
       },
       {
         "kind": "eventNode",
+        "name": "loanCreatedV1",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "loan",
+                "type": { "kind": "definedTypeLinkNode", "name": "loanEventV1" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "pubkey",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "35cc1485dc47d680",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "35cc1485dc47d680",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
         "name": "loanDefaulted",
         "data": {
           "kind": "hiddenPrefixTypeNode",
@@ -5666,6 +6375,179 @@
       },
       {
         "kind": "eventNode",
+        "name": "loanDefaultedV1",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "loan",
+                "type": { "kind": "definedTypeLinkNode", "name": "loanEventV1" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "pubkey",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "e8a04d24e83c0e49",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "e8a04d24e83c0e49",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "loanExtendabilityUpdated",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "loan",
+                "type": { "kind": "publicKeyTypeNode" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "extendable",
+                "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "timestamp",
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "84bdf415bf27585e",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "84bdf415bf27585e",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "loanExtended",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "loan",
+                "type": { "kind": "definedTypeLinkNode", "name": "loanEventV1" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "pubkey",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "9212be1f32118501",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "9212be1f32118501",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
         "name": "loanRepaid",
         "data": {
           "kind": "hiddenPrefixTypeNode",
@@ -5714,6 +6596,62 @@
               "value": {
                 "kind": "bytesValueNode",
                 "data": "cab7583cd3368ef3",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "loanRepaidV1",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "loan",
+                "type": { "kind": "definedTypeLinkNode", "name": "loanEventV1" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "pubkey",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "4476861819fac7bb",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "4476861819fac7bb",
                 "encoding": "base16"
               }
             }
@@ -5834,6 +6772,62 @@
       },
       {
         "kind": "eventNode",
+        "name": "offerCancelledV2",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "offer",
+                "type": { "kind": "definedTypeLinkNode", "name": "offerEventV2" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "pubkey",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "2737ba81b1f17579",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "2737ba81b1f17579",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
         "name": "offerCreated",
         "data": {
           "kind": "hiddenPrefixTypeNode",
@@ -5946,6 +6940,62 @@
       },
       {
         "kind": "eventNode",
+        "name": "offerCreatedV2",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "offer",
+                "type": { "kind": "definedTypeLinkNode", "name": "offerEventV2" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "pubkey",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "6be43a940bebe8b5",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "6be43a940bebe8b5",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
         "name": "offerFilled",
         "data": {
           "kind": "hiddenPrefixTypeNode",
@@ -6050,6 +7100,62 @@
               "value": {
                 "kind": "bytesValueNode",
                 "data": "3581f8908a5bd19b",
+                "encoding": "base16"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "kind": "eventNode",
+        "name": "offerFilledV2",
+        "data": {
+          "kind": "hiddenPrefixTypeNode",
+          "type": {
+            "kind": "structTypeNode",
+            "fields": [
+              {
+                "kind": "structFieldTypeNode",
+                "name": "offer",
+                "type": { "kind": "definedTypeLinkNode", "name": "offerEventV2" }
+              },
+              {
+                "kind": "structFieldTypeNode",
+                "name": "pubkey",
+                "type": { "kind": "publicKeyTypeNode" }
+              }
+            ]
+          },
+          "prefix": [
+            {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "8c4f426c51ba421d",
+                "encoding": "base16"
+              }
+            }
+          ]
+        },
+        "discriminators": [
+          {
+            "kind": "constantDiscriminatorNode",
+            "offset": 0,
+            "constant": {
+              "kind": "constantValueNode",
+              "type": {
+                "kind": "fixedSizeTypeNode",
+                "size": 8,
+                "type": { "kind": "bytesTypeNode" }
+              },
+              "value": {
+                "kind": "bytesValueNode",
+                "data": "8c4f426c51ba421d",
                 "encoding": "base16"
               }
             }
@@ -6270,15 +7376,15 @@
         "kind": "errorNode",
         "name": "duplicateResources",
         "code": 6000,
-        "message": "Duplicate Resources",
-        "docs": ["DuplicateResources: Duplicate Resources"]
+        "message": "deprecated",
+        "docs": ["DuplicateResources: deprecated"]
       },
       {
         "kind": "errorNode",
         "name": "adminArrayFull",
         "code": 6001,
-        "message": "Admin Array Full",
-        "docs": ["AdminArrayFull: Admin Array Full"]
+        "message": "deprecated",
+        "docs": ["AdminArrayFull: deprecated"]
       },
       {
         "kind": "errorNode",
@@ -6375,8 +7481,8 @@
         "kind": "errorNode",
         "name": "invalidOfferOrigin",
         "code": 6015,
-        "message": "Invalid Offer Origin",
-        "docs": ["InvalidOfferOrigin: Invalid Offer Origin"]
+        "message": "deprecated",
+        "docs": ["InvalidOfferOrigin: deprecated"]
       },
       {
         "kind": "errorNode",
@@ -6433,6 +7539,20 @@
         "code": 6023,
         "message": "Missing Loan Vault",
         "docs": ["MissingLoanVault: Missing Loan Vault"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "notExtendable",
+        "code": 6024,
+        "message": "Loan Not Extendable",
+        "docs": ["NotExtendable: Loan Not Extendable"]
+      },
+      {
+        "kind": "errorNode",
+        "name": "loanDue",
+        "code": 6025,
+        "message": "Loan is due",
+        "docs": ["LoanDue: Loan is due"]
       }
     ],
     "constants": []

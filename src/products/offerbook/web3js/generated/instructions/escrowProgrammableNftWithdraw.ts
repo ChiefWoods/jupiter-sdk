@@ -112,7 +112,7 @@ export async function createEscrowProgrammableNftWithdrawInstruction(
         { pubkey: accounts.userEscrowTokenAccount, isSigner: false, isWritable: true },
         { pubkey: accounts.escrowTokenRecord, isSigner: false, isWritable: true },
         accounts.authorizationRules
-            ? { pubkey: accounts.authorizationRules, isSigner: false, isWritable: true }
+            ? { pubkey: accounts.authorizationRules, isSigner: false, isWritable: false }
             : { pubkey: programId, isSigner: false, isWritable: false },
         { pubkey: accounts.metadataProgram, isSigner: false, isWritable: false },
         { pubkey: accounts.instructions, isSigner: false, isWritable: false },

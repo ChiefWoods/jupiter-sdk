@@ -87,6 +87,8 @@ export type Loan = {
   updatedAt: bigint;
   bump: number;
   collateralAccountBump: number;
+  extendable: number;
+  extensionCount: number;
   padding4: ReadonlyUint8Array;
   reserved: ReadonlyUint8Array;
 };
@@ -114,6 +116,8 @@ export type LoanArgs = {
   updatedAt: number | bigint;
   bump: number;
   collateralAccountBump: number;
+  extendable: number;
+  extensionCount: number;
   padding4: ReadonlyUint8Array;
   reserved: ReadonlyUint8Array;
 };
@@ -145,7 +149,9 @@ export function getLoanEncoder(): Encoder<LoanArgs> {
       ["updatedAt", getU64Encoder()],
       ["bump", getU8Encoder()],
       ["collateralAccountBump", getU8Encoder()],
-      ["padding4", fixEncoderSize(getBytesEncoder(), 6)],
+      ["extendable", getU8Encoder()],
+      ["extensionCount", getU8Encoder()],
+      ["padding4", fixEncoderSize(getBytesEncoder(), 4)],
       ["reserved", fixEncoderSize(getBytesEncoder(), 48)],
     ]),
     (value) => ({ ...value, discriminator: LOAN_DISCRIMINATOR }),
@@ -178,7 +184,9 @@ export function getLoanDecoder(): Decoder<Loan> {
     ["updatedAt", getU64Decoder()],
     ["bump", getU8Decoder()],
     ["collateralAccountBump", getU8Decoder()],
-    ["padding4", fixDecoderSize(getBytesDecoder(), 6)],
+    ["extendable", getU8Decoder()],
+    ["extensionCount", getU8Decoder()],
+    ["padding4", fixDecoderSize(getBytesDecoder(), 4)],
     ["reserved", fixDecoderSize(getBytesDecoder(), 48)],
   ]);
 }

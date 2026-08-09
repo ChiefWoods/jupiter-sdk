@@ -10,6 +10,8 @@ import {
   combineCodec,
   fixDecoderSize,
   fixEncoderSize,
+  getBooleanDecoder,
+  getBooleanEncoder,
   getBytesDecoder,
   getBytesEncoder,
   getStructDecoder,
@@ -113,6 +115,7 @@ export type CreateNftCollateralOfferInstructionData = {
   apy: number;
   duration: number;
   expiry: number;
+  allowExtend: boolean;
   collateral: NftCollateralAsset;
 };
 
@@ -121,6 +124,7 @@ export type CreateNftCollateralOfferInstructionDataArgs = {
   apy: number;
   duration: number;
   expiry: number;
+  allowExtend: boolean;
   collateral: NftCollateralAssetArgs;
 };
 
@@ -132,6 +136,7 @@ export function getCreateNftCollateralOfferInstructionDataEncoder(): Encoder<Cre
       ["apy", getU32Encoder()],
       ["duration", getU32Encoder()],
       ["expiry", getU32Encoder()],
+      ["allowExtend", getBooleanEncoder()],
       ["collateral", getNftCollateralAssetEncoder()],
     ]),
     (value) => ({
@@ -148,6 +153,7 @@ export function getCreateNftCollateralOfferInstructionDataDecoder(): Decoder<Cre
     ["apy", getU32Decoder()],
     ["duration", getU32Decoder()],
     ["expiry", getU32Decoder()],
+    ["allowExtend", getBooleanDecoder()],
     ["collateral", getNftCollateralAssetDecoder()],
   ]);
 }
@@ -206,6 +212,7 @@ export type CreateNftCollateralOfferAsyncInput<
   apy: CreateNftCollateralOfferInstructionDataArgs["apy"];
   duration: CreateNftCollateralOfferInstructionDataArgs["duration"];
   expiry: CreateNftCollateralOfferInstructionDataArgs["expiry"];
+  allowExtend: CreateNftCollateralOfferInstructionDataArgs["allowExtend"];
   collateral: CreateNftCollateralOfferInstructionDataArgs["collateral"];
 };
 
@@ -354,6 +361,7 @@ export type CreateNftCollateralOfferInput<
   apy: CreateNftCollateralOfferInstructionDataArgs["apy"];
   duration: CreateNftCollateralOfferInstructionDataArgs["duration"];
   expiry: CreateNftCollateralOfferInstructionDataArgs["expiry"];
+  allowExtend: CreateNftCollateralOfferInstructionDataArgs["allowExtend"];
   collateral: CreateNftCollateralOfferInstructionDataArgs["collateral"];
 };
 

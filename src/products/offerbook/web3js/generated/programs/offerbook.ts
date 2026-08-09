@@ -1,4 +1,5 @@
 import { Address, TransactionInstruction } from '@solana/web3.js';
+import { BASE_ASSET_V1_ACCOUNT_DISCRIMINATOR } from '../accounts/baseAssetV1';
 import {
     CANCEL_OFFER_INSTRUCTION_DISCRIMINATOR,
     parseCancelOfferInstruction,
@@ -86,6 +87,11 @@ import {
     type ParsedEscrowTokenWithdrawInstruction,
 } from '../instructions/escrowTokenWithdraw';
 import {
+    EXTEND_LOAN_INSTRUCTION_DISCRIMINATOR,
+    parseExtendLoanInstruction,
+    type ParsedExtendLoanInstruction,
+} from '../instructions/extendLoan';
+import {
     FILL_NON_FUNGIBLE_COLLATERAL_OFFER_INSTRUCTION_DISCRIMINATOR,
     parseFillNonFungibleCollateralOfferInstruction,
     type ParsedFillNonFungibleCollateralOfferInstruction,
@@ -119,6 +125,11 @@ import {
     type ParsedRepayTokenLoanInstruction,
 } from '../instructions/repayTokenLoan';
 import {
+    SET_LOAN_EXTENDABLE_INSTRUCTION_DISCRIMINATOR,
+    parseSetLoanExtendableInstruction,
+    type ParsedSetLoanExtendableInstruction,
+} from '../instructions/setLoanExtendable';
+import {
     UPDATE_CONFIG_INSTRUCTION_DISCRIMINATOR,
     parseUpdateConfigInstruction,
     type ParsedUpdateConfigInstruction,
@@ -138,6 +149,7 @@ export function getOfferbookProgram(programId: Address = OFFERBOOK_PROGRAM_ID): 
 }
 
 export enum OfferbookAccount {
+    BaseAssetV1,
     Config,
     Loan,
     Offer,
@@ -146,6 +158,8 @@ export enum OfferbookAccount {
 
 export function identifyOfferbookAccount(account: { data: Uint8Array } | Uint8Array): OfferbookAccount {
     const data = account instanceof Uint8Array ? account : account.data;
+    if (BASE_ASSET_V1_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte))
+        return OfferbookAccount.BaseAssetV1;
     if (CONFIG_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) return OfferbookAccount.Config;
     if (LOAN_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) return OfferbookAccount.Loan;
     if (OFFER_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) return OfferbookAccount.Offer;
@@ -171,6 +185,7 @@ export enum OfferbookInstruction {
     EscrowProgrammableNftWithdraw,
     EscrowTokenDeposit,
     EscrowTokenWithdraw,
+    ExtendLoan,
     FillNonFungibleCollateralOffer,
     FillNonFungiblePrincipalOffer,
     FillTokenCollateralOffer,
@@ -178,6 +193,7 @@ export enum OfferbookInstruction {
     Init,
     RepayNonFungibleLoan,
     RepayTokenLoan,
+    SetLoanExtendable,
     UpdateConfig,
 }
 
@@ -217,6 +233,8 @@ export function identifyOfferbookInstruction(instruction: { data: Uint8Array } |
         return OfferbookInstruction.EscrowTokenDeposit;
     if (ESCROW_TOKEN_WITHDRAW_INSTRUCTION_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte))
         return OfferbookInstruction.EscrowTokenWithdraw;
+    if (EXTEND_LOAN_INSTRUCTION_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte))
+        return OfferbookInstruction.ExtendLoan;
     if (FILL_NON_FUNGIBLE_COLLATERAL_OFFER_INSTRUCTION_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte))
         return OfferbookInstruction.FillNonFungibleCollateralOffer;
     if (FILL_NON_FUNGIBLE_PRINCIPAL_OFFER_INSTRUCTION_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte))
@@ -231,6 +249,8 @@ export function identifyOfferbookInstruction(instruction: { data: Uint8Array } |
         return OfferbookInstruction.RepayNonFungibleLoan;
     if (REPAY_TOKEN_LOAN_INSTRUCTION_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte))
         return OfferbookInstruction.RepayTokenLoan;
+    if (SET_LOAN_EXTENDABLE_INSTRUCTION_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte))
+        return OfferbookInstruction.SetLoanExtendable;
     if (UPDATE_CONFIG_INSTRUCTION_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte))
         return OfferbookInstruction.UpdateConfig;
     throw new Error('Failed to identify Offerbook instruction');
@@ -260,6 +280,7 @@ export type ParsedOfferbookInstruction =
       } & ParsedEscrowProgrammableNftWithdrawInstruction)
     | ({ instructionType: OfferbookInstruction.EscrowTokenDeposit } & ParsedEscrowTokenDepositInstruction)
     | ({ instructionType: OfferbookInstruction.EscrowTokenWithdraw } & ParsedEscrowTokenWithdrawInstruction)
+    | ({ instructionType: OfferbookInstruction.ExtendLoan } & ParsedExtendLoanInstruction)
     | ({
           instructionType: OfferbookInstruction.FillNonFungibleCollateralOffer;
       } & ParsedFillNonFungibleCollateralOfferInstruction)
@@ -271,6 +292,7 @@ export type ParsedOfferbookInstruction =
     | ({ instructionType: OfferbookInstruction.Init } & ParsedInitInstruction)
     | ({ instructionType: OfferbookInstruction.RepayNonFungibleLoan } & ParsedRepayNonFungibleLoanInstruction)
     | ({ instructionType: OfferbookInstruction.RepayTokenLoan } & ParsedRepayTokenLoanInstruction)
+    | ({ instructionType: OfferbookInstruction.SetLoanExtendable } & ParsedSetLoanExtendableInstruction)
     | ({ instructionType: OfferbookInstruction.UpdateConfig } & ParsedUpdateConfigInstruction);
 
 export function parseOfferbookInstruction(instruction: TransactionInstruction): ParsedOfferbookInstruction {
@@ -361,6 +383,11 @@ export function parseOfferbookInstruction(instruction: TransactionInstruction): 
                 instructionType,
                 ...parseEscrowTokenWithdrawInstruction(instruction),
             };
+        case OfferbookInstruction.ExtendLoan:
+            return {
+                instructionType,
+                ...parseExtendLoanInstruction(instruction),
+            };
         case OfferbookInstruction.FillNonFungibleCollateralOffer:
             return {
                 instructionType,
@@ -395,6 +422,11 @@ export function parseOfferbookInstruction(instruction: TransactionInstruction): 
             return {
                 instructionType,
                 ...parseRepayTokenLoanInstruction(instruction),
+            };
+        case OfferbookInstruction.SetLoanExtendable:
+            return {
+                instructionType,
+                ...parseSetLoanExtendableInstruction(instruction),
             };
         case OfferbookInstruction.UpdateConfig:
             return {

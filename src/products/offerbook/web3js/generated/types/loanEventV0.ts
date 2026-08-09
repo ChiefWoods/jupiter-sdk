@@ -23,6 +23,10 @@ import { getEventAssetDecoder, getEventAssetEncoder, type EventAsset, type Event
 import { getLoanStatusDecoder, getLoanStatusEncoder, type LoanStatus, type LoanStatusArgs } from '../types/loanStatus';
 import { getLoanTypeDecoder, getLoanTypeEncoder, type LoanType, type LoanTypeArgs } from '../types/loanType';
 
+/**
+ * Frozen pre-extension loan event schema. Kept in the IDL so historical events
+ * remain parseable; not emitted by current code (see `LoanEventV1`).
+ */
 export type LoanEventV0 = {
     lender: Address;
     borrower: Address;

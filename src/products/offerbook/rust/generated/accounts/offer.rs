@@ -40,7 +40,8 @@ pub struct Offer {
     pub fill_counter: u64,
     pub allow_partial_fill: u8,
     pub bump: u8,
-    pub padding6: [u8; 6],
+    pub allow_extend: u8,
+    pub padding6: [u8; 5],
     pub countered_offer: Address,
     pub reserved: [u8; 232],
 }

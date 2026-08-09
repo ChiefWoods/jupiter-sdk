@@ -116,6 +116,7 @@ export type CreateTokenCollateralOfferInstructionData = {
   expiry: number;
   allowPartialFill: boolean;
   minFillAmount: bigint;
+  allowExtend: boolean;
 };
 
 export type CreateTokenCollateralOfferInstructionDataArgs = {
@@ -126,6 +127,7 @@ export type CreateTokenCollateralOfferInstructionDataArgs = {
   expiry: number;
   allowPartialFill: boolean;
   minFillAmount: number | bigint;
+  allowExtend: boolean;
 };
 
 export function getCreateTokenCollateralOfferInstructionDataEncoder(): FixedSizeEncoder<CreateTokenCollateralOfferInstructionDataArgs> {
@@ -139,6 +141,7 @@ export function getCreateTokenCollateralOfferInstructionDataEncoder(): FixedSize
       ["expiry", getU32Encoder()],
       ["allowPartialFill", getBooleanEncoder()],
       ["minFillAmount", getU64Encoder()],
+      ["allowExtend", getBooleanEncoder()],
     ]),
     (value) => ({
       ...value,
@@ -157,6 +160,7 @@ export function getCreateTokenCollateralOfferInstructionDataDecoder(): FixedSize
     ["expiry", getU32Decoder()],
     ["allowPartialFill", getBooleanDecoder()],
     ["minFillAmount", getU64Decoder()],
+    ["allowExtend", getBooleanDecoder()],
   ]);
 }
 
@@ -224,6 +228,7 @@ export type CreateTokenCollateralOfferAsyncInput<
   expiry: CreateTokenCollateralOfferInstructionDataArgs["expiry"];
   allowPartialFill: CreateTokenCollateralOfferInstructionDataArgs["allowPartialFill"];
   minFillAmount: CreateTokenCollateralOfferInstructionDataArgs["minFillAmount"];
+  allowExtend: CreateTokenCollateralOfferInstructionDataArgs["allowExtend"];
 };
 
 export async function getCreateTokenCollateralOfferInstructionAsync<
@@ -387,6 +392,7 @@ export type CreateTokenCollateralOfferInput<
   expiry: CreateTokenCollateralOfferInstructionDataArgs["expiry"];
   allowPartialFill: CreateTokenCollateralOfferInstructionDataArgs["allowPartialFill"];
   minFillAmount: CreateTokenCollateralOfferInstructionDataArgs["minFillAmount"];
+  allowExtend: CreateTokenCollateralOfferInstructionDataArgs["allowExtend"];
 };
 
 export function getCreateTokenCollateralOfferInstruction<

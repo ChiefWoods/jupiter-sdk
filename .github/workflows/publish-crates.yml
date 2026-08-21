@@ -65,6 +65,9 @@ jobs:
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
+      - name: Cargo check (workspace)
+        run: cargo check --workspace --all-features --locked
+
       - name: Authenticate to crates.io
         id: auth
         uses: rust-lang/crates-io-auth-action@v1

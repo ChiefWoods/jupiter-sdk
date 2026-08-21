@@ -77,4 +77,20 @@ jobs:
       - name: Create GitHub release
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release create "${{ steps.meta.outputs.git_tag }}" --title "${{ steps.meta.outputs.git_tag }}"
+          CRATE: ${{ steps.meta.outputs.crate }}
+          TAG: ${{ steps.meta.outputs.git_tag }}
+        run: |
+          set -euo pipefail
+          git fetch --tags --force origin
+          previous="$(
+            git tag -l "${CRATE}@v*" --sort=-v:refname \
+              | awk -v tag="$TAG" '$0 != tag' \
+              | head -n1
+          )"
+
+          args=(--title "$TAG" --generate-notes)
+          if [[ -n "$previous" ]]; then
+            args+=(--notes-start-tag "$previous")
+          fi
+
+          gh release create "$TAG" "${args[@]}"

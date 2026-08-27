@@ -47,7 +47,7 @@ function getLogInitDexDecoder() {
 
 export function parseLogInitDex(data: Uint8Array): LogInitDex {
     if (!LOG_INIT_DEX_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGINITDEX discriminator mismatch');
+        throw new Error('LogInitDex discriminator mismatch');
     }
     const decoded = getLogInitDexDecoder().decode(data);
     return decoded as LogInitDex;

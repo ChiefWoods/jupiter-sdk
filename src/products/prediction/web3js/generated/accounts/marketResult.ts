@@ -63,7 +63,7 @@ function getMarketResultAccountDataDecoder(): Decoder<{
 
 export function deserializeMarketResultAccount(data: Uint8Array): MarketResultAccountData {
     if (!MARKET_RESULT_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('MARKETRESULTACCOUNT discriminator mismatch');
+        throw new Error('MarketResultAccount discriminator mismatch');
     }
     const deserialized = getMarketResultAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

@@ -82,7 +82,7 @@ function getVaultConfigAccountDataDecoder(): Decoder<{
 
 export function deserializeVaultConfigAccount(data: Uint8Array): VaultConfigAccountData {
     if (!VAULT_CONFIG_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('VAULTCONFIGACCOUNT discriminator mismatch');
+        throw new Error('VaultConfigAccount discriminator mismatch');
     }
     const deserialized = getVaultConfigAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

@@ -46,7 +46,7 @@ function getRepayToCustodyDecoder() {
 
 export function parseRepayToCustody(data: Uint8Array): RepayToCustody {
     if (!REPAY_TO_CUSTODY_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('REPAYTOCUSTODY discriminator mismatch');
+        throw new Error('RepayToCustody discriminator mismatch');
     }
     const decoded = getRepayToCustodyDecoder().decode(data);
     return decoded as RepayToCustody;

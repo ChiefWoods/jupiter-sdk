@@ -64,7 +64,7 @@ function getChainlinkDataStreamsCacheAccountDataDecoder(): Decoder<{
 
 export function deserializeChainlinkDataStreamsCacheAccount(data: Uint8Array): ChainlinkDataStreamsCacheAccountData {
     if (!CHAINLINK_DATA_STREAMS_CACHE_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('CHAINLINKDATASTREAMSCACHEACCOUNT discriminator mismatch');
+        throw new Error('ChainlinkDataStreamsCacheAccount discriminator mismatch');
     }
     const deserialized = getChainlinkDataStreamsCacheAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

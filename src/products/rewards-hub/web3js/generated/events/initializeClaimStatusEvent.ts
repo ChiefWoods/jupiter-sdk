@@ -39,7 +39,7 @@ function getInitializeClaimStatusDecoder() {
 
 export function parseInitializeClaimStatus(data: Uint8Array): InitializeClaimStatus {
     if (!INITIALIZE_CLAIM_STATUS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('INITIALIZECLAIMSTATUS discriminator mismatch');
+        throw new Error('InitializeClaimStatus discriminator mismatch');
     }
     const decoded = getInitializeClaimStatusDecoder().decode(data);
     return decoded as InitializeClaimStatus;

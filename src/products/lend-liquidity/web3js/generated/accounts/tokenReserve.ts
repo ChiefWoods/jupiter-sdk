@@ -81,7 +81,7 @@ function getTokenReserveAccountDataDecoder(): Decoder<{
 
 export function deserializeTokenReserveAccount(data: Uint8Array): TokenReserveAccountData {
     if (!TOKEN_RESERVE_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('TOKENRESERVEACCOUNT discriminator mismatch');
+        throw new Error('TokenReserveAccount discriminator mismatch');
     }
     const deserialized = getTokenReserveAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

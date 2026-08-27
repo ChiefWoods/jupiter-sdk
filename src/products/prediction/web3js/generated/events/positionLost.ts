@@ -65,7 +65,7 @@ function getPositionLostDecoder() {
 
 export function parsePositionLost(data: Uint8Array): PositionLost {
     if (!POSITION_LOST_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('POSITIONLOST discriminator mismatch');
+        throw new Error('PositionLost discriminator mismatch');
     }
     const decoded = getPositionLostDecoder().decode(data);
     return decoded as PositionLost;

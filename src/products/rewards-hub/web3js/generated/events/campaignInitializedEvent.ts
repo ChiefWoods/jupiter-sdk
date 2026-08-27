@@ -54,7 +54,7 @@ function getCampaignInitializedDecoder() {
 
 export function parseCampaignInitialized(data: Uint8Array): CampaignInitialized {
     if (!CAMPAIGN_INITIALIZED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('CAMPAIGNINITIALIZED discriminator mismatch');
+        throw new Error('CampaignInitialized discriminator mismatch');
     }
     const decoded = getCampaignInitializedDecoder().decode(data);
     return decoded as CampaignInitialized;

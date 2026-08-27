@@ -50,7 +50,7 @@ function getTicketAcceptedDecoder() {
 
 export function parseTicketAccepted(data: Uint8Array): TicketAccepted {
     if (!TICKET_ACCEPTED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('TICKETACCEPTED discriminator mismatch');
+        throw new Error('TicketAccepted discriminator mismatch');
     }
     const decoded = getTicketAcceptedDecoder().decode(data);
     return decoded as TicketAccepted;

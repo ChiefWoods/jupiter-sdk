@@ -86,7 +86,7 @@ function getDexPositionAccountDataDecoder(): Decoder<{
 
 export function deserializeDexPositionAccount(data: Uint8Array): DexPositionAccountData {
     if (!DEX_POSITION_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('DEXPOSITIONACCOUNT discriminator mismatch');
+        throw new Error('DexPositionAccount discriminator mismatch');
     }
     const deserialized = getDexPositionAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

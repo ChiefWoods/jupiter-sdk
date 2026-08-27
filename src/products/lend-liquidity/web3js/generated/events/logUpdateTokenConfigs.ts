@@ -17,7 +17,7 @@ function getLogUpdateTokenConfigsDecoder() {
 
 export function parseLogUpdateTokenConfigs(data: Uint8Array): LogUpdateTokenConfigs {
     if (!LOG_UPDATE_TOKEN_CONFIGS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATETOKENCONFIGS discriminator mismatch');
+        throw new Error('LogUpdateTokenConfigs discriminator mismatch');
     }
     const decoded = getLogUpdateTokenConfigsDecoder().decode(data);
     return decoded as LogUpdateTokenConfigs;

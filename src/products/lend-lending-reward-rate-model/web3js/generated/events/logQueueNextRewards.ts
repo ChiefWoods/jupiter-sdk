@@ -30,7 +30,7 @@ function getLogQueueNextRewardsDecoder() {
 
 export function parseLogQueueNextRewards(data: Uint8Array): LogQueueNextRewards {
     if (!LOG_QUEUE_NEXT_REWARDS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGQUEUENEXTREWARDS discriminator mismatch');
+        throw new Error('LogQueueNextRewards discriminator mismatch');
     }
     const decoded = getLogQueueNextRewardsDecoder().decode(data);
     return decoded as LogQueueNextRewards;

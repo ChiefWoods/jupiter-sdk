@@ -36,7 +36,7 @@ function getEventCancelVestingEscrowV3Decoder() {
 
 export function parseEventCancelVestingEscrowV3(data: Uint8Array): EventCancelVestingEscrowV3 {
     if (!EVENT_CANCEL_VESTING_ESCROW_V3_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('EVENTCANCELVESTINGESCROWV3 discriminator mismatch');
+        throw new Error('EventCancelVestingEscrowV3 discriminator mismatch');
     }
     const decoded = getEventCancelVestingEscrowV3Decoder().decode(data);
     return decoded as EventCancelVestingEscrowV3;

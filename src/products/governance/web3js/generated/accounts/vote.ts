@@ -66,7 +66,7 @@ function getVoteAccountDataDecoder(): Decoder<{
 
 export function deserializeVoteAccount(data: Uint8Array): VoteAccountData {
     if (!VOTE_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('VOTEACCOUNT discriminator mismatch');
+        throw new Error('VoteAccount discriminator mismatch');
     }
     const deserialized = getVoteAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

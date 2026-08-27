@@ -49,7 +49,7 @@ function getEventCreateVestingEscrowDecoder() {
 
 export function parseEventCreateVestingEscrow(data: Uint8Array): EventCreateVestingEscrow {
     if (!EVENT_CREATE_VESTING_ESCROW_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('EVENTCREATEVESTINGESCROW discriminator mismatch');
+        throw new Error('EventCreateVestingEscrow discriminator mismatch');
     }
     const decoded = getEventCreateVestingEscrowDecoder().decode(data);
     return decoded as EventCreateVestingEscrow;

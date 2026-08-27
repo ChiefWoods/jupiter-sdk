@@ -84,7 +84,7 @@ function getVaultStateAccountDataDecoder(): Decoder<{
 
 export function deserializeVaultStateAccount(data: Uint8Array): VaultStateAccountData {
     if (!VAULT_STATE_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('VAULTSTATEACCOUNT discriminator mismatch');
+        throw new Error('VaultStateAccount discriminator mismatch');
     }
     const deserialized = getVaultStateAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

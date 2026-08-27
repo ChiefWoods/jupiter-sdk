@@ -29,7 +29,7 @@ function getLoanExtendedDecoder() {
 
 export function parseLoanExtended(data: Uint8Array): LoanExtended {
     if (!LOAN_EXTENDED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOANEXTENDED discriminator mismatch');
+        throw new Error('LoanExtended discriminator mismatch');
     }
     const decoded = getLoanExtendedDecoder().decode(data);
     return decoded as LoanExtended;

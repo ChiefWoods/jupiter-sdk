@@ -31,7 +31,7 @@ function getLogClaimDecoder() {
 
 export function parseLogClaim(data: Uint8Array): LogClaim {
     if (!LOG_CLAIM_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGCLAIM discriminator mismatch');
+        throw new Error('LogClaim discriminator mismatch');
     }
     const decoded = getLogClaimDecoder().decode(data);
     return decoded as LogClaim;

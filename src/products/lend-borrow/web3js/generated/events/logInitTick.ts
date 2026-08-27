@@ -27,7 +27,7 @@ function getLogInitTickDecoder() {
 
 export function parseLogInitTick(data: Uint8Array): LogInitTick {
     if (!LOG_INIT_TICK_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGINITTICK discriminator mismatch');
+        throw new Error('LogInitTick discriminator mismatch');
     }
     const decoded = getLogInitTickDecoder().decode(data);
     return decoded as LogInitTick;

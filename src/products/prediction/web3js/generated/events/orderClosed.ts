@@ -62,7 +62,7 @@ function getOrderClosedDecoder() {
 
 export function parseOrderClosed(data: Uint8Array): OrderClosed {
     if (!ORDER_CLOSED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('ORDERCLOSED discriminator mismatch');
+        throw new Error('OrderClosed discriminator mismatch');
     }
     const decoded = getOrderClosedDecoder().decode(data);
     return decoded as OrderClosed;

@@ -56,7 +56,7 @@ function getClosePositionRequestDecoder() {
 
 export function parseClosePositionRequest(data: Uint8Array): ClosePositionRequest {
     if (!CLOSE_POSITION_REQUEST_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('CLOSEPOSITIONREQUEST discriminator mismatch');
+        throw new Error('ClosePositionRequest discriminator mismatch');
     }
     const decoded = getClosePositionRequestDecoder().decode(data);
     return decoded as ClosePositionRequest;

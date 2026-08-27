@@ -17,7 +17,7 @@ function getCandidateSwapResultsDecoder() {
 
 export function parseCandidateSwapResults(data: Uint8Array): CandidateSwapResults {
     if (!CANDIDATE_SWAP_RESULTS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('CANDIDATESWAPRESULTS discriminator mismatch');
+        throw new Error('CandidateSwapResults discriminator mismatch');
     }
     const decoded = getCandidateSwapResultsDecoder().decode(data);
     return decoded as CandidateSwapResults;

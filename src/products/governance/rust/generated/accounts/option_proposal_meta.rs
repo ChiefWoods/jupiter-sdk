@@ -9,8 +9,6 @@ use borsh::BorshDeserialize;
 use borsh::BorshSerialize;
 use solana_address::Address;
 
-/// Metadata about an option proposal.
-
 #[derive(BorshSerialize, BorshDeserialize, Clone, Debug, Eq, PartialEq)]
 pub struct OptionProposalMeta {
     pub discriminator: [u8; 8],

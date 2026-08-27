@@ -27,7 +27,7 @@ function getLogInitVaultConfigDecoder() {
 
 export function parseLogInitVaultConfig(data: Uint8Array): LogInitVaultConfig {
     if (!LOG_INIT_VAULT_CONFIG_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGINITVAULTCONFIG discriminator mismatch');
+        throw new Error('LogInitVaultConfig discriminator mismatch');
     }
     const decoded = getLogInitVaultConfigDecoder().decode(data);
     return decoded as LogInitVaultConfig;

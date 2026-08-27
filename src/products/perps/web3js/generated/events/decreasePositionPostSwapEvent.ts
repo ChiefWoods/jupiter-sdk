@@ -39,7 +39,7 @@ function getDecreasePositionPostSwapDecoder() {
 
 export function parseDecreasePositionPostSwap(data: Uint8Array): DecreasePositionPostSwap {
     if (!DECREASE_POSITION_POST_SWAP_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('DECREASEPOSITIONPOSTSWAP discriminator mismatch');
+        throw new Error('DecreasePositionPostSwap discriminator mismatch');
     }
     const decoded = getDecreasePositionPostSwapDecoder().decode(data);
     return decoded as DecreasePositionPostSwap;

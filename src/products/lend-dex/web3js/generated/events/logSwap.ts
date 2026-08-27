@@ -34,7 +34,7 @@ function getLogSwapDecoder() {
 
 export function parseLogSwap(data: Uint8Array): LogSwap {
     if (!LOG_SWAP_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGSWAP discriminator mismatch');
+        throw new Error('LogSwap discriminator mismatch');
     }
     const decoded = getLogSwapDecoder().decode(data);
     return decoded as LogSwap;

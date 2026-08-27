@@ -20,7 +20,7 @@ function getLogAbsorbDecoder() {
 
 export function parseLogAbsorb(data: Uint8Array): LogAbsorb {
     if (!LOG_ABSORB_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGABSORB discriminator mismatch');
+        throw new Error('LogAbsorb discriminator mismatch');
     }
     const decoded = getLogAbsorbDecoder().decode(data);
     return decoded as LogAbsorb;

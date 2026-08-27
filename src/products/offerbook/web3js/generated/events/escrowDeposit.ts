@@ -39,7 +39,7 @@ function getEscrowDepositDecoder() {
 
 export function parseEscrowDeposit(data: Uint8Array): EscrowDeposit {
     if (!ESCROW_DEPOSIT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('ESCROWDEPOSIT discriminator mismatch');
+        throw new Error('EscrowDeposit discriminator mismatch');
     }
     const decoded = getEscrowDepositDecoder().decode(data);
     return decoded as EscrowDeposit;

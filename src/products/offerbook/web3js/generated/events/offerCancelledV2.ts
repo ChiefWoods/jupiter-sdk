@@ -29,7 +29,7 @@ function getOfferCancelledV2Decoder() {
 
 export function parseOfferCancelledV2(data: Uint8Array): OfferCancelledV2 {
     if (!OFFER_CANCELLED_V2_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('OFFERCANCELLEDV2 discriminator mismatch');
+        throw new Error('OfferCancelledV2 discriminator mismatch');
     }
     const decoded = getOfferCancelledV2Decoder().decode(data);
     return decoded as OfferCancelledV2;

@@ -37,7 +37,7 @@ function getEventUpdateVestingEscrowRecipientDecoder() {
 
 export function parseEventUpdateVestingEscrowRecipient(data: Uint8Array): EventUpdateVestingEscrowRecipient {
     if (!EVENT_UPDATE_VESTING_ESCROW_RECIPIENT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('EVENTUPDATEVESTINGESCROWRECIPIENT discriminator mismatch');
+        throw new Error('EventUpdateVestingEscrowRecipient discriminator mismatch');
     }
     const decoded = getEventUpdateVestingEscrowRecipientDecoder().decode(data);
     return decoded as EventUpdateVestingEscrowRecipient;

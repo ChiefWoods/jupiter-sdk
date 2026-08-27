@@ -53,7 +53,7 @@ function getLiquidateBorrowPositionDecoder() {
 
 export function parseLiquidateBorrowPosition(data: Uint8Array): LiquidateBorrowPosition {
     if (!LIQUIDATE_BORROW_POSITION_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LIQUIDATEBORROWPOSITION discriminator mismatch');
+        throw new Error('LiquidateBorrowPosition discriminator mismatch');
     }
     const decoded = getLiquidateBorrowPositionDecoder().decode(data);
     return decoded as LiquidateBorrowPosition;

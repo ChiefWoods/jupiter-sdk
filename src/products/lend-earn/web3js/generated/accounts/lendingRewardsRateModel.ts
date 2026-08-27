@@ -74,7 +74,7 @@ function getLendingRewardsRateModelAccountDataDecoder(): Decoder<{
 
 export function deserializeLendingRewardsRateModelAccount(data: Uint8Array): LendingRewardsRateModelAccountData {
     if (!LENDING_REWARDS_RATE_MODEL_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LENDINGREWARDSRATEMODELACCOUNT discriminator mismatch');
+        throw new Error('LendingRewardsRateModelAccount discriminator mismatch');
     }
     const deserialized = getLendingRewardsRateModelAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

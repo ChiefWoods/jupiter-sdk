@@ -80,7 +80,7 @@ function getLendingAccountDataDecoder(): Decoder<{
 
 export function deserializeLendingAccount(data: Uint8Array): LendingAccountData {
     if (!LENDING_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LENDINGACCOUNT discriminator mismatch');
+        throw new Error('LendingAccount discriminator mismatch');
     }
     const deserialized = getLendingAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

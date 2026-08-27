@@ -26,7 +26,7 @@ function getLogUpdateMaxBorrowSharesDecoder() {
 
 export function parseLogUpdateMaxBorrowShares(data: Uint8Array): LogUpdateMaxBorrowShares {
     if (!LOG_UPDATE_MAX_BORROW_SHARES_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEMAXBORROWSHARES discriminator mismatch');
+        throw new Error('LogUpdateMaxBorrowShares discriminator mismatch');
     }
     const decoded = getLogUpdateMaxBorrowSharesDecoder().decode(data);
     return decoded as LogUpdateMaxBorrowShares;

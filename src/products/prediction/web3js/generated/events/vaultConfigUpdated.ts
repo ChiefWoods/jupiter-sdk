@@ -43,7 +43,7 @@ function getVaultConfigUpdatedDecoder() {
 
 export function parseVaultConfigUpdated(data: Uint8Array): VaultConfigUpdated {
     if (!VAULT_CONFIG_UPDATED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('VAULTCONFIGUPDATED discriminator mismatch');
+        throw new Error('VaultConfigUpdated discriminator mismatch');
     }
     const decoded = getVaultConfigUpdatedDecoder().decode(data);
     return decoded as VaultConfigUpdated;

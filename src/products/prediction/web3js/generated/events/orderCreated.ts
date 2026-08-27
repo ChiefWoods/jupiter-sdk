@@ -65,7 +65,7 @@ function getOrderCreatedDecoder() {
 
 export function parseOrderCreated(data: Uint8Array): OrderCreated {
     if (!ORDER_CREATED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('ORDERCREATED discriminator mismatch');
+        throw new Error('OrderCreated discriminator mismatch');
     }
     const decoded = getOrderCreatedDecoder().decode(data);
     return decoded as OrderCreated;

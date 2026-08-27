@@ -36,7 +36,7 @@ function getGovernorCreateDecoder() {
 
 export function parseGovernorCreate(data: Uint8Array): GovernorCreate {
     if (!GOVERNOR_CREATE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('GOVERNORCREATE discriminator mismatch');
+        throw new Error('GovernorCreate discriminator mismatch');
     }
     const decoded = getGovernorCreateDecoder().decode(data);
     return decoded as GovernorCreate;

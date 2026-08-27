@@ -39,7 +39,7 @@ function getEventCreateRootEscrowDecoder() {
 
 export function parseEventCreateRootEscrow(data: Uint8Array): EventCreateRootEscrow {
     if (!EVENT_CREATE_ROOT_ESCROW_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('EVENTCREATEROOTESCROW discriminator mismatch');
+        throw new Error('EventCreateRootEscrow discriminator mismatch');
     }
     const decoded = getEventCreateRootEscrowDecoder().decode(data);
     return decoded as EventCreateRootEscrow;

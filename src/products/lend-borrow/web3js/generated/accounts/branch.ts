@@ -59,7 +59,7 @@ function getBranchAccountDataDecoder(): Decoder<{
 
 export function deserializeBranchAccount(data: Uint8Array): BranchAccountData {
     if (!BRANCH_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('BRANCHACCOUNT discriminator mismatch');
+        throw new Error('BranchAccount discriminator mismatch');
     }
     const deserialized = getBranchAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

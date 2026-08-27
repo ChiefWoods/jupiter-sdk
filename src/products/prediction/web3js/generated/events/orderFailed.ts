@@ -66,7 +66,7 @@ function getOrderFailedDecoder() {
 
 export function parseOrderFailed(data: Uint8Array): OrderFailed {
     if (!ORDER_FAILED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('ORDERFAILED discriminator mismatch');
+        throw new Error('OrderFailed discriminator mismatch');
     }
     const decoded = getOrderFailedDecoder().decode(data);
     return decoded as OrderFailed;

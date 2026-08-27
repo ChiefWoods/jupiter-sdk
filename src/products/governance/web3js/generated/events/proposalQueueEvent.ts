@@ -29,7 +29,7 @@ function getProposalQueueDecoder() {
 
 export function parseProposalQueue(data: Uint8Array): ProposalQueue {
     if (!PROPOSAL_QUEUE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('PROPOSALQUEUE discriminator mismatch');
+        throw new Error('ProposalQueue discriminator mismatch');
     }
     const decoded = getProposalQueueDecoder().decode(data);
     return decoded as ProposalQueue;

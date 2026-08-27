@@ -62,7 +62,7 @@ function getBorrowPositionAccountDataDecoder(): Decoder<{
 
 export function deserializeBorrowPositionAccount(data: Uint8Array): BorrowPositionAccountData {
     if (!BORROW_POSITION_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('BORROWPOSITIONACCOUNT discriminator mismatch');
+        throw new Error('BorrowPositionAccount discriminator mismatch');
     }
     const deserialized = getBorrowPositionAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

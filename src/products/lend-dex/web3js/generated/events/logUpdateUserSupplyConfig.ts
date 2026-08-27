@@ -39,7 +39,7 @@ function getLogUpdateUserSupplyConfigDecoder() {
 
 export function parseLogUpdateUserSupplyConfig(data: Uint8Array): LogUpdateUserSupplyConfig {
     if (!LOG_UPDATE_USER_SUPPLY_CONFIG_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEUSERSUPPLYCONFIG discriminator mismatch');
+        throw new Error('LogUpdateUserSupplyConfig discriminator mismatch');
     }
     const decoded = getLogUpdateUserSupplyConfigDecoder().decode(data);
     return decoded as LogUpdateUserSupplyConfig;

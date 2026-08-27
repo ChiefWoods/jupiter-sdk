@@ -56,7 +56,7 @@ function getFlashloanAdminAccountDataDecoder(): Decoder<{
 
 export function deserializeFlashloanAdminAccount(data: Uint8Array): FlashloanAdminAccountData {
     if (!FLASHLOAN_ADMIN_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('FLASHLOANADMINACCOUNT discriminator mismatch');
+        throw new Error('FlashloanAdminAccount discriminator mismatch');
     }
     const deserialized = getFlashloanAdminAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

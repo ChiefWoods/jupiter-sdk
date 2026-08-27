@@ -17,7 +17,7 @@ function getLogUpdateGuardiansDecoder() {
 
 export function parseLogUpdateGuardians(data: Uint8Array): LogUpdateGuardians {
     if (!LOG_UPDATE_GUARDIANS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEGUARDIANS discriminator mismatch');
+        throw new Error('LogUpdateGuardians discriminator mismatch');
     }
     const decoded = getLogUpdateGuardiansDecoder().decode(data);
     return decoded as LogUpdateGuardians;

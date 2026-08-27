@@ -45,7 +45,7 @@ function getRemoveLiquidityDecoder() {
 
 export function parseRemoveLiquidity(data: Uint8Array): RemoveLiquidity {
     if (!REMOVE_LIQUIDITY_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('REMOVELIQUIDITY discriminator mismatch');
+        throw new Error('RemoveLiquidity discriminator mismatch');
     }
     const decoded = getRemoveLiquidityDecoder().decode(data);
     return decoded as RemoveLiquidity;

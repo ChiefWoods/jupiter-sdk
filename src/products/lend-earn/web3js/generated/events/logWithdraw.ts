@@ -32,7 +32,7 @@ function getLogWithdrawDecoder() {
 
 export function parseLogWithdraw(data: Uint8Array): LogWithdraw {
     if (!LOG_WITHDRAW_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGWITHDRAW discriminator mismatch');
+        throw new Error('LogWithdraw discriminator mismatch');
     }
     const decoded = getLogWithdrawDecoder().decode(data);
     return decoded as LogWithdraw;

@@ -61,10 +61,6 @@ export function getGovernorDiscriminatorBytes(): ReadonlyUint8Array {
   return fixEncoderSize(getBytesEncoder(), 8).encode(GOVERNOR_DISCRIMINATOR);
 }
 
-/**
- * A Governor is the "DAO": it is the account that holds control over important protocol functions,
- * including treasury, protocol parameters, and more.
- */
 export type Governor = {
   discriminator: ReadonlyUint8Array;
   /** Base. */

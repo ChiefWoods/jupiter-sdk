@@ -61,7 +61,7 @@ function getTicketRefundedDecoder() {
 
 export function parseTicketRefunded(data: Uint8Array): TicketRefunded {
     if (!TICKET_REFUNDED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('TICKETREFUNDED discriminator mismatch');
+        throw new Error('TicketRefunded discriminator mismatch');
     }
     const decoded = getTicketRefundedDecoder().decode(data);
     return decoded as TicketRefunded;

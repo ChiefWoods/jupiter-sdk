@@ -37,7 +37,7 @@ function getIncreasePositionPreSwapDecoder() {
 
 export function parseIncreasePositionPreSwap(data: Uint8Array): IncreasePositionPreSwap {
     if (!INCREASE_POSITION_PRE_SWAP_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('INCREASEPOSITIONPRESWAP discriminator mismatch');
+        throw new Error('IncreasePositionPreSwap discriminator mismatch');
     }
     const decoded = getIncreasePositionPreSwapDecoder().decode(data);
     return decoded as IncreasePositionPreSwap;

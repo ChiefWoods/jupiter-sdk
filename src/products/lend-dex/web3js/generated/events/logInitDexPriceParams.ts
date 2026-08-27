@@ -42,7 +42,7 @@ function getLogInitDexPriceParamsDecoder() {
 
 export function parseLogInitDexPriceParams(data: Uint8Array): LogInitDexPriceParams {
     if (!LOG_INIT_DEX_PRICE_PARAMS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGINITDEXPRICEPARAMS discriminator mismatch');
+        throw new Error('LogInitDexPriceParams discriminator mismatch');
     }
     const decoded = getLogInitDexPriceParamsDecoder().decode(data);
     return decoded as LogInitDexPriceParams;

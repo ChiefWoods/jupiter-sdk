@@ -49,7 +49,7 @@ function getVaultAdminAccountDataDecoder(): Decoder<{
 
 export function deserializeVaultAdminAccount(data: Uint8Array): VaultAdminAccountData {
     if (!VAULT_ADMIN_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('VAULTADMINACCOUNT discriminator mismatch');
+        throw new Error('VaultAdminAccount discriminator mismatch');
     }
     const deserialized = getVaultAdminAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

@@ -16,7 +16,7 @@ function getLogUnpauseDexDecoder() {
 
 export function parseLogUnpauseDex(data: Uint8Array): LogUnpauseDex {
     if (!LOG_UNPAUSE_DEX_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUNPAUSEDEX discriminator mismatch');
+        throw new Error('LogUnpauseDex discriminator mismatch');
     }
     const decoded = getLogUnpauseDexDecoder().decode(data);
     return decoded as LogUnpauseDex;

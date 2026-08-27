@@ -52,7 +52,6 @@ export function getOptionProposalMetaDiscriminatorBytes(): ReadonlyUint8Array {
   );
 }
 
-/** Metadata about an option proposal. */
 export type OptionProposalMeta = {
   discriminator: ReadonlyUint8Array;
   /** The [Proposal]. */

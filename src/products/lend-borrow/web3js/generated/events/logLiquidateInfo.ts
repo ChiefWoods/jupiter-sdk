@@ -27,7 +27,7 @@ function getLogLiquidateInfoDecoder() {
 
 export function parseLogLiquidateInfo(data: Uint8Array): LogLiquidateInfo {
     if (!LOG_LIQUIDATE_INFO_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGLIQUIDATEINFO discriminator mismatch');
+        throw new Error('LogLiquidateInfo discriminator mismatch');
     }
     const decoded = getLogLiquidateInfoDecoder().decode(data);
     return decoded as LogLiquidateInfo;

@@ -141,7 +141,7 @@ function getProposalAccountDataDecoder(): Decoder<{
 
 export function deserializeProposalAccount(data: Uint8Array): ProposalAccountData {
     if (!PROPOSAL_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('PROPOSALACCOUNT discriminator mismatch');
+        throw new Error('ProposalAccount discriminator mismatch');
     }
     const deserialized = getProposalAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

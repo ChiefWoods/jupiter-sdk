@@ -21,7 +21,7 @@ function getCandidateSwapQuoteErrorDecoder() {
 
 export function parseCandidateSwapQuoteError(data: Uint8Array): CandidateSwapQuoteError {
     if (!CANDIDATE_SWAP_QUOTE_ERROR_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('CANDIDATESWAPQUOTEERROR discriminator mismatch');
+        throw new Error('CandidateSwapQuoteError discriminator mismatch');
     }
     const decoded = getCandidateSwapQuoteErrorDecoder().decode(data);
     return decoded as CandidateSwapQuoteError;

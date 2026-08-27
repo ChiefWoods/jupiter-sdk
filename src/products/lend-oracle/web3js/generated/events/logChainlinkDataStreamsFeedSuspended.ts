@@ -39,7 +39,7 @@ function getLogChainlinkDataStreamsFeedSuspendedDecoder() {
 
 export function parseLogChainlinkDataStreamsFeedSuspended(data: Uint8Array): LogChainlinkDataStreamsFeedSuspended {
     if (!LOG_CHAINLINK_DATA_STREAMS_FEED_SUSPENDED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGCHAINLINKDATASTREAMSFEEDSUSPENDED discriminator mismatch');
+        throw new Error('LogChainlinkDataStreamsFeedSuspended discriminator mismatch');
     }
     const decoded = getLogChainlinkDataStreamsFeedSuspendedDecoder().decode(data);
     return decoded as LogChainlinkDataStreamsFeedSuspended;

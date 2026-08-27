@@ -31,7 +31,7 @@ function getVaultInitializedDecoder() {
 
 export function parseVaultInitialized(data: Uint8Array): VaultInitialized {
     if (!VAULT_INITIALIZED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('VAULTINITIALIZED discriminator mismatch');
+        throw new Error('VaultInitialized discriminator mismatch');
     }
     const decoded = getVaultInitializedDecoder().decode(data);
     return decoded as VaultInitialized;

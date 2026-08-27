@@ -107,7 +107,7 @@ function getRootEscrowAccountDataDecoder(): Decoder<{
 
 export function deserializeRootEscrowAccount(data: Uint8Array): RootEscrowAccountData {
     if (!ROOT_ESCROW_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('ROOTESCROWACCOUNT discriminator mismatch');
+        throw new Error('RootEscrowAccount discriminator mismatch');
     }
     const deserialized = getRootEscrowAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

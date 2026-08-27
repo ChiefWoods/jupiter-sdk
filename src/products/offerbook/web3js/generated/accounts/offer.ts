@@ -119,7 +119,7 @@ function getOfferAccountDataDecoder(): Decoder<{
 
 export function deserializeOfferAccount(data: Uint8Array): OfferAccountData {
     if (!OFFER_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('OFFERACCOUNT discriminator mismatch');
+        throw new Error('OfferAccount discriminator mismatch');
     }
     const deserialized = getOfferAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

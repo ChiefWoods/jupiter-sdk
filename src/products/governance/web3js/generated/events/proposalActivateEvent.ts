@@ -30,7 +30,7 @@ function getProposalActivateDecoder() {
 
 export function parseProposalActivate(data: Uint8Array): ProposalActivate {
     if (!PROPOSAL_ACTIVATE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('PROPOSALACTIVATE discriminator mismatch');
+        throw new Error('ProposalActivate discriminator mismatch');
     }
     const decoded = getProposalActivateDecoder().decode(data);
     return decoded as ProposalActivate;

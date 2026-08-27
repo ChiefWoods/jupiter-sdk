@@ -33,7 +33,7 @@ function getLogUpdateCacheKeepersDecoder() {
 
 export function parseLogUpdateCacheKeepers(data: Uint8Array): LogUpdateCacheKeepers {
     if (!LOG_UPDATE_CACHE_KEEPERS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATECACHEKEEPERS discriminator mismatch');
+        throw new Error('LogUpdateCacheKeepers discriminator mismatch');
     }
     const decoded = getLogUpdateCacheKeepersDecoder().decode(data);
     return decoded as LogUpdateCacheKeepers;

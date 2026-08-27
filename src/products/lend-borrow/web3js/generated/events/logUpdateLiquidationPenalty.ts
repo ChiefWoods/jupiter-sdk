@@ -16,7 +16,7 @@ function getLogUpdateLiquidationPenaltyDecoder() {
 
 export function parseLogUpdateLiquidationPenalty(data: Uint8Array): LogUpdateLiquidationPenalty {
     if (!LOG_UPDATE_LIQUIDATION_PENALTY_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATELIQUIDATIONPENALTY discriminator mismatch');
+        throw new Error('LogUpdateLiquidationPenalty discriminator mismatch');
     }
     const decoded = getLogUpdateLiquidationPenaltyDecoder().decode(data);
     return decoded as LogUpdateLiquidationPenalty;

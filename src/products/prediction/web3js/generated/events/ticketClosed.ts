@@ -49,7 +49,7 @@ function getTicketClosedDecoder() {
 
 export function parseTicketClosed(data: Uint8Array): TicketClosed {
     if (!TICKET_CLOSED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('TICKETCLOSED discriminator mismatch');
+        throw new Error('TicketClosed discriminator mismatch');
     }
     const decoded = getTicketClosedDecoder().decode(data);
     return decoded as TicketClosed;

@@ -41,7 +41,7 @@ function getLogBorrowDebtLiquidityDecoder() {
 
 export function parseLogBorrowDebtLiquidity(data: Uint8Array): LogBorrowDebtLiquidity {
     if (!LOG_BORROW_DEBT_LIQUIDITY_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGBORROWDEBTLIQUIDITY discriminator mismatch');
+        throw new Error('LogBorrowDebtLiquidity discriminator mismatch');
     }
     const decoded = getLogBorrowDebtLiquidityDecoder().decode(data);
     return decoded as LogBorrowDebtLiquidity;

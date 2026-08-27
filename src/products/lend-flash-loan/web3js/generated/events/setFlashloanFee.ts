@@ -16,7 +16,7 @@ function getSetFlashloanFeeDecoder() {
 
 export function parseSetFlashloanFee(data: Uint8Array): SetFlashloanFee {
     if (!SET_FLASHLOAN_FEE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('SETFLASHLOANFEE discriminator mismatch');
+        throw new Error('SetFlashloanFee discriminator mismatch');
     }
     const decoded = getSetFlashloanFeeDecoder().decode(data);
     return decoded as SetFlashloanFee;

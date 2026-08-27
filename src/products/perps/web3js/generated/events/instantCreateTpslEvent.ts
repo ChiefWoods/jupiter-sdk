@@ -66,7 +66,7 @@ function getInstantCreateTpslDecoder() {
 
 export function parseInstantCreateTpsl(data: Uint8Array): InstantCreateTpsl {
     if (!INSTANT_CREATE_TPSL_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('INSTANTCREATETPSL discriminator mismatch');
+        throw new Error('InstantCreateTpsl discriminator mismatch');
     }
     const decoded = getInstantCreateTpslDecoder().decode(data);
     return decoded as InstantCreateTpsl;

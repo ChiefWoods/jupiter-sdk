@@ -57,7 +57,7 @@ function getPoolSwapDecoder() {
 
 export function parsePoolSwap(data: Uint8Array): PoolSwap {
     if (!POOL_SWAP_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('POOLSWAP discriminator mismatch');
+        throw new Error('PoolSwap discriminator mismatch');
     }
     const decoded = getPoolSwapDecoder().decode(data);
     return decoded as PoolSwap;

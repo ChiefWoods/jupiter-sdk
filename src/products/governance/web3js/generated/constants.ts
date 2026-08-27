@@ -1,7 +1,7 @@
-export const ABSTAINVOTEINDEX: string = '0';
+export const ABSTAIN_VOTE_INDEX: string = '0';
 
-export const AGAINSTVOTEINDEX: string = '1';
+export const AGAINST_VOTE_INDEX: string = '1';
 
-export const FORVOTEINDEX: string = '2';
+export const FOR_VOTE_INDEX: string = '2';
 
-export const MAXOPTION: number = 10;
+export const MAX_OPTION: number = 10;

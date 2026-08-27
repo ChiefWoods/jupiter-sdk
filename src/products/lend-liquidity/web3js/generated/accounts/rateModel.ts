@@ -54,7 +54,7 @@ function getRateModelAccountDataDecoder(): Decoder<{
 
 export function deserializeRateModelAccount(data: Uint8Array): RateModelAccountData {
     if (!RATE_MODEL_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('RATEMODELACCOUNT discriminator mismatch');
+        throw new Error('RateModelAccount discriminator mismatch');
     }
     const deserialized = getRateModelAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

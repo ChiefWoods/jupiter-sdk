@@ -66,7 +66,7 @@ function getOrderCanceledDecoder() {
 
 export function parseOrderCanceled(data: Uint8Array): OrderCanceled {
     if (!ORDER_CANCELED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('ORDERCANCELED discriminator mismatch');
+        throw new Error('OrderCanceled discriminator mismatch');
     }
     const decoded = getOrderCanceledDecoder().decode(data);
     return decoded as OrderCanceled;

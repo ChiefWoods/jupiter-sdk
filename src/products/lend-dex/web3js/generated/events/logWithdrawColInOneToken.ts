@@ -41,7 +41,7 @@ function getLogWithdrawColInOneTokenDecoder() {
 
 export function parseLogWithdrawColInOneToken(data: Uint8Array): LogWithdrawColInOneToken {
     if (!LOG_WITHDRAW_COL_IN_ONE_TOKEN_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGWITHDRAWCOLINONETOKEN discriminator mismatch');
+        throw new Error('LogWithdrawColInOneToken discriminator mismatch');
     }
     const decoded = getLogWithdrawColInOneTokenDecoder().decode(data);
     return decoded as LogWithdrawColInOneToken;

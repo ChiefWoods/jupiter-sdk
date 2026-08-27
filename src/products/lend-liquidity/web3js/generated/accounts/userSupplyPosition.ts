@@ -68,7 +68,7 @@ function getUserSupplyPositionAccountDataDecoder(): Decoder<{
 
 export function deserializeUserSupplyPositionAccount(data: Uint8Array): UserSupplyPositionAccountData {
     if (!USER_SUPPLY_POSITION_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('USERSUPPLYPOSITIONACCOUNT discriminator mismatch');
+        throw new Error('UserSupplyPositionAccount discriminator mismatch');
     }
     const deserialized = getUserSupplyPositionAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

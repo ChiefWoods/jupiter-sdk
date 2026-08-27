@@ -29,7 +29,7 @@ function getLogUpdateRateDataV2Decoder() {
 
 export function parseLogUpdateRateDataV2(data: Uint8Array): LogUpdateRateDataV2 {
     if (!LOG_UPDATE_RATE_DATA_V2_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATERATEDATAV2 discriminator mismatch');
+        throw new Error('LogUpdateRateDataV2 discriminator mismatch');
     }
     const decoded = getLogUpdateRateDataV2Decoder().decode(data);
     return decoded as LogUpdateRateDataV2;

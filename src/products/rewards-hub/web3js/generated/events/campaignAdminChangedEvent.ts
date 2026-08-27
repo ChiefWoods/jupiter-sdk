@@ -39,7 +39,7 @@ function getCampaignAdminChangedDecoder() {
 
 export function parseCampaignAdminChanged(data: Uint8Array): CampaignAdminChanged {
     if (!CAMPAIGN_ADMIN_CHANGED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('CAMPAIGNADMINCHANGED discriminator mismatch');
+        throw new Error('CampaignAdminChanged discriminator mismatch');
     }
     const decoded = getCampaignAdminChangedDecoder().decode(data);
     return decoded as CampaignAdminChanged;

@@ -66,7 +66,7 @@ function getWithdrawFeesDecoder() {
 
 export function parseWithdrawFees(data: Uint8Array): WithdrawFees {
     if (!WITHDRAW_FEES_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('WITHDRAWFEES discriminator mismatch');
+        throw new Error('WithdrawFees discriminator mismatch');
     }
     const decoded = getWithdrawFeesDecoder().decode(data);
     return decoded as WithdrawFees;

@@ -39,7 +39,7 @@ function getEscrowWithdrawDecoder() {
 
 export function parseEscrowWithdraw(data: Uint8Array): EscrowWithdraw {
     if (!ESCROW_WITHDRAW_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('ESCROWWITHDRAW discriminator mismatch');
+        throw new Error('EscrowWithdraw discriminator mismatch');
     }
     const decoded = getEscrowWithdrawDecoder().decode(data);
     return decoded as EscrowWithdraw;

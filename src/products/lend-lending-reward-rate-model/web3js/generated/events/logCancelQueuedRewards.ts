@@ -27,7 +27,7 @@ function getLogCancelQueuedRewardsDecoder() {
 
 export function parseLogCancelQueuedRewards(data: Uint8Array): LogCancelQueuedRewards {
     if (!LOG_CANCEL_QUEUED_REWARDS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGCANCELQUEUEDREWARDS discriminator mismatch');
+        throw new Error('LogCancelQueuedRewards discriminator mismatch');
     }
     const decoded = getLogCancelQueuedRewardsDecoder().decode(data);
     return decoded as LogCancelQueuedRewards;

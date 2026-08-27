@@ -72,7 +72,7 @@ function getPayoutClaimedDecoder() {
 
 export function parsePayoutClaimed(data: Uint8Array): PayoutClaimed {
     if (!PAYOUT_CLAIMED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('PAYOUTCLAIMED discriminator mismatch');
+        throw new Error('PayoutClaimed discriminator mismatch');
     }
     const decoded = getPayoutClaimedDecoder().decode(data);
     return decoded as PayoutClaimed;

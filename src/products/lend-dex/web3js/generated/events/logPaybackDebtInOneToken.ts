@@ -41,7 +41,7 @@ function getLogPaybackDebtInOneTokenDecoder() {
 
 export function parseLogPaybackDebtInOneToken(data: Uint8Array): LogPaybackDebtInOneToken {
     if (!LOG_PAYBACK_DEBT_IN_ONE_TOKEN_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGPAYBACKDEBTINONETOKEN discriminator mismatch');
+        throw new Error('LogPaybackDebtInOneToken discriminator mismatch');
     }
     const decoded = getLogPaybackDebtInOneTokenDecoder().decode(data);
     return decoded as LogPaybackDebtInOneToken;

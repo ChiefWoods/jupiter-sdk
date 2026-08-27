@@ -92,7 +92,7 @@ function getPoolAccountDataDecoder(): Decoder<{
 
 export function deserializePoolAccount(data: Uint8Array): PoolAccountData {
     if (!POOL_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('POOLACCOUNT discriminator mismatch');
+        throw new Error('PoolAccount discriminator mismatch');
     }
     const deserialized = getPoolAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

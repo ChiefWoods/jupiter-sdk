@@ -35,7 +35,7 @@ function getLogUpdateCenterPriceAddressDecoder() {
 
 export function parseLogUpdateCenterPriceAddress(data: Uint8Array): LogUpdateCenterPriceAddress {
     if (!LOG_UPDATE_CENTER_PRICE_ADDRESS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATECENTERPRICEADDRESS discriminator mismatch');
+        throw new Error('LogUpdateCenterPriceAddress discriminator mismatch');
     }
     const decoded = getLogUpdateCenterPriceAddressDecoder().decode(data);
     return decoded as LogUpdateCenterPriceAddress;

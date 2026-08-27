@@ -85,7 +85,7 @@ function getLiquidateFullPositionDecoder() {
 
 export function parseLiquidateFullPosition(data: Uint8Array): LiquidateFullPosition {
     if (!LIQUIDATE_FULL_POSITION_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LIQUIDATEFULLPOSITION discriminator mismatch');
+        throw new Error('LiquidateFullPosition discriminator mismatch');
     }
     const decoded = getLiquidateFullPositionDecoder().decode(data);
     return decoded as LiquidateFullPosition;

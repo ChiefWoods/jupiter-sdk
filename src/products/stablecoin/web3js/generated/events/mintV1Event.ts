@@ -44,7 +44,7 @@ function getMintV1Decoder() {
 
 export function parseMintV1(data: Uint8Array): MintV1 {
     if (!MINT_V1_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('MINTV1 discriminator mismatch');
+        throw new Error('MintV1 discriminator mismatch');
     }
     const decoded = getMintV1Decoder().decode(data);
     return decoded as MintV1;

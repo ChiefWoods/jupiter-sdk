@@ -94,7 +94,7 @@ function getIncreasePositionDecoder() {
 
 export function parseIncreasePosition(data: Uint8Array): IncreasePosition {
     if (!INCREASE_POSITION_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('INCREASEPOSITION discriminator mismatch');
+        throw new Error('IncreasePosition discriminator mismatch');
     }
     const decoded = getIncreasePositionDecoder().decode(data);
     return decoded as IncreasePosition;

@@ -127,7 +127,7 @@ function getVestingEscrowAccountDataDecoder(): Decoder<{
 
 export function deserializeVestingEscrowAccount(data: Uint8Array): VestingEscrowAccountData {
     if (!VESTING_ESCROW_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('VESTINGESCROWACCOUNT discriminator mismatch');
+        throw new Error('VestingEscrowAccount discriminator mismatch');
     }
     const deserialized = getVestingEscrowAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

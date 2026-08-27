@@ -29,7 +29,7 @@ function getGovernorSetVoterDecoder() {
 
 export function parseGovernorSetVoter(data: Uint8Array): GovernorSetVoter {
     if (!GOVERNOR_SET_VOTER_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('GOVERNORSETVOTER discriminator mismatch');
+        throw new Error('GovernorSetVoter discriminator mismatch');
     }
     const decoded = getGovernorSetVoterDecoder().decode(data);
     return decoded as GovernorSetVoter;

@@ -29,7 +29,7 @@ function getLogInitBranchDecoder() {
 
 export function parseLogInitBranch(data: Uint8Array): LogInitBranch {
     if (!LOG_INIT_BRANCH_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGINITBRANCH discriminator mismatch');
+        throw new Error('LogInitBranch discriminator mismatch');
     }
     const decoded = getLogInitBranchDecoder().decode(data);
     return decoded as LogInitBranch;

@@ -27,7 +27,7 @@ function getLogUpdateLookupTableDecoder() {
 
 export function parseLogUpdateLookupTable(data: Uint8Array): LogUpdateLookupTable {
     if (!LOG_UPDATE_LOOKUP_TABLE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATELOOKUPTABLE discriminator mismatch');
+        throw new Error('LogUpdateLookupTable discriminator mismatch');
     }
     const decoded = getLogUpdateLookupTableDecoder().decode(data);
     return decoded as LogUpdateLookupTable;

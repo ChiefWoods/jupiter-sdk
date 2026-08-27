@@ -27,7 +27,7 @@ function getEventCloseVestingEscrowDecoder() {
 
 export function parseEventCloseVestingEscrow(data: Uint8Array): EventCloseVestingEscrow {
     if (!EVENT_CLOSE_VESTING_ESCROW_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('EVENTCLOSEVESTINGESCROW discriminator mismatch');
+        throw new Error('EventCloseVestingEscrow discriminator mismatch');
     }
     const decoded = getEventCloseVestingEscrowDecoder().decode(data);
     return decoded as EventCloseVestingEscrow;

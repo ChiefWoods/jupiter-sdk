@@ -56,7 +56,7 @@ function getTickAccountDataDecoder(): Decoder<{
 
 export function deserializeTickAccount(data: Uint8Array): TickAccountData {
     if (!TICK_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('TICKACCOUNT discriminator mismatch');
+        throw new Error('TickAccount discriminator mismatch');
     }
     const deserialized = getTickAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

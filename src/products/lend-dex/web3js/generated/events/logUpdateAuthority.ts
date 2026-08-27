@@ -27,7 +27,7 @@ function getLogUpdateAuthorityDecoder() {
 
 export function parseLogUpdateAuthority(data: Uint8Array): LogUpdateAuthority {
     if (!LOG_UPDATE_AUTHORITY_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEAUTHORITY discriminator mismatch');
+        throw new Error('LogUpdateAuthority discriminator mismatch');
     }
     const decoded = getLogUpdateAuthorityDecoder().decode(data);
     return decoded as LogUpdateAuthority;

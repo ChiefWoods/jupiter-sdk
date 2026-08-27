@@ -29,7 +29,7 @@ function getOfferFilledDecoder() {
 
 export function parseOfferFilled(data: Uint8Array): OfferFilled {
     if (!OFFER_FILLED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('OFFERFILLED discriminator mismatch');
+        throw new Error('OfferFilled discriminator mismatch');
     }
     const decoded = getOfferFilledDecoder().decode(data);
     return decoded as OfferFilled;

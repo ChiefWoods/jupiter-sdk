@@ -16,7 +16,7 @@ function getLogUpdateWithdrawGapDecoder() {
 
 export function parseLogUpdateWithdrawGap(data: Uint8Array): LogUpdateWithdrawGap {
     if (!LOG_UPDATE_WITHDRAW_GAP_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEWITHDRAWGAP discriminator mismatch');
+        throw new Error('LogUpdateWithdrawGap discriminator mismatch');
     }
     const decoded = getLogUpdateWithdrawGapDecoder().decode(data);
     return decoded as LogUpdateWithdrawGap;

@@ -27,7 +27,7 @@ function getLogUpdateCenterPriceLimitsDecoder() {
 
 export function parseLogUpdateCenterPriceLimits(data: Uint8Array): LogUpdateCenterPriceLimits {
     if (!LOG_UPDATE_CENTER_PRICE_LIMITS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATECENTERPRICELIMITS discriminator mismatch');
+        throw new Error('LogUpdateCenterPriceLimits discriminator mismatch');
     }
     const decoded = getLogUpdateCenterPriceLimitsDecoder().decode(data);
     return decoded as LogUpdateCenterPriceLimits;

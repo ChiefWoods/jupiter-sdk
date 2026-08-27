@@ -53,7 +53,7 @@ function getPerpetualsAccountDataDecoder(): Decoder<{
 
 export function deserializePerpetualsAccount(data: Uint8Array): PerpetualsAccountData {
     if (!PERPETUALS_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('PERPETUALSACCOUNT discriminator mismatch');
+        throw new Error('PerpetualsAccount discriminator mismatch');
     }
     const deserialized = getPerpetualsAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

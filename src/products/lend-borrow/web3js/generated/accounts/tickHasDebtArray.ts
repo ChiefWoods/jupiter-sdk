@@ -50,7 +50,7 @@ function getTickHasDebtArrayAccountDataDecoder(): Decoder<{
 
 export function deserializeTickHasDebtArrayAccount(data: Uint8Array): TickHasDebtArrayAccountData {
     if (!TICK_HAS_DEBT_ARRAY_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('TICKHASDEBTARRAYACCOUNT discriminator mismatch');
+        throw new Error('TickHasDebtArrayAccount discriminator mismatch');
     }
     const deserialized = getTickHasDebtArrayAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

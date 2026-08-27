@@ -48,7 +48,7 @@ function getEventClaimV3Decoder() {
 
 export function parseEventClaimV3(data: Uint8Array): EventClaimV3 {
     if (!EVENT_CLAIM_V3_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('EVENTCLAIMV3 discriminator mismatch');
+        throw new Error('EventClaimV3 discriminator mismatch');
     }
     const decoded = getEventClaimV3Decoder().decode(data);
     return decoded as EventClaimV3;

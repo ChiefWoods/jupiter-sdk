@@ -41,7 +41,7 @@ function getLogDepositPerfectColLiquidityDecoder() {
 
 export function parseLogDepositPerfectColLiquidity(data: Uint8Array): LogDepositPerfectColLiquidity {
     if (!LOG_DEPOSIT_PERFECT_COL_LIQUIDITY_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGDEPOSITPERFECTCOLLIQUIDITY discriminator mismatch');
+        throw new Error('LogDepositPerfectColLiquidity discriminator mismatch');
     }
     const decoded = getLogDepositPerfectColLiquidityDecoder().decode(data);
     return decoded as LogDepositPerfectColLiquidity;

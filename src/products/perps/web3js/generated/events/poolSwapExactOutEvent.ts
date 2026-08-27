@@ -57,7 +57,7 @@ function getPoolSwapExactOutDecoder() {
 
 export function parsePoolSwapExactOut(data: Uint8Array): PoolSwapExactOut {
     if (!POOL_SWAP_EXACT_OUT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('POOLSWAPEXACTOUT discriminator mismatch');
+        throw new Error('PoolSwapExactOut discriminator mismatch');
     }
     const decoded = getPoolSwapExactOutDecoder().decode(data);
     return decoded as PoolSwapExactOut;

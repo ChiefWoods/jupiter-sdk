@@ -49,7 +49,7 @@ function getBorrowFromCustodyDecoder() {
 
 export function parseBorrowFromCustody(data: Uint8Array): BorrowFromCustody {
     if (!BORROW_FROM_CUSTODY_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('BORROWFROMCUSTODY discriminator mismatch');
+        throw new Error('BorrowFromCustody discriminator mismatch');
     }
     const decoded = getBorrowFromCustodyDecoder().decode(data);
     return decoded as BorrowFromCustody;

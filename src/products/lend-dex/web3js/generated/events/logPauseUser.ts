@@ -32,7 +32,7 @@ function getLogPauseUserDecoder() {
 
 export function parseLogPauseUser(data: Uint8Array): LogPauseUser {
     if (!LOG_PAUSE_USER_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGPAUSEUSER discriminator mismatch');
+        throw new Error('LogPauseUser discriminator mismatch');
     }
     const decoded = getLogPauseUserDecoder().decode(data);
     return decoded as LogPauseUser;

@@ -44,7 +44,7 @@ function getTicketCreatedDecoder() {
 
 export function parseTicketCreated(data: Uint8Array): TicketCreated {
     if (!TICKET_CREATED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('TICKETCREATED discriminator mismatch');
+        throw new Error('TicketCreated discriminator mismatch');
     }
     const decoded = getTicketCreatedDecoder().decode(data);
     return decoded as TicketCreated;

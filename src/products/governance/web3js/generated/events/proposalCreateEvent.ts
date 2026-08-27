@@ -45,7 +45,7 @@ function getProposalCreateDecoder() {
 
 export function parseProposalCreate(data: Uint8Array): ProposalCreate {
     if (!PROPOSAL_CREATE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('PROPOSALCREATE discriminator mismatch');
+        throw new Error('ProposalCreate discriminator mismatch');
     }
     const decoded = getProposalCreateDecoder().decode(data);
     return decoded as ProposalCreate;

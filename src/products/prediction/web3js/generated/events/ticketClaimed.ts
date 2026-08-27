@@ -56,7 +56,7 @@ function getTicketClaimedDecoder() {
 
 export function parseTicketClaimed(data: Uint8Array): TicketClaimed {
     if (!TICKET_CLAIMED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('TICKETCLAIMED discriminator mismatch');
+        throw new Error('TicketClaimed discriminator mismatch');
     }
     const decoded = getTicketClaimedDecoder().decode(data);
     return decoded as TicketClaimed;

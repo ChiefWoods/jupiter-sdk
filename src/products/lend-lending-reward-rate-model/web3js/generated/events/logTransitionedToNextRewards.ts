@@ -30,7 +30,7 @@ function getLogTransitionedToNextRewardsDecoder() {
 
 export function parseLogTransitionedToNextRewards(data: Uint8Array): LogTransitionedToNextRewards {
     if (!LOG_TRANSITIONED_TO_NEXT_REWARDS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGTRANSITIONEDTONEXTREWARDS discriminator mismatch');
+        throw new Error('LogTransitionedToNextRewards discriminator mismatch');
     }
     const decoded = getLogTransitionedToNextRewardsDecoder().decode(data);
     return decoded as LogTransitionedToNextRewards;

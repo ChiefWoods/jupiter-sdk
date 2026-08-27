@@ -54,7 +54,7 @@ function getTicketSettledDecoder() {
 
 export function parseTicketSettled(data: Uint8Array): TicketSettled {
     if (!TICKET_SETTLED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('TICKETSETTLED discriminator mismatch');
+        throw new Error('TicketSettled discriminator mismatch');
     }
     const decoded = getTicketSettledDecoder().decode(data);
     return decoded as TicketSettled;

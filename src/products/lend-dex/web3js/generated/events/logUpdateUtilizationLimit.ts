@@ -25,7 +25,7 @@ function getLogUpdateUtilizationLimitDecoder() {
 
 export function parseLogUpdateUtilizationLimit(data: Uint8Array): LogUpdateUtilizationLimit {
     if (!LOG_UPDATE_UTILIZATION_LIMIT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEUTILIZATIONLIMIT discriminator mismatch');
+        throw new Error('LogUpdateUtilizationLimit discriminator mismatch');
     }
     const decoded = getLogUpdateUtilizationLimitDecoder().decode(data);
     return decoded as LogUpdateUtilizationLimit;

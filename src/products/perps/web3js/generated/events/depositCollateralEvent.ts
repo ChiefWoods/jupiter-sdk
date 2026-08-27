@@ -45,7 +45,7 @@ function getDepositCollateralDecoder() {
 
 export function parseDepositCollateral(data: Uint8Array): DepositCollateral {
     if (!DEPOSIT_COLLATERAL_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('DEPOSITCOLLATERAL discriminator mismatch');
+        throw new Error('DepositCollateral discriminator mismatch');
     }
     const decoded = getDepositCollateralDecoder().decode(data);
     return decoded as DepositCollateral;

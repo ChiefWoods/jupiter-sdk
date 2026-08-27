@@ -54,7 +54,7 @@ function getBaseAssetV1AccountDataDecoder(): Decoder<{
 
 export function deserializeBaseAssetV1Account(data: Uint8Array): BaseAssetV1AccountData {
     if (!BASE_ASSET_V1_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('BASEASSETV1ACCOUNT discriminator mismatch');
+        throw new Error('BaseAssetV1Account discriminator mismatch');
     }
     const deserialized = getBaseAssetV1AccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

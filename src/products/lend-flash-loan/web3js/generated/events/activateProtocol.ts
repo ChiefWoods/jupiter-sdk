@@ -14,7 +14,7 @@ function getActivateProtocolDecoder() {
 
 export function parseActivateProtocol(data: Uint8Array): ActivateProtocol {
     if (!ACTIVATE_PROTOCOL_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('ACTIVATEPROTOCOL discriminator mismatch');
+        throw new Error('ActivateProtocol discriminator mismatch');
     }
     const decoded = getActivateProtocolDecoder().decode(data);
     return decoded as ActivateProtocol;

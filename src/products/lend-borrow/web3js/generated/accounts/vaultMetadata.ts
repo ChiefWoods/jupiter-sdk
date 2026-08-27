@@ -42,7 +42,7 @@ function getVaultMetadataAccountDataDecoder(): Decoder<{
 
 export function deserializeVaultMetadataAccount(data: Uint8Array): VaultMetadataAccountData {
     if (!VAULT_METADATA_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('VAULTMETADATAACCOUNT discriminator mismatch');
+        throw new Error('VaultMetadataAccount discriminator mismatch');
     }
     const deserialized = getVaultMetadataAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

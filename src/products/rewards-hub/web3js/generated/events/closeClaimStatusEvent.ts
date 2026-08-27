@@ -39,7 +39,7 @@ function getCloseClaimStatusDecoder() {
 
 export function parseCloseClaimStatus(data: Uint8Array): CloseClaimStatus {
     if (!CLOSE_CLAIM_STATUS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('CLOSECLAIMSTATUS discriminator mismatch');
+        throw new Error('CloseClaimStatus discriminator mismatch');
     }
     const decoded = getCloseClaimStatusDecoder().decode(data);
     return decoded as CloseClaimStatus;

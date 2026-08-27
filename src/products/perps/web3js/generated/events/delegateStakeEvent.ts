@@ -46,7 +46,7 @@ function getDelegateStakeDecoder() {
 
 export function parseDelegateStake(data: Uint8Array): DelegateStake {
     if (!DELEGATE_STAKE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('DELEGATESTAKE discriminator mismatch');
+        throw new Error('DelegateStake discriminator mismatch');
     }
     const decoded = getDelegateStakeDecoder().decode(data);
     return decoded as DelegateStake;

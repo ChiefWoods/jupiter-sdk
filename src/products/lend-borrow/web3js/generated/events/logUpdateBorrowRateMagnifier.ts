@@ -16,7 +16,7 @@ function getLogUpdateBorrowRateMagnifierDecoder() {
 
 export function parseLogUpdateBorrowRateMagnifier(data: Uint8Array): LogUpdateBorrowRateMagnifier {
     if (!LOG_UPDATE_BORROW_RATE_MAGNIFIER_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEBORROWRATEMAGNIFIER discriminator mismatch');
+        throw new Error('LogUpdateBorrowRateMagnifier discriminator mismatch');
     }
     const decoded = getLogUpdateBorrowRateMagnifierDecoder().decode(data);
     return decoded as LogUpdateBorrowRateMagnifier;

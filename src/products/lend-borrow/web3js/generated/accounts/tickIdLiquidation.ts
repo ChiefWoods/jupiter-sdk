@@ -68,7 +68,7 @@ function getTickIdLiquidationAccountDataDecoder(): Decoder<{
 
 export function deserializeTickIdLiquidationAccount(data: Uint8Array): TickIdLiquidationAccountData {
     if (!TICK_ID_LIQUIDATION_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('TICKIDLIQUIDATIONACCOUNT discriminator mismatch');
+        throw new Error('TickIdLiquidationAccount discriminator mismatch');
     }
     const deserialized = getTickIdLiquidationAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

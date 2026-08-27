@@ -27,7 +27,7 @@ function getLogUpdateRebalancerDecoder() {
 
 export function parseLogUpdateRebalancer(data: Uint8Array): LogUpdateRebalancer {
     if (!LOG_UPDATE_REBALANCER_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEREBALANCER discriminator mismatch');
+        throw new Error('LogUpdateRebalancer discriminator mismatch');
     }
     const decoded = getLogUpdateRebalancerDecoder().decode(data);
     return decoded as LogUpdateRebalancer;

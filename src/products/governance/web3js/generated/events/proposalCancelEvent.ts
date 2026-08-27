@@ -28,7 +28,7 @@ function getProposalCancelDecoder() {
 
 export function parseProposalCancel(data: Uint8Array): ProposalCancel {
     if (!PROPOSAL_CANCEL_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('PROPOSALCANCEL discriminator mismatch');
+        throw new Error('ProposalCancel discriminator mismatch');
     }
     const decoded = getProposalCancelDecoder().decode(data);
     return decoded as ProposalCancel;

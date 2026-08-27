@@ -75,7 +75,7 @@ function getPositionAccountDataDecoder(): Decoder<{
 
 export function deserializePositionAccount(data: Uint8Array): PositionAccountData {
     if (!POSITION_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('POSITIONACCOUNT discriminator mismatch');
+        throw new Error('PositionAccount discriminator mismatch');
     }
     const deserialized = getPositionAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

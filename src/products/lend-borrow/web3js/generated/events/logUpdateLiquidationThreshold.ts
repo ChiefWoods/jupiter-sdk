@@ -16,7 +16,7 @@ function getLogUpdateLiquidationThresholdDecoder() {
 
 export function parseLogUpdateLiquidationThreshold(data: Uint8Array): LogUpdateLiquidationThreshold {
     if (!LOG_UPDATE_LIQUIDATION_THRESHOLD_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATELIQUIDATIONTHRESHOLD discriminator mismatch');
+        throw new Error('LogUpdateLiquidationThreshold discriminator mismatch');
     }
     const decoded = getLogUpdateLiquidationThresholdDecoder().decode(data);
     return decoded as LogUpdateLiquidationThreshold;

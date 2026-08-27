@@ -41,7 +41,7 @@ function getLogWithdrawPerfectColLiquidityDecoder() {
 
 export function parseLogWithdrawPerfectColLiquidity(data: Uint8Array): LogWithdrawPerfectColLiquidity {
     if (!LOG_WITHDRAW_PERFECT_COL_LIQUIDITY_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGWITHDRAWPERFECTCOLLIQUIDITY discriminator mismatch');
+        throw new Error('LogWithdrawPerfectColLiquidity discriminator mismatch');
     }
     const decoded = getLogWithdrawPerfectColLiquidityDecoder().decode(data);
     return decoded as LogWithdrawPerfectColLiquidity;

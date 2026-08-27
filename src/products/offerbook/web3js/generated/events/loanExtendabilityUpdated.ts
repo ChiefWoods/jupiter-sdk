@@ -31,7 +31,7 @@ function getLoanExtendabilityUpdatedDecoder() {
 
 export function parseLoanExtendabilityUpdated(data: Uint8Array): LoanExtendabilityUpdated {
     if (!LOAN_EXTENDABILITY_UPDATED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOANEXTENDABILITYUPDATED discriminator mismatch');
+        throw new Error('LoanExtendabilityUpdated discriminator mismatch');
     }
     const decoded = getLoanExtendabilityUpdatedDecoder().decode(data);
     return decoded as LoanExtendabilityUpdated;

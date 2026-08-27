@@ -38,7 +38,7 @@ function getEventCancelVestingEscrowDecoder() {
 
 export function parseEventCancelVestingEscrow(data: Uint8Array): EventCancelVestingEscrow {
     if (!EVENT_CANCEL_VESTING_ESCROW_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('EVENTCANCELVESTINGESCROW discriminator mismatch');
+        throw new Error('EventCancelVestingEscrow discriminator mismatch');
     }
     const decoded = getEventCancelVestingEscrowDecoder().decode(data);
     return decoded as EventCancelVestingEscrow;

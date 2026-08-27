@@ -45,7 +45,7 @@ function getWithdrawStakeDecoder() {
 
 export function parseWithdrawStake(data: Uint8Array): WithdrawStake {
     if (!WITHDRAW_STAKE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('WITHDRAWSTAKE discriminator mismatch');
+        throw new Error('WithdrawStake discriminator mismatch');
     }
     const decoded = getWithdrawStakeDecoder().decode(data);
     return decoded as WithdrawStake;

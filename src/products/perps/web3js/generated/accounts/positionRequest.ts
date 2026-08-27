@@ -106,7 +106,7 @@ function getPositionRequestAccountDataDecoder(): Decoder<{
 
 export function deserializePositionRequestAccount(data: Uint8Array): PositionRequestAccountData {
     if (!POSITION_REQUEST_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('POSITIONREQUESTACCOUNT discriminator mismatch');
+        throw new Error('PositionRequestAccount discriminator mismatch');
     }
     const deserialized = getPositionRequestAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

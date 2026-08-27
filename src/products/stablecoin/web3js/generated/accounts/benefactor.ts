@@ -66,7 +66,7 @@ function getBenefactorAccountDataDecoder(): Decoder<{
 
 export function deserializeBenefactorAccount(data: Uint8Array): BenefactorAccountData {
     if (!BENEFACTOR_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('BENEFACTORACCOUNT discriminator mismatch');
+        throw new Error('BenefactorAccount discriminator mismatch');
     }
     const deserialized = getBenefactorAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

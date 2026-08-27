@@ -52,7 +52,7 @@ function getLendingAdminAccountDataDecoder(): Decoder<{
 
 export function deserializeLendingAdminAccount(data: Uint8Array): LendingAdminAccountData {
     if (!LENDING_ADMIN_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LENDINGADMINACCOUNT discriminator mismatch');
+        throw new Error('LendingAdminAccount discriminator mismatch');
     }
     const deserialized = getLendingAdminAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

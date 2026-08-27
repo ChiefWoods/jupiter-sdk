@@ -34,7 +34,7 @@ function getUserClaimAccountDataDecoder(): Decoder<{
 
 export function deserializeUserClaimAccount(data: Uint8Array): UserClaimAccountData {
     if (!USER_CLAIM_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('USERCLAIMACCOUNT discriminator mismatch');
+        throw new Error('UserClaimAccount discriminator mismatch');
     }
     const deserialized = getUserClaimAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

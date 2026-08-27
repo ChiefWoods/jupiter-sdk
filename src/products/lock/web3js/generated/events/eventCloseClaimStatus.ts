@@ -29,7 +29,7 @@ function getEventCloseClaimStatusDecoder() {
 
 export function parseEventCloseClaimStatus(data: Uint8Array): EventCloseClaimStatus {
     if (!EVENT_CLOSE_CLAIM_STATUS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('EVENTCLOSECLAIMSTATUS discriminator mismatch');
+        throw new Error('EventCloseClaimStatus discriminator mismatch');
     }
     const decoded = getEventCloseClaimStatusDecoder().decode(data);
     return decoded as EventCloseClaimStatus;

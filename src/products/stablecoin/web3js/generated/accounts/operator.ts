@@ -45,7 +45,7 @@ function getOperatorAccountDataDecoder(): Decoder<{
 
 export function deserializeOperatorAccount(data: Uint8Array): OperatorAccountData {
     if (!OPERATOR_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('OPERATORACCOUNT discriminator mismatch');
+        throw new Error('OperatorAccount discriminator mismatch');
     }
     const deserialized = getOperatorAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

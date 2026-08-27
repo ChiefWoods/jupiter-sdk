@@ -98,7 +98,7 @@ function getTicketAccountDataDecoder(): Decoder<{
 
 export function deserializeTicketAccount(data: Uint8Array): TicketAccountData {
     if (!TICKET_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('TICKETACCOUNT discriminator mismatch');
+        throw new Error('TicketAccount discriminator mismatch');
     }
     const deserialized = getTicketAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

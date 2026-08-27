@@ -26,7 +26,7 @@ function getLogUpdateMaxSupplySharesDecoder() {
 
 export function parseLogUpdateMaxSupplyShares(data: Uint8Array): LogUpdateMaxSupplyShares {
     if (!LOG_UPDATE_MAX_SUPPLY_SHARES_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEMAXSUPPLYSHARES discriminator mismatch');
+        throw new Error('LogUpdateMaxSupplyShares discriminator mismatch');
     }
     const decoded = getLogUpdateMaxSupplySharesDecoder().decode(data);
     return decoded as LogUpdateMaxSupplyShares;

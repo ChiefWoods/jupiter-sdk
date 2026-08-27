@@ -84,7 +84,7 @@ function getGovernorAccountDataDecoder(): Decoder<{
 
 export function deserializeGovernorAccount(data: Uint8Array): GovernorAccountData {
     if (!GOVERNOR_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('GOVERNORACCOUNT discriminator mismatch');
+        throw new Error('GovernorAccount discriminator mismatch');
     }
     const deserialized = getGovernorAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

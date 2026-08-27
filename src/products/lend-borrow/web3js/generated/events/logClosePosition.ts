@@ -32,7 +32,7 @@ function getLogClosePositionDecoder() {
 
 export function parseLogClosePosition(data: Uint8Array): LogClosePosition {
     if (!LOG_CLOSE_POSITION_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGCLOSEPOSITION discriminator mismatch');
+        throw new Error('LogClosePosition discriminator mismatch');
     }
     const decoded = getLogClosePositionDecoder().decode(data);
     return decoded as LogClosePosition;

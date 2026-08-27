@@ -17,7 +17,7 @@ function getLogUpdateAuthsDecoder() {
 
 export function parseLogUpdateAuths(data: Uint8Array): LogUpdateAuths {
     if (!LOG_UPDATE_AUTHS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEAUTHS discriminator mismatch');
+        throw new Error('LogUpdateAuths discriminator mismatch');
     }
     const decoded = getLogUpdateAuthsDecoder().decode(data);
     return decoded as LogUpdateAuths;

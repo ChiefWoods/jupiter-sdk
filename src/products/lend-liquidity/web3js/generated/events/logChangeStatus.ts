@@ -16,7 +16,7 @@ function getLogChangeStatusDecoder() {
 
 export function parseLogChangeStatus(data: Uint8Array): LogChangeStatus {
     if (!LOG_CHANGE_STATUS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGCHANGESTATUS discriminator mismatch');
+        throw new Error('LogChangeStatus discriminator mismatch');
     }
     const decoded = getLogChangeStatusDecoder().decode(data);
     return decoded as LogChangeStatus;

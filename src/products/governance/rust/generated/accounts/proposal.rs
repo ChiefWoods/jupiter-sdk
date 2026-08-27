@@ -11,8 +11,6 @@ use borsh::BorshDeserialize;
 use borsh::BorshSerialize;
 use solana_address::Address;
 
-/// A Yes/No Proposal is a pending transaction that may or may not be executed by the DAO.
-
 #[derive(BorshSerialize, BorshDeserialize, Clone, Debug, Eq, PartialEq)]
 pub struct Proposal {
     pub discriminator: [u8; 8],

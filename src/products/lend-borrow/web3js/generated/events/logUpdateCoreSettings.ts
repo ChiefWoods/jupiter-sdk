@@ -42,7 +42,7 @@ function getLogUpdateCoreSettingsDecoder() {
 
 export function parseLogUpdateCoreSettings(data: Uint8Array): LogUpdateCoreSettings {
     if (!LOG_UPDATE_CORE_SETTINGS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATECORESETTINGS discriminator mismatch');
+        throw new Error('LogUpdateCoreSettings discriminator mismatch');
     }
     const decoded = getLogUpdateCoreSettingsDecoder().decode(data);
     return decoded as LogUpdateCoreSettings;

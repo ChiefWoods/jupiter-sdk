@@ -29,7 +29,7 @@ function getLogTokenLockdownDecoder() {
 
 export function parseLogTokenLockdown(data: Uint8Array): LogTokenLockdown {
     if (!LOG_TOKEN_LOCKDOWN_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGTOKENLOCKDOWN discriminator mismatch');
+        throw new Error('LogTokenLockdown discriminator mismatch');
     }
     const decoded = getLogTokenLockdownDecoder().decode(data);
     return decoded as LogTokenLockdown;

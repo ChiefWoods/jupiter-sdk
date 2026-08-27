@@ -41,7 +41,7 @@ function getLogWithdrawColLiquidityDecoder() {
 
 export function parseLogWithdrawColLiquidity(data: Uint8Array): LogWithdrawColLiquidity {
     if (!LOG_WITHDRAW_COL_LIQUIDITY_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGWITHDRAWCOLLIQUIDITY discriminator mismatch');
+        throw new Error('LogWithdrawColLiquidity discriminator mismatch');
     }
     const decoded = getLogWithdrawColLiquidityDecoder().decode(data);
     return decoded as LogWithdrawColLiquidity;

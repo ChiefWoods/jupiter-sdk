@@ -30,7 +30,7 @@ function getGovernorSetParamsDecoder() {
 
 export function parseGovernorSetParams(data: Uint8Array): GovernorSetParams {
     if (!GOVERNOR_SET_PARAMS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('GOVERNORSETPARAMS discriminator mismatch');
+        throw new Error('GovernorSetParams discriminator mismatch');
     }
     const decoded = getGovernorSetParamsDecoder().decode(data);
     return decoded as GovernorSetParams;

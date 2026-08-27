@@ -31,7 +31,7 @@ function getLogLiquidateDecoder() {
 
 export function parseLogLiquidate(data: Uint8Array): LogLiquidate {
     if (!LOG_LIQUIDATE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGLIQUIDATE discriminator mismatch');
+        throw new Error('LogLiquidate discriminator mismatch');
     }
     const decoded = getLogLiquidateDecoder().decode(data);
     return decoded as LogLiquidate;

@@ -100,7 +100,7 @@ function getCampaignAccountDataDecoder(): Decoder<{
 
 export function deserializeCampaignAccount(data: Uint8Array): CampaignAccountData {
     if (!CAMPAIGN_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('CAMPAIGNACCOUNT discriminator mismatch');
+        throw new Error('CampaignAccount discriminator mismatch');
     }
     const deserialized = getCampaignAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

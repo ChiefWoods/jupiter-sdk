@@ -26,7 +26,7 @@ function getLogTurnOnSmartColDecoder() {
 
 export function parseLogTurnOnSmartCol(data: Uint8Array): LogTurnOnSmartCol {
     if (!LOG_TURN_ON_SMART_COL_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGTURNONSMARTCOL discriminator mismatch');
+        throw new Error('LogTurnOnSmartCol discriminator mismatch');
     }
     const decoded = getLogTurnOnSmartColDecoder().decode(data);
     return decoded as LogTurnOnSmartCol;

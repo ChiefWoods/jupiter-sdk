@@ -35,7 +35,7 @@ function getOracleAdminAccountDataDecoder(): Decoder<{
 
 export function deserializeOracleAdminAccount(data: Uint8Array): OracleAdminAccountData {
     if (!ORACLE_ADMIN_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('ORACLEADMINACCOUNT discriminator mismatch');
+        throw new Error('OracleAdminAccount discriminator mismatch');
     }
     const deserialized = getOracleAdminAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

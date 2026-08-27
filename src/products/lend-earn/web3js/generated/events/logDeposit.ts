@@ -31,7 +31,7 @@ function getLogDepositDecoder() {
 
 export function parseLogDeposit(data: Uint8Array): LogDeposit {
     if (!LOG_DEPOSIT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGDEPOSIT discriminator mismatch');
+        throw new Error('LogDeposit discriminator mismatch');
     }
     const decoded = getLogDepositDecoder().decode(data);
     return decoded as LogDeposit;

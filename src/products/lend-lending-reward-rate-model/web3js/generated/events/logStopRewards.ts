@@ -27,7 +27,7 @@ function getLogStopRewardsDecoder() {
 
 export function parseLogStopRewards(data: Uint8Array): LogStopRewards {
     if (!LOG_STOP_REWARDS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGSTOPREWARDS discriminator mismatch');
+        throw new Error('LogStopRewards discriminator mismatch');
     }
     const decoded = getLogStopRewardsDecoder().decode(data);
     return decoded as LogStopRewards;

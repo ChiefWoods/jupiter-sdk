@@ -27,7 +27,7 @@ function getLogUpdateFeeAndRevenueCutDecoder() {
 
 export function parseLogUpdateFeeAndRevenueCut(data: Uint8Array): LogUpdateFeeAndRevenueCut {
     if (!LOG_UPDATE_FEE_AND_REVENUE_CUT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEFEEANDREVENUECUT discriminator mismatch');
+        throw new Error('LogUpdateFeeAndRevenueCut discriminator mismatch');
     }
     const decoded = getLogUpdateFeeAndRevenueCutDecoder().decode(data);
     return decoded as LogUpdateFeeAndRevenueCut;

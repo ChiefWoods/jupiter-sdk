@@ -174,7 +174,7 @@ function getDexAccountDataDecoder(): Decoder<{
 
 export function deserializeDexAccount(data: Uint8Array): DexAccountData {
     if (!DEX_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('DEXACCOUNT discriminator mismatch');
+        throw new Error('DexAccount discriminator mismatch');
     }
     const deserialized = getDexAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

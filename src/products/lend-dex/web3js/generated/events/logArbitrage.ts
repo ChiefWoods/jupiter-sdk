@@ -28,7 +28,7 @@ function getLogArbitrageDecoder() {
 
 export function parseLogArbitrage(data: Uint8Array): LogArbitrage {
     if (!LOG_ARBITRAGE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGARBITRAGE discriminator mismatch');
+        throw new Error('LogArbitrage discriminator mismatch');
     }
     const decoded = getLogArbitrageDecoder().decode(data);
     return decoded as LogArbitrage;

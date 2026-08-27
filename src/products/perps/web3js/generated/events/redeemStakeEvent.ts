@@ -45,7 +45,7 @@ function getRedeemStakeDecoder() {
 
 export function parseRedeemStake(data: Uint8Array): RedeemStake {
     if (!REDEEM_STAKE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('REDEEMSTAKE discriminator mismatch');
+        throw new Error('RedeemStake discriminator mismatch');
     }
     const decoded = getRedeemStakeDecoder().decode(data);
     return decoded as RedeemStake;

@@ -31,7 +31,7 @@ function getLogUpdateUserWithdrawalLimitDecoder() {
 
 export function parseLogUpdateUserWithdrawalLimit(data: Uint8Array): LogUpdateUserWithdrawalLimit {
     if (!LOG_UPDATE_USER_WITHDRAWAL_LIMIT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEUSERWITHDRAWALLIMIT discriminator mismatch');
+        throw new Error('LogUpdateUserWithdrawalLimit discriminator mismatch');
     }
     const decoded = getLogUpdateUserWithdrawalLimitDecoder().decode(data);
     return decoded as LogUpdateUserWithdrawalLimit;

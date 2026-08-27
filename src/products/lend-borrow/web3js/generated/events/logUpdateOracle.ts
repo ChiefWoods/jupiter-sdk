@@ -27,7 +27,7 @@ function getLogUpdateOracleDecoder() {
 
 export function parseLogUpdateOracle(data: Uint8Array): LogUpdateOracle {
     if (!LOG_UPDATE_ORACLE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEORACLE discriminator mismatch');
+        throw new Error('LogUpdateOracle discriminator mismatch');
     }
     const decoded = getLogUpdateOracleDecoder().decode(data);
     return decoded as LogUpdateOracle;

@@ -16,7 +16,7 @@ function getLogUpdateCollateralFactorDecoder() {
 
 export function parseLogUpdateCollateralFactor(data: Uint8Array): LogUpdateCollateralFactor {
     if (!LOG_UPDATE_COLLATERAL_FACTOR_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATECOLLATERALFACTOR discriminator mismatch');
+        throw new Error('LogUpdateCollateralFactor discriminator mismatch');
     }
     const decoded = getLogUpdateCollateralFactorDecoder().decode(data);
     return decoded as LogUpdateCollateralFactor;

@@ -68,7 +68,7 @@ function getInstantCreateLimitOrderDecoder() {
 
 export function parseInstantCreateLimitOrder(data: Uint8Array): InstantCreateLimitOrder {
     if (!INSTANT_CREATE_LIMIT_ORDER_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('INSTANTCREATELIMITORDER discriminator mismatch');
+        throw new Error('InstantCreateLimitOrder discriminator mismatch');
     }
     const decoded = getInstantCreateLimitOrderDecoder().decode(data);
     return decoded as InstantCreateLimitOrder;

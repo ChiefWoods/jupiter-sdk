@@ -49,7 +49,6 @@ export function getVoteDiscriminatorBytes(): ReadonlyUint8Array {
   return fixEncoderSize(getBytesEncoder(), 8).encode(VOTE_DISCRIMINATOR);
 }
 
-/** A [Vote] is a vote made by a `voter` */
 export type Vote = {
   discriminator: ReadonlyUint8Array;
   /** The proposal being voted on. */

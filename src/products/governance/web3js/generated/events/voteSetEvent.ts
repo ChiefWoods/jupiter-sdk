@@ -41,7 +41,7 @@ function getVoteSetDecoder() {
 
 export function parseVoteSet(data: Uint8Array): VoteSet {
     if (!VOTE_SET_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('VOTESET discriminator mismatch');
+        throw new Error('VoteSet discriminator mismatch');
     }
     const decoded = getVoteSetDecoder().decode(data);
     return decoded as VoteSet;

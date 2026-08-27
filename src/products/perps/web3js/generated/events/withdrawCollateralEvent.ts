@@ -55,7 +55,7 @@ function getWithdrawCollateralDecoder() {
 
 export function parseWithdrawCollateral(data: Uint8Array): WithdrawCollateral {
     if (!WITHDRAW_COLLATERAL_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('WITHDRAWCOLLATERAL discriminator mismatch');
+        throw new Error('WithdrawCollateral discriminator mismatch');
     }
     const decoded = getWithdrawCollateralDecoder().decode(data);
     return decoded as WithdrawCollateral;

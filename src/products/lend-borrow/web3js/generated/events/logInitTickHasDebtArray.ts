@@ -27,7 +27,7 @@ function getLogInitTickHasDebtArrayDecoder() {
 
 export function parseLogInitTickHasDebtArray(data: Uint8Array): LogInitTickHasDebtArray {
     if (!LOG_INIT_TICK_HAS_DEBT_ARRAY_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGINITTICKHASDEBTARRAY discriminator mismatch');
+        throw new Error('LogInitTickHasDebtArray discriminator mismatch');
     }
     const decoded = getLogInitTickHasDebtArrayDecoder().decode(data);
     return decoded as LogInitTickHasDebtArray;

@@ -29,7 +29,7 @@ function getLoanRepaidDecoder() {
 
 export function parseLoanRepaid(data: Uint8Array): LoanRepaid {
     if (!LOAN_REPAID_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOANREPAID discriminator mismatch');
+        throw new Error('LoanRepaid discriminator mismatch');
     }
     const decoded = getLoanRepaidDecoder().decode(data);
     return decoded as LoanRepaid;

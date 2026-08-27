@@ -31,7 +31,7 @@ function getRedeemV0Decoder() {
 
 export function parseRedeemV0(data: Uint8Array): RedeemV0 {
     if (!REDEEM_V0_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('REDEEMV0 discriminator mismatch');
+        throw new Error('RedeemV0 discriminator mismatch');
     }
     const decoded = getRedeemV0Decoder().decode(data);
     return decoded as RedeemV0;

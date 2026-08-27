@@ -29,7 +29,7 @@ function getLogInitTickIdLiquidationDecoder() {
 
 export function parseLogInitTickIdLiquidation(data: Uint8Array): LogInitTickIdLiquidation {
     if (!LOG_INIT_TICK_ID_LIQUIDATION_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGINITTICKIDLIQUIDATION discriminator mismatch');
+        throw new Error('LogInitTickIdLiquidation discriminator mismatch');
     }
     const decoded = getLogInitTickIdLiquidationDecoder().decode(data);
     return decoded as LogInitTickIdLiquidation;

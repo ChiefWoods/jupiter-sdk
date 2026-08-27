@@ -27,7 +27,7 @@ function getLogInitVaultStateDecoder() {
 
 export function parseLogInitVaultState(data: Uint8Array): LogInitVaultState {
     if (!LOG_INIT_VAULT_STATE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGINITVAULTSTATE discriminator mismatch');
+        throw new Error('LogInitVaultState discriminator mismatch');
     }
     const decoded = getLogInitVaultStateDecoder().decode(data);
     return decoded as LogInitVaultState;

@@ -44,7 +44,7 @@ function getPositionUpdatedDecoder() {
 
 export function parsePositionUpdated(data: Uint8Array): PositionUpdated {
     if (!POSITION_UPDATED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('POSITIONUPDATED discriminator mismatch');
+        throw new Error('PositionUpdated discriminator mismatch');
     }
     const decoded = getPositionUpdatedDecoder().decode(data);
     return decoded as PositionUpdated;

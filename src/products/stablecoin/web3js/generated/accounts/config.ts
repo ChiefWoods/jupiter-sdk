@@ -65,7 +65,7 @@ function getConfigAccountDataDecoder(): Decoder<{
 
 export function deserializeConfigAccount(data: Uint8Array): ConfigAccountData {
     if (!CONFIG_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('CONFIGACCOUNT discriminator mismatch');
+        throw new Error('ConfigAccount discriminator mismatch');
     }
     const deserialized = getConfigAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

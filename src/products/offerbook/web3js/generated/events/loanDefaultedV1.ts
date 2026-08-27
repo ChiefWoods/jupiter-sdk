@@ -29,7 +29,7 @@ function getLoanDefaultedV1Decoder() {
 
 export function parseLoanDefaultedV1(data: Uint8Array): LoanDefaultedV1 {
     if (!LOAN_DEFAULTED_V1_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOANDEFAULTEDV1 discriminator mismatch');
+        throw new Error('LoanDefaultedV1 discriminator mismatch');
     }
     const decoded = getLoanDefaultedV1Decoder().decode(data);
     return decoded as LoanDefaultedV1;

@@ -103,7 +103,7 @@ function getDecreasePositionDecoder() {
 
 export function parseDecreasePosition(data: Uint8Array): DecreasePosition {
     if (!DECREASE_POSITION_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('DECREASEPOSITION discriminator mismatch');
+        throw new Error('DecreasePosition discriminator mismatch');
     }
     const decoded = getDecreasePositionDecoder().decode(data);
     return decoded as DecreasePosition;

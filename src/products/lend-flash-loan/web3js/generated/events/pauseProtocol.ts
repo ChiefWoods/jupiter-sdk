@@ -14,7 +14,7 @@ function getPauseProtocolDecoder() {
 
 export function parsePauseProtocol(data: Uint8Array): PauseProtocol {
     if (!PAUSE_PROTOCOL_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('PAUSEPROTOCOL discriminator mismatch');
+        throw new Error('PauseProtocol discriminator mismatch');
     }
     const decoded = getPauseProtocolDecoder().decode(data);
     return decoded as PauseProtocol;

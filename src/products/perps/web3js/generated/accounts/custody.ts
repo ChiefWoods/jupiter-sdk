@@ -146,7 +146,7 @@ function getCustodyAccountDataDecoder(): Decoder<{
 
 export function deserializeCustodyAccount(data: Uint8Array): CustodyAccountData {
     if (!CUSTODY_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('CUSTODYACCOUNT discriminator mismatch');
+        throw new Error('CustodyAccount discriminator mismatch');
     }
     const deserialized = getCustodyAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

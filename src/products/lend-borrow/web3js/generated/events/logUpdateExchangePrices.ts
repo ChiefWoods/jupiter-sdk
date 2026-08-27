@@ -27,7 +27,7 @@ function getLogUpdateExchangePricesDecoder() {
 
 export function parseLogUpdateExchangePrices(data: Uint8Array): LogUpdateExchangePrices {
     if (!LOG_UPDATE_EXCHANGE_PRICES_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEEXCHANGEPRICES discriminator mismatch');
+        throw new Error('LogUpdateExchangePrices discriminator mismatch');
     }
     const decoded = getLogUpdateExchangePricesDecoder().decode(data);
     return decoded as LogUpdateExchangePrices;

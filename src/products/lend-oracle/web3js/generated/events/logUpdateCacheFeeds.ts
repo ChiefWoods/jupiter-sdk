@@ -33,7 +33,7 @@ function getLogUpdateCacheFeedsDecoder() {
 
 export function parseLogUpdateCacheFeeds(data: Uint8Array): LogUpdateCacheFeeds {
     if (!LOG_UPDATE_CACHE_FEEDS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATECACHEFEEDS discriminator mismatch');
+        throw new Error('LogUpdateCacheFeeds discriminator mismatch');
     }
     const decoded = getLogUpdateCacheFeedsDecoder().decode(data);
     return decoded as LogUpdateCacheFeeds;

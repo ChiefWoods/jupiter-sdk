@@ -45,7 +45,7 @@ function getLogUserPositionDecoder() {
 
 export function parseLogUserPosition(data: Uint8Array): LogUserPosition {
     if (!LOG_USER_POSITION_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUSERPOSITION discriminator mismatch');
+        throw new Error('LogUserPosition discriminator mismatch');
     }
     const decoded = getLogUserPositionDecoder().decode(data);
     return decoded as LogUserPosition;

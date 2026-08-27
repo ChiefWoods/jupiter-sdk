@@ -44,7 +44,7 @@ function getPositionClosedDecoder() {
 
 export function parsePositionClosed(data: Uint8Array): PositionClosed {
     if (!POSITION_CLOSED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('POSITIONCLOSED discriminator mismatch');
+        throw new Error('PositionClosed discriminator mismatch');
     }
     const decoded = getPositionClosedDecoder().decode(data);
     return decoded as PositionClosed;

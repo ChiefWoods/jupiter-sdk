@@ -45,7 +45,7 @@ function getLogOperateDecoder() {
 
 export function parseLogOperate(data: Uint8Array): LogOperate {
     if (!LOG_OPERATE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGOPERATE discriminator mismatch');
+        throw new Error('LogOperate discriminator mismatch');
     }
     const decoded = getLogOperateDecoder().decode(data);
     return decoded as LogOperate;

@@ -31,7 +31,7 @@ function getProtocolFeeDecoder() {
 
 export function parseProtocolFee(data: Uint8Array): ProtocolFee {
     if (!PROTOCOL_FEE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('PROTOCOLFEE discriminator mismatch');
+        throw new Error('ProtocolFee discriminator mismatch');
     }
     const decoded = getProtocolFeeDecoder().decode(data);
     return decoded as ProtocolFee;

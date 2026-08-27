@@ -16,7 +16,7 @@ function getLogPauseSwapAndArbitrageDecoder() {
 
 export function parseLogPauseSwapAndArbitrage(data: Uint8Array): LogPauseSwapAndArbitrage {
     if (!LOG_PAUSE_SWAP_AND_ARBITRAGE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGPAUSESWAPANDARBITRAGE discriminator mismatch');
+        throw new Error('LogPauseSwapAndArbitrage discriminator mismatch');
     }
     const decoded = getLogPauseSwapAndArbitrageDecoder().decode(data);
     return decoded as LogPauseSwapAndArbitrage;

@@ -42,7 +42,7 @@ function getCampaignClawbackReceiverChangedDecoder() {
 
 export function parseCampaignClawbackReceiverChanged(data: Uint8Array): CampaignClawbackReceiverChanged {
     if (!CAMPAIGN_CLAWBACK_RECEIVER_CHANGED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('CAMPAIGNCLAWBACKRECEIVERCHANGED discriminator mismatch');
+        throw new Error('CampaignClawbackReceiverChanged discriminator mismatch');
     }
     const decoded = getCampaignClawbackReceiverChangedDecoder().decode(data);
     return decoded as CampaignClawbackReceiverChanged;

@@ -63,7 +63,6 @@ export function getProposalDiscriminatorBytes(): ReadonlyUint8Array {
   return fixEncoderSize(getBytesEncoder(), 8).encode(PROPOSAL_DISCRIMINATOR);
 }
 
-/** A Yes/No Proposal is a pending transaction that may or may not be executed by the DAO. */
 export type Proposal = {
   discriminator: ReadonlyUint8Array;
   /** The public key of the governor. */

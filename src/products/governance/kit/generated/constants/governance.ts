@@ -6,10 +6,10 @@
  * @see https://github.com/codama-idl/codama
  */
 
-export const A_B_S_T_A_I_N_V_O_T_E_I_N_D_E_X: string = "0";
+export const ABSTAIN_VOTE_INDEX: string = "0";
 
-export const A_G_A_I_N_S_T_V_O_T_E_I_N_D_E_X: string = "1";
+export const AGAINST_VOTE_INDEX: string = "1";
 
-export const F_O_R_V_O_T_E_I_N_D_E_X: string = "2";
+export const FOR_VOTE_INDEX: string = "2";
 
-export const M_A_X_O_P_T_I_O_N: number = 10;
+export const MAX_OPTION: number = 10;

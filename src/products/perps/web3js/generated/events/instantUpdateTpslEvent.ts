@@ -66,7 +66,7 @@ function getInstantUpdateTpslDecoder() {
 
 export function parseInstantUpdateTpsl(data: Uint8Array): InstantUpdateTpsl {
     if (!INSTANT_UPDATE_TPSL_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('INSTANTUPDATETPSL discriminator mismatch');
+        throw new Error('InstantUpdateTpsl discriminator mismatch');
     }
     const decoded = getInstantUpdateTpslDecoder().decode(data);
     return decoded as InstantUpdateTpsl;

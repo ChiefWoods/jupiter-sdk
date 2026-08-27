@@ -98,7 +98,7 @@ function getDexPegOracleConfigAccountDataDecoder(): Decoder<{
 
 export function deserializeDexPegOracleConfigAccount(data: Uint8Array): DexPegOracleConfigAccountData {
     if (!DEX_PEG_ORACLE_CONFIG_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('DEXPEGORACLECONFIGACCOUNT discriminator mismatch');
+        throw new Error('DexPegOracleConfigAccount discriminator mismatch');
     }
     const deserialized = getDexPegOracleConfigAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

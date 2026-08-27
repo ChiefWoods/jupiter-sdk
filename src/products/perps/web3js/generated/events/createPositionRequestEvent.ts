@@ -83,7 +83,7 @@ function getCreatePositionRequestDecoder() {
 
 export function parseCreatePositionRequest(data: Uint8Array): CreatePositionRequest {
     if (!CREATE_POSITION_REQUEST_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('CREATEPOSITIONREQUEST discriminator mismatch');
+        throw new Error('CreatePositionRequest discriminator mismatch');
     }
     const decoded = getCreatePositionRequestDecoder().decode(data);
     return decoded as CreatePositionRequest;

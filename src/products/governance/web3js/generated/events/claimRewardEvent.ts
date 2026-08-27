@@ -31,7 +31,7 @@ function getClaimRewardDecoder() {
 
 export function parseClaimReward(data: Uint8Array): ClaimReward {
     if (!CLAIM_REWARD_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('CLAIMREWARD discriminator mismatch');
+        throw new Error('ClaimReward discriminator mismatch');
     }
     const decoded = getClaimRewardDecoder().decode(data);
     return decoded as ClaimReward;

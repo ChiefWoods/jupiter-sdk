@@ -43,7 +43,7 @@ function getCampaignClosedDecoder() {
 
 export function parseCampaignClosed(data: Uint8Array): CampaignClosed {
     if (!CAMPAIGN_CLOSED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('CAMPAIGNCLOSED discriminator mismatch');
+        throw new Error('CampaignClosed discriminator mismatch');
     }
     const decoded = getCampaignClosedDecoder().decode(data);
     return decoded as CampaignClosed;

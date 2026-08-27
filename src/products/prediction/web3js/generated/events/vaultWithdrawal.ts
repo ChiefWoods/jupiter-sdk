@@ -39,7 +39,7 @@ function getVaultWithdrawalDecoder() {
 
 export function parseVaultWithdrawal(data: Uint8Array): VaultWithdrawal {
     if (!VAULT_WITHDRAWAL_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('VAULTWITHDRAWAL discriminator mismatch');
+        throw new Error('VaultWithdrawal discriminator mismatch');
     }
     const decoded = getVaultWithdrawalDecoder().decode(data);
     return decoded as VaultWithdrawal;

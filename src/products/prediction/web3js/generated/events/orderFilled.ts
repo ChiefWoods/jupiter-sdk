@@ -80,7 +80,7 @@ function getOrderFilledDecoder() {
 
 export function parseOrderFilled(data: Uint8Array): OrderFilled {
     if (!ORDER_FILLED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('ORDERFILLED discriminator mismatch');
+        throw new Error('OrderFilled discriminator mismatch');
     }
     const decoded = getOrderFilledDecoder().decode(data);
     return decoded as OrderFilled;

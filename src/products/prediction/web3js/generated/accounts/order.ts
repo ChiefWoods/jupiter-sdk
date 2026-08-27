@@ -100,7 +100,7 @@ function getOrderAccountDataDecoder(): Decoder<{
 
 export function deserializeOrderAccount(data: Uint8Array): OrderAccountData {
     if (!ORDER_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('ORDERACCOUNT discriminator mismatch');
+        throw new Error('OrderAccount discriminator mismatch');
     }
     const deserialized = getOrderAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

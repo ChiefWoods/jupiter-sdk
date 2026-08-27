@@ -31,7 +31,7 @@ function getLogStartRewardsDecoder() {
 
 export function parseLogStartRewards(data: Uint8Array): LogStartRewards {
     if (!LOG_START_REWARDS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGSTARTREWARDS discriminator mismatch');
+        throw new Error('LogStartRewards discriminator mismatch');
     }
     const decoded = getLogStartRewardsDecoder().decode(data);
     return decoded as LogStartRewards;

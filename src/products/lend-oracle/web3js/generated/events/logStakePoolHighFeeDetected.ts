@@ -29,7 +29,7 @@ function getLogStakePoolHighFeeDetectedDecoder() {
 
 export function parseLogStakePoolHighFeeDetected(data: Uint8Array): LogStakePoolHighFeeDetected {
     if (!LOG_STAKE_POOL_HIGH_FEE_DETECTED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGSTAKEPOOLHIGHFEEDETECTED discriminator mismatch');
+        throw new Error('LogStakePoolHighFeeDetected discriminator mismatch');
     }
     const decoded = getLogStakePoolHighFeeDetectedDecoder().decode(data);
     return decoded as LogStakePoolHighFeeDetected;

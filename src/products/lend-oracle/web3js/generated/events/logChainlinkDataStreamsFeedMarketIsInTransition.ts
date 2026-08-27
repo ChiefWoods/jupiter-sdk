@@ -39,7 +39,7 @@ export function parseLogChainlinkDataStreamsFeedMarketIsInTransition(
             (byte, index) => data[0 + index] === byte,
         )
     ) {
-        throw new Error('LOGCHAINLINKDATASTREAMSFEEDMARKETISINTRANSITION discriminator mismatch');
+        throw new Error('LogChainlinkDataStreamsFeedMarketIsInTransition discriminator mismatch');
     }
     const decoded = getLogChainlinkDataStreamsFeedMarketIsInTransitionDecoder().decode(data);
     return decoded as LogChainlinkDataStreamsFeedMarketIsInTransition;

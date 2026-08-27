@@ -29,7 +29,7 @@ function getLogInitDexMetadataDecoder() {
 
 export function parseLogInitDexMetadata(data: Uint8Array): LogInitDexMetadata {
     if (!LOG_INIT_DEX_METADATA_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGINITDEXMETADATA discriminator mismatch');
+        throw new Error('LogInitDexMetadata discriminator mismatch');
     }
     const decoded = getLogInitDexMetadataDecoder().decode(data);
     return decoded as LogInitDexMetadata;

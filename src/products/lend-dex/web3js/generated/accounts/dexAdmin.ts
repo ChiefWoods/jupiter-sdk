@@ -60,7 +60,7 @@ function getDexAdminAccountDataDecoder(): Decoder<{
 
 export function deserializeDexAdminAccount(data: Uint8Array): DexAdminAccountData {
     if (!DEX_ADMIN_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('DEXADMINACCOUNT discriminator mismatch');
+        throw new Error('DexAdminAccount discriminator mismatch');
     }
     const deserialized = getDexAdminAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

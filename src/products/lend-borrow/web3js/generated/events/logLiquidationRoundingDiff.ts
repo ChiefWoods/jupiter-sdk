@@ -28,7 +28,7 @@ function getLogLiquidationRoundingDiffDecoder() {
 
 export function parseLogLiquidationRoundingDiff(data: Uint8Array): LogLiquidationRoundingDiff {
     if (!LOG_LIQUIDATION_ROUNDING_DIFF_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGLIQUIDATIONROUNDINGDIFF discriminator mismatch');
+        throw new Error('LogLiquidationRoundingDiff discriminator mismatch');
     }
     const decoded = getLogLiquidationRoundingDiffDecoder().decode(data);
     return decoded as LogLiquidationRoundingDiff;

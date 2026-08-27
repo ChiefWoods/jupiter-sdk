@@ -16,7 +16,7 @@ function getLogUpdateBorrowFeeDecoder() {
 
 export function parseLogUpdateBorrowFee(data: Uint8Array): LogUpdateBorrowFee {
     if (!LOG_UPDATE_BORROW_FEE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEBORROWFEE discriminator mismatch');
+        throw new Error('LogUpdateBorrowFee discriminator mismatch');
     }
     const decoded = getLogUpdateBorrowFeeDecoder().decode(data);
     return decoded as LogUpdateBorrowFee;

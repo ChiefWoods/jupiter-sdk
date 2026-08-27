@@ -33,7 +33,7 @@ function getOptionProposalMetaCreateDecoder() {
 
 export function parseOptionProposalMetaCreate(data: Uint8Array): OptionProposalMetaCreate {
     if (!OPTION_PROPOSAL_META_CREATE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('OPTIONPROPOSALMETACREATE discriminator mismatch');
+        throw new Error('OptionProposalMetaCreate discriminator mismatch');
     }
     const decoded = getOptionProposalMetaCreateDecoder().decode(data);
     return decoded as OptionProposalMetaCreate;

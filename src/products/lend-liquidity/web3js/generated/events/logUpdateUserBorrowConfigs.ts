@@ -30,7 +30,7 @@ function getLogUpdateUserBorrowConfigsDecoder() {
 
 export function parseLogUpdateUserBorrowConfigs(data: Uint8Array): LogUpdateUserBorrowConfigs {
     if (!LOG_UPDATE_USER_BORROW_CONFIGS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEUSERBORROWCONFIGS discriminator mismatch');
+        throw new Error('LogUpdateUserBorrowConfigs discriminator mismatch');
     }
     const decoded = getLogUpdateUserBorrowConfigsDecoder().decode(data);
     return decoded as LogUpdateUserBorrowConfigs;

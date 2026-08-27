@@ -39,7 +39,7 @@ function getVaultDepositDecoder() {
 
 export function parseVaultDeposit(data: Uint8Array): VaultDeposit {
     if (!VAULT_DEPOSIT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('VAULTDEPOSIT discriminator mismatch');
+        throw new Error('VaultDeposit discriminator mismatch');
     }
     const decoded = getVaultDepositDecoder().decode(data);
     return decoded as VaultDeposit;

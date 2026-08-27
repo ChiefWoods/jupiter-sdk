@@ -32,7 +32,7 @@ function getTokenLedgerAccountDataDecoder(): Decoder<{
 
 export function deserializeTokenLedgerAccount(data: Uint8Array): TokenLedgerAccountData {
     if (!TOKEN_LEDGER_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('TOKENLEDGERACCOUNT discriminator mismatch');
+        throw new Error('TokenLedgerAccount discriminator mismatch');
     }
     const deserialized = getTokenLedgerAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

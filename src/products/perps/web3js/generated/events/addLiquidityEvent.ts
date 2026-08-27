@@ -49,7 +49,7 @@ function getAddLiquidityDecoder() {
 
 export function parseAddLiquidity(data: Uint8Array): AddLiquidity {
     if (!ADD_LIQUIDITY_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('ADDLIQUIDITY discriminator mismatch');
+        throw new Error('AddLiquidity discriminator mismatch');
     }
     const decoded = getAddLiquidityDecoder().decode(data);
     return decoded as AddLiquidity;

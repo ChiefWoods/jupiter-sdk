@@ -29,7 +29,7 @@ function getOfferCancelledDecoder() {
 
 export function parseOfferCancelled(data: Uint8Array): OfferCancelled {
     if (!OFFER_CANCELLED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('OFFERCANCELLED discriminator mismatch');
+        throw new Error('OfferCancelled discriminator mismatch');
     }
     const decoded = getOfferCancelledDecoder().decode(data);
     return decoded as OfferCancelled;

@@ -20,7 +20,7 @@ function getBestSwapOutAmountViolationDecoder() {
 
 export function parseBestSwapOutAmountViolation(data: Uint8Array): BestSwapOutAmountViolation {
     if (!BEST_SWAP_OUT_AMOUNT_VIOLATION_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('BESTSWAPOUTAMOUNTVIOLATION discriminator mismatch');
+        throw new Error('BestSwapOutAmountViolation discriminator mismatch');
     }
     const decoded = getBestSwapOutAmountViolationDecoder().decode(data);
     return decoded as BestSwapOutAmountViolation;

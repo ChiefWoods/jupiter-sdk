@@ -26,7 +26,7 @@ function getLogTurnOnSmartDebtDecoder() {
 
 export function parseLogTurnOnSmartDebt(data: Uint8Array): LogTurnOnSmartDebt {
     if (!LOG_TURN_ON_SMART_DEBT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGTURNONSMARTDEBT discriminator mismatch');
+        throw new Error('LogTurnOnSmartDebt discriminator mismatch');
     }
     const decoded = getLogTurnOnSmartDebtDecoder().decode(data);
     return decoded as LogTurnOnSmartDebt;

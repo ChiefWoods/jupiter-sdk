@@ -17,7 +17,7 @@ function getLogUpdateUserClassDecoder() {
 
 export function parseLogUpdateUserClass(data: Uint8Array): LogUpdateUserClass {
     if (!LOG_UPDATE_USER_CLASS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEUSERCLASS discriminator mismatch');
+        throw new Error('LogUpdateUserClass discriminator mismatch');
     }
     const decoded = getLogUpdateUserClassDecoder().decode(data);
     return decoded as LogUpdateUserClass;

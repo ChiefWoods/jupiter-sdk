@@ -69,7 +69,7 @@ function getUserAccountDataDecoder(): Decoder<{
 
 export function deserializeUserAccount(data: Uint8Array): UserAccountData {
     if (!USER_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('USERACCOUNT discriminator mismatch');
+        throw new Error('UserAccount discriminator mismatch');
     }
     const deserialized = getUserAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

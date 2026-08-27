@@ -16,7 +16,7 @@ function getLogUpdateSupplyRateMagnifierDecoder() {
 
 export function parseLogUpdateSupplyRateMagnifier(data: Uint8Array): LogUpdateSupplyRateMagnifier {
     if (!LOG_UPDATE_SUPPLY_RATE_MAGNIFIER_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATESUPPLYRATEMAGNIFIER discriminator mismatch');
+        throw new Error('LogUpdateSupplyRateMagnifier discriminator mismatch');
     }
     const decoded = getLogUpdateSupplyRateMagnifierDecoder().decode(data);
     return decoded as LogUpdateSupplyRateMagnifier;

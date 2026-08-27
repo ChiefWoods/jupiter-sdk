@@ -36,7 +36,7 @@ function getOracleAccountDataDecoder(): Decoder<{
 
 export function deserializeOracleAccount(data: Uint8Array): OracleAccountData {
     if (!ORACLE_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('ORACLEACCOUNT discriminator mismatch');
+        throw new Error('OracleAccount discriminator mismatch');
     }
     const deserialized = getOracleAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

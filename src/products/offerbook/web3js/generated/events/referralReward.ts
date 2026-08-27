@@ -41,7 +41,7 @@ function getReferralRewardDecoder() {
 
 export function parseReferralReward(data: Uint8Array): ReferralReward {
     if (!REFERRAL_REWARD_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('REFERRALREWARD discriminator mismatch');
+        throw new Error('ReferralReward discriminator mismatch');
     }
     const decoded = getReferralRewardDecoder().decode(data);
     return decoded as ReferralReward;

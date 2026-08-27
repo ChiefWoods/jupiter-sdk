@@ -27,7 +27,7 @@ function getLogUpdateRewardsDecoder() {
 
 export function parseLogUpdateRewards(data: Uint8Array): LogUpdateRewards {
     if (!LOG_UPDATE_REWARDS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATEREWARDS discriminator mismatch');
+        throw new Error('LogUpdateRewards discriminator mismatch');
     }
     const decoded = getLogUpdateRewardsDecoder().decode(data);
     return decoded as LogUpdateRewards;

@@ -11,9 +11,6 @@ use borsh::BorshDeserialize;
 use borsh::BorshSerialize;
 use solana_address::Address;
 
-/// A Governor is the "DAO": it is the account that holds control over important protocol functions,
-/// including treasury, protocol parameters, and more.
-
 #[derive(BorshSerialize, BorshDeserialize, Clone, Debug, Eq, PartialEq)]
 pub struct Governor {
     pub discriminator: [u8; 8],

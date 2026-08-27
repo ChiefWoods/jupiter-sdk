@@ -27,7 +27,7 @@ function getLogBorrowRateCapDecoder() {
 
 export function parseLogBorrowRateCap(data: Uint8Array): LogBorrowRateCap {
     if (!LOG_BORROW_RATE_CAP_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGBORROWRATECAP discriminator mismatch');
+        throw new Error('LogBorrowRateCap discriminator mismatch');
     }
     const decoded = getLogBorrowRateCapDecoder().decode(data);
     return decoded as LogBorrowRateCap;

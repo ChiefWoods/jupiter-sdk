@@ -31,7 +31,7 @@ function getRefereeRewardDecoder() {
 
 export function parseRefereeReward(data: Uint8Array): RefereeReward {
     if (!REFEREE_REWARD_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('REFEREEREWARD discriminator mismatch');
+        throw new Error('RefereeReward discriminator mismatch');
     }
     const decoded = getRefereeRewardDecoder().decode(data);
     return decoded as RefereeReward;

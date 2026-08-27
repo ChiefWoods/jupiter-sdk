@@ -28,7 +28,7 @@ function getLogUpdateRangePercentsDecoder() {
 
 export function parseLogUpdateRangePercents(data: Uint8Array): LogUpdateRangePercents {
     if (!LOG_UPDATE_RANGE_PERCENTS_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATERANGEPERCENTS discriminator mismatch');
+        throw new Error('LogUpdateRangePercents discriminator mismatch');
     }
     const decoded = getLogUpdateRangePercentsDecoder().decode(data);
     return decoded as LogUpdateRangePercents;

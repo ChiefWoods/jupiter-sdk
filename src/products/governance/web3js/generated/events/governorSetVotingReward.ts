@@ -30,7 +30,7 @@ function getGovernorSetVotingRewardDecoder() {
 
 export function parseGovernorSetVotingReward(data: Uint8Array): GovernorSetVotingReward {
     if (!GOVERNOR_SET_VOTING_REWARD_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('GOVERNORSETVOTINGREWARD discriminator mismatch');
+        throw new Error('GovernorSetVotingReward discriminator mismatch');
     }
     const decoded = getGovernorSetVotingRewardDecoder().decode(data);
     return decoded as GovernorSetVotingReward;

@@ -96,7 +96,7 @@ function getInstantDecreasePositionDecoder() {
 
 export function parseInstantDecreasePosition(data: Uint8Array): InstantDecreasePosition {
     if (!INSTANT_DECREASE_POSITION_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('INSTANTDECREASEPOSITION discriminator mismatch');
+        throw new Error('InstantDecreasePosition discriminator mismatch');
     }
     const decoded = getInstantDecreasePositionDecoder().decode(data);
     return decoded as InstantDecreasePosition;

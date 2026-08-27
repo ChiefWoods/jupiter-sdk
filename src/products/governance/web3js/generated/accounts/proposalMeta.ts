@@ -46,7 +46,7 @@ function getProposalMetaAccountDataDecoder(): Decoder<{
 
 export function deserializeProposalMetaAccount(data: Uint8Array): ProposalMetaAccountData {
     if (!PROPOSAL_META_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('PROPOSALMETAACCOUNT discriminator mismatch');
+        throw new Error('ProposalMetaAccount discriminator mismatch');
     }
     const deserialized = getProposalMetaAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

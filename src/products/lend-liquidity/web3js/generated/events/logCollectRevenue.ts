@@ -29,7 +29,7 @@ function getLogCollectRevenueDecoder() {
 
 export function parseLogCollectRevenue(data: Uint8Array): LogCollectRevenue {
     if (!LOG_COLLECT_REVENUE_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGCOLLECTREVENUE discriminator mismatch');
+        throw new Error('LogCollectRevenue discriminator mismatch');
     }
     const decoded = getLogCollectRevenueDecoder().decode(data);
     return decoded as LogCollectRevenue;

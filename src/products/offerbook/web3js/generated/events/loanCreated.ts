@@ -29,7 +29,7 @@ function getLoanCreatedDecoder() {
 
 export function parseLoanCreated(data: Uint8Array): LoanCreated {
     if (!LOAN_CREATED_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOANCREATED discriminator mismatch');
+        throw new Error('LoanCreated discriminator mismatch');
     }
     const decoded = getLoanCreatedDecoder().decode(data);
     return decoded as LoanCreated;

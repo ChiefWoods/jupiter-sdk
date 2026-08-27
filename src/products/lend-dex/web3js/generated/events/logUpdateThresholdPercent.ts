@@ -35,7 +35,7 @@ function getLogUpdateThresholdPercentDecoder() {
 
 export function parseLogUpdateThresholdPercent(data: Uint8Array): LogUpdateThresholdPercent {
     if (!LOG_UPDATE_THRESHOLD_PERCENT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATETHRESHOLDPERCENT discriminator mismatch');
+        throw new Error('LogUpdateThresholdPercent discriminator mismatch');
     }
     const decoded = getLogUpdateThresholdPercentDecoder().decode(data);
     return decoded as LogUpdateThresholdPercent;

@@ -34,7 +34,7 @@ function getDexMetadataAccountDataDecoder(): Decoder<{
 
 export function deserializeDexMetadataAccount(data: Uint8Array): DexMetadataAccountData {
     if (!DEX_METADATA_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('DEXMETADATAACCOUNT discriminator mismatch');
+        throw new Error('DexMetadataAccount discriminator mismatch');
     }
     const deserialized = getDexMetadataAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

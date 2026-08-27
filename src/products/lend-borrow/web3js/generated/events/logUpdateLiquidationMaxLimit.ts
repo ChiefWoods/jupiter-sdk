@@ -16,7 +16,7 @@ function getLogUpdateLiquidationMaxLimitDecoder() {
 
 export function parseLogUpdateLiquidationMaxLimit(data: Uint8Array): LogUpdateLiquidationMaxLimit {
     if (!LOG_UPDATE_LIQUIDATION_MAX_LIMIT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LOGUPDATELIQUIDATIONMAXLIMIT discriminator mismatch');
+        throw new Error('LogUpdateLiquidationMaxLimit discriminator mismatch');
     }
     const decoded = getLogUpdateLiquidationMaxLimitDecoder().decode(data);
     return decoded as LogUpdateLiquidationMaxLimit;

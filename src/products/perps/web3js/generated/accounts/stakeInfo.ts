@@ -56,7 +56,7 @@ function getStakeInfoAccountDataDecoder(): Decoder<{
 
 export function deserializeStakeInfoAccount(data: Uint8Array): StakeInfoAccountData {
     if (!STAKE_INFO_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('STAKEINFOACCOUNT discriminator mismatch');
+        throw new Error('StakeInfoAccount discriminator mismatch');
     }
     const deserialized = getStakeInfoAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

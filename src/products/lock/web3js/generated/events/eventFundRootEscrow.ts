@@ -29,7 +29,7 @@ function getEventFundRootEscrowDecoder() {
 
 export function parseEventFundRootEscrow(data: Uint8Array): EventFundRootEscrow {
     if (!EVENT_FUND_ROOT_ESCROW_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('EVENTFUNDROOTESCROW discriminator mismatch');
+        throw new Error('EventFundRootEscrow discriminator mismatch');
     }
     const decoded = getEventFundRootEscrowDecoder().decode(data);
     return decoded as EventFundRootEscrow;

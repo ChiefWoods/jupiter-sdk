@@ -37,7 +37,7 @@ function getLiquidityAccountDataDecoder(): Decoder<{
 
 export function deserializeLiquidityAccount(data: Uint8Array): LiquidityAccountData {
     if (!LIQUIDITY_ACCOUNT_DISCRIMINATOR.every((byte, index) => data[0 + index] === byte)) {
-        throw new Error('LIQUIDITYACCOUNT discriminator mismatch');
+        throw new Error('LiquidityAccount discriminator mismatch');
     }
     const deserialized = getLiquidityAccountDataDecoder().decode(data);
     const { discriminator: _, ...accountData } = deserialized;

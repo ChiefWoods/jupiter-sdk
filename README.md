@@ -134,3 +134,10 @@ Some products ship optional overrides (`src/products/<product>/generate-codama-i
 > Only the root packages (`jupiter-sdk` / `jupiter-program-sdk`) are published. Individual product SDKs under `src/products/` are not published separately.
 
 See [.agents/skills/add-new-product/SKILL.md](./.agents/skills/add-new-product/SKILL.md)
+
+## Versioning
+
+> [!NOTE]
+> There is no Changeset. Version `jupiter-sdk` (npm) and `jupiter-program-sdk` (crates.io) by hand, independently.
+
+See [.agents/skills/version-packages/SKILL.md](./.agents/skills/version-packages/SKILL.md)

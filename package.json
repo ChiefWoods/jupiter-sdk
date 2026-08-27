@@ -174,8 +174,8 @@
     "codama": "^1.10.2",
     "husky": "^9.1.7",
     "lint-staged": "^17.2.0",
-    "oxfmt": "^0.60.0",
-    "oxlint": "^1.75.0",
+    "oxfmt": "^0.65.0",
+    "oxlint": "^1.80.0",
     "renderers-web3js": "^0.5.2",
     "tsdown": "^0.22.14",
     "turbo": "^2.10.7"

@@ -191,10 +191,10 @@ export async function getInitInstructionAsync<
 
   // Resolve default values.
   if (!accounts.config.value) {
-    accounts.config.value = await findConfigPda();
+    accounts.config.value = await findConfigPda({ programAddress });
   }
   if (!accounts.feeAuthority.value) {
-    accounts.feeAuthority.value = await findFeeAuthorityPda();
+    accounts.feeAuthority.value = await findFeeAuthorityPda({ programAddress });
   }
   if (!accounts.program.value) {
     accounts.program.value =

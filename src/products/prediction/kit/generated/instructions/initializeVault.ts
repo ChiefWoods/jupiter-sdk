@@ -204,12 +204,15 @@ export async function getInitializeVaultInstructionAsync<
       "8rNYGp2wKnAGDm2SMaoJRFFGvfmt7iCTuu2GUvdMbZ1H" as Address<"8rNYGp2wKnAGDm2SMaoJRFFGvfmt7iCTuu2GUvdMbZ1H">;
   }
   if (!accounts.vault.value) {
-    accounts.vault.value = await findVaultPda({
-      settlementMint: getAddressFromResolvedInstructionAccount(
-        "settlementMint",
-        accounts.settlementMint.value,
-      ),
-    });
+    accounts.vault.value = await findVaultPda(
+      {
+        settlementMint: getAddressFromResolvedInstructionAccount(
+          "settlementMint",
+          accounts.settlementMint.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.vaultTokenAccount.value) {
     accounts.vaultTokenAccount.value = await getProgramDerivedAddress({

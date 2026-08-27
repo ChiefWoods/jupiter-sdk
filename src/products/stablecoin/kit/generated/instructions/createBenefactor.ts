@@ -205,12 +205,15 @@ export async function getCreateBenefactorInstructionAsync<
 
   // Resolve default values.
   if (!accounts.benefactor.value) {
-    accounts.benefactor.value = await findBenefactorPda({
-      benefactorAuthority: getAddressFromResolvedInstructionAccount(
-        "benefactorAuthority",
-        accounts.benefactorAuthority.value,
-      ),
-    });
+    accounts.benefactor.value = await findBenefactorPda(
+      {
+        benefactorAuthority: getAddressFromResolvedInstructionAccount(
+          "benefactorAuthority",
+          accounts.benefactorAuthority.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

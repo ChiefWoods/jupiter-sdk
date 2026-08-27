@@ -325,6 +325,474 @@ export function identifyLendDexAccount(
   );
 }
 
+export enum LendDexEvent {
+  LogArbitrage,
+  LogBorrowDebtLiquidity,
+  LogBorrowPerfectDebtLiquidity,
+  LogDepositColLiquidity,
+  LogDepositPerfectColLiquidity,
+  LogInitDex,
+  LogInitDexMetadata,
+  LogInitDexPriceParams,
+  LogPauseDex,
+  LogPauseSwapAndArbitrage,
+  LogPauseUser,
+  LogPaybackDebtInOneToken,
+  LogPaybackDebtLiquidity,
+  LogPaybackPerfectDebtLiquidity,
+  LogSwap,
+  LogTurnOnSmartCol,
+  LogTurnOnSmartDebt,
+  LogUnpauseDex,
+  LogUnpauseSwapAndArbitrage,
+  LogUnpauseUser,
+  LogUpdateAuthority,
+  LogUpdateAuths,
+  LogUpdateCenterPriceAddress,
+  LogUpdateCenterPriceLimits,
+  LogUpdateDexLookupTable,
+  LogUpdateFeeAndRevenueCut,
+  LogUpdateGuardians,
+  LogUpdateMaxBorrowShares,
+  LogUpdateMaxSupplyShares,
+  LogUpdateRangePercents,
+  LogUpdateThresholdPercent,
+  LogUpdateUserBorrowConfig,
+  LogUpdateUserSupplyConfig,
+  LogUpdateUserWithdrawalLimit,
+  LogUpdateUtilizationLimit,
+  LogWithdrawColInOneToken,
+  LogWithdrawColLiquidity,
+  LogWithdrawPerfectColLiquidity,
+}
+
+export function identifyLendDexEvent(
+  event: { data: ReadonlyUint8Array } | ReadonlyUint8Array,
+): LendDexEvent {
+  const data = "data" in event ? event.data : event;
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([105, 165, 52, 9, 218, 211, 46, 13]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogArbitrage;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([70, 124, 172, 119, 252, 91, 62, 4]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogBorrowDebtLiquidity;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([164, 250, 16, 192, 152, 3, 238, 107]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogBorrowPerfectDebtLiquidity;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([162, 105, 100, 76, 89, 95, 69, 189]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogDepositColLiquidity;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([33, 91, 169, 231, 163, 83, 37, 254]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogDepositPerfectColLiquidity;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([170, 65, 241, 125, 34, 194, 79, 132]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogInitDex;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([53, 61, 248, 111, 245, 219, 167, 73]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogInitDexMetadata;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([154, 98, 101, 72, 8, 203, 37, 200]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogInitDexPriceParams;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([107, 202, 204, 255, 100, 73, 92, 117]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogPauseDex;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([103, 184, 228, 52, 0, 229, 4, 154]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogPauseSwapAndArbitrage;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([100, 17, 114, 224, 180, 30, 52, 170]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogPauseUser;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([123, 31, 108, 14, 12, 201, 20, 83]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogPaybackDebtInOneToken;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([230, 190, 245, 114, 113, 92, 173, 27]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogPaybackDebtLiquidity;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([75, 233, 232, 38, 153, 31, 239, 109]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogPaybackPerfectDebtLiquidity;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([202, 242, 228, 28, 37, 194, 52, 34]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogSwap;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([108, 254, 255, 147, 80, 55, 98, 86]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogTurnOnSmartCol;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([23, 36, 134, 104, 91, 138, 126, 124]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogTurnOnSmartDebt;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([6, 190, 255, 207, 165, 71, 170, 212]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUnpauseDex;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([229, 120, 123, 188, 146, 222, 159, 255]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUnpauseSwapAndArbitrage;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([170, 91, 132, 96, 179, 77, 168, 26]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUnpauseUser;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([150, 152, 157, 143, 6, 135, 193, 101]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUpdateAuthority;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([88, 80, 109, 48, 111, 203, 76, 251]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUpdateAuths;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([96, 24, 207, 2, 38, 203, 43, 145]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUpdateCenterPriceAddress;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([111, 228, 61, 31, 234, 76, 5, 17]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUpdateCenterPriceLimits;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([135, 31, 232, 96, 2, 64, 116, 229]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUpdateDexLookupTable;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([187, 9, 16, 229, 8, 231, 7, 171]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUpdateFeeAndRevenueCut;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([231, 28, 191, 51, 53, 140, 79, 142]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUpdateGuardians;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([22, 124, 242, 112, 255, 39, 100, 206]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUpdateMaxBorrowShares;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([209, 150, 112, 193, 243, 63, 233, 212]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUpdateMaxSupplyShares;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([149, 47, 161, 6, 129, 240, 48, 100]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUpdateRangePercents;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([44, 46, 70, 115, 25, 38, 92, 99]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUpdateThresholdPercent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([70, 142, 184, 48, 44, 158, 166, 3]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUpdateUserBorrowConfig;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([86, 139, 35, 235, 30, 42, 192, 245]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUpdateUserSupplyConfig;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([114, 131, 152, 189, 120, 253, 88, 105]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUpdateUserWithdrawalLimit;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([153, 239, 227, 172, 250, 247, 155, 69]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogUpdateUtilizationLimit;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([86, 6, 224, 183, 211, 209, 199, 232]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogWithdrawColInOneToken;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([29, 6, 184, 148, 156, 65, 164, 228]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogWithdrawColLiquidity;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([199, 40, 242, 90, 55, 165, 41, 105]),
+      ),
+      0,
+    )
+  ) {
+    return LendDexEvent.LogWithdrawPerfectColLiquidity;
+  }
+  throw new Error(
+    "The provided event could not be identified as a lendDex event.",
+  );
+}
+
 export enum LendDexInstruction {
   Borrow,
   BorrowPerfect,

@@ -167,7 +167,7 @@ export async function getInitDexAdminInstructionAsync<
 
   // Resolve default values.
   if (!accounts.dexAdmin.value) {
-    accounts.dexAdmin.value = await findDexAdminPda();
+    accounts.dexAdmin.value = await findDexAdminPda({ programAddress });
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

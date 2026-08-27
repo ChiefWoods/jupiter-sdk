@@ -138,6 +138,90 @@ export function identifyAggregatorV6Account(
   );
 }
 
+export enum AggregatorV6Event {
+  FeeEvent,
+  SwapEvent,
+  SwapsEvent,
+  CandidateSwapResults,
+  CandidateSwapQuoteError,
+  BestSwapOutAmountViolation,
+}
+
+export function identifyAggregatorV6Event(
+  event: { data: ReadonlyUint8Array } | ReadonlyUint8Array,
+): AggregatorV6Event {
+  const data = "data" in event ? event.data : event;
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([73, 79, 78, 127, 184, 213, 13, 220]),
+      ),
+      0,
+    )
+  ) {
+    return AggregatorV6Event.FeeEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([64, 198, 205, 232, 38, 8, 113, 226]),
+      ),
+      0,
+    )
+  ) {
+    return AggregatorV6Event.SwapEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([152, 47, 78, 235, 192, 96, 110, 106]),
+      ),
+      0,
+    )
+  ) {
+    return AggregatorV6Event.SwapsEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([45, 9, 244, 30, 229, 52, 168, 123]),
+      ),
+      0,
+    )
+  ) {
+    return AggregatorV6Event.CandidateSwapResults;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([248, 134, 37, 55, 145, 177, 114, 79]),
+      ),
+      0,
+    )
+  ) {
+    return AggregatorV6Event.CandidateSwapQuoteError;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([124, 66, 196, 51, 218, 173, 46, 93]),
+      ),
+      0,
+    )
+  ) {
+    return AggregatorV6Event.BestSwapOutAmountViolation;
+  }
+  throw new Error(
+    "The provided event could not be identified as a aggregatorV6 event.",
+  );
+}
+
 export enum AggregatorV6Instruction {
   Claim,
   ClaimToken,

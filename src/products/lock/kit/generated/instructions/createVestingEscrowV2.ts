@@ -278,12 +278,15 @@ export async function getCreateVestingEscrowV2InstructionAsync<
 
   // Resolve default values.
   if (!accounts.escrow.value) {
-    accounts.escrow.value = await findEscrowPda({
-      base: getAddressFromResolvedInstructionAccount(
-        "base",
-        accounts.base.value,
-      ),
-    });
+    accounts.escrow.value = await findEscrowPda(
+      {
+        base: getAddressFromResolvedInstructionAccount(
+          "base",
+          accounts.base.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.tokenProgram.value) {
     accounts.tokenProgram.value =
@@ -320,7 +323,9 @@ export async function getCreateVestingEscrowV2InstructionAsync<
       "11111111111111111111111111111111" as Address<"11111111111111111111111111111111">;
   }
   if (!accounts.eventAuthority.value) {
-    accounts.eventAuthority.value = await findEventAuthorityPda();
+    accounts.eventAuthority.value = await findEventAuthorityPda({
+      programAddress,
+    });
   }
 
   const getAccountMeta = getAccountMetaFactory(programAddress, "programId");

@@ -175,7 +175,9 @@ export async function getInitLendingRewardsAdminInstructionAsync<
 
   // Resolve default values.
   if (!accounts.lendingRewardsAdmin.value) {
-    accounts.lendingRewardsAdmin.value = await findLendingRewardsAdminPda();
+    accounts.lendingRewardsAdmin.value = await findLendingRewardsAdminPda({
+      programAddress,
+    });
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

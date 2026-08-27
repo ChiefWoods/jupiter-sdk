@@ -425,6 +425,366 @@ export function identifyLendBorrowAccount(
   );
 }
 
+export enum LendBorrowEvent {
+  LogAbsorb,
+  LogClosePosition,
+  LogInitBranch,
+  LogInitTick,
+  LogInitTickHasDebtArray,
+  LogInitTickIdLiquidation,
+  LogInitVaultConfig,
+  LogInitVaultState,
+  LogLiquidate,
+  LogLiquidateInfo,
+  LogLiquidationRoundingDiff,
+  LogOperate,
+  LogRebalance,
+  LogUpdateAuthority,
+  LogUpdateAuths,
+  LogUpdateBorrowFee,
+  LogUpdateBorrowRateMagnifier,
+  LogUpdateCollateralFactor,
+  LogUpdateCoreSettings,
+  LogUpdateExchangePrices,
+  LogUpdateLiquidationMaxLimit,
+  LogUpdateLiquidationPenalty,
+  LogUpdateLiquidationThreshold,
+  LogUpdateLookupTable,
+  LogUpdateOracle,
+  LogUpdateRebalancer,
+  LogUpdateSupplyRateMagnifier,
+  LogUpdateWithdrawGap,
+  LogUserPosition,
+}
+
+export function identifyLendBorrowEvent(
+  event: { data: ReadonlyUint8Array } | ReadonlyUint8Array,
+): LendBorrowEvent {
+  const data = "data" in event ? event.data : event;
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([177, 119, 143, 137, 184, 63, 197, 215]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogAbsorb;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([225, 156, 13, 36, 189, 95, 170, 92]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogClosePosition;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([127, 182, 211, 219, 140, 189, 193, 101]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogInitBranch;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([56, 182, 35, 79, 249, 114, 9, 175]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogInitTick;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([15, 134, 113, 2, 251, 206, 30, 129]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogInitTickHasDebtArray;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([172, 64, 170, 238, 39, 153, 185, 225]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogInitTickIdLiquidation;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([194, 158, 35, 55, 179, 48, 174, 46]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogInitVaultConfig;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([140, 108, 65, 38, 128, 26, 194, 28]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogInitVaultState;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([154, 128, 202, 147, 65, 233, 195, 73]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogLiquidate;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([169, 150, 46, 42, 178, 89, 98, 83]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogLiquidateInfo;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([35, 189, 179, 90, 218, 51, 104, 128]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogLiquidationRoundingDiff;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([180, 8, 81, 71, 19, 132, 173, 8]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogOperate;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([90, 67, 219, 41, 181, 118, 132, 9]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogRebalance;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([150, 152, 157, 143, 6, 135, 193, 101]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogUpdateAuthority;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([88, 80, 109, 48, 111, 203, 76, 251]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogUpdateAuths;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([33, 134, 42, 66, 16, 167, 119, 196]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogUpdateBorrowFee;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([186, 23, 46, 117, 57, 111, 107, 51]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogUpdateBorrowRateMagnifier;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([142, 89, 0, 231, 164, 164, 230, 82]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogUpdateCollateralFactor;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([233, 65, 32, 7, 230, 115, 122, 197]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogUpdateCoreSettings;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([190, 194, 69, 204, 30, 86, 181, 163]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogUpdateExchangePrices;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([73, 32, 49, 0, 234, 86, 150, 94]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogUpdateLiquidationMaxLimit;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([42, 132, 67, 48, 209, 133, 77, 83]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogUpdateLiquidationPenalty;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([211, 71, 215, 239, 159, 238, 71, 219]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogUpdateLiquidationThreshold;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([45, 248, 126, 111, 185, 41, 103, 5]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogUpdateLookupTable;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([251, 163, 219, 57, 30, 152, 177, 10]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogUpdateOracle;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([66, 79, 144, 204, 26, 217, 153, 225]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogUpdateRebalancer;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([198, 113, 184, 213, 239, 18, 253, 56]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogUpdateSupplyRateMagnifier;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([182, 248, 48, 47, 8, 159, 21, 35]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogUpdateWithdrawGap;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([46, 44, 213, 42, 55, 59, 190, 133]),
+      ),
+      0,
+    )
+  ) {
+    return LendBorrowEvent.LogUserPosition;
+  }
+  throw new Error(
+    "The provided event could not be identified as a lendBorrow event.",
+  );
+}
+
 export enum LendBorrowInstruction {
   GetExchangePrices,
   InitBranch,

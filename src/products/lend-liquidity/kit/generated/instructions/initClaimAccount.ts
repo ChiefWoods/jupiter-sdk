@@ -168,10 +168,13 @@ export async function getInitClaimAccountInstructionAsync<
 
   // Resolve default values.
   if (!accounts.claimAccount.value) {
-    accounts.claimAccount.value = await findClaimAccountPda({
-      user: getNonNullResolvedInstructionInput("user", args.user),
-      mint: getNonNullResolvedInstructionInput("mint", args.mint),
-    });
+    accounts.claimAccount.value = await findClaimAccountPda(
+      {
+        user: getNonNullResolvedInstructionInput("user", args.user),
+        mint: getNonNullResolvedInstructionInput("mint", args.mint),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

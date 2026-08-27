@@ -278,12 +278,15 @@ export async function getInitLendingInstructionAsync<
 
   // Resolve default values.
   if (!accounts.fTokenMint.value) {
-    accounts.fTokenMint.value = await findFTokenMintPda({
-      mint: getAddressFromResolvedInstructionAccount(
-        "mint",
-        accounts.mint.value,
-      ),
-    });
+    accounts.fTokenMint.value = await findFTokenMintPda(
+      {
+        mint: getAddressFromResolvedInstructionAccount(
+          "mint",
+          accounts.mint.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.metadataAccount.value) {
     accounts.metadataAccount.value = await getProgramDerivedAddress({
@@ -310,16 +313,19 @@ export async function getInitLendingInstructionAsync<
     });
   }
   if (!accounts.lending.value) {
-    accounts.lending.value = await findLendingPda({
-      mint: getAddressFromResolvedInstructionAccount(
-        "mint",
-        accounts.mint.value,
-      ),
-      fTokenMint: getAddressFromResolvedInstructionAccount(
-        "fTokenMint",
-        accounts.fTokenMint.value,
-      ),
-    });
+    accounts.lending.value = await findLendingPda(
+      {
+        mint: getAddressFromResolvedInstructionAccount(
+          "mint",
+          accounts.mint.value,
+        ),
+        fTokenMint: getAddressFromResolvedInstructionAccount(
+          "fTokenMint",
+          accounts.fTokenMint.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.tokenProgram.value) {
     accounts.tokenProgram.value =

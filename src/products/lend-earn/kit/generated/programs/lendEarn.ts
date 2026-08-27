@@ -202,6 +202,114 @@ export function identifyLendEarnAccount(
   );
 }
 
+export enum LendEarnEvent {
+  LogDeposit,
+  LogRebalance,
+  LogUpdateAuthority,
+  LogUpdateAuths,
+  LogUpdateRates,
+  LogUpdateRebalancer,
+  LogUpdateRewards,
+  LogWithdraw,
+}
+
+export function identifyLendEarnEvent(
+  event: { data: ReadonlyUint8Array } | ReadonlyUint8Array,
+): LendEarnEvent {
+  const data = "data" in event ? event.data : event;
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([176, 243, 1, 56, 142, 206, 1, 106]),
+      ),
+      0,
+    )
+  ) {
+    return LendEarnEvent.LogDeposit;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([90, 67, 219, 41, 181, 118, 132, 9]),
+      ),
+      0,
+    )
+  ) {
+    return LendEarnEvent.LogRebalance;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([150, 152, 157, 143, 6, 135, 193, 101]),
+      ),
+      0,
+    )
+  ) {
+    return LendEarnEvent.LogUpdateAuthority;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([88, 80, 109, 48, 111, 203, 76, 251]),
+      ),
+      0,
+    )
+  ) {
+    return LendEarnEvent.LogUpdateAuths;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([222, 11, 113, 60, 147, 15, 68, 217]),
+      ),
+      0,
+    )
+  ) {
+    return LendEarnEvent.LogUpdateRates;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([66, 79, 144, 204, 26, 217, 153, 225]),
+      ),
+      0,
+    )
+  ) {
+    return LendEarnEvent.LogUpdateRebalancer;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([37, 13, 111, 186, 47, 245, 162, 121]),
+      ),
+      0,
+    )
+  ) {
+    return LendEarnEvent.LogUpdateRewards;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([49, 9, 176, 179, 222, 190, 6, 117]),
+      ),
+      0,
+    )
+  ) {
+    return LendEarnEvent.LogWithdraw;
+  }
+  throw new Error(
+    "The provided event could not be identified as a lendEarn event.",
+  );
+}
+
 export enum LendEarnInstruction {
   Deposit,
   DepositWithMinAmountOut,

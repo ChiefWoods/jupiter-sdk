@@ -179,10 +179,13 @@ export async function getInitBranchInstructionAsync<
 
   // Resolve default values.
   if (!accounts.branch.value) {
-    accounts.branch.value = await findBranchPda({
-      vaultId: getNonNullResolvedInstructionInput("vaultId", args.vaultId),
-      branchId: getNonNullResolvedInstructionInput("branchId", args.branchId),
-    });
+    accounts.branch.value = await findBranchPda(
+      {
+        vaultId: getNonNullResolvedInstructionInput("vaultId", args.vaultId),
+        branchId: getNonNullResolvedInstructionInput("branchId", args.branchId),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

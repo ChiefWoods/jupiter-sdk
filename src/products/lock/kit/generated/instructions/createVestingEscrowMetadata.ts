@@ -214,12 +214,15 @@ export async function getCreateVestingEscrowMetadataInstructionAsync<
 
   // Resolve default values.
   if (!accounts.escrowMetadata.value) {
-    accounts.escrowMetadata.value = await findEscrowMetadataPda({
-      escrow: getAddressFromResolvedInstructionAccount(
-        "escrow",
-        accounts.escrow.value,
-      ),
-    });
+    accounts.escrowMetadata.value = await findEscrowMetadataPda(
+      {
+        escrow: getAddressFromResolvedInstructionAccount(
+          "escrow",
+          accounts.escrow.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

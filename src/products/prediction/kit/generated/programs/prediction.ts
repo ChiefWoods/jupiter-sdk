@@ -231,6 +231,258 @@ export function identifyPredictionAccount(
   );
 }
 
+export enum PredictionEvent {
+  OrderCanceled,
+  OrderClosed,
+  OrderCreated,
+  OrderFailed,
+  OrderFilled,
+  PayoutClaimed,
+  PositionClosed,
+  PositionLost,
+  PositionUpdated,
+  TicketAccepted,
+  TicketClaimed,
+  TicketClosed,
+  TicketCreated,
+  TicketRefunded,
+  TicketRejected,
+  TicketSettled,
+  VaultConfigUpdated,
+  VaultDeposit,
+  VaultInitialized,
+  VaultWithdrawal,
+}
+
+export function identifyPredictionEvent(
+  event: { data: ReadonlyUint8Array } | ReadonlyUint8Array,
+): PredictionEvent {
+  const data = "data" in event ? event.data : event;
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([210, 147, 48, 247, 204, 118, 255, 121]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.OrderCanceled;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([237, 77, 101, 123, 72, 43, 149, 123]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.OrderClosed;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([224, 1, 229, 63, 254, 60, 190, 159]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.OrderCreated;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([60, 179, 157, 0, 164, 131, 38, 236]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.OrderFailed;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([120, 124, 109, 66, 249, 116, 174, 30]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.OrderFilled;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([200, 39, 105, 112, 116, 63, 58, 149]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.PayoutClaimed;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([157, 163, 227, 228, 13, 97, 138, 121]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.PositionClosed;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([139, 42, 180, 84, 194, 237, 88, 58]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.PositionLost;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([208, 212, 54, 188, 246, 71, 235, 88]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.PositionUpdated;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([184, 21, 136, 179, 150, 105, 210, 115]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.TicketAccepted;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([182, 233, 151, 84, 251, 36, 232, 88]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.TicketClaimed;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([48, 69, 175, 107, 31, 27, 141, 71]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.TicketClosed;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([122, 222, 128, 213, 63, 50, 51, 110]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.TicketCreated;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([46, 173, 213, 43, 145, 205, 132, 218]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.TicketRefunded;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([108, 208, 43, 131, 188, 143, 192, 152]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.TicketRejected;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([72, 40, 13, 3, 184, 159, 190, 211]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.TicketSettled;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([72, 22, 37, 111, 58, 30, 160, 212]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.VaultConfigUpdated;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([4, 248, 234, 163, 99, 238, 140, 45]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.VaultDeposit;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([180, 43, 207, 2, 18, 71, 3, 75]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.VaultInitialized;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([168, 109, 95, 252, 76, 240, 237, 56]),
+      ),
+      0,
+    )
+  ) {
+    return PredictionEvent.VaultWithdrawal;
+  }
+  throw new Error(
+    "The provided event could not be identified as a prediction event.",
+  );
+}
+
 export enum PredictionInstruction {
   AcceptTicket,
   CancelOrder,

@@ -166,7 +166,7 @@ export async function getInitVaultAdminInstructionAsync<
 
   // Resolve default values.
   if (!accounts.vaultAdmin.value) {
-    accounts.vaultAdmin.value = await findVaultAdminPda();
+    accounts.vaultAdmin.value = await findVaultAdminPda({ programAddress });
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

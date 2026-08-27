@@ -176,6 +176,66 @@ export function identifyStablecoinAccount(
   );
 }
 
+export enum StablecoinEvent {
+  MintV0Event,
+  MintV1Event,
+  RedeemV0Event,
+  RedeemV1Event,
+}
+
+export function identifyStablecoinEvent(
+  event: { data: ReadonlyUint8Array } | ReadonlyUint8Array,
+): StablecoinEvent {
+  const data = "data" in event ? event.data : event;
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([217, 98, 231, 213, 105, 77, 68, 88]),
+      ),
+      0,
+    )
+  ) {
+    return StablecoinEvent.MintV0Event;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([63, 113, 88, 48, 163, 187, 48, 83]),
+      ),
+      0,
+    )
+  ) {
+    return StablecoinEvent.MintV1Event;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([50, 202, 68, 30, 122, 77, 84, 153]),
+      ),
+      0,
+    )
+  ) {
+    return StablecoinEvent.RedeemV0Event;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([67, 51, 207, 92, 219, 144, 44, 2]),
+      ),
+      0,
+    )
+  ) {
+    return StablecoinEvent.RedeemV1Event;
+  }
+  throw new Error(
+    "The provided event could not be identified as a stablecoin event.",
+  );
+}
+
 export enum StablecoinInstruction {
   CreateBenefactor,
   CreateOperator,

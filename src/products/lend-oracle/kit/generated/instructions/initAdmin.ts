@@ -158,7 +158,7 @@ export async function getInitAdminInstructionAsync<
 
   // Resolve default values.
   if (!accounts.oracleAdmin.value) {
-    accounts.oracleAdmin.value = await findOracleAdminPda();
+    accounts.oracleAdmin.value = await findOracleAdminPda({ programAddress });
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

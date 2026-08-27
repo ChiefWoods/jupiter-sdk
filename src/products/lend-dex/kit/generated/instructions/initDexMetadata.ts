@@ -187,14 +187,16 @@ export async function getInitDexMetadataInstructionAsync<
 
   // Resolve default values.
   if (!accounts.dex.value) {
-    accounts.dex.value = await findDexPda({
-      dexId: getNonNullResolvedInstructionInput("dexId", args.dexId),
-    });
+    accounts.dex.value = await findDexPda(
+      { dexId: getNonNullResolvedInstructionInput("dexId", args.dexId) },
+      { programAddress },
+    );
   }
   if (!accounts.dexMetadata.value) {
-    accounts.dexMetadata.value = await findDexMetadataPda({
-      dexId: getNonNullResolvedInstructionInput("dexId", args.dexId),
-    });
+    accounts.dexMetadata.value = await findDexMetadataPda(
+      { dexId: getNonNullResolvedInstructionInput("dexId", args.dexId) },
+      { programAddress },
+    );
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

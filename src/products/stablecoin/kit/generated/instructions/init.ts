@@ -294,18 +294,21 @@ export async function getInitInstructionAsync<
 
   // Resolve default values.
   if (!accounts.operator.value) {
-    accounts.operator.value = await findOperatorPda({
-      upgradeAuthority: getAddressFromResolvedInstructionAccount(
-        "upgradeAuthority",
-        accounts.upgradeAuthority.value,
-      ),
-    });
+    accounts.operator.value = await findOperatorPda(
+      {
+        upgradeAuthority: getAddressFromResolvedInstructionAccount(
+          "upgradeAuthority",
+          accounts.upgradeAuthority.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.config.value) {
-    accounts.config.value = await findConfigPda();
+    accounts.config.value = await findConfigPda({ programAddress });
   }
   if (!accounts.authority.value) {
-    accounts.authority.value = await findAuthorityPda();
+    accounts.authority.value = await findAuthorityPda({ programAddress });
   }
   if (!accounts.program.value) {
     accounts.program.value =

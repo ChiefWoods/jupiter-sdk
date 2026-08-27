@@ -186,10 +186,13 @@ export async function getInitTickHasDebtArrayInstructionAsync<
 
   // Resolve default values.
   if (!accounts.tickHasDebtArray.value) {
-    accounts.tickHasDebtArray.value = await findTickHasDebtArrayPda({
-      vaultId: getNonNullResolvedInstructionInput("vaultId", args.vaultId),
-      index: getNonNullResolvedInstructionInput("index", args.index),
-    });
+    accounts.tickHasDebtArray.value = await findTickHasDebtArrayPda(
+      {
+        vaultId: getNonNullResolvedInstructionInput("vaultId", args.vaultId),
+        index: getNonNullResolvedInstructionInput("index", args.index),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

@@ -176,12 +176,15 @@ export async function getCreateUserInstructionAsync<
 
   // Resolve default values.
   if (!accounts.signerUser.value) {
-    accounts.signerUser.value = await findSignerUserPda({
-      signer: getAddressFromResolvedInstructionAccount(
-        "signer",
-        accounts.signer.value,
-      ),
-    });
+    accounts.signerUser.value = await findSignerUserPda(
+      {
+        signer: getAddressFromResolvedInstructionAccount(
+          "signer",
+          accounts.signer.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

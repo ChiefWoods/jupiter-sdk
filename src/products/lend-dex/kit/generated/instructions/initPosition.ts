@@ -180,10 +180,16 @@ export async function getInitPositionInstructionAsync<
 
   // Resolve default values.
   if (!accounts.position.value) {
-    accounts.position.value = await findPositionPda({
-      dex: getAddressFromResolvedInstructionAccount("dex", accounts.dex.value),
-      protocol: getNonNullResolvedInstructionInput("protocol", args.protocol),
-    });
+    accounts.position.value = await findPositionPda(
+      {
+        dex: getAddressFromResolvedInstructionAccount(
+          "dex",
+          accounts.dex.value,
+        ),
+        protocol: getNonNullResolvedInstructionInput("protocol", args.protocol),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

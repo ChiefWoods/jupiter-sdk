@@ -171,7 +171,7 @@ export async function getInitLendingAdminInstructionAsync<
 
   // Resolve default values.
   if (!accounts.lendingAdmin.value) {
-    accounts.lendingAdmin.value = await findLendingAdminPda();
+    accounts.lendingAdmin.value = await findLendingAdminPda({ programAddress });
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

@@ -257,15 +257,20 @@ export async function getClaimTokenLoanInstructionAsync<
 
   // Resolve default values.
   if (!accounts.loanVault.value) {
-    accounts.loanVault.value = await findLoanVaultPda({
-      loan: getAddressFromResolvedInstructionAccount(
-        "loan",
-        accounts.loan.value,
-      ),
-    });
+    accounts.loanVault.value = await findLoanVaultPda(
+      {
+        loan: getAddressFromResolvedInstructionAccount(
+          "loan",
+          accounts.loan.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.eventAuthority.value) {
-    accounts.eventAuthority.value = await findEventAuthorityPda();
+    accounts.eventAuthority.value = await findEventAuthorityPda({
+      programAddress,
+    });
   }
 
   const getAccountMeta = getAccountMetaFactory(programAddress, "programId");

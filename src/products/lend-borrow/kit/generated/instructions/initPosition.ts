@@ -291,22 +291,28 @@ export async function getInitPositionInstructionAsync<
 
   // Resolve default values.
   if (!accounts.position.value) {
-    accounts.position.value = await findPositionPda({
-      vaultId: getNonNullResolvedInstructionInput("vaultId", args.vaultId),
-      nextPositionId: getNonNullResolvedInstructionInput(
-        "nextPositionId",
-        args.nextPositionId,
-      ),
-    });
+    accounts.position.value = await findPositionPda(
+      {
+        vaultId: getNonNullResolvedInstructionInput("vaultId", args.vaultId),
+        nextPositionId: getNonNullResolvedInstructionInput(
+          "nextPositionId",
+          args.nextPositionId,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.positionMint.value) {
-    accounts.positionMint.value = await findPositionMintPda({
-      vaultId: getNonNullResolvedInstructionInput("vaultId", args.vaultId),
-      nextPositionId: getNonNullResolvedInstructionInput(
-        "nextPositionId",
-        args.nextPositionId,
-      ),
-    });
+    accounts.positionMint.value = await findPositionMintPda(
+      {
+        vaultId: getNonNullResolvedInstructionInput("vaultId", args.vaultId),
+        nextPositionId: getNonNullResolvedInstructionInput(
+          "nextPositionId",
+          args.nextPositionId,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.positionTokenAccount.value) {
     accounts.positionTokenAccount.value = await getProgramDerivedAddress({

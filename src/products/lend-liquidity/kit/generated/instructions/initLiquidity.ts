@@ -178,10 +178,10 @@ export async function getInitLiquidityInstructionAsync<
 
   // Resolve default values.
   if (!accounts.liquidity.value) {
-    accounts.liquidity.value = await findLiquidityPda();
+    accounts.liquidity.value = await findLiquidityPda({ programAddress });
   }
   if (!accounts.authList.value) {
-    accounts.authList.value = await findAuthListPda();
+    accounts.authList.value = await findAuthListPda({ programAddress });
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

@@ -245,6 +245,282 @@ export function identifyOfferbookAccount(
   );
 }
 
+export enum OfferbookEvent {
+  EscrowDeposit,
+  EscrowWithdraw,
+  LoanCreated,
+  LoanCreatedV1,
+  LoanDefaulted,
+  LoanDefaultedV1,
+  LoanExtendabilityUpdated,
+  LoanExtended,
+  LoanRepaid,
+  LoanRepaidV1,
+  OfferCancelled,
+  OfferCancelledV1,
+  OfferCancelledV2,
+  OfferCreated,
+  OfferCreatedV1,
+  OfferCreatedV2,
+  OfferFilled,
+  OfferFilledV1,
+  OfferFilledV2,
+  ProtocolFee,
+  RefereeReward,
+  ReferralReward,
+}
+
+export function identifyOfferbookEvent(
+  event: { data: ReadonlyUint8Array } | ReadonlyUint8Array,
+): OfferbookEvent {
+  const data = "data" in event ? event.data : event;
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([43, 90, 49, 176, 134, 148, 50, 32]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.EscrowDeposit;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([171, 17, 164, 116, 122, 66, 183, 34]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.EscrowWithdraw;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([142, 148, 28, 215, 65, 185, 246, 200]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.LoanCreated;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([53, 204, 20, 133, 220, 71, 214, 128]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.LoanCreatedV1;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([194, 98, 51, 88, 228, 118, 173, 46]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.LoanDefaulted;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([232, 160, 77, 36, 232, 60, 14, 73]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.LoanDefaultedV1;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([132, 189, 244, 21, 191, 39, 88, 94]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.LoanExtendabilityUpdated;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([146, 18, 190, 31, 50, 17, 133, 1]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.LoanExtended;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([202, 183, 88, 60, 211, 54, 142, 243]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.LoanRepaid;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([68, 118, 134, 24, 25, 250, 199, 187]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.LoanRepaidV1;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([45, 42, 175, 214, 51, 192, 154, 9]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.OfferCancelled;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([148, 210, 209, 158, 129, 50, 15, 166]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.OfferCancelledV1;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([39, 55, 186, 129, 177, 241, 117, 121]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.OfferCancelledV2;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([31, 236, 215, 144, 75, 45, 157, 87]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.OfferCreated;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([113, 118, 59, 240, 159, 129, 104, 196]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.OfferCreatedV1;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([107, 228, 58, 148, 11, 235, 232, 181]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.OfferCreatedV2;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([173, 104, 95, 161, 144, 206, 72, 57]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.OfferFilled;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([53, 129, 248, 144, 138, 91, 209, 155]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.OfferFilledV1;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([140, 79, 66, 108, 81, 186, 66, 29]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.OfferFilledV2;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([152, 79, 46, 229, 127, 92, 192, 21]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.ProtocolFee;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([187, 218, 102, 136, 212, 206, 49, 127]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.RefereeReward;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([30, 218, 84, 175, 188, 85, 219, 99]),
+      ),
+      0,
+    )
+  ) {
+    return OfferbookEvent.ReferralReward;
+  }
+  throw new Error(
+    "The provided event could not be identified as a offerbook event.",
+  );
+}
+
 export enum OfferbookInstruction {
   CancelOffer,
   ClaimFee,

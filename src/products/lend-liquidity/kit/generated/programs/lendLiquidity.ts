@@ -272,6 +272,258 @@ export function identifyLendLiquidityAccount(
   );
 }
 
+export enum LendLiquidityEvent {
+  LogBorrowRateCap,
+  LogChangeStatus,
+  LogClaim,
+  LogCollectRevenue,
+  LogOperate,
+  LogPauseUser,
+  LogTokenLockdown,
+  LogUnpauseUser,
+  LogUpdateAuthority,
+  LogUpdateAuths,
+  LogUpdateExchangePrices,
+  LogUpdateGuardians,
+  LogUpdateRateDataV1,
+  LogUpdateRateDataV2,
+  LogUpdateRevenueCollector,
+  LogUpdateTokenConfigs,
+  LogUpdateUserBorrowConfigs,
+  LogUpdateUserClass,
+  LogUpdateUserSupplyConfigs,
+  LogUpdateUserWithdrawalLimit,
+}
+
+export function identifyLendLiquidityEvent(
+  event: { data: ReadonlyUint8Array } | ReadonlyUint8Array,
+): LendLiquidityEvent {
+  const data = "data" in event ? event.data : event;
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([156, 131, 232, 94, 254, 156, 14, 117]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogBorrowRateCap;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([89, 77, 37, 172, 141, 31, 74, 42]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogChangeStatus;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([238, 50, 157, 85, 151, 58, 231, 45]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogClaim;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([64, 198, 22, 194, 123, 87, 166, 82]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogCollectRevenue;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([180, 8, 81, 71, 19, 132, 173, 8]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogOperate;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([100, 17, 114, 224, 180, 30, 52, 170]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogPauseUser;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([2, 103, 171, 11, 0, 27, 20, 40]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogTokenLockdown;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([170, 91, 132, 96, 179, 77, 168, 26]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogUnpauseUser;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([150, 152, 157, 143, 6, 135, 193, 101]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogUpdateAuthority;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([88, 80, 109, 48, 111, 203, 76, 251]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogUpdateAuths;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([190, 194, 69, 204, 30, 86, 181, 163]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogUpdateExchangePrices;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([231, 28, 191, 51, 53, 140, 79, 142]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogUpdateGuardians;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([30, 102, 131, 192, 0, 30, 85, 223]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogUpdateRateDataV1;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([206, 53, 195, 70, 113, 211, 92, 129]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogUpdateRateDataV2;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([44, 143, 80, 250, 211, 147, 180, 159]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogUpdateRevenueCollector;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([24, 205, 191, 130, 47, 40, 233, 218]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogUpdateTokenConfigs;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([210, 251, 242, 159, 205, 33, 154, 74]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogUpdateUserBorrowConfigs;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([185, 193, 106, 248, 11, 53, 0, 136]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogUpdateUserClass;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([142, 160, 21, 90, 87, 88, 18, 51]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogUpdateUserSupplyConfigs;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([114, 131, 152, 189, 120, 253, 88, 105]),
+      ),
+      0,
+    )
+  ) {
+    return LendLiquidityEvent.LogUpdateUserWithdrawalLimit;
+  }
+  throw new Error(
+    "The provided event could not be identified as a lendLiquidity event.",
+  );
+}
+
 export enum LendLiquidityInstruction {
   ChangeStatus,
   Claim,

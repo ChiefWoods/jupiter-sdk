@@ -344,24 +344,30 @@ export async function getCreateVestingEscrowFromRootInstructionAsync<
 
   // Resolve default values.
   if (!accounts.base.value) {
-    accounts.base.value = await findBasePda({
-      rootEscrow: getAddressFromResolvedInstructionAccount(
-        "rootEscrow",
-        accounts.rootEscrow.value,
-      ),
-      recipient: getAddressFromResolvedInstructionAccount(
-        "recipient",
-        accounts.recipient.value,
-      ),
-    });
+    accounts.base.value = await findBasePda(
+      {
+        rootEscrow: getAddressFromResolvedInstructionAccount(
+          "rootEscrow",
+          accounts.rootEscrow.value,
+        ),
+        recipient: getAddressFromResolvedInstructionAccount(
+          "recipient",
+          accounts.recipient.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.escrow.value) {
-    accounts.escrow.value = await findEscrowPda({
-      base: getAddressFromResolvedInstructionAccount(
-        "base",
-        accounts.base.value,
-      ),
-    });
+    accounts.escrow.value = await findEscrowPda(
+      {
+        base: getAddressFromResolvedInstructionAccount(
+          "base",
+          accounts.base.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.tokenProgram.value) {
     accounts.tokenProgram.value =
@@ -428,7 +434,9 @@ export async function getCreateVestingEscrowFromRootInstructionAsync<
       "ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL" as Address<"ATokenGPvbdGVxr1b2hvZbsiqW5xWH25efTNsLJA8knL">;
   }
   if (!accounts.eventAuthority.value) {
-    accounts.eventAuthority.value = await findEventAuthorityPda();
+    accounts.eventAuthority.value = await findEventAuthorityPda({
+      programAddress,
+    });
   }
 
   const getAccountMeta = getAccountMetaFactory(programAddress, "programId");

@@ -211,9 +211,10 @@ export async function getInitVaultStateInstructionAsync<
 
   // Resolve default values.
   if (!accounts.vaultState.value) {
-    accounts.vaultState.value = await findVaultStatePda({
-      vaultId: getNonNullResolvedInstructionInput("vaultId", args.vaultId),
-    });
+    accounts.vaultState.value = await findVaultStatePda(
+      { vaultId: getNonNullResolvedInstructionInput("vaultId", args.vaultId) },
+      { programAddress },
+    );
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

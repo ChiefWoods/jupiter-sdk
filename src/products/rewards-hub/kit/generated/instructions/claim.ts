@@ -215,16 +215,19 @@ export async function getClaimInstructionAsync<
 
   // Resolve default values.
   if (!accounts.claimStatus.value) {
-    accounts.claimStatus.value = await findClaimStatusPda({
-      claimant: getAddressFromResolvedInstructionAccount(
-        "claimant",
-        accounts.claimant.value,
-      ),
-      campaign: getAddressFromResolvedInstructionAccount(
-        "campaign",
-        accounts.campaign.value,
-      ),
-    });
+    accounts.claimStatus.value = await findClaimStatusPda(
+      {
+        claimant: getAddressFromResolvedInstructionAccount(
+          "claimant",
+          accounts.claimant.value,
+        ),
+        campaign: getAddressFromResolvedInstructionAccount(
+          "campaign",
+          accounts.campaign.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.tokenProgram.value) {
     accounts.tokenProgram.value =

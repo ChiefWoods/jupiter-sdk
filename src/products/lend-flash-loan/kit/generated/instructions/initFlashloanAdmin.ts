@@ -177,7 +177,9 @@ export async function getInitFlashloanAdminInstructionAsync<
 
   // Resolve default values.
   if (!accounts.flashloanAdmin.value) {
-    accounts.flashloanAdmin.value = await findFlashloanAdminPda();
+    accounts.flashloanAdmin.value = await findFlashloanAdminPda({
+      programAddress,
+    });
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

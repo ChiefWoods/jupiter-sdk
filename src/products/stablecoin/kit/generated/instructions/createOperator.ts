@@ -203,12 +203,15 @@ export async function getCreateOperatorInstructionAsync<
 
   // Resolve default values.
   if (!accounts.newOperator.value) {
-    accounts.newOperator.value = await findNewOperatorPda({
-      newOperatorAuthority: getAddressFromResolvedInstructionAccount(
-        "newOperatorAuthority",
-        accounts.newOperatorAuthority.value,
-      ),
-    });
+    accounts.newOperator.value = await findNewOperatorPda(
+      {
+        newOperatorAuthority: getAddressFromResolvedInstructionAccount(
+          "newOperatorAuthority",
+          accounts.newOperatorAuthority.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

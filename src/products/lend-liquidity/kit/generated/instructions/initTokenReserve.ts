@@ -254,20 +254,26 @@ export async function getInitTokenReserveInstructionAsync<
     });
   }
   if (!accounts.rateModel.value) {
-    accounts.rateModel.value = await findRateModelPda({
-      mint: getAddressFromResolvedInstructionAccount(
-        "mint",
-        accounts.mint.value,
-      ),
-    });
+    accounts.rateModel.value = await findRateModelPda(
+      {
+        mint: getAddressFromResolvedInstructionAccount(
+          "mint",
+          accounts.mint.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.tokenReserve.value) {
-    accounts.tokenReserve.value = await findTokenReservePda({
-      mint: getAddressFromResolvedInstructionAccount(
-        "mint",
-        accounts.mint.value,
-      ),
-    });
+    accounts.tokenReserve.value = await findTokenReservePda(
+      {
+        mint: getAddressFromResolvedInstructionAccount(
+          "mint",
+          accounts.mint.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.associatedTokenProgram.value) {
     accounts.associatedTokenProgram.value =

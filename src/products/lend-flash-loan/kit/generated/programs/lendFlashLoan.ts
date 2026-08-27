@@ -98,6 +98,66 @@ export function identifyLendFlashLoanAccount(
   );
 }
 
+export enum LendFlashLoanEvent {
+  ActivateProtocol,
+  LogUpdateAuthority,
+  PauseProtocol,
+  SetFlashloanFee,
+}
+
+export function identifyLendFlashLoanEvent(
+  event: { data: ReadonlyUint8Array } | ReadonlyUint8Array,
+): LendFlashLoanEvent {
+  const data = "data" in event ? event.data : event;
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([70, 178, 173, 151, 180, 166, 68, 102]),
+      ),
+      0,
+    )
+  ) {
+    return LendFlashLoanEvent.ActivateProtocol;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([150, 152, 157, 143, 6, 135, 193, 101]),
+      ),
+      0,
+    )
+  ) {
+    return LendFlashLoanEvent.LogUpdateAuthority;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([66, 229, 166, 147, 152, 13, 42, 29]),
+      ),
+      0,
+    )
+  ) {
+    return LendFlashLoanEvent.PauseProtocol;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([112, 164, 66, 251, 191, 56, 0, 47]),
+      ),
+      0,
+    )
+  ) {
+    return LendFlashLoanEvent.SetFlashloanFee;
+  }
+  throw new Error(
+    "The provided event could not be identified as a lendFlashLoan event.",
+  );
+}
+
 export enum LendFlashLoanInstruction {
   ActivateProtocol,
   FlashloanBorrow,

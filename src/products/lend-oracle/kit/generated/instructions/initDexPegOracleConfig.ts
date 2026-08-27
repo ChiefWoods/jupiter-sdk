@@ -257,9 +257,10 @@ export async function getInitDexPegOracleConfigInstructionAsync<
 
   // Resolve default values.
   if (!accounts.dexPegConfig.value) {
-    accounts.dexPegConfig.value = await findDexPegConfigPda({
-      nonce: getNonNullResolvedInstructionInput("nonce", args.nonce),
-    });
+    accounts.dexPegConfig.value = await findDexPegConfigPda(
+      { nonce: getNonNullResolvedInstructionInput("nonce", args.nonce) },
+      { programAddress },
+    );
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

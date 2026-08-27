@@ -124,6 +124,102 @@ export function identifyLendLendingRewardRateModelAccount(
   );
 }
 
+export enum LendLendingRewardRateModelEvent {
+  LogCancelQueuedRewards,
+  LogQueueNextRewards,
+  LogStartRewards,
+  LogStopRewards,
+  LogTransitionedToNextRewards,
+  LogUpdateAuthority,
+  LogUpdateAuths,
+}
+
+export function identifyLendLendingRewardRateModelEvent(
+  event: { data: ReadonlyUint8Array } | ReadonlyUint8Array,
+): LendLendingRewardRateModelEvent {
+  const data = "data" in event ? event.data : event;
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([177, 173, 63, 139, 228, 173, 187, 204]),
+      ),
+      0,
+    )
+  ) {
+    return LendLendingRewardRateModelEvent.LogCancelQueuedRewards;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([50, 129, 214, 126, 39, 205, 209, 116]),
+      ),
+      0,
+    )
+  ) {
+    return LendLendingRewardRateModelEvent.LogQueueNextRewards;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([30, 243, 168, 45, 233, 150, 101, 238]),
+      ),
+      0,
+    )
+  ) {
+    return LendLendingRewardRateModelEvent.LogStartRewards;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([37, 218, 239, 232, 21, 149, 99, 31]),
+      ),
+      0,
+    )
+  ) {
+    return LendLendingRewardRateModelEvent.LogStopRewards;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([177, 232, 239, 222, 224, 61, 9, 101]),
+      ),
+      0,
+    )
+  ) {
+    return LendLendingRewardRateModelEvent.LogTransitionedToNextRewards;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([150, 152, 157, 143, 6, 135, 193, 101]),
+      ),
+      0,
+    )
+  ) {
+    return LendLendingRewardRateModelEvent.LogUpdateAuthority;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([88, 80, 109, 48, 111, 203, 76, 251]),
+      ),
+      0,
+    )
+  ) {
+    return LendLendingRewardRateModelEvent.LogUpdateAuths;
+  }
+  throw new Error(
+    "The provided event could not be identified as a lendLendingRewardRateModel event.",
+  );
+}
+
 export enum LendLendingRewardRateModelInstruction {
   CancelQueuedRewards,
   InitLendingRewardsAdmin,

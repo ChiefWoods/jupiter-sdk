@@ -240,12 +240,15 @@ export async function getCreateVaultInstructionAsync<
 
   // Resolve default values.
   if (!accounts.vault.value) {
-    accounts.vault.value = await findVaultPda({
-      mint: getAddressFromResolvedInstructionAccount(
-        "mint",
-        accounts.mint.value,
-      ),
-    });
+    accounts.vault.value = await findVaultPda(
+      {
+        mint: getAddressFromResolvedInstructionAccount(
+          "mint",
+          accounts.mint.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.tokenProgram.value) {
     accounts.tokenProgram.value =

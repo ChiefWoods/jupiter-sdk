@@ -255,12 +255,15 @@ export async function getCloseVestingEscrowInstructionAsync<
 
   // Resolve default values.
   if (!accounts.escrowMetadata.value) {
-    accounts.escrowMetadata.value = await findEscrowMetadataPda({
-      escrow: getAddressFromResolvedInstructionAccount(
-        "escrow",
-        accounts.escrow.value,
-      ),
-    });
+    accounts.escrowMetadata.value = await findEscrowMetadataPda(
+      {
+        escrow: getAddressFromResolvedInstructionAccount(
+          "escrow",
+          accounts.escrow.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.tokenProgram.value) {
     accounts.tokenProgram.value =
@@ -271,7 +274,9 @@ export async function getCloseVestingEscrowInstructionAsync<
       "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr" as Address<"MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr">;
   }
   if (!accounts.eventAuthority.value) {
-    accounts.eventAuthority.value = await findEventAuthorityPda();
+    accounts.eventAuthority.value = await findEventAuthorityPda({
+      programAddress,
+    });
   }
 
   const getAccountMeta = getAccountMetaFactory(programAddress, "programId");

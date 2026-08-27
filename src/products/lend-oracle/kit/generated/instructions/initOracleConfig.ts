@@ -185,9 +185,10 @@ export async function getInitOracleConfigInstructionAsync<
 
   // Resolve default values.
   if (!accounts.oracle.value) {
-    accounts.oracle.value = await findOraclePda({
-      nonce: getNonNullResolvedInstructionInput("nonce", args.nonce),
-    });
+    accounts.oracle.value = await findOraclePda(
+      { nonce: getNonNullResolvedInstructionInput("nonce", args.nonce) },
+      { programAddress },
+    );
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

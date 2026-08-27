@@ -182,6 +182,162 @@ export function identifyGovernanceAccount(
   );
 }
 
+export enum GovernanceEvent {
+  ProposalActivateEvent,
+  ProposalCancelEvent,
+  ClaimRewardEvent,
+  GovernorCreateEvent,
+  OptionProposalMetaCreateEvent,
+  ProposalMetaCreateEvent,
+  ProposalCreateEvent,
+  ProposalQueueEvent,
+  GovernorSetParamsEvent,
+  GovernorSetVoterEvent,
+  VoteSetEvent,
+  GovernorSetVotingReward,
+}
+
+export function identifyGovernanceEvent(
+  event: { data: ReadonlyUint8Array } | ReadonlyUint8Array,
+): GovernanceEvent {
+  const data = "data" in event ? event.data : event;
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([247, 53, 166, 250, 118, 62, 53, 80]),
+      ),
+      0,
+    )
+  ) {
+    return GovernanceEvent.ProposalActivateEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([24, 49, 11, 182, 23, 59, 122, 220]),
+      ),
+      0,
+    )
+  ) {
+    return GovernanceEvent.ProposalCancelEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([207, 16, 14, 170, 176, 71, 40, 53]),
+      ),
+      0,
+    )
+  ) {
+    return GovernanceEvent.ClaimRewardEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([117, 24, 15, 85, 39, 58, 62, 23]),
+      ),
+      0,
+    )
+  ) {
+    return GovernanceEvent.GovernorCreateEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([120, 126, 65, 125, 85, 200, 75, 206]),
+      ),
+      0,
+    )
+  ) {
+    return GovernanceEvent.OptionProposalMetaCreateEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([50, 59, 195, 75, 85, 227, 187, 82]),
+      ),
+      0,
+    )
+  ) {
+    return GovernanceEvent.ProposalMetaCreateEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([121, 18, 213, 155, 223, 158, 95, 70]),
+      ),
+      0,
+    )
+  ) {
+    return GovernanceEvent.ProposalCreateEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([48, 219, 123, 209, 140, 210, 248, 14]),
+      ),
+      0,
+    )
+  ) {
+    return GovernanceEvent.ProposalQueueEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([169, 129, 187, 152, 130, 17, 81, 157]),
+      ),
+      0,
+    )
+  ) {
+    return GovernanceEvent.GovernorSetParamsEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([31, 141, 33, 222, 105, 177, 230, 207]),
+      ),
+      0,
+    )
+  ) {
+    return GovernanceEvent.GovernorSetVoterEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([175, 119, 30, 108, 176, 233, 151, 252]),
+      ),
+      0,
+    )
+  ) {
+    return GovernanceEvent.VoteSetEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([74, 82, 223, 19, 41, 16, 148, 200]),
+      ),
+      0,
+    )
+  ) {
+    return GovernanceEvent.GovernorSetVotingReward;
+  }
+  throw new Error(
+    "The provided event could not be identified as a governance event.",
+  );
+}
+
 export enum GovernanceInstruction {
   CreateGovernor,
   CreateProposal,

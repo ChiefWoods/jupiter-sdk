@@ -338,12 +338,15 @@ export async function getCreateOrderInstructionAsync<
 
   // Resolve default values.
   if (!accounts.vault.value) {
-    accounts.vault.value = await findVaultPda({
-      settlementMint: getAddressFromResolvedInstructionAccount(
-        "settlementMint",
-        accounts.settlementMint.value,
-      ),
-    });
+    accounts.vault.value = await findVaultPda(
+      {
+        settlementMint: getAddressFromResolvedInstructionAccount(
+          "settlementMint",
+          accounts.settlementMint.value,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.orderAta.value) {
     accounts.orderAta.value = await getProgramDerivedAddress({

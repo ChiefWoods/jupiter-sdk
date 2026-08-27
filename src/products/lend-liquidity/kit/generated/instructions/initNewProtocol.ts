@@ -199,22 +199,28 @@ export async function getInitNewProtocolInstructionAsync<
 
   // Resolve default values.
   if (!accounts.userSupplyPosition.value) {
-    accounts.userSupplyPosition.value = await findUserSupplyPositionPda({
-      supplyMint: getNonNullResolvedInstructionInput(
-        "supplyMint",
-        args.supplyMint,
-      ),
-      protocol: getNonNullResolvedInstructionInput("protocol", args.protocol),
-    });
+    accounts.userSupplyPosition.value = await findUserSupplyPositionPda(
+      {
+        supplyMint: getNonNullResolvedInstructionInput(
+          "supplyMint",
+          args.supplyMint,
+        ),
+        protocol: getNonNullResolvedInstructionInput("protocol", args.protocol),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.userBorrowPosition.value) {
-    accounts.userBorrowPosition.value = await findUserBorrowPositionPda({
-      borrowMint: getNonNullResolvedInstructionInput(
-        "borrowMint",
-        args.borrowMint,
-      ),
-      protocol: getNonNullResolvedInstructionInput("protocol", args.protocol),
-    });
+    accounts.userBorrowPosition.value = await findUserBorrowPositionPda(
+      {
+        borrowMint: getNonNullResolvedInstructionInput(
+          "borrowMint",
+          args.borrowMint,
+        ),
+        protocol: getNonNullResolvedInstructionInput("protocol", args.protocol),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

@@ -182,12 +182,15 @@ export async function getInitLendingRewardsRateModelInstructionAsync<
   // Resolve default values.
   if (!accounts.lendingRewardsRateModel.value) {
     accounts.lendingRewardsRateModel.value =
-      await findLendingRewardsRateModelPda({
-        mint: getAddressFromResolvedInstructionAccount(
-          "mint",
-          accounts.mint.value,
-        ),
-      });
+      await findLendingRewardsRateModelPda(
+        {
+          mint: getAddressFromResolvedInstructionAccount(
+            "mint",
+            accounts.mint.value,
+          ),
+        },
+        { programAddress },
+      );
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

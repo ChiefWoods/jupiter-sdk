@@ -268,20 +268,23 @@ export async function getInitializeCampaignInstructionAsync<
 
   // Resolve default values.
   if (!accounts.campaign.value) {
-    accounts.campaign.value = await findCampaignPda({
-      admin: getAddressFromResolvedInstructionAccount(
-        "admin",
-        accounts.admin.value,
-      ),
-      mint: getAddressFromResolvedInstructionAccount(
-        "mint",
-        accounts.mint.value,
-      ),
-      campaignId: getNonNullResolvedInstructionInput(
-        "campaignId",
-        args.campaignId,
-      ),
-    });
+    accounts.campaign.value = await findCampaignPda(
+      {
+        admin: getAddressFromResolvedInstructionAccount(
+          "admin",
+          accounts.admin.value,
+        ),
+        mint: getAddressFromResolvedInstructionAccount(
+          "mint",
+          accounts.mint.value,
+        ),
+        campaignId: getNonNullResolvedInstructionInput(
+          "campaignId",
+          args.campaignId,
+        ),
+      },
+      { programAddress },
+    );
   }
   if (!accounts.tokenVault.value) {
     accounts.tokenVault.value = await getProgramDerivedAddress({

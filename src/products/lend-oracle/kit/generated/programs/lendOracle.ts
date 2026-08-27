@@ -180,6 +180,102 @@ export function identifyLendOracleAccount(
   );
 }
 
+export enum LendOracleEvent {
+  LogChainlinkDataStreamsFeedMarketIsInTransition,
+  LogChainlinkDataStreamsFeedSuspended,
+  LogStakePoolHighFeeDetected,
+  LogUpdateAuthority,
+  LogUpdateAuths,
+  LogUpdateCacheFeeds,
+  LogUpdateCacheKeepers,
+}
+
+export function identifyLendOracleEvent(
+  event: { data: ReadonlyUint8Array } | ReadonlyUint8Array,
+): LendOracleEvent {
+  const data = "data" in event ? event.data : event;
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([211, 67, 128, 58, 147, 192, 179, 111]),
+      ),
+      0,
+    )
+  ) {
+    return LendOracleEvent.LogChainlinkDataStreamsFeedMarketIsInTransition;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([63, 149, 247, 255, 189, 80, 154, 253]),
+      ),
+      0,
+    )
+  ) {
+    return LendOracleEvent.LogChainlinkDataStreamsFeedSuspended;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([198, 106, 149, 7, 25, 83, 39, 155]),
+      ),
+      0,
+    )
+  ) {
+    return LendOracleEvent.LogStakePoolHighFeeDetected;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([150, 152, 157, 143, 6, 135, 193, 101]),
+      ),
+      0,
+    )
+  ) {
+    return LendOracleEvent.LogUpdateAuthority;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([88, 80, 109, 48, 111, 203, 76, 251]),
+      ),
+      0,
+    )
+  ) {
+    return LendOracleEvent.LogUpdateAuths;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([75, 155, 134, 56, 17, 94, 235, 191]),
+      ),
+      0,
+    )
+  ) {
+    return LendOracleEvent.LogUpdateCacheFeeds;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([33, 129, 191, 130, 117, 119, 198, 235]),
+      ),
+      0,
+    )
+  ) {
+    return LendOracleEvent.LogUpdateCacheKeepers;
+  }
+  throw new Error(
+    "The provided event could not be identified as a lendOracle event.",
+  );
+}
+
 export enum LendOracleInstruction {
   ChainlinkDataStreamsFeedAccessController,
   GetBothExchangeRate,

@@ -298,14 +298,16 @@ export async function getInitVaultConfigInstructionAsync<
 
   // Resolve default values.
   if (!accounts.vaultConfig.value) {
-    accounts.vaultConfig.value = await findVaultConfigPda({
-      vaultId: getNonNullResolvedInstructionInput("vaultId", args.vaultId),
-    });
+    accounts.vaultConfig.value = await findVaultConfigPda(
+      { vaultId: getNonNullResolvedInstructionInput("vaultId", args.vaultId) },
+      { programAddress },
+    );
   }
   if (!accounts.vaultMetadata.value) {
-    accounts.vaultMetadata.value = await findVaultMetadataPda({
-      vaultId: getNonNullResolvedInstructionInput("vaultId", args.vaultId),
-    });
+    accounts.vaultMetadata.value = await findVaultMetadataPda(
+      { vaultId: getNonNullResolvedInstructionInput("vaultId", args.vaultId) },
+      { programAddress },
+    );
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

@@ -411,6 +411,318 @@ export function identifyPerpsAccount(
   );
 }
 
+export enum PerpsEvent {
+  CreatePositionRequestEvent,
+  InstantCreateTpslEvent,
+  InstantUpdateTpslEvent,
+  ClosePositionRequestEvent,
+  IncreasePositionEvent,
+  IncreasePositionPreSwapEvent,
+  DecreasePositionEvent,
+  DecreasePositionPostSwapEvent,
+  LiquidateFullPositionEvent,
+  PoolSwapEvent,
+  PoolSwapExactOutEvent,
+  AddLiquidityEvent,
+  RemoveLiquidityEvent,
+  InstantCreateLimitOrderEvent,
+  InstantIncreasePositionEvent,
+  InstantDecreasePositionEvent,
+  DepositCollateralEvent,
+  WithdrawCollateralEvent,
+  BorrowFromCustodyEvent,
+  RepayToCustodyEvent,
+  LiquidateBorrowPositionEvent,
+  RedeemStakeEvent,
+  WithdrawStakeEvent,
+  DelegateStakeEvent,
+  WithdrawFeesEvent,
+}
+
+export function identifyPerpsEvent(
+  event: { data: ReadonlyUint8Array } | ReadonlyUint8Array,
+): PerpsEvent {
+  const data = "data" in event ? event.data : event;
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([2, 238, 94, 53, 105, 211, 46, 186]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.CreatePositionRequestEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([242, 54, 6, 95, 24, 141, 103, 198]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.InstantCreateTpslEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([177, 22, 47, 37, 120, 246, 17, 101]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.InstantUpdateTpslEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([21, 34, 92, 158, 224, 29, 180, 243]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.ClosePositionRequestEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([245, 113, 85, 52, 214, 187, 153, 132]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.IncreasePositionEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([237, 107, 9, 139, 22, 75, 4, 213]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.IncreasePositionPreSwapEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([64, 156, 43, 74, 109, 131, 16, 127]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.DecreasePositionEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([23, 210, 16, 233, 98, 245, 89, 82]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.DecreasePositionPostSwapEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([128, 101, 71, 168, 128, 72, 86, 84]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.LiquidateFullPositionEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([40, 107, 212, 26, 223, 136, 39, 220]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.PoolSwapEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([121, 118, 11, 11, 198, 66, 142, 115]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.PoolSwapExactOutEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([27, 178, 153, 186, 47, 196, 140, 45]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.AddLiquidityEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([141, 199, 182, 123, 159, 94, 215, 102]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.RemoveLiquidityEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([10, 163, 85, 115, 129, 224, 80, 192]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.InstantCreateLimitOrderEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([205, 236, 57, 4, 209, 106, 87, 69]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.InstantIncreasePositionEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([171, 173, 106, 25, 239, 190, 58, 59]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.InstantDecreasePositionEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([169, 14, 102, 148, 155, 137, 18, 235]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.DepositCollateralEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([145, 38, 46, 87, 190, 149, 253, 191]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.WithdrawCollateralEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([23, 121, 131, 68, 168, 70, 14, 76]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.BorrowFromCustodyEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([232, 54, 116, 175, 186, 24, 249, 221]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.RepayToCustodyEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([11, 128, 252, 59, 49, 192, 56, 170]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.LiquidateBorrowPositionEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([0, 241, 84, 141, 139, 170, 218, 110]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.RedeemStakeEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([47, 85, 239, 214, 207, 29, 151, 88]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.WithdrawStakeEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([85, 135, 75, 222, 168, 133, 159, 212]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.DelegateStakeEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([236, 118, 138, 90, 139, 173, 177, 89]),
+      ),
+      0,
+    )
+  ) {
+    return PerpsEvent.WithdrawFeesEvent;
+  }
+  throw new Error(
+    "The provided event could not be identified as a perps event.",
+  );
+}
+
 export enum PerpsInstruction {
   Init,
   AddPool,

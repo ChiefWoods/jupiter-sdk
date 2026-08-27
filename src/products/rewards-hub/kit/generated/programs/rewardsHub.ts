@@ -117,6 +117,114 @@ export function identifyRewardsHubAccount(
   );
 }
 
+export enum RewardsHubEvent {
+  CampaignAdminChangedEvent,
+  CampaignClawbackReceiverChangedEvent,
+  CampaignClosedEvent,
+  CampaignInitializedEvent,
+  ClaimEvent,
+  ClawbackEvent,
+  CloseClaimStatusEvent,
+  InitializeClaimStatusEvent,
+}
+
+export function identifyRewardsHubEvent(
+  event: { data: ReadonlyUint8Array } | ReadonlyUint8Array,
+): RewardsHubEvent {
+  const data = "data" in event ? event.data : event;
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([49, 222, 104, 253, 31, 101, 68, 181]),
+      ),
+      0,
+    )
+  ) {
+    return RewardsHubEvent.CampaignAdminChangedEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([211, 249, 83, 95, 82, 97, 135, 100]),
+      ),
+      0,
+    )
+  ) {
+    return RewardsHubEvent.CampaignClawbackReceiverChangedEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([141, 16, 13, 204, 158, 184, 112, 201]),
+      ),
+      0,
+    )
+  ) {
+    return RewardsHubEvent.CampaignClosedEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([62, 247, 61, 179, 223, 177, 191, 212]),
+      ),
+      0,
+    )
+  ) {
+    return RewardsHubEvent.CampaignInitializedEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([93, 15, 70, 170, 48, 140, 212, 219]),
+      ),
+      0,
+    )
+  ) {
+    return RewardsHubEvent.ClaimEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([47, 23, 60, 84, 245, 114, 178, 169]),
+      ),
+      0,
+    )
+  ) {
+    return RewardsHubEvent.ClawbackEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([24, 49, 90, 170, 80, 200, 243, 186]),
+      ),
+      0,
+    )
+  ) {
+    return RewardsHubEvent.CloseClaimStatusEvent;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([121, 167, 244, 185, 162, 207, 107, 234]),
+      ),
+      0,
+    )
+  ) {
+    return RewardsHubEvent.InitializeClaimStatusEvent;
+  }
+  throw new Error(
+    "The provided event could not be identified as a rewardsHub event.",
+  );
+}
+
 export enum RewardsHubInstruction {
   Claim,
   Clawback,

@@ -198,9 +198,10 @@ export async function getInitChainlinkDataStreamsCacheInstructionAsync<
 
   // Resolve default values.
   if (!accounts.chainlinkDsCache.value) {
-    accounts.chainlinkDsCache.value = await findChainlinkDsCachePda({
-      nonce: getNonNullResolvedInstructionInput("nonce", args.nonce),
-    });
+    accounts.chainlinkDsCache.value = await findChainlinkDsCachePda(
+      { nonce: getNonNullResolvedInstructionInput("nonce", args.nonce) },
+      { programAddress },
+    );
   }
   if (!accounts.systemProgram.value) {
     accounts.systemProgram.value =

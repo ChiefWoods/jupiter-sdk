@@ -150,6 +150,138 @@ export function identifyLockAccount(
   );
 }
 
+export enum LockEvent {
+  EventCancelVestingEscrow,
+  EventCancelVestingEscrowV3,
+  EventClaim,
+  EventClaimV3,
+  EventCloseClaimStatus,
+  EventCloseVestingEscrow,
+  EventCreateRootEscrow,
+  EventCreateVestingEscrow,
+  EventFundRootEscrow,
+  EventUpdateVestingEscrowRecipient,
+}
+
+export function identifyLockEvent(
+  event: { data: ReadonlyUint8Array } | ReadonlyUint8Array,
+): LockEvent {
+  const data = "data" in event ? event.data : event;
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([113, 2, 117, 173, 195, 39, 101, 155]),
+      ),
+      0,
+    )
+  ) {
+    return LockEvent.EventCancelVestingEscrow;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([41, 143, 236, 79, 116, 120, 91, 143]),
+      ),
+      0,
+    )
+  ) {
+    return LockEvent.EventCancelVestingEscrowV3;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([171, 144, 1, 189, 120, 200, 38, 11]),
+      ),
+      0,
+    )
+  ) {
+    return LockEvent.EventClaim;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([229, 197, 142, 10, 41, 122, 171, 154]),
+      ),
+      0,
+    )
+  ) {
+    return LockEvent.EventClaimV3;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([87, 68, 38, 194, 241, 155, 125, 107]),
+      ),
+      0,
+    )
+  ) {
+    return LockEvent.EventCloseClaimStatus;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([45, 141, 253, 209, 196, 133, 21, 204]),
+      ),
+      0,
+    )
+  ) {
+    return LockEvent.EventCloseVestingEscrow;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([105, 216, 97, 182, 27, 224, 199, 228]),
+      ),
+      0,
+    )
+  ) {
+    return LockEvent.EventCreateRootEscrow;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([248, 222, 89, 61, 170, 208, 131, 117]),
+      ),
+      0,
+    )
+  ) {
+    return LockEvent.EventCreateVestingEscrow;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([74, 8, 68, 181, 198, 235, 138, 81]),
+      ),
+      0,
+    )
+  ) {
+    return LockEvent.EventFundRootEscrow;
+  }
+  if (
+    containsBytes(
+      data,
+      fixEncoderSize(getBytesEncoder(), 8).encode(
+        new Uint8Array([206, 218, 33, 65, 133, 237, 131, 57]),
+      ),
+      0,
+    )
+  ) {
+    return LockEvent.EventUpdateVestingEscrowRecipient;
+  }
+  throw new Error(
+    "The provided event could not be identified as a lock event.",
+  );
+}
+
 export enum LockInstruction {
   CancelVestingEscrow,
   Claim,

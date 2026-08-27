@@ -7,17 +7,18 @@ if (!productName) {
 }
 
 const productDir = resolveProductDir(productName);
+const anchorIdlPath = `${productDir}/idl/anchor.json`;
 const codamaIdlPath = `${productDir}/idl/codama.json`;
 
 await assertProductIdl(productDir);
 
-const hasCodamaIdl = await Bun.file(codamaIdlPath).exists();
+const hasAnchorIdl = await Bun.file(anchorIdlPath).exists();
 const productCodamaIdlScript = `${productDir}/generate-codama-idl.ts`;
 const hasProductCodamaIdlScript = await Bun.file(productCodamaIdlScript).exists();
 const productClientsScript = `${productDir}/generate-clients.ts`;
 const hasProductClientsScript = await Bun.file(productClientsScript).exists();
 const steps = [
-  ...(hasCodamaIdl ? [] : ["generate-codama-idl.ts"]),
+  ...(hasAnchorIdl ? ["generate-codama-idl.ts"] : []),
   "generate-cargo-toml.ts",
   "generate-clients.ts",
   "generate-package-json.ts",
@@ -25,8 +26,8 @@ const steps = [
   "generate-tsdown.ts",
 ];
 
-if (hasCodamaIdl) {
-  console.log(`Skipping Codama IDL generation (${codamaIdlPath} already exists)`);
+if (!hasAnchorIdl) {
+  console.log(`Skipping Codama IDL generation (no Anchor IDL; using ${codamaIdlPath})`);
 }
 
 for (const step of steps) {

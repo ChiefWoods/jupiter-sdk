@@ -1,7 +1,7 @@
 {
   "kind": "rootNode",
   "standard": "codama",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "program": {
     "kind": "programNode",
     "name": "offerbook",
@@ -731,8 +731,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -922,8 +921,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -1052,8 +1050,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -1168,8 +1165,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -1317,8 +1313,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -1478,8 +1473,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -1652,8 +1646,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -1960,8 +1953,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -2091,8 +2083,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -2185,8 +2176,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -2279,8 +2269,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -2505,8 +2494,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -2689,8 +2677,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -2844,8 +2831,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -2938,8 +2924,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -3146,8 +3131,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -3316,8 +3300,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -3496,8 +3479,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -3683,8 +3665,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -3885,8 +3866,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -3967,8 +3947,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "config" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "config" }
             }
           },
           {
@@ -3979,8 +3958,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "feeAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "feeAuthority" }
             }
           },
           {
@@ -4152,8 +4130,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -4310,8 +4287,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -4366,8 +4342,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "eventAuthority" }
             }
           },
           {
@@ -7554,8 +7529,6 @@
         "message": "Loan is due",
         "docs": ["LoanDue: Loan is due"]
       }
-    ],
-    "constants": []
-  },
-  "additionalPrograms": []
+    ]
+  }
 }

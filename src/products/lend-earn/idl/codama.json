@@ -1,7 +1,7 @@
 {
   "kind": "rootNode",
   "standard": "codama",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "program": {
     "kind": "programNode",
     "name": "lendEarn",
@@ -23,9 +23,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "defaultValue": {
                 "kind": "bytesValueNode",
@@ -36,43 +34,29 @@
             {
               "kind": "structFieldTypeNode",
               "name": "mint",
-              "type": {
-                "kind": "publicKeyTypeNode"
-              }
+              "type": { "kind": "publicKeyTypeNode" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "fTokenMint",
-              "type": {
-                "kind": "publicKeyTypeNode"
-              }
+              "type": { "kind": "publicKeyTypeNode" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "lendingId",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u16",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "decimals",
               "docs": ["@dev number of decimals for the fToken, same as ASSET"],
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u8",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "rewardsRateModel",
               "docs": ["@dev To read PDA of rewards rate model to get_rate instruction"],
-              "type": {
-                "kind": "publicKeyTypeNode"
-              }
+              "type": { "kind": "publicKeyTypeNode" }
             },
             {
               "kind": "structFieldTypeNode",
@@ -80,11 +64,7 @@
               "docs": [
                 "@dev exchange price for the underlying asset in the liquidity protocol (without rewards)"
               ],
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
@@ -92,53 +72,33 @@
               "docs": [
                 "@dev exchange price between fToken and the underlying asset (with rewards)"
               ],
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "lastUpdateTimestamp",
               "docs": ["@dev timestamp when exchange prices were updated the last time"],
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "tokenReservesLiquidity",
-              "type": {
-                "kind": "publicKeyTypeNode"
-              }
+              "type": { "kind": "publicKeyTypeNode" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "supplyPositionOnLiquidity",
-              "type": {
-                "kind": "publicKeyTypeNode"
-              }
+              "type": { "kind": "publicKeyTypeNode" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "bump",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u8",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
             }
           ]
         },
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -154,9 +114,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "defaultValue": {
                 "kind": "bytesValueNode",
@@ -167,68 +125,44 @@
             {
               "kind": "structFieldTypeNode",
               "name": "authority",
-              "type": {
-                "kind": "publicKeyTypeNode"
-              }
+              "type": { "kind": "publicKeyTypeNode" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "liquidityProgram",
-              "type": {
-                "kind": "publicKeyTypeNode"
-              }
+              "type": { "kind": "publicKeyTypeNode" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "rebalancer",
-              "type": {
-                "kind": "publicKeyTypeNode"
-              }
+              "type": { "kind": "publicKeyTypeNode" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "nextLendingId",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u16",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "auths",
               "type": {
                 "kind": "arrayTypeNode",
-                "item": {
-                  "kind": "publicKeyTypeNode"
-                },
+                "item": { "kind": "publicKeyTypeNode" },
                 "count": {
                   "kind": "prefixedCountNode",
-                  "prefix": {
-                    "kind": "numberTypeNode",
-                    "format": "u32",
-                    "endian": "le"
-                  }
+                  "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
                 }
               }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "bump",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u8",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
             }
           ]
         },
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -245,9 +179,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "defaultValue": {
                 "kind": "bytesValueNode",
@@ -259,9 +191,7 @@
               "kind": "structFieldTypeNode",
               "name": "mint",
               "docs": ["@dev mint address"],
-              "type": {
-                "kind": "publicKeyTypeNode"
-              }
+              "type": { "kind": "publicKeyTypeNode" }
             },
             {
               "kind": "structFieldTypeNode",
@@ -270,31 +200,19 @@
                 "@dev tvl below which rewards rate is 0. If current TVL is below this value, triggering `update_rate()` on the fToken",
                 "might bring the total TVL above this cut-off."
               ],
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "duration",
               "docs": ["@dev for how long current rewards should run"],
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "startTime",
               "docs": ["@dev when current rewards got started"],
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
@@ -302,49 +220,29 @@
               "docs": [
                 "@dev current annualized reward based on input params (duration, rewardAmount)"
               ],
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "nextDuration",
               "docs": ["@dev Duration for the next rewards phase"],
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "nextRewardAmount",
               "docs": ["@dev Amount of rewards for the next phase"],
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "bump",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u8",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
             }
           ]
         },
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -361,9 +259,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "defaultValue": {
                 "kind": "bytesValueNode",
@@ -374,158 +270,92 @@
             {
               "kind": "structFieldTypeNode",
               "name": "mint",
-              "type": {
-                "kind": "publicKeyTypeNode"
-              }
+              "type": { "kind": "publicKeyTypeNode" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "vault",
-              "type": {
-                "kind": "publicKeyTypeNode"
-              }
+              "type": { "kind": "publicKeyTypeNode" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "borrowRate",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u16",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "feeOnInterest",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u16",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "lastUtilization",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u16",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "lastUpdateTimestamp",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "supplyExchangePrice",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "borrowExchangePrice",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "maxUtilization",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u16",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "totalSupplyWithInterest",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "totalSupplyInterestFree",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "totalBorrowWithInterest",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "totalBorrowInterestFree",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "totalClaimAmount",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "interactingProtocol",
-              "type": {
-                "kind": "publicKeyTypeNode"
-              }
+              "type": { "kind": "publicKeyTypeNode" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "interactingTimestamp",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "interactingBalance",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             }
           ]
         },
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -542,9 +372,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "defaultValue": {
                 "kind": "bytesValueNode",
@@ -555,115 +383,67 @@
             {
               "kind": "structFieldTypeNode",
               "name": "protocol",
-              "type": {
-                "kind": "publicKeyTypeNode"
-              }
+              "type": { "kind": "publicKeyTypeNode" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "mint",
-              "type": {
-                "kind": "publicKeyTypeNode"
-              }
+              "type": { "kind": "publicKeyTypeNode" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "withInterest",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u8",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "amount",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "withdrawalLimit",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "decayAmount",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "lastUpdate",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "expandPct",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u16",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u16", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "expandDuration",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u32",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "decayDuration",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u32",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "baseWithdrawalLimit",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "status",
-              "type": {
-                "kind": "numberTypeNode",
-                "format": "u8",
-                "endian": "le"
-              }
+              "type": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
             }
           ]
         },
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       }
     ],
@@ -813,13 +593,7 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": {
-              "kind": "fixedSizeTypeNode",
-              "size": 8,
-              "type": {
-                "kind": "bytesTypeNode"
-              }
-            },
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "f223c68952e1f2b6",
@@ -829,19 +603,11 @@
           {
             "kind": "instructionArgumentNode",
             "name": "assets",
-            "type": {
-              "kind": "numberTypeNode",
-              "format": "u64",
-              "endian": "le"
-            }
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
           }
         ],
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -989,13 +755,7 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": {
-              "kind": "fixedSizeTypeNode",
-              "size": 8,
-              "type": {
-                "kind": "bytesTypeNode"
-              }
-            },
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "74901061766d2877",
@@ -1005,28 +765,16 @@
           {
             "kind": "instructionArgumentNode",
             "name": "assets",
-            "type": {
-              "kind": "numberTypeNode",
-              "format": "u64",
-              "endian": "le"
-            }
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "minAmountOut",
-            "type": {
-              "kind": "numberTypeNode",
-              "format": "u64",
-              "endian": "le"
-            }
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
           }
         ],
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -1063,18 +811,12 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": {
-                "kind": "pdaLinkNode",
-                "name": "fTokenMint"
-              },
+              "pda": { "kind": "pdaLinkNode", "name": "fTokenMint" },
               "seeds": [
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "mint",
-                  "value": {
-                    "kind": "accountValueNode",
-                    "name": "mint"
-                  }
+                  "value": { "kind": "accountValueNode", "name": "mint" }
                 }
               ]
             }
@@ -1094,9 +836,7 @@
                 "seeds": [
                   {
                     "kind": "constantPdaSeedNode",
-                    "type": {
-                      "kind": "bytesTypeNode"
-                    },
+                    "type": { "kind": "bytesTypeNode" },
                     "value": {
                       "kind": "bytesValueNode",
                       "data": "KJHK1EAZuVA",
@@ -1105,9 +845,7 @@
                   },
                   {
                     "kind": "constantPdaSeedNode",
-                    "type": {
-                      "kind": "bytesTypeNode"
-                    },
+                    "type": { "kind": "bytesTypeNode" },
                     "value": {
                       "kind": "bytesValueNode",
                       "data": "metaqbxxUerdq28cj1RbAWkYQm3ybzjb6a8bt518x1s",
@@ -1117,9 +855,7 @@
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "fTokenMint",
-                    "type": {
-                      "kind": "publicKeyTypeNode"
-                    }
+                    "type": { "kind": "publicKeyTypeNode" }
                   }
                 ]
               },
@@ -1127,10 +863,7 @@
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "fTokenMint",
-                  "value": {
-                    "kind": "accountValueNode",
-                    "name": "fTokenMint"
-                  }
+                  "value": { "kind": "accountValueNode", "name": "fTokenMint" }
                 }
               ]
             }
@@ -1143,26 +876,17 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": {
-                "kind": "pdaLinkNode",
-                "name": "lending"
-              },
+              "pda": { "kind": "pdaLinkNode", "name": "lending" },
               "seeds": [
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "mint",
-                  "value": {
-                    "kind": "accountValueNode",
-                    "name": "mint"
-                  }
+                  "value": { "kind": "accountValueNode", "name": "mint" }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "fTokenMint",
-                  "value": {
-                    "kind": "accountValueNode",
-                    "name": "fTokenMint"
-                  }
+                  "value": { "kind": "accountValueNode", "name": "fTokenMint" }
                 }
               ]
             }
@@ -1240,13 +964,7 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": {
-              "kind": "fixedSizeTypeNode",
-              "size": 8,
-              "type": {
-                "kind": "bytesTypeNode"
-              }
-            },
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "9ce0432e59bd9dd1",
@@ -1258,31 +976,18 @@
             "name": "symbol",
             "type": {
               "kind": "sizePrefixTypeNode",
-              "type": {
-                "kind": "stringTypeNode",
-                "encoding": "utf8"
-              },
-              "prefix": {
-                "kind": "numberTypeNode",
-                "format": "u32",
-                "endian": "le"
-              }
+              "type": { "kind": "stringTypeNode", "encoding": "utf8" },
+              "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
             }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "liquidityProgram",
-            "type": {
-              "kind": "publicKeyTypeNode"
-            }
+            "type": { "kind": "publicKeyTypeNode" }
           }
         ],
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -1296,9 +1001,7 @@
             "isWritable": true,
             "isSigner": true,
             "isOptional": false,
-            "defaultValue": {
-              "kind": "identityValueNode"
-            }
+            "defaultValue": { "kind": "identityValueNode" }
           },
           {
             "kind": "instructionAccountNode",
@@ -1308,11 +1011,7 @@
             "isOptional": false,
             "defaultValue": {
               "kind": "pdaValueNode",
-              "pda": {
-                "kind": "pdaLinkNode",
-                "name": "lendingAdmin"
-              },
-              "seeds": []
+              "pda": { "kind": "pdaLinkNode", "name": "lendingAdmin" }
             }
           },
           {
@@ -1333,13 +1032,7 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": {
-              "kind": "fixedSizeTypeNode",
-              "size": 8,
-              "type": {
-                "kind": "bytesTypeNode"
-              }
-            },
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "cbb9f1a538fe2109",
@@ -1349,31 +1042,21 @@
           {
             "kind": "instructionArgumentNode",
             "name": "liquidityProgram",
-            "type": {
-              "kind": "publicKeyTypeNode"
-            }
+            "type": { "kind": "publicKeyTypeNode" }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "rebalancer",
-            "type": {
-              "kind": "publicKeyTypeNode"
-            }
+            "type": { "kind": "publicKeyTypeNode" }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "authority",
-            "type": {
-              "kind": "publicKeyTypeNode"
-            }
+            "type": { "kind": "publicKeyTypeNode" }
           }
         ],
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -1521,13 +1204,7 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": {
-              "kind": "fixedSizeTypeNode",
-              "size": 8,
-              "type": {
-                "kind": "bytesTypeNode"
-              }
-            },
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "3339e12fb69289a6",
@@ -1537,19 +1214,11 @@
           {
             "kind": "instructionArgumentNode",
             "name": "shares",
-            "type": {
-              "kind": "numberTypeNode",
-              "format": "u64",
-              "endian": "le"
-            }
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
           }
         ],
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -1697,13 +1366,7 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": {
-              "kind": "fixedSizeTypeNode",
-              "size": 8,
-              "type": {
-                "kind": "bytesTypeNode"
-              }
-            },
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "065e457a1eb392ab",
@@ -1713,28 +1376,16 @@
           {
             "kind": "instructionArgumentNode",
             "name": "shares",
-            "type": {
-              "kind": "numberTypeNode",
-              "format": "u64",
-              "endian": "le"
-            }
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "maxAssets",
-            "type": {
-              "kind": "numberTypeNode",
-              "format": "u64",
-              "endian": "le"
-            }
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
           }
         ],
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -1765,23 +1416,17 @@
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "signer",
-                    "type": {
-                      "kind": "publicKeyTypeNode"
-                    }
+                    "type": { "kind": "publicKeyTypeNode" }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenProgram",
-                    "type": {
-                      "kind": "publicKeyTypeNode"
-                    }
+                    "type": { "kind": "publicKeyTypeNode" }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "mint",
-                    "type": {
-                      "kind": "publicKeyTypeNode"
-                    }
+                    "type": { "kind": "publicKeyTypeNode" }
                   }
                 ]
               },
@@ -1789,26 +1434,17 @@
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "signer",
-                  "value": {
-                    "kind": "accountValueNode",
-                    "name": "signer"
-                  }
+                  "value": { "kind": "accountValueNode", "name": "signer" }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenProgram",
-                  "value": {
-                    "kind": "accountValueNode",
-                    "name": "tokenProgram"
-                  }
+                  "value": { "kind": "accountValueNode", "name": "tokenProgram" }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "mint",
-                  "value": {
-                    "kind": "accountValueNode",
-                    "name": "mint"
-                  }
+                  "value": { "kind": "accountValueNode", "name": "mint" }
                 }
               ]
             }
@@ -1932,13 +1568,7 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": {
-              "kind": "fixedSizeTypeNode",
-              "size": 8,
-              "type": {
-                "kind": "bytesTypeNode"
-              }
-            },
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "6c9e4d09d234583e",
@@ -1947,11 +1577,7 @@
           }
         ],
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -1982,23 +1608,17 @@
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "signer",
-                    "type": {
-                      "kind": "publicKeyTypeNode"
-                    }
+                    "type": { "kind": "publicKeyTypeNode" }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "tokenProgram",
-                    "type": {
-                      "kind": "publicKeyTypeNode"
-                    }
+                    "type": { "kind": "publicKeyTypeNode" }
                   },
                   {
                     "kind": "variablePdaSeedNode",
                     "name": "mint",
-                    "type": {
-                      "kind": "publicKeyTypeNode"
-                    }
+                    "type": { "kind": "publicKeyTypeNode" }
                   }
                 ]
               },
@@ -2006,26 +1626,17 @@
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "signer",
-                  "value": {
-                    "kind": "accountValueNode",
-                    "name": "signer"
-                  }
+                  "value": { "kind": "accountValueNode", "name": "signer" }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "tokenProgram",
-                  "value": {
-                    "kind": "accountValueNode",
-                    "name": "tokenProgram"
-                  }
+                  "value": { "kind": "accountValueNode", "name": "tokenProgram" }
                 },
                 {
                   "kind": "pdaSeedValueNode",
                   "name": "mint",
-                  "value": {
-                    "kind": "accountValueNode",
-                    "name": "mint"
-                  }
+                  "value": { "kind": "accountValueNode", "name": "mint" }
                 }
               ]
             }
@@ -2149,13 +1760,7 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": {
-              "kind": "fixedSizeTypeNode",
-              "size": 8,
-              "type": {
-                "kind": "bytesTypeNode"
-              }
-            },
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "be2190b656048d49",
@@ -2168,25 +1773,13 @@
             "type": {
               "kind": "optionTypeNode",
               "fixed": false,
-              "item": {
-                "kind": "numberTypeNode",
-                "format": "u64",
-                "endian": "le"
-              },
-              "prefix": {
-                "kind": "numberTypeNode",
-                "format": "u8",
-                "endian": "le"
-              }
+              "item": { "kind": "numberTypeNode", "format": "u64", "endian": "le" },
+              "prefix": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
             }
           }
         ],
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -2341,13 +1934,7 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": {
-              "kind": "fixedSizeTypeNode",
-              "size": 8,
-              "type": {
-                "kind": "bytesTypeNode"
-              }
-            },
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "b80c569546c461e1",
@@ -2357,19 +1944,11 @@
           {
             "kind": "instructionArgumentNode",
             "name": "shares",
-            "type": {
-              "kind": "numberTypeNode",
-              "format": "u64",
-              "endian": "le"
-            }
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
           }
         ],
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -2524,13 +2103,7 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": {
-              "kind": "fixedSizeTypeNode",
-              "size": 8,
-              "type": {
-                "kind": "bytesTypeNode"
-              }
-            },
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "ebbded38a6b4b895",
@@ -2540,28 +2113,16 @@
           {
             "kind": "instructionArgumentNode",
             "name": "shares",
-            "type": {
-              "kind": "numberTypeNode",
-              "format": "u64",
-              "endian": "le"
-            }
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "minAmountOut",
-            "type": {
-              "kind": "numberTypeNode",
-              "format": "u64",
-              "endian": "le"
-            }
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
           }
         ],
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -2617,13 +2178,7 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": {
-              "kind": "fixedSizeTypeNode",
-              "size": 8,
-              "type": {
-                "kind": "bytesTypeNode"
-              }
-            },
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "aee774cb083a8fcb",
@@ -2633,17 +2188,11 @@
           {
             "kind": "instructionArgumentNode",
             "name": "mint",
-            "type": {
-              "kind": "publicKeyTypeNode"
-            }
+            "type": { "kind": "publicKeyTypeNode" }
           }
         ],
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -2671,13 +2220,7 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": {
-              "kind": "fixedSizeTypeNode",
-              "size": 8,
-              "type": {
-                "kind": "bytesTypeNode"
-              }
-            },
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "202e401c954bf358",
@@ -2687,17 +2230,11 @@
           {
             "kind": "instructionArgumentNode",
             "name": "newAuthority",
-            "type": {
-              "kind": "publicKeyTypeNode"
-            }
+            "type": { "kind": "publicKeyTypeNode" }
           }
         ],
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -2725,13 +2262,7 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": {
-              "kind": "fixedSizeTypeNode",
-              "size": 8,
-              "type": {
-                "kind": "bytesTypeNode"
-              }
-            },
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "5d60b29c3975fdd1",
@@ -2743,27 +2274,16 @@
             "name": "authStatus",
             "type": {
               "kind": "arrayTypeNode",
-              "item": {
-                "kind": "definedTypeLinkNode",
-                "name": "addressBool"
-              },
+              "item": { "kind": "definedTypeLinkNode", "name": "addressBool" },
               "count": {
                 "kind": "prefixedCountNode",
-                "prefix": {
-                  "kind": "numberTypeNode",
-                  "format": "u32",
-                  "endian": "le"
-                }
+                "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
               }
             }
           }
         ],
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -2812,13 +2332,7 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": {
-              "kind": "fixedSizeTypeNode",
-              "size": 8,
-              "type": {
-                "kind": "bytesTypeNode"
-              }
-            },
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "18e135bd48d4e1b2",
@@ -2827,11 +2341,7 @@
           }
         ],
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -2859,13 +2369,7 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": {
-              "kind": "fixedSizeTypeNode",
-              "size": 8,
-              "type": {
-                "kind": "bytesTypeNode"
-              }
-            },
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "cebb36e49108cb6f",
@@ -2875,17 +2379,11 @@
           {
             "kind": "instructionArgumentNode",
             "name": "newRebalancer",
-            "type": {
-              "kind": "publicKeyTypeNode"
-            }
+            "type": { "kind": "publicKeyTypeNode" }
           }
         ],
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -3040,13 +2538,7 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": {
-              "kind": "fixedSizeTypeNode",
-              "size": 8,
-              "type": {
-                "kind": "bytesTypeNode"
-              }
-            },
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "b712469c946da122",
@@ -3056,19 +2548,11 @@
           {
             "kind": "instructionArgumentNode",
             "name": "amount",
-            "type": {
-              "kind": "numberTypeNode",
-              "format": "u64",
-              "endian": "le"
-            }
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
           }
         ],
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       },
       {
@@ -3223,13 +2707,7 @@
             "kind": "instructionArgumentNode",
             "name": "discriminator",
             "defaultValueStrategy": "omitted",
-            "type": {
-              "kind": "fixedSizeTypeNode",
-              "size": 8,
-              "type": {
-                "kind": "bytesTypeNode"
-              }
-            },
+            "type": { "kind": "fixedSizeTypeNode", "size": 8, "type": { "kind": "bytesTypeNode" } },
             "defaultValue": {
               "kind": "bytesValueNode",
               "data": "2fc5b7abef12f5ab",
@@ -3239,28 +2717,16 @@
           {
             "kind": "instructionArgumentNode",
             "name": "amount",
-            "type": {
-              "kind": "numberTypeNode",
-              "format": "u64",
-              "endian": "le"
-            }
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
           },
           {
             "kind": "instructionArgumentNode",
             "name": "maxSharesBurn",
-            "type": {
-              "kind": "numberTypeNode",
-              "format": "u64",
-              "endian": "le"
-            }
+            "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
           }
         ],
         "discriminators": [
-          {
-            "kind": "fieldDiscriminatorNode",
-            "name": "discriminator",
-            "offset": 0
-          }
+          { "kind": "fieldDiscriminatorNode", "name": "discriminator", "offset": 0 }
         ]
       }
     ],
@@ -3274,20 +2740,14 @@
             {
               "kind": "structFieldTypeNode",
               "name": "addr",
-              "type": {
-                "kind": "publicKeyTypeNode"
-              }
+              "type": { "kind": "publicKeyTypeNode" }
             },
             {
               "kind": "structFieldTypeNode",
               "name": "value",
               "type": {
                 "kind": "booleanTypeNode",
-                "size": {
-                  "kind": "numberTypeNode",
-                  "format": "u8",
-                  "endian": "le"
-                }
+                "size": { "kind": "numberTypeNode", "format": "u8", "endian": "le" }
               }
             }
           ]
@@ -3301,22 +2761,10 @@
         "seeds": [
           {
             "kind": "constantPdaSeedNode",
-            "type": {
-              "kind": "bytesTypeNode"
-            },
-            "value": {
-              "kind": "bytesValueNode",
-              "data": "2w3ntsJfsVGJyq3u5",
-              "encoding": "base58"
-            }
+            "type": { "kind": "bytesTypeNode" },
+            "value": { "kind": "bytesValueNode", "data": "2w3ntsJfsVGJyq3u5", "encoding": "base58" }
           },
-          {
-            "kind": "variablePdaSeedNode",
-            "name": "mint",
-            "type": {
-              "kind": "publicKeyTypeNode"
-            }
-          }
+          { "kind": "variablePdaSeedNode", "name": "mint", "type": { "kind": "publicKeyTypeNode" } }
         ]
       },
       {
@@ -3325,28 +2773,18 @@
         "seeds": [
           {
             "kind": "constantPdaSeedNode",
-            "type": {
-              "kind": "bytesTypeNode"
-            },
-            "value": {
-              "kind": "bytesValueNode",
-              "data": "57FQZjP8jQ",
-              "encoding": "base58"
-            }
+            "type": { "kind": "bytesTypeNode" },
+            "value": { "kind": "bytesValueNode", "data": "57FQZjP8jQ", "encoding": "base58" }
           },
           {
             "kind": "variablePdaSeedNode",
             "name": "mint",
-            "type": {
-              "kind": "publicKeyTypeNode"
-            }
+            "type": { "kind": "publicKeyTypeNode" }
           },
           {
             "kind": "variablePdaSeedNode",
             "name": "fTokenMint",
-            "type": {
-              "kind": "publicKeyTypeNode"
-            }
+            "type": { "kind": "publicKeyTypeNode" }
           }
         ]
       },
@@ -3356,9 +2794,7 @@
         "seeds": [
           {
             "kind": "constantPdaSeedNode",
-            "type": {
-              "kind": "bytesTypeNode"
-            },
+            "type": { "kind": "bytesTypeNode" },
             "value": {
               "kind": "bytesValueNode",
               "data": "A2f2fMtPouJf3z6Ysf",
@@ -3380,34 +2816,22 @@
               {
                 "kind": "structFieldTypeNode",
                 "name": "sender",
-                "type": {
-                  "kind": "publicKeyTypeNode"
-                }
+                "type": { "kind": "publicKeyTypeNode" }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "receiver",
-                "type": {
-                  "kind": "publicKeyTypeNode"
-                }
+                "type": { "kind": "publicKeyTypeNode" }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "assets",
-                "type": {
-                  "kind": "numberTypeNode",
-                  "format": "u64",
-                  "endian": "le"
-                }
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "sharesMinted",
-                "type": {
-                  "kind": "numberTypeNode",
-                  "format": "u64",
-                  "endian": "le"
-                }
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
               }
             ]
           },
@@ -3417,9 +2841,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3438,9 +2860,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3462,11 +2882,7 @@
               {
                 "kind": "structFieldTypeNode",
                 "name": "assets",
-                "type": {
-                  "kind": "numberTypeNode",
-                  "format": "u64",
-                  "endian": "le"
-                }
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
               }
             ]
           },
@@ -3476,9 +2892,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3497,9 +2911,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3521,9 +2933,7 @@
               {
                 "kind": "structFieldTypeNode",
                 "name": "newAuthority",
-                "type": {
-                  "kind": "publicKeyTypeNode"
-                }
+                "type": { "kind": "publicKeyTypeNode" }
               }
             ]
           },
@@ -3533,9 +2943,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3554,9 +2962,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3580,17 +2986,10 @@
                 "name": "authStatus",
                 "type": {
                   "kind": "arrayTypeNode",
-                  "item": {
-                    "kind": "definedTypeLinkNode",
-                    "name": "addressBool"
-                  },
+                  "item": { "kind": "definedTypeLinkNode", "name": "addressBool" },
                   "count": {
                     "kind": "prefixedCountNode",
-                    "prefix": {
-                      "kind": "numberTypeNode",
-                      "format": "u32",
-                      "endian": "le"
-                    }
+                    "prefix": { "kind": "numberTypeNode", "format": "u32", "endian": "le" }
                   }
                 }
               }
@@ -3602,9 +3001,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3623,9 +3020,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3647,20 +3042,12 @@
               {
                 "kind": "structFieldTypeNode",
                 "name": "tokenExchangePrice",
-                "type": {
-                  "kind": "numberTypeNode",
-                  "format": "u64",
-                  "endian": "le"
-                }
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "liquidityExchangePrice",
-                "type": {
-                  "kind": "numberTypeNode",
-                  "format": "u64",
-                  "endian": "le"
-                }
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
               }
             ]
           },
@@ -3670,9 +3057,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3691,9 +3076,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3715,9 +3098,7 @@
               {
                 "kind": "structFieldTypeNode",
                 "name": "newRebalancer",
-                "type": {
-                  "kind": "publicKeyTypeNode"
-                }
+                "type": { "kind": "publicKeyTypeNode" }
               }
             ]
           },
@@ -3727,9 +3108,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3748,9 +3127,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3772,9 +3149,7 @@
               {
                 "kind": "structFieldTypeNode",
                 "name": "rewardsRateModel",
-                "type": {
-                  "kind": "publicKeyTypeNode"
-                }
+                "type": { "kind": "publicKeyTypeNode" }
               }
             ]
           },
@@ -3784,9 +3159,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3805,9 +3178,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3829,41 +3200,27 @@
               {
                 "kind": "structFieldTypeNode",
                 "name": "sender",
-                "type": {
-                  "kind": "publicKeyTypeNode"
-                }
+                "type": { "kind": "publicKeyTypeNode" }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "receiver",
-                "type": {
-                  "kind": "publicKeyTypeNode"
-                }
+                "type": { "kind": "publicKeyTypeNode" }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "owner",
-                "type": {
-                  "kind": "publicKeyTypeNode"
-                }
+                "type": { "kind": "publicKeyTypeNode" }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "assets",
-                "type": {
-                  "kind": "numberTypeNode",
-                  "format": "u64",
-                  "endian": "le"
-                }
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
               },
               {
                 "kind": "structFieldTypeNode",
                 "name": "sharesBurned",
-                "type": {
-                  "kind": "numberTypeNode",
-                  "format": "u64",
-                  "endian": "le"
-                }
+                "type": { "kind": "numberTypeNode", "format": "u64", "endian": "le" }
               }
             ]
           },
@@ -3873,9 +3230,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -3894,9 +3249,7 @@
               "type": {
                 "kind": "fixedSizeTypeNode",
                 "size": 8,
-                "type": {
-                  "kind": "bytesTypeNode"
-                }
+                "type": { "kind": "bytesTypeNode" }
               },
               "value": {
                 "kind": "bytesValueNode",
@@ -4002,8 +3355,6 @@
         "message": "F_TOKEN_LIQUIDITY_PROGRAM_MISMATCH",
         "docs": ["FTokenLiquidityProgramMismatch: F_TOKEN_LIQUIDITY_PROGRAM_MISMATCH"]
       }
-    ],
-    "constants": []
-  },
-  "additionalPrograms": []
+    ]
+  }
 }

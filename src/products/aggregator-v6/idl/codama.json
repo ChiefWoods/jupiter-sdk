@@ -1,7 +1,7 @@
 {
   "kind": "rootNode",
   "standard": "codama",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "program": {
     "kind": "programNode",
     "name": "aggregatorV6",
@@ -3922,7 +3922,6 @@
         }
       }
     ],
-    "pdas": [],
     "events": [
       {
         "kind": "eventNode",
@@ -4482,8 +4481,6 @@
         "message": "Bonding curve already completed",
         "docs": ["BondingCurveAlreadyCompleted: Bonding curve already completed"]
       }
-    ],
-    "constants": []
-  },
-  "additionalPrograms": []
+    ]
+  }
 }

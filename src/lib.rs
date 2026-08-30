@@ -6,6 +6,9 @@ pub use jupiter_aggregator_v6_sdk as aggregator_v6;
 #[cfg(feature = "governance")]
 pub use jupiter_governance_sdk as governance;
 
+#[cfg(feature = "invite")]
+pub use jupiter_invite_sdk as invite;
+
 #[cfg(feature = "lend-borrow")]
 pub use jupiter_lend_borrow_sdk as lend_borrow;
 

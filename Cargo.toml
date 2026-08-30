@@ -7,6 +7,7 @@ members = [
     ".",
     "src/products/aggregator-v6/rust",
     "src/products/governance/rust",
+    "src/products/invite/rust",
     "src/products/lend-borrow/rust",
     "src/products/lend-dex/rust",
     "src/products/lend-earn/rust",
@@ -34,6 +35,7 @@ keywords = ["jupiter", "solana", "sdk", "defi", "codama"]
 [workspace.dependencies]
 jupiter-aggregator-v6-sdk = { path = "src/products/aggregator-v6/rust", version = "0.2.1" }
 jupiter-governance-sdk = { path = "src/products/governance/rust", version = "0.2.1" }
+jupiter-invite-sdk = { path = "src/products/invite/rust", version = "0.2.1" }
 jupiter-lend-borrow-sdk = { path = "src/products/lend-borrow/rust", version = "0.2.1" }
 jupiter-lend-dex-sdk = { path = "src/products/lend-dex/rust", version = "0.2.1" }
 jupiter-lend-earn-sdk = { path = "src/products/lend-earn/rust", version = "0.2.1" }
@@ -67,6 +69,7 @@ path = "src/lib.rs"
 default = []
 aggregator-v6 = ["dep:jupiter-aggregator-v6-sdk"]
 governance = ["dep:jupiter-governance-sdk"]
+invite = ["dep:jupiter-invite-sdk"]
 lend-borrow = ["dep:jupiter-lend-borrow-sdk"]
 lend-dex = ["dep:jupiter-lend-dex-sdk"]
 lend-earn = ["dep:jupiter-lend-earn-sdk"]
@@ -84,6 +87,7 @@ stablecoin = ["dep:jupiter-stablecoin-sdk"]
 [dependencies]
 jupiter-aggregator-v6-sdk = { workspace = true, optional = true }
 jupiter-governance-sdk = { workspace = true, optional = true }
+jupiter-invite-sdk = { workspace = true, optional = true }
 jupiter-lend-borrow-sdk = { workspace = true, optional = true }
 jupiter-lend-dex-sdk = { workspace = true, optional = true }
 jupiter-lend-earn-sdk = { workspace = true, optional = true }
